@@ -11,9 +11,19 @@ server:
 # session(1800 seconds = 30 minutes)
     session:
       timeout: 1800
-    
-# database connection
+
+
 spring:
+# servlet-context
+  web:
+    resources:
+      static-locations: /resources/**
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+     
+# database connection
   datasource:
     hikari:
       driver-class-name: oracle.jdbc.OracleDriver
