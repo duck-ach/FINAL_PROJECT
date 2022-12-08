@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.gdu.sporters.user" alias="UserDTO" />
+		<typeAlias type="com.gdu.sporters.user" alias="SleepUserDTO" />
+		<typeAlias type="com.gdu.sporters.user" alias="AccessLogDTO" />
+		<typeAlias type="com.gdu.sporters.user" alias="RetireUserDTO" />
+		<typeAlias type="com.gdu.sporters.user" alias="HeartDTO" />
+		<typeAlias type="com.gdu.sporters.user" alias="PointDTO" />
+		
+		<typeAlias type="com.gdu.sporters.board" alias="CommentDTO" />
+		<typeAlias type="com.gdu.sporters.board" alias="FreeDTO" />
+		<typeAlias type="com.gdu.sporters.board" alias="SpoReviewDTO" />
+		<typeAlias type="com.gdu.sporters.board" alias="LocalDTO" />
+		<typeAlias type="com.gdu.sporters.board" alias="AttachDTO" />
+		<typeAlias type="com.gdu.sporters.board.SummernoteImageDTO" alias="SummernoteImageDTO" />
+		
+		<typeAlias type="com.gdu.sporters.admin" alias="AdminDTO" />
+		<typeAlias type="com.gdu.sporters.admin" alias="BannedUserDTO" />
+		
+		<typeAlias type="com.gdu.sporters.shopAdmin" alias="shopAdminDTO" />
+		<typeAlias type="com.gdu.sporters.shop" alias="OrderDTO" />
+		<typeAlias type="com.gdu.sporters.shop" alias="ProductDTO" />
+		<typeAlias type="com.gdu.sporters.shop" alias="CartDTO" />
+		<typeAlias type="com.gdu.sporters.shop" alias="ShopReviewDTO" />
+		<typeAlias type="com.gdu.sporters.shop" alias="WishlistDTO" />
+
+		<typeAlias type="com.gdu.sporters.userSupport" alias="QnaDTO" />
+		<typeAlias type="com.gdu.sporters.userSupport" alias="SingoDTO" />
+		
+		<typeAlias type="com.gdu.sporters.chat" alias="ChatMessDTO" />
+		<typeAlias type="com.gdu.sporters.chat" alias="ChatRoomDTO" />
+		<typeAlias type="com.gdu.sporters.chat" alias="ChatUserDTO" />
+	</typeAliases>
+
+</configuration>
