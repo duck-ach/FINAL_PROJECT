@@ -1,4 +1,4 @@
-package com.gdu.sporters.user.mapper;
+package com.gdu.sporters.users.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
