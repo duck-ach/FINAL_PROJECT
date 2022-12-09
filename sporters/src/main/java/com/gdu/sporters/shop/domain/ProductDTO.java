@@ -1,5 +1,23 @@
 package com.gdu.sporters.shop.domain;
 
-public class ProductDTO {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+public class ProductDTO {
+	private int prodNo;
+	private int prodCategoryNo;
+	private String prodName;
+	private int price;
+	private int discount;
+	private String prodContent;
+	private String origin;
+	private int isSoldout;
+	private int stock;
+	private String prodImage;
 }

@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class PickDTO {
-	private int userNo;
+public class CartListDTO {
+	private int cartNo;
 	private int prodNo;
+	private int prodCnt;
 }

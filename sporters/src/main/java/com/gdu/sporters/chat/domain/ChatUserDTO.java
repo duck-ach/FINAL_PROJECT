@@ -1,5 +1,15 @@
 package com.gdu.sporters.chat.domain;
 
-public class ChatUserDTO {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+public class ChatUserDTO {
+	private int chatRoomId;
+	private int userNo;
 }

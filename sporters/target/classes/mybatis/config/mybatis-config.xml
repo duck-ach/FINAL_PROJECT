@@ -16,15 +16,14 @@
 		<typeAlias type="com.gdu.sporters.user.domain.AccessLogDTO" alias="AccessLogDTO" />
 		<typeAlias type="com.gdu.sporters.user.domain.RetireUserDTO" alias="RetireUserDTO" />
 		<typeAlias type="com.gdu.sporters.user.domain.HeartDTO" alias="HeartDTO" />
-		<typeAlias type="com.gdu.sporters.user.domain.PointDTO" alias="PointDTO" />
 		
 		<typeAlias type="com.gdu.sporters.board.domain.FreeDTO" alias="FreeDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.FreeDTO" alias="FreeCommDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.SpoReviewDTO" alias="SpoReviewDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.SpoReviewDTO" alias="SpoReviewCommDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.LocalDTO" alias="LocalDTO" />
-		<typeAlias type="com.gdu.sporters.board.domain.LocalDTO" alias="LocalCommDTO" />
-		<typeAlias type="com.gdu.sporters.board.domain.LocalBoardDTO" alias="LocalBoardDTO" />
+		<typeAlias type="com.gdu.sporters.board.domain.LocalCommDTO" alias="LocalCommDTO" />
+		<typeAlias type="com.gdu.sporters.board.domain.LocalCategoryDTO" alias="LocalCategoryDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.AttachDTO" alias="AttachDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.ImageDTO" alias="ImageDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.JoinUsersDTO" alias="JoinUsersDTO" />
@@ -36,6 +35,8 @@
 		<typeAlias type="com.gdu.sporters.shop.domain.PickDTO" alias="PickDTO" />
 		<typeAlias type="com.gdu.sporters.shop.domain.ProdCategoryDTO" alias="ProdCategoryDTO" />
 		<typeAlias type="com.gdu.sporters.shop.domain.ProdImageDTO" alias="ProdImageDTO" />
+		<typeAlias type="com.gdu.sporters.shop.domain.ProdImageDTO" alias="CartListDTO" />
+		
 
 		<typeAlias type="com.gdu.sporters.userSupport.domain.QnaDTO" alias="QnaDTO" />
 		<typeAlias type="com.gdu.sporters.userSupport.domain.SingoDTO" alias="SingoDTO" />
