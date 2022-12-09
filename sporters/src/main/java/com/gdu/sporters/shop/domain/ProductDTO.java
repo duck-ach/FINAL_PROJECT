@@ -19,5 +19,6 @@ public class ProductDTO {
 	private String origin;
 	private int isSoldout;
 	private int stock;
-	private String prodImage;
+	private String filesystem;
+	private int prodThumbnail;
 }
