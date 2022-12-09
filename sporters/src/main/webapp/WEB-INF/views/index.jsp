@@ -10,7 +10,7 @@
 <a href="${contextPath}/user/join">회원가입</a>
 <a href="${contextPath}/user/login">로그인</a>
 <a href="${contextPath}/local/list">지역별게시판</a>
-<a href="${contextPath}/spoReview/list">자유게시판</a>
+<a href="${contextPath}/spoReview/list">운동후기게시판</a>
 <a href="${contextPath}/free/list">자유게시판</a>
 <a href="${contextPath}/shop/list">쇼핑몰</a>
 <a href="${contextPath}/supp/singo">신고게시판</a>
