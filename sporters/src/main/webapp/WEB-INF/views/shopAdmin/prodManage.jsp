@@ -6,6 +6,6 @@
 	<jsp:param value="쇼핑몰관리자페이지" name="title" />
 </jsp:include>
 <body>
-<img alt="logoImage" src="${contextPath}/resources/images/shopAdmin/mainLogoImage.jpeg" width="100px">
+
 </body>
 </html>
