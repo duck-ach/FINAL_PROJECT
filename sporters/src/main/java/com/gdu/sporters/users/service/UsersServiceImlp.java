@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.gdu.sporters.users.mapper.UsersMapper;
-import com.gdu.sporters.users.util.SecurityUtil;
+import com.gdu.sporters.util.SecurityUtil;
 
 
 @PropertySource(value = {"classpath:email.properties"})
@@ -34,7 +34,7 @@ public class UsersServiceImlp implements UsersService {
 		String pw = request.getParameter("pw");
 		
 		// pw 암호화
-		pw = SecurityUtil.
+		pw = securityUtil.sha256(pw);
 		
 	}
 }
