@@ -6,5 +6,10 @@
 
 <mapper namespace="com.gdu.sporters.shopAdmin.mapper.ShopAdminMapper">
 
+	<!-- 상품목록보기 -->
+	<select id="selectProdListAll">
+		SELECT PROD_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK
+		  FROM PRODUCT
+	</select>
 	
 </mapper>
