@@ -7,7 +7,7 @@
 <mapper namespace="com.gdu.sporters.shopAdmin.mapper.ShopAdminMapper">
 
 	<!-- 상품목록보기 -->
-	<select id="selectProdListAll">
+	<select id="selectProdListAll" resultType="ProductDTO">
 		SELECT PROD_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK
 		  FROM PRODUCT
 	</select>
