@@ -5,17 +5,101 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <body>
-<h1>WELCOME TO SPOTERS</h1>
 
-<a href="${contextPath}/user/join">회원가입</a>
-<a href="${contextPath}/user/login">로그인</a>
-<a href="${contextPath}/local/list">지역별게시판</a>
-<a href="${contextPath}/spoReview/list">운동후기게시판</a>
-<a href="${contextPath}/free/list">자유게시판</a>
-<a href="${contextPath}/shop/list">쇼핑몰</a>
-<a href="${contextPath}/supp/singo">신고게시판</a>
-<a href="${contextPath}/supp/qnaList">고객문의게시판</a>
-<a href="${contextPath}/admin/adminIndex">관리자게시판</a>
-<a href="${contextPath}/admin/shopIndex">쇼핑몰관리자게시판</a>
+
+
+
+
+<section class="wrap"><!-- 기본틀 1 -->
+	<section class="content_leyout_section"><!-- 기본틀 2 -->
+	
+		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>	
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+			<h1>WELCOME TO SPOTERS</h1>
+		</div><!-- 여기부터 각자 내용 넣기 끝 -->
+		
+	</section><!-- 기본틀 2 -->
+	
+</section><!-- 기본틀 1 -->
+
+<jsp:include page="layout/right_side.jsp">
+	<jsp:param value="right_side" name="right_side" />
+</jsp:include>
+
+<script type="text/javascript">
+$(function(){
+	 var right_side =  $('.content_leyout_section').offset().top;
+	var my_right_side = $('.right_side_menu_area').width();
+	var right_side_marginLeft = $('.content_leyout_section').width() + my_right_side*2 ;
+
+
+	 $('.right_side_menu_area').offset({top:right_side});
+	 $('.right_side_menu_area').css({marginLeft:right_side_marginLeft  });
+	 
+	 // content_leyout 현재 높이값을 구함. 
+	 var left_side_top =  $('.content_leyout_section').offset().top;
+	 var right_side_marginLeft = $('.content_leyout_section').offset().left;
+
+	// 왼쪽 사이드 메뉴의 넓이값을 구함
+	var my_left_side =right_side_marginLeft -  $('.left_side_gnd_area').width() - my_right_side;
+	var left_side_marginLeft = $('.content_leyout_section').width();
+
+
+	 $('.left_side_gnd_area').offset({top:left_side_top,left:my_left_side});	 
+	 
+	
+}); 
+</script>
+
 </body>
 </html>
