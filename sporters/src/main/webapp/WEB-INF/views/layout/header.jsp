@@ -57,6 +57,7 @@
 		left:0px;
 		top:164px;
 		*/
+		left:10%;
 		border:1px solid #000;
 		width: 240px;
 	}
