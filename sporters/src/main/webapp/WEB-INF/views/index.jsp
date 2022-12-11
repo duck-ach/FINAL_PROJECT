@@ -95,7 +95,7 @@ $(function(){
 	var left_side_marginLeft = $('.content_leyout_section').width();
 
 
-	 $('.left_side_gnd_area').offset({top:left_side_top,left:my_left_side});	 
+	 $('.left_side_gnd_area').offset({top:left_side_top});	 
 	 
 	
 }); 
