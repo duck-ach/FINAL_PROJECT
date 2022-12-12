@@ -8,6 +8,7 @@
 <body>
 	<h1>상품관리</h1>
 	<div>
+		<span>상품목록 (전체 ${totalRecord}개)</span>
 		<a href="${contextPath}/admin/prodWrite">상품등록</a>
 	</div>
 	<hr>
@@ -24,18 +25,25 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${productList}" var="prod">
+			<c:forEach items="${prodList}" var="prod">
 				<tr>
+					<td>${prod.prodNo}</td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>${prod.prodCategoryNo}</td>
+					<td>${prod.name}</td>
+					<td>${prod.price}</td>
+					<td>${prod.discount}</td>
+					<td>${prod.stock}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot>
+				<tr>
+					<td colspan="4">
+						${paging}
+					</td>
+				</tr>
+			</tfoot>
 	</table>
 </body>
 </html>
