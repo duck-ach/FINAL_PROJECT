@@ -13,4 +13,10 @@ public class BoardController {
 	}
 	
 	
+	@GetMapping("/free/write")
+	public String freeWrite() {
+		return "community/free/write";
+	}
+	
+	
 }
