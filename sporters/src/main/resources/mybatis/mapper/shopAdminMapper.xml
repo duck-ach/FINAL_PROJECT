@@ -54,6 +54,6 @@
 		INSERT INTO PRODUCT
 			(PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, FILESYSTEM)
 		VALUES
-			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, #{filesystem})
+			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, NULL)
 	</insert>
 </mapper>
