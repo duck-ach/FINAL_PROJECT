@@ -57,7 +57,7 @@
 		left:0px;
 		top:164px;
 		*/
-		left:10%;
+		left:0%;
 		border:1px solid #000;
 		width: 240px;
 	}
@@ -69,11 +69,14 @@
 		margin: 100px auto;
 	   
 	    width: 70%;
+	    overflow: hidden;
+	    border: 2px solid #000;
 	}
 	
 	.wrap .content_leyout_section{
 		width:100%;
-		border: 2px solid #000;
+		
+		
 		
 	}
 	
