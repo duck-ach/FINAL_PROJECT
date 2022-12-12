@@ -1,11 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>SPORTERS LOGIN PAGE</title>
-</head>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="Spoters홈페이지" name="title" />
+</jsp:include>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	$(function(){
+		fn_login();
+		fn_showRememberId();
+	});
+	
+	function fn_login(){
+		$('#frm_login').submit(function(event){
+			if($('#id').val() == '' || $('#pw').val() == ''){
+				alert('아이디와 비번을 모두 입력해주세요!');
+				event.preventDefault();
+				return;
+			}
+			if($('#rememberId').is(':checked')){
+				$.cookie('rememberId',$('#id').val());
+			} else {
+				$.cookie('rememberId','');
+			}
+		});
+	}
+	function fn_showRememberId(){
+		let rememberId = $.cookie('rememberId');
+		if(rememberId == ''){
+			$('#id').val('');
+			$('#rememberId').prop('checked', false);
+		} else {
+			$.('#id').val(rememberId);
+			$('#rememberId').prop('checked', true);
+		}
+	}
+</script>
 <body>
 
 	<div>

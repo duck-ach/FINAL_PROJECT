@@ -10,6 +10,9 @@ import com.gdu.sporters.users.domain.UsersDTO;
 public interface UsersMapper {
 	
 	public UsersDTO selectUsersByMap(Map<String, Object> map);
+	public int updateAccessLog(String id);
+	public int insertAccessLog(String id);
+	public int updateSessionInfo(UsersDTO user);
 		
 
 }

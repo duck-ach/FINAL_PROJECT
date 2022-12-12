@@ -46,6 +46,26 @@
 		 WHERE EMAIL = #{email}
 	</select>
 	
+	<!-- 로그인 기록(ACCESS_LOG) 남기기 -->
+	<update id="updateAccessLog" parameterType="String">
+		UPDATE ACCESS_LOG
+		   SET LAST_LOGIN_DATE = SYSDATE
+		 WHERE ID = #{id}
+	</update>
+	<insert id="insertAccessLog" parameterType="String">
+		INSERT INTO ACCESS_LOG
+			(ACCESS_LOG_NO, ID, LAST_LOGIN_DATE)
+		VALUES
+			(ACCESS_LOG_SEQ.NEXTVAL, #{id}, SYSDATE)
+	</insert>
+	
+	<!-- 로그인 유지를 위한 SESSION_ID/ SESSION_LIMIT_DATE 업데이트 -->
+	<update id="updateSessionInfo" parameterType="UsersDTO">
+		UPDATE USERS
+		   SET SESSION_ID = #{sessionId}
+		   	  ,SESSION_LIMIT_DATE = #{sessionLimitDate}
+		  WHERE ID = #{id}
+	</update>
 	
 	
 </mapper>
