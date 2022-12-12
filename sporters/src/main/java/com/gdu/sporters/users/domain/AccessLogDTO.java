@@ -1,4 +1,6 @@
-package com.gdu.sporters.user.domain;
+package com.gdu.sporters.users.domain;
+
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class HeartDTO {
+public class AccessLogDTO {
+	private int accessLogNo;
 	private int userNo;
-	private int isHeart;
-	private int love;
-	private int hate;
+	private Date lastLoginDate;
 }

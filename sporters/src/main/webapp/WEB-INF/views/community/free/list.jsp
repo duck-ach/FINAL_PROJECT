@@ -7,7 +7,7 @@
 </jsp:include>
 
 <body>
-
+<!-- 
 <script type="text/javascript">
 $(window).on('load', function(){
 	fn_getlist();
@@ -50,7 +50,7 @@ function fn_getlist() {
 
 
 </script>
-	
+	 -->
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->

@@ -6,35 +6,36 @@
 
 <mapper namespace="com.gdu.sporters.shopAdmin.mapper.ShopAdminMapper">
 
+	<!-- 카테고리 + 상품 resultMap -->
+	<resultMap type="ProductDTO" id="ProductMap">
+		<id property="prodNo" column="PROD_NO" />
+		<result property="prodCategoryNo" column="PROD_CATEGORY_NO"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="price" column="PRICE"/>
+		<result property="discount" column="DISCOUNT"/>
+		<result property="prodContent" column="PROD_CONTENT"/>
+		<result property="origin" column="ORIGIN"/>
+		<result property="stock" column="STOCK"/>
+		<result property="filesystem" column="FILESYSTEM"/>
+		<association property="prodCategory" javaType="ProdCategoryDTO">
+			<id property="prodCategoryNo" column="PROD_CATEGORY_NO"/>
+			<result property="prodCategoryName" column="PROD_CATEGORY_NAME"/>
+		</association>
+	</resultMap>
+	
 	<!-- 상품 전체 개수 -->
 	<select id="selectProdListCount" resultType="int">
 		SELECT COUNT(*)
 		  FROM PRODUCT
 	</select>
 
-	<!-- 카테고리 + 상품 resultMap -->
-	<resultMap type="ProductDTO" id="ProductMap">
-		<id property="prodNo" column="PROD_NO" />
-		<result property="prodCategoryNo" column="PROD_CATEGORY_NO"/>
-		<result property="prodName" column="PROD_CATEGORY_NO"/>
-		<result property="price" column="PROD_CATEGORY_NO"/>
-		<result property="discount" column="PROD_CATEGORY_NO"/>
-		<result property="prodContent" column="PROD_CATEGORY_NO"/>
-		<result property="origin" column="PROD_CATEGORY_NO"/>
-		<result property="stock" column="PROD_CATEGORY_NO"/>
-		<result property="filesystem" column="PROD_CATEGORY_NO"/>
-		<association property="category" javaType="ProdCategoryDTO">
-			<id property="prodCategoryNo" column="PROD_CATEGORY_NO"/>
-			<id property="prodCategoryName" column="PROD_CATEGORY_NAME"/>
-		</association>
-	</resultMap>
-
 	<!-- 상품목록보기 -->
-	<select id="selectProdListAll" resultMap="ProductMap" parameterType="Map">
-		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK C.PROD_CATEGORY_NAME
-		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
-		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
-		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	<select id="selectProdListAllByPage" resultMap="ProductMap" parameterType="Map">
+		SELECT A.RN, A.PROD_NO, A.PROD_NAME, A.PRICE, A.DISCOUNT, A.PROD_CONTENT, A.ORIGIN, A.STOCK, A.PROD_CATEGORY_NAME
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY PROD_NO DESC) AS RN, P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, C.PROD_CATEGORY_NAME
+		  	   	  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
+		    		ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO) A
+		 WHERE A.RN BETWEEN #{begin} AND #{end}
 	</select>
 	<!-- 상품이미지 등록하기 -->
 	<insert id="insertProdImage" parameterType="ProdImageDTO">

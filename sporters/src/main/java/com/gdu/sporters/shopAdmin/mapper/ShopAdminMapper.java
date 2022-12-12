@@ -13,7 +13,7 @@ public interface ShopAdminMapper {
 	
 	// 상품목록가져오기
 	public int selectProdListCount();
-	public List<ProductDTO> selectProdListAll(Map<String, Object> map);
+	public List<ProductDTO> selectProdListAllByPage(Map<String, Object> map);
 	
 	// 상품등록하기
 	public int insertProdImage(ProdImageDTO prodImage);

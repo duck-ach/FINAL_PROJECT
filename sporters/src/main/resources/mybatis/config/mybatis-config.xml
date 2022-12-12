@@ -11,11 +11,11 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.gdu.sporters.user.domain.UserDTO" alias="UserDTO" />
-		<typeAlias type="com.gdu.sporters.user.domain.SleepUserDTO" alias="SleepUserDTO" />
-		<typeAlias type="com.gdu.sporters.user.domain.AccessLogDTO" alias="AccessLogDTO" />
-		<typeAlias type="com.gdu.sporters.user.domain.RetireUserDTO" alias="RetireUserDTO" />
-		<typeAlias type="com.gdu.sporters.user.domain.HeartDTO" alias="HeartDTO" />
+		<typeAlias type="com.gdu.sporters.users.domain.UsersDTO" alias="UsersDTO" />
+		<typeAlias type="com.gdu.sporters.users.domain.SleepUsersDTO" alias="SleepUsersDTO" />
+		<typeAlias type="com.gdu.sporters.users.domain.AccessLogDTO" alias="AccessLogDTO" />
+		<typeAlias type="com.gdu.sporters.users.domain.RetireUsersDTO" alias="RetireUsersDTO" />
+		<typeAlias type="com.gdu.sporters.users.domain.HeartDTO" alias="HeartDTO" />
 		
 		<typeAlias type="com.gdu.sporters.board.domain.FreeDTO" alias="FreeDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.FreeDTO" alias="FreeCommDTO" />

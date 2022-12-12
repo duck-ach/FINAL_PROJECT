@@ -1,4 +1,4 @@
-package com.gdu.sporters.user.domain;
+package com.gdu.sporters.users.domain;
 
 import java.sql.Date;
 
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class SleepUserDTO {
+public class SleepUsersDTO {
 	private int userNo;
 	private String sleepUserId;
 	private String sleepUserPw;
