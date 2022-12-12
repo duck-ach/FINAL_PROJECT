@@ -6,5 +6,53 @@
 
 <mapper namespace="com.gdu.sporters.shopAdmin.mapper.ShopAdminMapper">
 
+	<!-- 상품 전체 개수 -->
+	<select id="selectProdListCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+	</select>
+
+	<!-- 카테고리 + 상품 resultMap -->
+	<resultMap type="ProductDTO" id="ProductMap">
+		<id property="prodNo" column="PROD_NO" />
+		<result property="prodCategoryNo" column="PROD_CATEGORY_NO"/>
+		<result property="prodName" column="PROD_CATEGORY_NO"/>
+		<result property="price" column="PROD_CATEGORY_NO"/>
+		<result property="discount" column="PROD_CATEGORY_NO"/>
+		<result property="prodContent" column="PROD_CATEGORY_NO"/>
+		<result property="origin" column="PROD_CATEGORY_NO"/>
+		<result property="stock" column="PROD_CATEGORY_NO"/>
+		<result property="filesystem" column="PROD_CATEGORY_NO"/>
+		<association property="category" javaType="ProdCategoryDTO">
+			<id property="prodCategoryNo" column="PROD_CATEGORY_NO"/>
+			<id property="prodCategoryName" column="PROD_CATEGORY_NAME"/>
+		</association>
+	</resultMap>
+
+	<!-- 상품목록보기 -->
+	<select id="selectProdListAll" resultMap="ProductMap" parameterType="Map">
+		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK C.PROD_CATEGORY_NAME
+		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
+		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	<!-- 상품이미지 등록하기 -->
+	<insert id="insertProdImage" parameterType="ProdImageDTO">
+		INSERT INTO PROD_DETAIL_IMAGE
+			(PROD_DETAIL_IMAGE_NO, PROD_NO, FILESYSTEM)
+		VALUES
+			(PROD_DETAIL_IMAGE_SEQ.NEXTVAL, #{prodNo}, #{filesystem})
+	</insert>
 	
+	<!-- 상품등록하기 -->
+	<insert id="insertProd" parameterType="ProductDTO">
+		<selectKey keyProperty="prodNo" resultType="int" order="BEFORE">
+			SELECT PRODUCT_SEQ.NEXTVAL
+			  FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCT
+			(PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, FILESYSTEM)
+		VALUES
+			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, #{filesystem})
+	</insert>
 </mapper>

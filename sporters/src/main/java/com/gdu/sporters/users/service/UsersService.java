@@ -8,7 +8,7 @@ import com.gdu.sporters.users.domain.UsersDTO;
 public interface UsersService {
 	
 	public void login(HttpServletRequest request, HttpServletResponse response);
-	public void keepLogin(HttpServletRequest request, HttpServletResponse response);
+	//public void keepLogin(HttpServletRequest request, HttpServletResponse response);
 	//public void logout(HttpServletRequest request, HttpServletResponse response);
 	
 	
