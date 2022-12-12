@@ -41,7 +41,7 @@
 		</tbody>
 		<tfoot>
 				<tr>
-					<td colspan="7">
+					<td colspan="7" style="text-align: center;">
 						${paging}
 					</td>
 				</tr>
