@@ -67,5 +67,12 @@
 		  WHERE ID = #{id}
 	</update>
 	
+	<select id="selectRetireUsersById" parameterType="String" resultType="RetireUsersDTO">
+		SELECT ID
+		  FROM RETIRE_USERS
+		 WHERE ID = #{id}
+	</select>
+	
+	
 	
 </mapper>
