@@ -17,8 +17,8 @@ public class ProductDTO {
 	private int discount;
 	private String prodContent;
 	private String origin;
-	private int isSoldout;
 	private int stock;
 	private String filesystem;
 	private int prodThumbnail;
+	private ProdCategoryDTO prodCategory;
 }

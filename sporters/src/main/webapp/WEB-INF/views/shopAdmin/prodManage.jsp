@@ -15,6 +15,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th>순번</th>
 				<th>상품번호</th>
 				<th>대표사진</th>
 				<th>카테고리</th>
@@ -25,12 +26,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${prodList}" var="prod">
+			<c:forEach items="${prodList}" var="prod" varStatus="vs">
 				<tr>
+					<td>${beginNo - vs.index}</td>
 					<td>${prod.prodNo}</td>
-					<td></td>
-					<td>${prod.prodCategoryNo}</td>
-					<td>${prod.name}</td>
+					<td>${prod.filesystem}</td>
+					<td>${prod.prodCategory.prodCategoryName}</td>
+					<td>${prod.prodName}</td>
 					<td>${prod.price}</td>
 					<td>${prod.discount}</td>
 					<td>${prod.stock}</td>
@@ -39,7 +41,7 @@
 		</tbody>
 		<tfoot>
 				<tr>
-					<td colspan="4">
+					<td colspan="7">
 						${paging}
 					</td>
 				</tr>

@@ -79,11 +79,11 @@
 			<h1>상품등록</h1>
 			<div>
 				<label for="prodName">상품명</label>
-				<input type="text" id="prodName" required>
+				<input type="text" id="prodName" name="prodName" required>
 			</div>
 			<div>
 				상품카테고리
-				<select>
+				<select name="prodCategoryNo">
 					<option value="">===선택===</option>
 					<option value="1">식품</option>
 					<option value="2">의류</option>
@@ -92,31 +92,32 @@
 			</div>
 			<div>
 				<label for="price">정가격</label>
-				<input type="text" id="price" required>
+				<input type="text" id="price" name="price" required>
 				<label for="discount">할인가격</label>
-				<input type="text" id="discount">
+				<input type="text" id="discount" name="discount">
 			</div>
 			<div>
 				<label for="thumbnail">상품 썸네일(대표사진)</label>
-				<input type="file" multiple="multiple" accept="image/jpeg, image/jpg, image/gif, image/png, image/bmp" id="thumbnail">
+				<input type="file" name="thumbnail" accept="image/jpeg, image/jpg, image/gif, image/png, image/bmp" id="thumbnail">
 			</div>
 			<div>
 				<label for="origin">원산지</label>
-				<input type="text" id="origin">
+				<input type="text" id="origin" name="origin">
 			</div>
 			<div>
 				<label for="stock">재고</label>
-				<input type="text" id="stock">
+				<input type="text" id="stock" name="stock">
 			</div>
 			
 			<div>
 				<label for="content"></label>
-		        <textarea name="content" id="content" placeholder="상품의 상세이미지를 첨부하고 설명을 적어주세요"></textarea>   
+		        <textarea name="content" id="content" name="content" placeholder="상품의 상세이미지를 첨부하고 설명을 적어주세요"></textarea>   
 			</div>
 			<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 			<div id="summernote_image_list"></div>
 			<div>
 				<button>등록하기</button>
+				<input type="button" value="목록" id="btn_list">
 			</div>
 		</div>
 	</form>
