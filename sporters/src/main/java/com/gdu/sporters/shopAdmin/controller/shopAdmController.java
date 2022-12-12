@@ -39,7 +39,7 @@ public class shopAdmController {
 	}
 	
 	// 상품등록
-	@PostMapping
+	@PostMapping("/admin/prodAdd")
 	public void addProd(HttpServletRequest request, HttpServletResponse response) {
 		shopAdminService.saveProd(request, response);
 	}

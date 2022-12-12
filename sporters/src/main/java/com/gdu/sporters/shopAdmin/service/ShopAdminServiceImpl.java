@@ -109,6 +109,9 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		String origin = request.getParameter("origin");
 		String thumbnail = request.getParameter("thumbnail");
 		int stock = Integer.parseInt(request.getParameter("stock"));
+		String content = request.getParameter("content");
+		
+		System.out.println(thumbnail);
 		
 		ProductDTO product = ProductDTO.builder()
 				.prodName(prodName)
@@ -118,6 +121,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 				.origin(origin)
 				.filesystem(thumbnail)
 				.stock(stock)
+				.prodContent(content)
 				.build();
 		
 		int result = shopAdminMapper.insertProd(product);
