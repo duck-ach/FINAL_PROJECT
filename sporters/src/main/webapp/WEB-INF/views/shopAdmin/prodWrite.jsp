@@ -5,15 +5,20 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
-<script src="${contextPath}/resources/js/moment-with-locales.js"></script> <!-- ajax 날짜 시간 처리 -->
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
-<link rel="stylesheet" href="${contextPath}/resources/uploadcss/write_edit.css">
 <script>
 
 	$(function(){
 
+		// contextPath를 반환하는 자바스크립트 함수
+		function getContextPath() {
+			var begin = location.href.indexOf(location.origin) + location.origin.length;
+			var end = location.href.indexOf("/", begin + 1);
+			return location.href.substring(begin, end);
+		}
+		
 		// summernote
 		$('#content').summernote({
 			width: 800,
@@ -41,7 +46,7 @@
 						// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
 						$.ajax({
 							type: 'post',
-							url: getContextPath() + '/admin/prodImage',
+							url: getContextPath() + '/prodImage',
 							data: formData,
 							contentType: false,  // ajax 이미지 첨부용
 							processData: false,  // ajax 이미지 첨부용
@@ -70,20 +75,60 @@
 					}  // for
 				}  // onImageUpload
 			}  // callbacks
+			
 		});
+		
+		// 목록
+		$('#btn_list').click(function(){
+			location.href = getContextPath() + '/prodManage';
+		});
+		
+		// 서브밋
+		$('#frm_write').submit(function(event){
+			if($('#prodName').val() == ''){
+				alert('상품명은 필수입니다.');
+				event.preventDefault();  // 서브밋 취소
+				$('#prodName').focus();
+				return;  // 더 이상 코드 실행할 필요 없음
+			}
+			
+			if($('#prodCategoryNo').val() == ''){
+				alert('카테고리 선택은 필수입니다.');
+				event.preventDefault();  // 서브밋 취소
+				$('#prodCategoryNo').focus();
+				return;  // 더 이상 코드 실행할 필요 없음
+			}
+			
+			if($('#price').val() == ''){
+				alert('정가 가격 입력은 필수입니다.');
+				event.preventDefault();  // 서브밋 취소
+				$('#price').focus();
+				return;  // 더 이상 코드 실행할 필요 없음
+			}
+			
+			if($('#stock').val() == ''){
+				alert('재고 개수 입력은 필수입니다.');
+				event.preventDefault();  // 서브밋 취소
+				$('#stock').focus();
+				return;  // 더 이상 코드 실행할 필요 없음
+			}
+			
+		});
+		
+		
 	});
 </script>
 <body>
-	<form id="frm_write" action="${contextPath}/admin/prodAdd" method="post">
+	<form id="frm_write" action="${contextPath}/admin/prodAdd" method="post" enctype="multipart/form-data">
 		<div>
 			<h1>상품등록</h1>
 			<div>
 				<label for="prodName">상품명</label>
-				<input type="text" id="prodName" name="prodName" required>
+				<input type="text" id="prodName" name="prodName">
 			</div>
 			<div>
 				상품카테고리
-				<select name="prodCategoryNo">
+				<select name="prodCategoryNo" id="prodCategoryNo">
 					<option value="">===선택===</option>
 					<option value="1">식품</option>
 					<option value="2">의류</option>
@@ -92,13 +137,13 @@
 			</div>
 			<div>
 				<label for="price">정가격</label>
-				<input type="text" id="price" name="price" required>
+				<input type="number" id="price" name="price">
 				<label for="discount">할인가격</label>
-				<input type="text" id="discount" name="discount">
+				<input type="number" id="discount" name="discount">
 			</div>
 			<div>
 				<label for="thumbnail">상품 썸네일(대표사진)</label>
-				<input type="file" name="thumbnail" accept="image/jpeg, image/jpg, image/gif, image/png, image/bmp" id="thumbnail">
+				<input type="file" name="thumbnail" accept="image/jpeg, image/jpg, image/gif, image/png, image/bmp" id="thumbnail" multiple="multiple">
 			</div>
 			<div>
 				<label for="origin">원산지</label>
@@ -106,7 +151,7 @@
 			</div>
 			<div>
 				<label for="stock">재고</label>
-				<input type="text" id="stock" name="stock">
+				<input type="number" id="stock" name="stock">
 			</div>
 			
 			<div>

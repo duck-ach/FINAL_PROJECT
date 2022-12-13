@@ -31,12 +31,21 @@
 
 	<!-- 상품목록보기 -->
 	<select id="selectProdListAllByPage" resultMap="ProductMap" parameterType="Map">
-		SELECT A.RN, A.PROD_NO, A.PROD_NAME, A.PRICE, A.DISCOUNT, A.PROD_CONTENT, A.ORIGIN, A.STOCK, A.PROD_CATEGORY_NAME
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY PROD_NO DESC) AS RN, P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, C.PROD_CATEGORY_NAME
+		SELECT A.RN, A.PROD_NO, A.PROD_NAME, A.PRICE, A.DISCOUNT, A.PROD_CONTENT, A.ORIGIN, A.STOCK, A.FILESYSTEM, A.PROD_CATEGORY_NAME
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY PROD_NO DESC) AS RN, P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, C.PROD_CATEGORY_NAME
 		  	   	  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
 		    		ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO) A
 		 WHERE A.RN BETWEEN #{begin} AND #{end}
 	</select>
+	
+	<!-- 상품 상세보기 -->
+	<select id="selectProdByNo" parameterType="int" resultType="ProductDTO">
+		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, C.PROD_CATEGORY_NAME
+		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
+		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
+		 WHERE PROD_NO = #{prodNo};
+	</select>
+	
 	<!-- 상품이미지 등록하기 -->
 	<insert id="insertProdImage" parameterType="ProdImageDTO">
 		INSERT INTO PROD_DETAIL_IMAGE
@@ -54,6 +63,6 @@
 		INSERT INTO PRODUCT
 			(PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, FILESYSTEM)
 		VALUES
-			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, NULL)
+			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, #{filesystem})
 	</insert>
 </mapper>
