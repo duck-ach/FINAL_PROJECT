@@ -41,7 +41,7 @@ public class UsersServiceImlp implements UsersService {
 	
 // 아이디 중복 확인
 	@Override
-	public Map<String, Object> checkSameId(String id) {
+	public Map<String, Object> isSameId(String id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		
@@ -53,7 +53,7 @@ public class UsersServiceImlp implements UsersService {
 	
 // 이메일 중복 확인
 	@Override
-	public Map<String, Object> checkSameEmail(String email) {
+	public Map<String, Object> isSameEmail(String email) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		
@@ -166,7 +166,7 @@ public class UsersServiceImlp implements UsersService {
 	}
 	
 	
-@Override
+	@Override
 	public SleepUsersDTO getSleepUsersById(String id) {
 		return usersMapper.selectSleepUserById(id);
 	}
