@@ -106,6 +106,13 @@
 				return;  // 더 이상 코드 실행할 필요 없음
 			}
 			
+			if($('#discount').val() == ''){
+				alert('할인가격 입력은 필수입니다.\n할인을 하지않으려면 정가와 같게 입력해주세요.');
+				event.preventDefault();  // 서브밋 취소
+				$('#discount').focus();
+				return;  // 더 이상 코드 실행할 필요 없음
+			}
+			
 			if($('#stock').val() == ''){
 				alert('재고 개수 입력은 필수입니다.');
 				event.preventDefault();  // 서브밋 취소
@@ -143,7 +150,7 @@
 			</div>
 			<div>
 				<label for="thumbnail">상품 썸네일(대표사진)</label>
-				<input type="file" name="thumbnail" accept="image/jpeg, image/jpg, image/gif, image/png, image/bmp" id="thumbnail" multiple="multiple">
+				<input type="file" name="thumbnail" accept="image" id="thumbnail" multiple="multiple">
 			</div>
 			<div>
 				<label for="origin">원산지</label>

@@ -40,10 +40,10 @@
 	
 	<!-- 상품 상세보기 -->
 	<select id="selectProdByNo" parameterType="int" resultType="ProductDTO">
-		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, C.PROD_CATEGORY_NAME
+		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, C.PROD_CATEGORY_NAME, P.PATH, P.PROD_THUMBNAIL
 		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
 		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
-		 WHERE PROD_NO = #{prodNo};
+		 WHERE PROD_NO = #{prodNo}
 	</select>
 	
 	<!-- 상품이미지 등록하기 -->
@@ -61,8 +61,8 @@
 			  FROM DUAL
 		</selectKey>
 		INSERT INTO PRODUCT
-			(PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, FILESYSTEM)
+			(PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, FILESYSTEM, PATH, PROD_THUMBNAIL)
 		VALUES
-			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, #{filesystem})
+			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, #{filesystem}, #{path}, #{prodThumbnail})
 	</insert>
 </mapper>

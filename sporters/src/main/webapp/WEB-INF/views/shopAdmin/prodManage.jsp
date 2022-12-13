@@ -5,7 +5,14 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <body>
+<script>
+	$(function(){
+		$('.attach_img').tooltip();
+	});
+</script>
 	<h1>상품관리</h1>
 	<div>
 		<span>상품목록 (전체 ${totalRecord}개)</span>
@@ -31,12 +38,7 @@
 					<td>${beginNo - vs.index}</td>
 					<td>${prod.prodNo}</td>
 					<td>
-						<c:if test="${prod.prodThumbnail == 1}">
-							<img src="${contextPath}/admin/prod/display?prodNo=${prod.filesystem}" width="50px" class="attach_img" alt="thumbnail_img">
-						</c:if>
-						<c:if test="${attach.hasThumbnail == 0}">
-							<img src="${contextPath}/resources/images/spoters_logo_1.jpg" width="50px" class="attach_img" title="thumbnailNo_img">
-						</c:if>
+						<img src="${contextPath}/admin/prod/display?prodNo=${prod.prodNo}" width="50px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
 					</td>
 					<td>${prod.prodCategory.prodCategoryName}</td>
 					<td>${prod.prodName}</td>
