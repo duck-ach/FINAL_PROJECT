@@ -6,5 +6,16 @@
 
 <mapper namespace="com.gdu.sporters.shop.mapper.ShopMapper">
 
+	<select id="selectProductListByMap" parameterType="Map" resultType="ProductDTO">
+		SELECT A.ROW_NUM, A.PROD_NO, A.PROD_CATEGORY_NO, A.PROD_NAME, A.PRICE, A.DISCOUNT, A.PROD_CONTENT, A.ORIGIN, A.STOCK, A.FILESYSTEM, A.PROD_THUMBNAIL
+		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY PROD_NO DESC) AS ROW_NUM, PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, FILESYSTEM, PROD_THUMBNAIL
+		  		  FROM PRODUCT) A
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<select id="selectProductCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+	</select>
 	
 </mapper>

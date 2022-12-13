@@ -1,2 +1,2 @@
-
+${contextPath}/
 </html>
