@@ -1,4 +1,4 @@
-package com.gdu.sporters.admin;
+package com.gdu.sporters.admin.service;
 
 import java.util.Map;
 
