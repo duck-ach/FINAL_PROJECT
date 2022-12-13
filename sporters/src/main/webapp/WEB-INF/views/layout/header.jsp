@@ -109,7 +109,7 @@ $(function(){
 <nav class="left_side_gnd_area">
 		 <ul>
 		 	<li><a href="${contextPath}/users/join">회원가입</a> </li>
-		 	<li><a href="${contextPath}/users/login">로그인</a> </li>
+		 	<li><a href="${contextPath}/users/login/from">로그인</a> </li>
 		 	<li><a href="${contextPath}/local/list">지역별게시판</a> </li>
 		 	<li><a href="${contextPath}/spoReview/list">운동후기게시판</a> </li>
 		 	<li><a href="${contextPath}/free/list">자유게시판</a> </li>
