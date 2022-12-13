@@ -20,7 +20,7 @@
 		<typeAlias type="com.gdu.sporters.board.domain.FreeDTO" alias="FreeDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.FreeCommDTO" alias="FreeCommDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.SpoReviewDTO" alias="SpoReviewDTO" />
-		<typeAlias type="com.gdu.sporters.board.domain.SpoReviewComm" alias="SpoReviewCommDTO" />
+		<typeAlias type="com.gdu.sporters.board.domain.SpoCommDTO" alias="SpoCommDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.LocalDTO" alias="LocalDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.LocalCommDTO" alias="LocalCommDTO" />
 		<typeAlias type="com.gdu.sporters.board.domain.LocalCategoryDTO" alias="LocalCategoryDTO" />
