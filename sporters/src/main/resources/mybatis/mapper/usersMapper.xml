@@ -67,11 +67,28 @@
 		  WHERE ID = #{id}
 	</update>
 	
+	<!-- 아이디 중복체크 -->
 	<select id="selectRetireUsersById" parameterType="String" resultType="RetireUsersDTO">
 		SELECT ID
 		  FROM RETIRE_USERS
 		 WHERE ID = #{id}
 	</select>
+	
+	<!-- 로그인 시에 휴면회원 확인 -->
+	<select id="selectSleepUserById" parameterType="String" resultType="SleepUsersDTO">
+		SELECT ID, JOIN_DATE, LAST_LOGIN_DATE, SLEEP_DATE
+		  FROM SLEEP_USERS
+		 WHERE ID = #{id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

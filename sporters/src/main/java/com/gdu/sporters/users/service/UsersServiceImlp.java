@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import com.gdu.sporters.users.domain.SleepUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.users.mapper.UsersMapper;
 import com.gdu.sporters.util.SecurityUtil;
@@ -35,6 +36,32 @@ public class UsersServiceImlp implements UsersService {
 	
 	@Autowired
 	private SecurityUtil securityUtil;
+	
+
+	
+// 아이디 중복 확인
+	@Override
+	public Map<String, Object> checkSameId(String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
+		result.put("isRetireUser", usersMapper.selectRetireUsersById(id) != null);
+		return result;
+	}
+	
+// 이메일 중복 확인
+	@Override
+	public Map<String, Object> checkSameEmail(String email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
+		return result;
+	}
+	
 	
 	
 // 로그인
@@ -139,7 +166,10 @@ public class UsersServiceImlp implements UsersService {
 	}
 	
 	
-	
+@Override
+	public SleepUsersDTO getSleepUsersById(String id) {
+		return usersMapper.selectSleepUserById(id);
+	}
 	
 	
 	
