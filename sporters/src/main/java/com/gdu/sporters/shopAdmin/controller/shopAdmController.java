@@ -6,10 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -40,8 +42,8 @@ public class shopAdmController {
 	
 	// 상품등록
 	@PostMapping("/admin/prodAdd")
-	public void addProd(HttpServletRequest request, HttpServletResponse response) {
-		shopAdminService.saveProd(request, response);
+	public void addProd(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+		shopAdminService.saveProd(multipartRequest, response);
 	}
 	
 	// 상품 이미지 등록
@@ -49,6 +51,13 @@ public class shopAdmController {
 	@PostMapping(value="/admin/prodImage", produces="application/json")
 	public Map<String, Object> uploadProdImage(MultipartHttpServletRequest multipartRequest) {
 		return shopAdminService.saveProdImage(multipartRequest);
+	}
+	
+	// 상품 썸네일 
+	@ResponseBody
+	@GetMapping("/admin/prod/display")
+	public ResponseEntity<byte[]> display(@RequestParam int prodNo){
+		return shopAdminService.display(prodNo);
 	}
 	
 }
