@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ImageDTO {
-	private int imageNo;
+	private int imageNo;	
 	private int boardNo;
 	private int spoReviewNo;
 	private int freeNo;

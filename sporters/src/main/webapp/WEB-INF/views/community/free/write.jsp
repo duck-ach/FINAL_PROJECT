@@ -74,7 +74,7 @@
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<form id="frm_write" action="${contextPath}/bbs/add" method="post">
+			<form id="frm_write" action="${contextPath}/gallery/add" method="post">
 				<div style="margin-top: 50px; margin-bottom: 15px">
 					<input class="title-class" type="text" name="bbsTitle" id="bbsTitle" placeholder="제목">
 				</div>
