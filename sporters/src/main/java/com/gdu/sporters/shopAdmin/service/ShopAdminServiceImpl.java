@@ -122,6 +122,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 		String filesystem = null;
 		String path = null;
+		ProductDTO product= null;
 		
 		// 첨부된 파일 목록 순회(하나씩 저장)
 		for(MultipartFile multipartFile : thumbnail) {
@@ -166,7 +167,9 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 							.toFile(new File(dir, "s_" + filesystem));  // 썸네일의 이름은 s_로 시작함
 						
 						// 썸네일이 있는 첨부로 상태 변경
-						
+						product = ProductDTO.builder()
+								.prodThumbnail(1)
+								.build();
 					
 					}
 					
@@ -178,7 +181,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 			
 		}  // for
 		
-		ProductDTO product = ProductDTO.builder()
+		product = ProductDTO.builder()
 				.prodName(prodName)
 				.prodCategoryNo(prodCategoryNo)
 				.price(price)
@@ -187,7 +190,6 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 				.filesystem(filesystem)
 				.stock(stock)
 				.prodContent(content)
-				.prodThumbnail(1)
 				.build();
 		
 		int result = shopAdminMapper.insertProd(product);
