@@ -1,5 +1,7 @@
 package com.gdu.sporters.shop.service;
 
-public interface ShopService {
+import org.springframework.ui.Model;
 
+public interface ShopService {
+	public void getProductList(Model model);
 }

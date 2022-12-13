@@ -54,62 +54,58 @@
 		text-align: center;
 	}
 	.product {
-		width: 200px;
+		width: 300px;
 		height: 300px;
 		float: left;
+		padding-left: 10px;
 	}
 </style>
 <body>
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-	<div id="aside">
-		<br>
-		<h3>카테고리</h3>
-		<ul>
-			<li><a href="">의류</a></li>
-			<li><a href="">운동용품</a></li>
-			<li><a href="">기타</a></li>
-		</ul>
-	</div>
+	<table>
+		<thead>
+			<tr>
+				<td>
+				<div id="aside">
+					<br>
+					<h3>카테고리</h3>
+					<ul>
+						<li><a href="">음식</a></li>
+						<li><a href="">의류</a></li>
+						<li><a href="">기타</a></li>
+					</ul>
+				</div>
+				</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="product">
+				<c:forEach items="${productList}" var="list">
+				<td></td>
+				<td><img src="${list.prodThumbnail}"></td>
+				<td><a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a></td>
+				<td>가격 : ${list.price} 원</td>
+				<td>
+					재고 : ${list.stock} 개
+					<button class="btn_buy">구매하기</button>
+					<button class="btn_addCart">장바구니 담기</button>
+				</td>
+				</c:forEach>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5">${paging}</td>
+			</tr>
+		</tfoot>
+	</table>
 	
-	<div>
-		<ul>
-			<%-- <c:forEach items="${list}" var="list"> --%>
-				<li class="product">
-					<div>
-						<img src="${list.prodThumbImg}">
-					</div>
-					<div>
-						<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}상품이름</a>
-					</div>
-					<div>
-						가격 : ${list.price} 원
-					</div>
-					<div>
-						재고 : ${list.stock} 개
-					</div>
-					<button class="btn_buy">구매하기</button>
-					<button class="btn_addCart">장바구니 담기</button>
-				</li>
-				<li class="product">
-					<div>
-						<img src="${list.prodThumbImg}">
-					</div>
-					<div>
-						<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}상품이름</a>
-					</div>
-					<div>
-						가격 : ${list.price} 원
-					</div>
-					<div>
-						재고 : ${list.stock} 개
-					</div>
-					<button class="btn_buy">구매하기</button>
-					<button class="btn_addCart">장바구니 담기</button>
-				</li>
-			<%-- </c:forEach> --%>
-		</ul>
-	</div>
+	
 	</section><!-- 기본틀 2 -->
 </section><!-- 기본틀 1 -->
 </body>
