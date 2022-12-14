@@ -87,7 +87,10 @@ function fn_getlist() {
 						-->				
 						</tr>
 					</thead>
-					<tbody id="list">
+					<tbody id="list">						
+						<c:forEach var="boardMap" items="${boardList}">
+						    <p><c:out value="${boardMap.title}" /></p>
+						</c:forEach>
 					</tbody>
 					
 				</table>

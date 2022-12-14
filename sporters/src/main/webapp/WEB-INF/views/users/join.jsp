@@ -15,11 +15,17 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-
+		<div>
+			<div> * 표시는 필수 입력사항입니다</div>
+			
+			<hr>
+			
+			<form id="frm_join">
+			</form>
+		</div>
 		
 		
 	</section><!-- 기본틀 2 -->
-	
 </section><!-- 기본틀 1 -->
 
 </body>
