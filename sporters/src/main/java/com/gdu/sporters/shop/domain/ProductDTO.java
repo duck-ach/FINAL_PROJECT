@@ -20,5 +20,6 @@ public class ProductDTO {
 	private int stock;
 	private String filesystem;
 	private int prodThumbnail;
+	private String path;
 	private ProdCategoryDTO prodCategory;
 }
