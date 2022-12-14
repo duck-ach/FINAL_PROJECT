@@ -9,12 +9,13 @@
 
 	$(document).ready(function(){
 		
+		$(".btn_addCart").click(function(){
+			var prodCnt = $('#prodCnt').val();
+			
+		});
 	
-	$(".btn_addCart").click(function(){
-		var 
 	});
 	
-	});
 </script>
 <style>
 	ul {
@@ -54,7 +55,7 @@
 		text-align: center;
 	}
 	.product {
-		width: 300px;
+		width: 169px;
 		height: 300px;
 		float: left;
 		padding-left: 10px;
@@ -63,40 +64,35 @@
 <body>
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
+	<div id="aside">
+		<br>
+		<h3>카테고리</h3>
+		<ul>
+			<li><a href="">음식</a></li>
+			<li><a href="">의류</a></li>
+			<li><a href="">기타</a></li>
+		</ul>
+	</div>
 	<table>
-		<thead>
-			<tr>
-				<td>
-				<div id="aside">
-					<br>
-					<h3>카테고리</h3>
-					<ul>
-						<li><a href="">음식</a></li>
-						<li><a href="">의류</a></li>
-						<li><a href="">기타</a></li>
-					</ul>
-				</div>
-				</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</thead>
 		<tbody>
-			<tr class="product">
-				<c:forEach items="${productList}" var="list">
-				<td></td>
-				<td><img src="${list.prodThumbnail}"></td>
-				<td><a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a></td>
-				<td>가격 : ${list.price} 원</td>
-				<td>
-					재고 : ${list.stock} 개
+			<c:forEach items="${productList}" var="list">
+				<tr class="product">
+					<td>
+					<img src="${list.prodThumbnail}"><br>
+					<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
+					가격 : ${list.price} 원<br>
+					재고 : ${list.stock} 개<br>
+					구매할 수량 : 
+					<select name="stock">
+					<%for(int i=1; i<100; i++){%>
+						<option value="<%=i%>"><%=i%></option>
+					<%}%>
+					</select>개
 					<button class="btn_buy">구매하기</button>
 					<button class="btn_addCart">장바구니 담기</button>
-				</td>
-				</c:forEach>
-			</tr>
+					</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 		<tfoot>
 			<tr>

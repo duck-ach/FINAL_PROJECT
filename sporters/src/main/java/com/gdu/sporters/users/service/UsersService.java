@@ -5,14 +5,18 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gdu.sporters.users.domain.SleepUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 
 public interface UsersService {
 	
+	public Map<String, Object> isSameId(String id);
+	public Map<String, Object> isSameEmail(String email);
 	public void login(HttpServletRequest request, HttpServletResponse response);
 	public void keepLogin(HttpServletRequest request, HttpServletResponse response);
 	public void logout(HttpServletRequest request, HttpServletResponse response);
 	public UsersDTO getUsersBySessionId(Map<String, Object> map);
+	public SleepUsersDTO getSleepUsersById(String id);
 	
 	// 네이버 아이디 로그인
 	//public String getNaverLoginApiURL(HttpServletRequest request);

@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.gdu.sporters.shop.domain.CartDTO;
+import com.gdu.sporters.shop.domain.CartListDTO;
+import com.gdu.sporters.shop.domain.ProductDTO;
 import com.gdu.sporters.shop.mapper.ShopMapper;
 import com.gdu.sporters.shop.util.ShopPageUtil;
 
@@ -23,9 +26,7 @@ public class ShopServiceImpl implements ShopService {
 	private ShopPageUtil shopPageUtil;
 	
 	@Override
-	public void getProductList(Model model) {
-		Map<String, Object> modelMap = model.asMap();
-		HttpServletRequest request = (HttpServletRequest)modelMap.get("request");
+	public void getProductList(HttpServletRequest request, Model model) {
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
@@ -41,6 +42,21 @@ public class ShopServiceImpl implements ShopService {
 		model.addAttribute("productList", shopMapper.selectProductListByMap(map));
 		model.addAttribute("beginNo", prodCount - (page - 1) * shopPageUtil.getRecordPerPage());
 		model.addAttribute("paging", shopPageUtil.getPaging(request.getContextPath() + "/shop/list"));
+	}
+	
+	@Override
+	public void addCart(CartDTO cart) {
+		shopMapper.addCart(cart);
+	}
+	
+	@Override
+	public void addCartList(CartListDTO cartList) {
+		shopMapper.addCartList(cartList);
+	}
+	
+	@Override
+	public Map<String, Object> getProductByNo(int prodNo) {
+		return shopMapper.selectProductByNo(prodNo);
 	}
 	
 }

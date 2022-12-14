@@ -18,4 +18,25 @@
 		  FROM PRODUCT
 	</select>
 	
+	<insert id="addCart">
+		INSERT CART
+			(CART_NO, USER_NO)
+		VALUES
+			(CART_SEQ.VAL, #{userNo})
+	</insert>
+	
+	<insert id="addCartList">
+		INSERT INTO CART_LIST
+			(CART_NO, PROD_NO, PROD_CNT)
+		VALUES
+			(#{cartNo}, #{prodNo}, #{prodCnt})
+	</insert>
+	
+	<select id="selectProductByNo" parameterType="int" resultType="Map">
+		SELECT P.PROD_NO, P.PROD_CATEGORY_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, P.PROD_THUMBNAIL, C.PROD_CATEGORY_NAME
+		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
+		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
+		 WHERE P.PROD_NO = #{prodNo}
+	</select>
+	
 </mapper>
