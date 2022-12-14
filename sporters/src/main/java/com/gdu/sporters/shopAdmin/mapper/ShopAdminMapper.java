@@ -17,6 +17,9 @@ public interface ShopAdminMapper {
 	
 	// 상품상세보기
 	public ProductDTO selectProdByNo(int prodNo);
+	public ProductDTO selectProdByNoThumbnail(int prodNo);
+	public List<ProdImageDTO> selectProdImageList(int prodNo);
+	public int deleteProdImage(String filesystem);
 	
 	// 상품등록하기
 	public int insertProdImage(ProdImageDTO prodImage);

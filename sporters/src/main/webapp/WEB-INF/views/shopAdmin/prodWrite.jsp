@@ -5,6 +5,7 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
+<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
@@ -12,19 +13,11 @@
 
 	$(function(){
 
-		// contextPath를 반환하는 자바스크립트 함수
-		function getContextPath() {
-			var begin = location.href.indexOf(location.origin) + location.origin.length;
-			var end = location.href.indexOf("/", begin + 1);
-			return location.href.substring(begin, end);
-		}
-		
 		// summernote
 		$('#content').summernote({
 			width: 800,
          	height: 400,
          	lang: 'ko-KR',
-			placeholder: '내용을 입력해주세요.',
          	toolbar: [
 			    // [groupName, [list of button]]
 			    ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -46,7 +39,7 @@
 						// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
 						$.ajax({
 							type: 'post',
-							url: getContextPath() + '/prodImage',
+							url: '/shopAdmin/prodImage',
 							data: formData,
 							contentType: false,  // ajax 이미지 첨부용
 							processData: false,  // ajax 이미지 첨부용
@@ -63,7 +56,6 @@
 									(스프링에서 정적 자원 표시하는 방법은 servlet-context.xml에 있다.)
 								*/
 								$('#content').summernote('insertImage', resData.src);
-								
 								/*
 									어떤 파일이 HDD에 저장되어 있는지 목록을 저장해 둔다.
 									블로그를 등록할 때 써머노트에서 사용한 파일명도 함께 등록한다.
@@ -80,7 +72,7 @@
 		
 		// 목록
 		$('#btn_list').click(function(){
-			location.href = getContextPath() + '/prodManage';
+			location.href = '/shopAdmin/prodManage';
 		});
 		
 		// 서브밋
@@ -126,7 +118,7 @@
 	});
 </script>
 <body>
-	<form id="frm_write" action="${contextPath}/admin/prodAdd" method="post" enctype="multipart/form-data">
+	<form id="frm_write" action="/shopAdmin/prodAdd" method="post" enctype="multipart/form-data">
 		<div>
 			<h1>상품등록</h1>
 			<div>
@@ -163,7 +155,7 @@
 			
 			<div>
 				<label for="content"></label>
-		        <textarea name="content" id="content" name="content" placeholder="상품의 상세이미지를 첨부하고 설명을 적어주세요"></textarea>   
+		        <textarea name="content" id="content" name="content"></textarea>   
 			</div>
 			<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 			<div id="summernote_image_list"></div>
