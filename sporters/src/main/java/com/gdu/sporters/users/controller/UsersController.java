@@ -20,15 +20,17 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 	
+	
 	@GetMapping("/users/login/form")
 	public String loginForm(HttpServletRequest request, Model model) {
-		model.addAttribute("url", request.getHeader("referer"));
+		// model.addAttribute("url",  request.getHeader("referer"));
+		model.addAttribute("url",  request.getRequestURL());
 		//model.addAttribute("apiURL", usersService.getNaverLoginApiURL(request));
 		return "users/login";
 	}
 	
 	@PostMapping("/users/login")
-	public void login (HttpServletRequest request, HttpServletResponse response) {
+	public void login(HttpServletRequest request, HttpServletResponse response) {
 		usersService.login(request, response);
 	}
 	
@@ -50,7 +52,10 @@ public class UsersController {
 		return usersService.isSameEmail(email);
 	}
 	
-	
+	@GetMapping("/users/agree/form")
+	public String agreeForm() {
+		return "users/agree";
+	}
 	
 	
 	

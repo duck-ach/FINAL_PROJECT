@@ -31,7 +31,7 @@
 			$('#id').val('');
 			$('#rememberId').prop('checked', false);
 		} else {
-			$.('#id').val(rememberId);
+			$('#id').val(rememberId);
 			$('#rememberId').prop('checked', true);
 		}
 	}
@@ -41,6 +41,7 @@
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 
+	<c:if test="${loginUser == null}">
 		<div>
 			<form id="frm_login" action="${contextPath}/users/login" method="post">
 				<input type="hidden" name="url" value="${url}">
@@ -68,17 +69,36 @@
 			</form>
 			
 			<div>
-				<a href="${contextPath}/users/findId">아이디 찾기</a> || 
+				<a href="${contextPath}/users/findId">아이디 찾기</a> ｜
 				<a href="${contextPath}/users/findPw">비밀번호 찾기</a>
+			</div>
+			<div>
+				<a href="${contextPath}/users/agree">회원가입</a>
 			</div>
 			
 			<hr>
 			
 			<div>
-				<a href="${apiURL}"><img height="30" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+				<a href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 			</div>
+
+			
 		
 		</div>
+		
+		</c:if>
+		
+			<c:if test="${loginUser != null}">
+      
+		      <br>
+		      
+		      <div id="mypage_footer">
+		         <a href="${contextPath}/users/check/form" id="mypage_footer_name">${loginUser.name}</a> 님 반갑습니다.<br>
+		         <a href="${contextPath}/users/check/form">마이페이지로 이동</a><br>
+		         <a href="${contextPath}/users/logout">로그아웃</a>
+		      </div>
+		      
+		   </c:if>
 		
 	</section><!-- 기본틀 2 -->
 	

@@ -23,7 +23,7 @@ import com.gdu.sporters.util.SecurityUtil;
 
 @PropertySource(value = {"classpath:email.properties"})
 @Service
-public class UsersServiceImlp implements UsersService {
+public class UsersServiceImpl implements UsersService {
 	
 	// 이메일을 보내는 사용자 정보
 	@Value(value = "${mail.username}")
@@ -89,12 +89,12 @@ public class UsersServiceImlp implements UsersService {
 			// 로그인 기록 남기기
 			int updateResult = usersMapper.updateAccessLog(id);
 			if(updateResult == 0) {
-				usersMapper.insertAccessLog(id);
+				usersMapper.updateAccessLog(id);
 			}
 			
 			// 로그인페이지 이전 페이지로
 			try {
-				response.sendRedirect(url);
+				response.sendRedirect(url);		
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
