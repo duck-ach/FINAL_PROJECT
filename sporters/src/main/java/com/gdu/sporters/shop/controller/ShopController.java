@@ -42,8 +42,6 @@ public class ShopController {
 	@RequestMapping(value="/shop/addCartList", method=RequestMethod.POST)
 	public void addCartList(HttpServletRequest request, HttpSession session) {
 		
-		
-		shopService.addCartList(cartList);
 	}
 	
 	@GetMapping("/shop/detail")
