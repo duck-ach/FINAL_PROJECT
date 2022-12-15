@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자유게시판" name="title" />
 </jsp:include>
@@ -13,57 +12,87 @@
 
 </style>
 <body>
-
+ 
 <script>
 
-	//contextPath를 반환
-	function getContextPath() {
-		var begin = location.href.indexOf(location.origin) + location.origin.length;
-		var end = location.href.indexOf("/", begin + 1);
-		return location.href.substring(begin, end);
-	}
+//contextPath를 반환하는 자바스크립트 함수
+function getContextPath() {
+	var begin = location.href.indexOf(location.origin) + location.origin.length;
+	var end = location.href.indexOf("/", begin+1);
+	return location.href.substring(begin, end);
+}
+
+$(document).ready(function(){
 	
-	$(document).ready(function(){
-		
-		console.log(getContextPath());
-		
-		let mainWidth = $('.content_leyout_section').width(); 
-		
-		
-		// 서머노트
-		$('#content').summernote({
-			width: mainWidth,
-			height: 400,
-			lang: 'ko-KR',
-			toolbar: [
-			    // [groupName, [list of button]]
-			    ['style', ['bold', 'italic', 'underline', 'clear']],
-			    ['font', ['strikethrough', 'superscript', 'subscript']],
-			    ['fontsize', ['fontsize']],
-			    ['color', ['color']],
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    ['height', ['height']],
-			]
-			
-         });
-		
-		// 목록
-		$('#btn_list').click(function(){
-			location.href = '${contextPath}/bbs/list';
+	//console.log(getContextPath());// 로그용 호출
+	
+	// summernote
+	$('#content').summernote({
+		width: 800,
+		height: 400,
+		lang : 'ko_KR',
+		toolbar: [
+		    // [groupName, [list of button]]
+		    ['style', ['bold', 'italic', 'underline', 'clear']],
+		    ['font', ['strikethrough', 'superscript', 'subscript']],
+		    ['fontsize', ['fontsize']],
+		    ['color', ['color']],
+		    ['para', ['ul', 'ol', 'paragraph']],
+		    ['insert', ['link', 'picture', 'video']],
+		    ['height', ['height']]
+		  ],
+		  callbacks: {
+			  
+			  // summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨
+			  onImageUpload: function(files){
+				  // 이미지 ajax를 이용해서 서버로 보낼때 가상 form 데이터 사용
+				  var formData = new FormData();
+				  formData.append('file', files[0]); // 파라미터 file, summernote 편집기에 추가
+
+				  // 이미지를 hdd에 저장하고 경로를 받아오는 ajax
+				  $.ajax({
+					  type: 'post',
+					  url: '/free/uploadImage',
+					  data : formData,
+					  contentType: false,
+					  processData: false,
+					  dataType : 'json',
+					  success: function(resData){
+						  $('#content').summernote('insertImage', resData.src);
+						  
+						  /*
+						  	src =${contextPath}/load/image/aaa.jpg 값이 넘어온 경우
+						  	summernote는
+						  	<img src="${contextPath}/load/image/aaa.jpg"> 태그를 만든다.
+						  	
+						  	스프링에서 정적 자원 표시하는 방법은 servlet-context.xml에 있다
+						  	
+						  	mapping=${contextPath}/load/image/aaa.jpg 인 파일의
+						  	location=C:\\upload\\aaa.jpg이다.
+						  	이미지의 매핑과 로케이션을 서블릿 콘택스트에 저장해야ㅎ한다
+						  */
+					  }
+					});  // ajax
+				}  // onImageUpload
+			}  // callbacks
 		});
 		
-
-		// 서브밋
-		$('#frm_write').submit(function(event){
-			if($('#bbsTitle').val() == ''){
-				alert('제목은 필수입니다.');
-				event.preventDefault();
-				return;
-			}
-		})
-
+	
+	// 목록
+	$('#btn_list').click(function(){
+		location.href =  '/free/list';// taglib 사용이 어려울수도 있으니까
+	})
+	
+	// 서브밋
+	$('#frm_write').submit(function(event){
+		if($('#title').val() == ''){
+			alert('제목은 필수입니다.');
+			event.preventDefault(); // 서브밋 취소
+			return; // 더 이상 코드 실행할 필요 없음
+		}
 	});
-
+	
+});
 
 
 	
@@ -74,15 +103,15 @@
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<form id="frm_write" action="${contextPath}/gallery/add" method="post">
+			<form id="frm_write" action="/free/add" method="post" >
 				<div style="margin-top: 50px; margin-bottom: 15px">
-					<input class="title-class" type="text" name="bbsTitle" id="bbsTitle" placeholder="제목">
+					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
 				</div>
 				
 				<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
 				
 				<div style="margin-top: 20px">
-					<textarea name="bbsContent" id="content"></textarea>
+					<textarea name="content" id="content"></textarea>
 				</div>
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>

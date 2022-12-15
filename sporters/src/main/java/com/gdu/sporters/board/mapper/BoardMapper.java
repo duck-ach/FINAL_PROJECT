@@ -12,9 +12,16 @@ import com.gdu.sporters.board.domain.ImageDTO;
 public interface BoardMapper {
 	public int selectFreeListCnt();
 	public List<FreeDTO> selectFreeList(Map<String, Object> map);
-	
-	public int insertFree(ImageDTO gallery);
+	public List<ImageDTO> selectSummernoteImageListInGallery(int galleryNo);
+	public List<ImageDTO> selectAllSummernoteImageList();
+	public int insertFree(FreeDTO gallery);
 	public int insertSummernoteImage(ImageDTO summernote);
 	public int updateUserPoint(int userNo);
+	
+	
+	
+	// detail
+	public FreeDTO selectGalleryByNo(int galleryNo);
+	public int updateHit(int galleryNo);
 	
 }
