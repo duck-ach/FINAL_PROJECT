@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자유게시판" name="title" />
 </jsp:include>
@@ -13,57 +12,77 @@
 
 </style>
 <body>
-
+ 
 <script>
 
-	//contextPath를 반환
-	function getContextPath() {
-		var begin = location.href.indexOf(location.origin) + location.origin.length;
-		var end = location.href.indexOf("/", begin + 1);
-		return location.href.substring(begin, end);
-	}
+//contextPath를 반환하는 자바스크립트 함수
+function getContextPath() {
+	var begin = location.href.indexOf(location.origin) + location.origin.length;
+	var end = location.href.indexOf("/", begin+1);
+	return location.href.substring(begin, end);
+}
+
+$(document).ready(function(){
 	
-	$(document).ready(function(){
-		
-		console.log(getContextPath());
-		
-		let mainWidth = $('.content_leyout_section').width(); 
-		
-		
-		// 서머노트
-		$('#content').summernote({
-			width: mainWidth,
-			height: 400,
-			lang: 'ko-KR',
-			toolbar: [
-			    // [groupName, [list of button]]
-			    ['style', ['bold', 'italic', 'underline', 'clear']],
-			    ['font', ['strikethrough', 'superscript', 'subscript']],
-			    ['fontsize', ['fontsize']],
-			    ['color', ['color']],
-			    ['para', ['ul', 'ol', 'paragraph']],
-			    ['height', ['height']],
-			]
-			
-         });
-		
-		// 목록
-		$('#btn_list').click(function(){
-			location.href = '${contextPath}/bbs/list';
-		});
-		
-
-		// 서브밋
-		$('#frm_write').submit(function(event){
-			if($('#bbsTitle').val() == ''){
-				alert('제목은 필수입니다.');
-				event.preventDefault();
-				return;
-			}
-		})
-
+	// summernote
+	$('#content').summernote({
+		width: 800,
+		height: 400,
+		lang: 'ko-KR',
+		toolbar:[
+			['style', ['style']],
+			['font', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			['fontname', ['fontname']],
+		 	['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['table', ['table']],
+			['insert', ['link', 'picture', 'video']],
+			['view', ['fullscreen', 'codeview', 'help']],
+		],
+		callbacks: {
+			spellCheck: true,
+			// summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨 
+			onImageUpload: function(files){
+				// 동시에 여러 이미지를 올릴 수 있음
+				for(let i = 0; i < files.length; i++) {
+					// 이미지를 ajax를 이용해서 서버로 보낼 때 가상 form 데이터 사용 
+					var formData = new FormData();
+					formData.append('file', files[i]);  // 파라미터 file, summernote 편집기에 추가된 이미지가 files[i]임
+					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
+					$.ajax({
+						type: 'post',
+						url: '/free/uploadImage',
+						data: formData,
+						contentType: false,  // ajax 이미지 첨부용
+						processData: false,  // ajax 이미지 첨부용
+						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
+						success: function(resData){
+							console.log(resData);
+							$('#content').summernote('insertImage', resData.src);
+							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
+						}
+					});  // ajax
+				}  // for
+			}  // onImageUpload
+		}  // callbacks
 	});
-
+		
+	
+	// 목록
+	$('#btn_list').click(function(){
+		location.href =  '/free/list';// taglib 사용이 어려울수도 있으니까
+	})
+	
+	// 서브밋
+	$('#frm_write').submit(function(event){
+		if($('#title').val() == ''){
+			alert('제목은 필수입니다.');
+			event.preventDefault(); // 서브밋 취소
+			return; // 더 이상 코드 실행할 필요 없음
+		}
+	});
+	
+});
 
 
 	
@@ -74,16 +93,20 @@
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<form id="frm_write" action="${contextPath}/gallery/add" method="post">
+			<form id="frm_write" action="/free/add" method="post" >
 				<div style="margin-top: 50px; margin-bottom: 15px">
-					<input class="title-class" type="text" name="bbsTitle" id="bbsTitle" placeholder="제목">
+					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
 				</div>
 				
 				<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
 				
 				<div style="margin-top: 20px">
-					<textarea name="bbsContent" id="content"></textarea>
+					<textarea name="content" id="content"></textarea>
 				</div>
+				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
+				<div id="summernote_image_list"></div>
+
+
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>
 					<input class="btn" type="reset" value="제목초기화">
