@@ -91,9 +91,9 @@
 		<form id="frm_user_list" method="post">
 			<select name="column" id="column">
 				<option value="">회 원 분 류</option>
-				<option value="id">아이디</option>
-				<option value="name">이름</option>
-				<option value="user_no">회원번호</option>
+				<option value="ID">아이디</option>
+				<option value="NAME">이름</option>
+				<option value="USER_NO">회원번호</option>
 			</select> <input type="text" id="searchText" name="searchText">
 				<input type="button" id="btn_search" value="검색"> 
 				<input type="button" id="btn_init" value="초기화"><br>

@@ -2,15 +2,16 @@ package com.gdu.sporters.admin.service;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.gdu.sporters.admin.mapper.AdminMapper;
+import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.SecurityUtil;
 
 @Service
@@ -36,18 +37,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void searchUsers(HttpServletRequest request, Model model) {
-		Map<String, Object> modelMap = model.asMap();
-		request = (HttpServletRequest) modelMap.get("request");
+	public Map<String, Object> searchUsers(HttpServletRequest request) {
+		
 		String column = request.getParameter("column");
 		String searchText = securityUtil.preventXSS(request.getParameter("searchText"));
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("column", column);
 		map.put("searchText", searchText);
-		
-		model.addAttribute("searchText", searchText);
-		model.addAttribute("column", column);
+		return map;
 	}
 
 //	@Override
