@@ -90,6 +90,7 @@ public class GalleryServiceImpl implements GalleryService {
 
 		// DB에 Gallery 저장
 		int result = boardMapper.insertFree(freeBbs);
+		
 
 		// 응답
 		try {
@@ -102,19 +103,22 @@ public class GalleryServiceImpl implements GalleryService {
 
 				// 파라미터 summernoteImageNames
 				String[] summernoteImageNames = request.getParameterValues("summernoteImageNames");
-
+				System.out.println("summernoteImageNames = "+summernoteImageNames);
 				// DB에 SummernoteImage 저장
 				if (summernoteImageNames != null) {
 					for (String filesystem : summernoteImageNames) {
 						ImageDTO summernoteImage = ImageDTO.builder()
+								.freeNo(freeBbs.getFreeNo())
 								.fileName(fileName)						
 								.build();
 						boardMapper.insertSummernoteImage(summernoteImage);
 					}
 				}
-
+				
+				
+			
 				out.println("alert('게시글을 등록했습니다.');");
-				out.println("location.href='" + request.getContextPath() + "/gallery/list';");
+				out.println("location.href='/free/list';");
 			} else {
 				out.println("alert('게시글을 등록할 수 없습니다.');");
 				out.println("history.back();");

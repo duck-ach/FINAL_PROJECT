@@ -54,9 +54,9 @@
 	<!-- 이미지 삽입 -->
 	<insert id="insertSummernoteImage" parameterType="ImageDTO">
 		INSERT INTO IMAGE
-			(IMAGE_NO,LOCAL_BOARD_NO,SPO_REVIEW_NO,FREE_NO, FILESYSTEM)
+			(IMAGE_NO,FREE_NO, FILESYSTEM)
 		VALUES
-			(#{imageNo}, #{LOCAL_BOARD_NO},  #{spoReviewNo}, #{freeNo}, #{filesystem})						
+			( IMAGE_SEQ.NEXTVAL, #{freeNo}, #{filesystem})						
 	</insert>
 
 
