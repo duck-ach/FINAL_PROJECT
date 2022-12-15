@@ -74,15 +74,11 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		// 파라미터 files
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 		
-		System.out.println(multipartFile.toString());
-		
 		// 저장경로
-		String path = "summernoteImage";
+		String path = myFileUtil.getSummernotePath();
 		
 		// 저장할 파일명
 		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());
-		
-		System.out.println(filesystem);
 		
 		// 저장 경로가 없으면 만들기
 		File dir = new File(path);
@@ -168,7 +164,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 					
 						// 썸네일을 서버에 저장
 						Thumbnails.of(file)
-							.size(200, 200)
+							.size(500, 500)
 							.toFile(new File(dir, "s_" + filesystem));  // 썸네일의 이름은 s_로 시작함
 						
 					}
@@ -219,12 +215,13 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 								.prodNo(product.getProdNo())
 								.filesystem(summernoteImage)
 								.build();
+						System.out.println(prodImageDTO);
 						shopAdminMapper.insertProdImage(prodImageDTO);
 					}
 				}
 				
 				out.println("alert('삽입 성공');");
-				out.println("location.href='" + multipartRequest.getContextPath() + "/shopAdmin/prodManage';");
+				out.println("location.href='/shopAdmin/prodManage';");
 			} else {
 				out.println("alert('삽입 실패');");
 				out.println("history.back();");

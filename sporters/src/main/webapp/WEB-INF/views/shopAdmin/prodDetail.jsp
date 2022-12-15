@@ -29,7 +29,7 @@
 				</tr>
 				<tr>
 					<td>대표사진(썸네일)</td>
-					<td><img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="200px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}"></td>
+					<td><img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="500px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}"></td>
 				</tr>
 				<tr>
 					<td>카테고리</td>
@@ -49,6 +49,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			${product.prodContent}
+		</div>
 	</div>
 </body>
 </html>
