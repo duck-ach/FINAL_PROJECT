@@ -54,9 +54,13 @@
 		 WHERE PROD_NO = #{prodNo}
 	</select>
 	
+	<select id="selectProdImageList" parameterType="int" resultType="ProdImageDTO">
+		SELECT PROD_NO, FILESYSTEM
+		  FROM PROD_DETAIL_IMAGE
+	</select>
 	
 	<!-- 상세보기(상품 상세이미지) -->
-	<select id="selectProdImageList" parameterType="int" resultType="ProdImageDTO">
+	<select id="selectProdImageListByNo" parameterType="int" resultType="ProdImageDTO">
 		SELECT PROD_NO, FILESYSTEM
 		  FROM PROD_DETAIL_IMAGE
 		 WHERE PROD_NO = #{prodNo}

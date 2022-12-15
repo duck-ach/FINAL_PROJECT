@@ -15,10 +15,13 @@ public interface ShopAdminMapper {
 	public int selectProdListCount();
 	public List<ProductDTO> selectProdListAllByPage(Map<String, Object> map);
 	
+	// 상품이미지 조회하기
+	public List<ProdImageDTO> selectProdImageList();
+	public List<ProdImageDTO> selectProdImageListByNo(int prodNo);
+	
 	// 상품상세보기
 	public ProductDTO selectProdByNo(int prodNo);
 	public ProductDTO selectProdByNoThumbnail(int prodNo);
-	public List<ProdImageDTO> selectProdImageList(int prodNo);
 	public int deleteProdImage(String filesystem);
 	
 	// 상품등록하기
