@@ -48,11 +48,16 @@ public class BoardController {
 	
 
 	@ResponseBody // ajax
-	@PostMapping(value="/gallery/uploadImage", produces = "application/json")
+	@PostMapping(value="/free/uploadImage", produces = "application/json")
 	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest){
 		return galleryService.saveSummernoteImage(multipartRequest);
 	}
-		
+	
+	
+	
+	
+	
+	
 	/*
 	@GetMapping("/free/increase/hit")
 	public String increaseHit(@RequestParam(value="galleryNo", required=false, defaultValue="0") int galleryNo) { // 꼭 필요하지만 혹시 안 올수 있으니까

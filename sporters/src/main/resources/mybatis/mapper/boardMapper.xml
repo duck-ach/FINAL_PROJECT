@@ -52,11 +52,11 @@
 	</insert>
 	
 	<!-- 이미지 삽입 -->
-	<insert id="insertSummernoteImage" parameterType="ImageDTO">
-		INSERT INTO IMAGE
+	<insert id="insertSummernoteImage" parameterType="FreeImageDTO">
+		INSERT INTO FREE_IMAGE
 			(IMAGE_NO,FREE_NO, FILESYSTEM)
 		VALUES
-			( IMAGE_SEQ.NEXTVAL, #{freeNo}, #{filesystem})						
+			( IMAGE_SEQ.NEXTVAL, FREE_SEQ.CURRVAL, #{filesystem})						
 	</insert>
 
 

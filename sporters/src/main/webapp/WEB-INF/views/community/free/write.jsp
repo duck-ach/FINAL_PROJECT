@@ -24,58 +24,48 @@ function getContextPath() {
 
 $(document).ready(function(){
 	
-	//console.log(getContextPath());// 로그용 호출
-	
 	// summernote
 	$('#content').summernote({
 		width: 800,
 		height: 400,
-		lang : 'ko_KR',
-		toolbar: [
-		    // [groupName, [list of button]]
-		    ['style', ['bold', 'italic', 'underline', 'clear']],
-		    ['font', ['strikethrough', 'superscript', 'subscript']],
-		    ['fontsize', ['fontsize']],
-		    ['color', ['color']],
-		    ['para', ['ul', 'ol', 'paragraph']],
-		    ['insert', ['link', 'picture', 'video']],
-		    ['height', ['height']]
-		  ],
-		  callbacks: {
-			  
-			  // summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨
-			  onImageUpload: function(files){
-				  // 이미지 ajax를 이용해서 서버로 보낼때 가상 form 데이터 사용
-				  var formData = new FormData();
-				  formData.append('file', files[0]); // 파라미터 file, summernote 편집기에 추가
-
-				  // 이미지를 hdd에 저장하고 경로를 받아오는 ajax
-				  $.ajax({
-					  type: 'post',
-					  url: '/free/uploadImage',
-					  data : formData,
-					  contentType: false,
-					  processData: false,
-					  dataType : 'json',
-					  success: function(resData){
-						  $('#content').summernote('insertImage', resData.src);
-						  
-						  /*
-						  	src =${contextPath}/load/image/aaa.jpg 값이 넘어온 경우
-						  	summernote는
-						  	<img src="${contextPath}/load/image/aaa.jpg"> 태그를 만든다.
-						  	
-						  	스프링에서 정적 자원 표시하는 방법은 servlet-context.xml에 있다
-						  	
-						  	mapping=${contextPath}/load/image/aaa.jpg 인 파일의
-						  	location=C:\\upload\\aaa.jpg이다.
-						  	이미지의 매핑과 로케이션을 서블릿 콘택스트에 저장해야ㅎ한다
-						  */
-					  }
+		lang: 'ko-KR',
+		toolbar:[
+			['style', ['style']],
+			['font', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			['fontname', ['fontname']],
+		 	['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['table', ['table']],
+			['insert', ['link', 'picture', 'video']],
+			['view', ['fullscreen', 'codeview', 'help']],
+		],
+		callbacks: {
+			spellCheck: true,
+			// summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨 
+			onImageUpload: function(files){
+				// 동시에 여러 이미지를 올릴 수 있음
+				for(let i = 0; i < files.length; i++) {
+					// 이미지를 ajax를 이용해서 서버로 보낼 때 가상 form 데이터 사용 
+					var formData = new FormData();
+					formData.append('file', files[i]);  // 파라미터 file, summernote 편집기에 추가된 이미지가 files[i]임
+					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
+					$.ajax({
+						type: 'post',
+						url: '/free/uploadImage',
+						data: formData,
+						contentType: false,  // ajax 이미지 첨부용
+						processData: false,  // ajax 이미지 첨부용
+						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
+						success: function(resData){
+							console.log(resData);
+							$('#content').summernote('insertImage', resData.src);
+							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
+						}
 					});  // ajax
-				}  // onImageUpload
-			}  // callbacks
-		});
+				}  // for
+			}  // onImageUpload
+		}  // callbacks
+	});
 		
 	
 	// 목록
@@ -113,6 +103,10 @@ $(document).ready(function(){
 				<div style="margin-top: 20px">
 					<textarea name="content" id="content"></textarea>
 				</div>
+				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
+				<div id="summernote_image_list"></div>
+
+
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>
 					<input class="btn" type="reset" value="제목초기화">

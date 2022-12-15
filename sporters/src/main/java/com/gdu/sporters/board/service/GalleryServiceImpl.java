@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.sporters.board.domain.FreeDTO;
-import com.gdu.sporters.board.domain.ImageDTO;
+import com.gdu.sporters.board.domain.FreeImageDTO;
 import com.gdu.sporters.board.mapper.BoardMapper;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.GalleryPageUtil;
@@ -67,8 +67,8 @@ public class GalleryServiceImpl implements GalleryService {
 	@Transactional
 	@Override
 	public void saveGallery(HttpServletRequest request, HttpServletResponse response) {
-		String fileName = request.getParameter("fileName");
-		System.out.println(fileName);
+		String filesystem = request.getParameter("filesystem");
+		System.out.println(filesystem);
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
@@ -91,27 +91,29 @@ public class GalleryServiceImpl implements GalleryService {
 		// DB에 Gallery 저장
 		int result = boardMapper.insertFree(freeBbs);
 		
-
+		
 		// 응답
 		try {
 
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-
+			System.out.println("result="+result);
 			out.println("<script>");
 			if (result > 0) {
 
 				// 파라미터 summernoteImageNames
 				String[] summernoteImageNames = request.getParameterValues("summernoteImageNames");
-				System.out.println("summernoteImageNames = "+summernoteImageNames);
+				
 				// DB에 SummernoteImage 저장
 				if (summernoteImageNames != null) {
-					for (String filesystem : summernoteImageNames) {
-						ImageDTO summernoteImage = ImageDTO.builder()
-								.freeNo(freeBbs.getFreeNo())
-								.fileName(fileName)						
+					System.out.println("summernoteImageNames="+summernoteImageNames);
+					for (String summernoteImage : summernoteImageNames) {
+						FreeImageDTO summernote = FreeImageDTO.builder()
+								.filesystem(summernoteImage)
+								.freeNo(freeBbs.getFreeNo())												
 								.build();
-						boardMapper.insertSummernoteImage(summernoteImage);
+						boardMapper.insertSummernoteImage(summernote);
+						System.out.println("summernote="+summernote);
 					}
 				}
 				
@@ -167,7 +169,8 @@ public class GalleryServiceImpl implements GalleryService {
 	*/
 		// 저장된 파일을 확인할 수 있는 매핑을 반환
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("src", multipartRequest.getContextPath() + "/load/image/" + filesystem);
+		map.put("src", "/load/image/" + filesystem);
+		map.put("filesystem", filesystem);
 		return map;
 
 		// 저장된 파일이 aaa.jpg라고 가정하면
@@ -182,13 +185,13 @@ public class GalleryServiceImpl implements GalleryService {
 		FreeDTO gallery = boardMapper.selectGalleryByNo(galleryNo);
 
 		// 갤러리에서 사용한 것으로 되어 있는 써머노트 이미지(저장된 파일명이 DB에 저장되어 있고, 실제로 HDD에도 저장되어 있음)
-		List<ImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(galleryNo);
+		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(galleryNo);
 
 		// 갤러리에서 사용한 것으로 저장되어 있으나 갤러리 내용(content)에는 없는 써머노트 이미지를 찾아서 제거
 		if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
-			for (ImageDTO summernoteImage : summernoteImageList) {
-				if (gallery.getContent().contains(summernoteImage.getFileName()) == false) {
-					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFileName());
+			for (FreeImageDTO summernoteImage : summernoteImageList) {
+				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
+					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
 					if (file.exists()) {
 						file.delete();
 					}
