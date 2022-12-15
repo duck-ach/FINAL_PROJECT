@@ -69,16 +69,16 @@
 	
 	<!-- 아이디 중복체크 -->
 	<select id="selectRetireUsersById" parameterType="String" resultType="RetireUsersDTO">
-		SELECT ID
+		SELECT RETIRE_USER_ID
 		  FROM RETIRE_USERS
-		 WHERE ID = #{id}
+		 WHERE RETIRE_USER_ID = #{id}
 	</select>
 	
 	<!-- 로그인 시에 휴면회원 확인 -->
 	<select id="selectSleepUserById" parameterType="String" resultType="SleepUsersDTO">
-		SELECT ID, JOIN_DATE, LAST_LOGIN_DATE, SLEEP_DATE
+		SELECT SLEEP_USER_ID, JOIN_DATE, LAST_LOGIN_DATE, SLEEP_DATE
 		  FROM SLEEP_USERS
-		 WHERE ID = #{id}
+		 WHERE SLEEP_USER_ID = #{id}
 	</select>
 	
 	<!-- 회원가입 -->
@@ -89,8 +89,13 @@
 			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, #{snsType}, SYSDATE, SYSDATE, SYSDATE, NULL, NULL, #{BannedState);
 	</insert>
 	
-	
-	
+	<!-- 네아로가입 -->
+	<insert id="insertNaverUser" parameterType="UsersDTO">
+		INSERT INTO USERS
+			(USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
+		VALUES
+			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, #{snsType}, SYSDATE, SYSDATE, SYSDATE, NULL, NULL, #{BannedState);
+	</insert>
 	
 	
 	

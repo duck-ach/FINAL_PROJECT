@@ -17,7 +17,7 @@ public interface UsersMapper {
 	public int updateAccessLog(String id);
 	public int insertAccessLog(String id);
 	public int updateSessionInfo(UsersDTO user);
-	
-		
+	public int insertUser(UsersDTO user);
+	public int insertNaverUser(UsersDTO user);
 
 }

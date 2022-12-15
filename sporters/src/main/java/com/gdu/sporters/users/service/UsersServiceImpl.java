@@ -1,24 +1,45 @@
 package com.gdu.sporters.users.service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.sporters.users.domain.SleepUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.users.mapper.UsersMapper;
 import com.gdu.sporters.util.SecurityUtil;
+
+import netscape.javascript.JSObject;
 
 
 @PropertySource(value = {"classpath:email.properties"})
@@ -36,7 +57,6 @@ public class UsersServiceImpl implements UsersService {
 	
 	@Autowired
 	private SecurityUtil securityUtil;
-	
 
 	
 // 아이디 중복 확인
@@ -60,6 +80,126 @@ public class UsersServiceImpl implements UsersService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
 		return result;
+	}
+	
+	
+// 인증코드
+	@Override
+	public Map<String, Object> sendAuthCode(String email) {
+		String authCode = securityUtil.getAuthCode(6);
+		System.out.println("발송된 인증코드 : " + authCode);
+		
+		Properties properties = new Properties();
+		properties.put("mail.smtp.host", "smtp.gmail.com");			// 구글 메일로 보냄 (보내는 메일은 구글메일만 가능)
+		properties.put("mail.smtp.port", "587");					// 구글 메일로 보내는 포트 번호
+		properties.put("mail.smtp.auth", "true");					// 인증된 메일
+		properties.put("mail.smtp.starttls.enable","true");			// TLS 허용
+		
+		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+		
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress());
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			message.setSubject("[SPORTERS] 인증 요청 메일입니다.");
+			message.setContent("인증번호는 <strong>" + authCode + "</strong>입니다.", "text/html; charset=UTF-8");
+			Transport.send(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("authCode", authCode);
+		return result;
+	}
+	
+	@Transactional
+	@Override
+	public void join(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		String nickname = request.getParameter("nickname");
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
+		String email = request.getParameter("email");
+		String mobile = request.getParameter("mobile");
+		String birthyear = request.getParameter("birthyear");
+		String birthmonth = request.getParameter("bitrhmonth");
+		String birthday = request.getParameter("birthday");
+		String postcode = request.getParameter("postcode");
+		String roadAddress = request.getParameter("roadAddress");
+		String jibunAddress = request.getParameter("jibunAddress");
+		String detailAddress = request.getParameter("detailAddress");
+		String location = request.getParameter("location");
+		String marketing = request.getParameter("marketing");
+		
+		pw = securityUtil.sha256(pw);
+		name = securityUtil.preventXSS(name);
+		//String birth = birthmonth + birthday;
+		detailAddress = securityUtil.preventXSS(detailAddress);
+		int agreeCode = 0;
+		if(!location.isEmpty() && marketing.isEmpty()) {
+			agreeCode = 1;
+		} else if(location.isEmpty() && !marketing.isEmpty()) {
+			agreeCode = 2;
+		} else if(!location.isEmpty() && !marketing.isEmpty()) {
+			agreeCode = 3;
+		}
+		
+		// DB로 보낼 UsersDTO
+		UsersDTO user = UsersDTO.builder()
+				.id(id)
+				.nickName(nickname)
+				.pw(pw)
+				.name(name)
+				.gender(gender)
+				.email(email)
+				.mobile(mobile)
+				.birthyear(birthyear)
+				.birthmonth(birthmonth)
+				.birthday(birthday)
+				.postcode(postcode)
+				.roadAddress(roadAddress)
+				.jibunAddress(jibunAddress)
+				.detailAddress(detailAddress)
+				.agreeCode(agreeCode)
+				.build();
+		int result = usersMapper.insertUser(user);
+		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			if(result > 0) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", id);
+				
+				// 세션에 로그인 정보 올리기
+				request.getSession().setAttribute("loginUser", usersMapper.selectUsersByMap(map));
+				
+				// 로그인 기록 남기기
+				int updateResult = usersMapper.updateAccessLog(id);
+				if(updateResult == 0) {
+					usersMapper.insertAccessLog(id);
+				}
+				out.println("<script>");
+				out.println("alert('회원 가입되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('회원 가입에 실패했습니다.');");
+				out.println("history.go(-2);");
+				out.println("</script>");
+			}
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -171,8 +311,278 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.selectSleepUserById(id);
 	}
 	
+
+// 네아로
+	@Override
+	public String getNaverLoginApiURL(HttpServletRequest request) {
+	    
+		String apiURL = null;
+		
+		try {
+			
+			String clientId = "P3C81C5rIvVV7o7PVo3u";
+			String redirectURI = URLEncoder.encode("http://localhost:9090" + request.getContextPath() + "/users/naver/login", "UTF-8");  // 네이버 로그인 Callback URL에 작성한 주소 입력 
+			SecureRandom random = new SecureRandom();
+			String state = new BigInteger(130, random).toString();
+			
+			apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+			apiURL += "&client_id=" + clientId;
+			apiURL += "&redirect_uri=" + redirectURI;
+			apiURL += "&state=" + state;
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("state", state);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return apiURL;	
+	}
 	
 	
+	@Override
+	public String getNaverLoginToken(HttpServletRequest request) {
+		
+		// access_token 받기
+		
+		String clientId = "P3C81C5rIvVV7o7PVo3u";
+		String clientSecret = "GUFW88pu4f";
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		
+		String redirectURI = null;
+		try {
+			redirectURI = URLEncoder.encode("http://localhost:9090" + request.getContextPath(), "UTF-8");
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		StringBuffer res = new StringBuffer();  // StringBuffer는 StringBuilder과 동일한 역할 수행
+		try {
+			
+			String apiURL;
+			apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+			apiURL += "client_id=" + clientId;
+			apiURL += "&client_secret=" + clientSecret;
+			apiURL += "&redirect_uri=" + redirectURI;
+			apiURL += "&code=" + code;
+			apiURL += "&state=" + state;
+			
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if(responseCode == 200) {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			while ((inputLine = br.readLine()) != null) {
+				res.append(inputLine);
+			}
+			br.close();
+			con.disconnect();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		JSONObject obj = new JSONObject(res.toString());
+		String access_token = obj.getString("access_token");
+		return access_token;
+	}
 	
+	
+	@Override
+	public UsersDTO getNaverLoginProfile(String access_token) {
+		
+		// access_token을 이용해서 profile 받기
+		String header = "Bearer " + access_token;
+		
+		StringBuffer sb = new StringBuffer();
+		
+		try {
+			
+			String apiURL = "https://openapi.naver.com/v1/nid/me";
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", header);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if(responseCode == 200) {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			while ((inputLine = br.readLine()) != null) {
+				sb.append(inputLine);
+			}
+			br.close();
+			con.disconnect();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 받아온 profile을 UserDTO로 만들어서 반환
+		UsersDTO user = null;
+		try {
+			
+			JSONObject profile = new JSONObject(sb.toString()).getJSONObject("response");
+			String id = profile.getString("id");
+			String name = profile.getString("name");
+			String gender = profile.getString("gender");
+			String email = profile.getString("email");
+			String mobile = profile.getString("mobile").replaceAll("-", "");
+			String birthyear = profile.getString("birthyear");
+			
+			// 네이버 프로필은 month-day로 연결되어 있기 때문에 split으로 분리해줌
+			String str = profile.getString("birthday");
+			String[] array = str.split("-");
+			String birthmonth = array[0];
+			String birthday = array[1];
+			
+			user = UsersDTO.builder()
+					.id(id)
+					.name(name)
+					.gender(gender)
+					.email(email)
+					.mobile(mobile)
+					.birthyear(birthyear)
+					.birthmonth(birthmonth)
+					.birthday(birthday)
+					.build();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		return user;
+	}
+	
+	
+	@Override
+	public UsersDTO getNaverUserById(String id) {
+		
+		// 조회 조건으로 사용할 Map
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		
+		return usersMapper.selectUsersByMap(map);
+	}
+	
+	
+	@Transactional
+	@Override
+	public void naverLogin(HttpServletRequest request, UsersDTO naverUser) {
+		
+		// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
+		request.getSession().setAttribute("loginUser", naverUser);
+		
+		// 로그인 기록 남기기
+		String id = naverUser.getId();
+		int updateResult = usersMapper.updateAccessLog(id);
+		if(updateResult == 0) {
+			usersMapper.insertAccessLog(id);
+		}
+		
+	}
+	
+	
+	@Override
+	public void naverJoin(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String id = request.getParameter("id");
+		String nickname = request.getParameter("nickname");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
+		String mobile = request.getParameter("mobile");
+		String birthyear = request.getParameter("birthyear");
+		String birthmonth = request.getParameter("birthmonth");
+		String birthday = request.getParameter("birthday");
+		String email = request.getParameter("email");
+		String location = request.getParameter("location");
+		String promotion = request.getParameter("promotion");
+		
+		// 일부 파라미터는 DB에 넣을 수 있도록 가공
+		name = securityUtil.preventXSS(name);
+		String birth = birthmonth + birthday;
+		String pw = securityUtil.sha256(birthyear + birth);  // 생년월일을 초기비번 8자리로 제공하기로 함
+		
+		int agreeCode = 0;  // 필수 동의
+		if(location != null && promotion == null) {
+			agreeCode = 1;  // 필수 + 위치
+		} else if(location == null && promotion != null) {
+			agreeCode = 2;  // 필수 + 프로모션
+		} else if(location != null && promotion != null) {
+			agreeCode = 3;  // 필수 + 위치 + 프로모션
+		}
+		
+		// DB로 보낼 UserDTO 만들기
+		UsersDTO user = UsersDTO.builder()
+				.id(id)
+				.nickName(nickname)
+				.pw(pw)
+				.name(name)
+				.gender(gender)
+				.email(email)
+				.mobile(mobile)
+				.birthyear(birthyear)
+				.birthmonth(birthmonth)
+				.birthday(birthday)
+				.agreeCode(agreeCode)
+				.snsType("naver")  // 네이버로그인으로 가입하면 naver를 저장해 두기로 함
+				.build();
+				
+		// 회원가입처리
+		int result = usersMapper.insertNaverUser(user);
+		
+		// 응답
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				
+				// 조회 조건으로 사용할 Map
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", id);
+				
+				// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
+				request.getSession().setAttribute("loginUser", usersMapper.selectUsersByMap(map));
+				
+				// 로그인 기록 남기기
+				int updateResult = usersMapper.updateAccessLog(id);
+				if(updateResult == 0) {
+					usersMapper.insertAccessLog(id);
+				}
+				
+				out.println("<script>");
+				out.println("alert('회원 가입되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("</script>");
+				
+			} else {
+				
+				out.println("<script>");
+				out.println("alert('회원 가입에 실패했습니다.');");
+				out.println("history.go(-2);");
+				out.println("</script>");
+				
+			}
+			
+			out.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }
