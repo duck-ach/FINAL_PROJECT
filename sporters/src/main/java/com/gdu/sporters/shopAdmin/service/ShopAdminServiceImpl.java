@@ -98,7 +98,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 		// 저장된 파일을 확인할 수 있는 매핑을 반납
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("src", multipartRequest.getContextPath() + "/admin/prodImage");
+		map.put("src", "/load/image/" + filesystem);
 		map.put("filesystem", filesystem);
 		
 		return map;
@@ -164,7 +164,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 					
 						// 썸네일을 서버에 저장
 						Thumbnails.of(file)
-							.size(50, 50)
+							.size(500, 500)
 							.toFile(new File(dir, "s_" + filesystem));  // 썸네일의 이름은 s_로 시작함
 						
 					}
@@ -215,12 +215,13 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 								.prodNo(product.getProdNo())
 								.filesystem(summernoteImage)
 								.build();
+						System.out.println(prodImageDTO);
 						shopAdminMapper.insertProdImage(prodImageDTO);
 					}
 				}
 				
 				out.println("alert('삽입 성공');");
-				out.println("location.href='" + multipartRequest.getContextPath() + "/admin/prodManage';");
+				out.println("location.href='/shopAdmin/prodManage';");
 			} else {
 				out.println("alert('삽입 실패');");
 				out.println("history.back();");
@@ -237,8 +238,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 	@Override
 	public ResponseEntity<byte[]> display(int prodNo) {
 		
-		ProductDTO product = shopAdminMapper.selectProdByNo(prodNo);
-		System.out.println(product);
+		ProductDTO product = shopAdminMapper.selectProdByNoThumbnail(prodNo);
 		File file = new File(product.getPath(), product.getFilesystem());
 
 		ResponseEntity<byte[]> result = null;
@@ -260,6 +260,30 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 	}
 	
+	// 상품 상세보기
+	@Override
+	public ProductDTO getProdByNo(int prodNo) {
+
+		// 써머노트 이미지
+		List<ProdImageDTO> imageList = shopAdminMapper.selectProdImageList(prodNo);
+		
+		ProductDTO product = shopAdminMapper.selectProdByNo(prodNo);
+		
+		// 블로그에서 사용한 것으로 저장되어 있으나 블로그 내용(content)에는 없는 써머노트 이미지를 찾아서 제거
+		if(imageList != null && imageList.isEmpty() == false) {
+			for(ProdImageDTO prodImage : imageList) {
+				if(product.getProdContent().contains(prodImage.getFilesystem()) == false) {
+					File file = new File(myFileUtil.getSummernotePath(), prodImage.getFilesystem());
+					if(file.exists()) {
+						file.delete();  // HDD에 저장된 파일 지우기
+					}
+					shopAdminMapper.deleteProdImage(prodImage.getFilesystem()); // DB에 목록에서 지우기
+				}
+			}
+		}
+		
+		return shopAdminMapper.selectProdByNo(prodNo);
+	}
 	
 	
 }

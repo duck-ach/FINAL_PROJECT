@@ -10,8 +10,9 @@
 <hr>
 
 <ul>
-	<li><a href="${contextPath}/admin/prodManage">상품관리</a></li>
-	<li><a href="${contextPath}/admin/orderManage">주문관리</a></li>
+	<li><a href="/shopAdmin/prodWrite">상품등록</a></li>
+	<li><a href="/shopAdmin/prodManage">상품관리</a></li>
+	<li><a href="/shopAdmin/orderManage">주문관리</a></li>
 </ul>
 </body>
 </html>
