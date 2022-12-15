@@ -38,13 +38,39 @@
 		 WHERE A.RN BETWEEN #{begin} AND #{end}
 	</select>
 	
-	<!-- 상품 상세보기 -->
-	<select id="selectProdByNo" parameterType="int" resultType="ProductDTO">
+	<!-- 상품 상세보기 (상세보기 정보용)-->
+	<select id="selectProdByNo" parameterType="int" resultMap="ProductMap">
 		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, C.PROD_CATEGORY_NAME, P.PATH, P.PROD_THUMBNAIL
 		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
 		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
 		 WHERE PROD_NO = #{prodNo}
 	</select>
+	
+	<!-- 상품 상세보기 (상세보기 Thumbnail용)-->
+	<select id="selectProdByNoThumbnail" parameterType="int" resultType="ProductDTO">
+		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, C.PROD_CATEGORY_NAME, P.PATH, P.PROD_THUMBNAIL
+		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
+		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
+		 WHERE PROD_NO = #{prodNo}
+	</select>
+	
+	<select id="selectProdImageList" parameterType="int" resultType="ProdImageDTO">
+		SELECT PROD_NO, FILESYSTEM
+		  FROM PROD_DETAIL_IMAGE
+	</select>
+	
+	<!-- 상세보기(상품 상세이미지) -->
+	<select id="selectProdImageListByNo" parameterType="int" resultType="ProdImageDTO">
+		SELECT PROD_NO, FILESYSTEM
+		  FROM PROD_DETAIL_IMAGE
+		 WHERE PROD_NO = #{prodNo}
+	</select>
+	
+	<delete id="deleteProdImage" parameterType="String">
+		DELETE
+		  FROM PROD_DETAIL_IMAGE
+		 WHERE FILESYSTEM = #{filesystem}
+	</delete>
 	
 	<!-- 상품이미지 등록하기 -->
 	<insert id="insertProdImage" parameterType="ProdImageDTO">
@@ -65,4 +91,5 @@
 		VALUES
 			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, #{filesystem}, #{path}, #{prodThumbnail})
 	</insert>
+	
 </mapper>

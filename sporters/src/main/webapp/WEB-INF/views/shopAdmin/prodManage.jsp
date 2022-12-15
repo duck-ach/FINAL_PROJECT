@@ -16,7 +16,7 @@
 	<h1>상품관리</h1>
 	<div>
 		<span>상품목록 (전체 ${totalRecord}개)</span>
-		<a href="${contextPath}/admin/prodWrite">상품등록</a>
+		<a href="/shopAdmin/prodWrite">상품등록</a>
 	</div>
 	<hr>
 	<table>
@@ -38,10 +38,10 @@
 					<td>${beginNo - vs.index}</td>
 					<td>${prod.prodNo}</td>
 					<td>
-						<img src="${contextPath}/admin/prod/display?prodNo=${prod.prodNo}" width="50px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
+						<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
 					</td>
 					<td>${prod.prodCategory.prodCategoryName}</td>
-					<td>${prod.prodName}</td>
+					<td><a href="/shopAdmin/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>
 					<td>${prod.price}</td>
 					<td>${prod.discount}</td>
 					<td>${prod.stock}</td>
