@@ -11,7 +11,7 @@
 	FROM USERS
 </select>
 
-<select id="selectAllUser" resultType="UsersDTO">
+<select id="selectAllUsers" resultType="UsersDTO">
 	SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
 	FROM USERS
 	ORDER BY USER_NO
@@ -22,5 +22,12 @@
 	FROM USERS
 	WHERE ${column} LIKE '%' || #{searchText} || '%'
 </select>
+
+<insert id="insertRetireUsers" parameterType="Map">
+	INSERT INTO RETIRE_USERS
+	(RETIRE_USER_NO, RETIRE_USER_ID, RETIRE_USER_NICKNAME, RETIRE_JOIN_DATE, RETIRE_DATE)
+	VALUES
+	(#{userNo}, #{id}, #{nickname}, #{joinDate}, SYSDATE)
+</insert>
 	
 </mapper>

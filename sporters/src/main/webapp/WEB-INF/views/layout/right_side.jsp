@@ -44,23 +44,25 @@
 
 <nav class="right_side_menu_area">
 		<div class="weather_area">
-			<script type="text/javascript">
-				$(function(){
-					$.ajax({
-						url:'https://api.openweathermap.org/data/2.5/weather?lat='+${latitude}+'&lon='+${longitude} +'&appid=17f7777f4c3c5d6b66df232b3ee2ffc8',
-						dataType:'json',
-						success:function(resData){
-							console.log(resData);
-// 							var div ="<div>";
-// 							div += "온도 : "+(resData.main.temp -273.15) + "</div>";
+		<div id="openweathermap-widget-12"></div>
+<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 12,cityid: '1835848',appid: '17f7777f4c3c5d6b66df232b3ee2ffc8',units: 'metric',containerid: 'openweathermap-widget-12',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+<!-- 			<script type="text/javascript"> -->
+// 				$(function(){
+// 					$.ajax({
+// 						url:'https://api.openweathermap.org/data/2.5/weather?lat='+${latitude}+'&lon='+${longitude} +'&appid=17f7777f4c3c5d6b66df232b3ee2ffc8',
+// 						dataType:'json',
+// 						success:function(resData){
+// 							console.log(resData);
+// // 							var div ="<div>";
+// // 							div += "온도 : "+(resData.main.temp -273.15) + "</div>";
 							
-						}
-						error:function(){
+// 						}
+// 						error:function(){
 							
-						}
-					});
-				});
-			</script>
+// 						}
+// 					});
+// 				});
+<!-- 			</script> -->
 		</div>
 		
 		<div class="map_area">
