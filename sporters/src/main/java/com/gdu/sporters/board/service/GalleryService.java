@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.gdu.sporters.board.domain.FreeDTO;
+
 public interface GalleryService {
 	
 	public void getGalleryList(HttpServletRequest request, Model model);
 	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest);
 	public void saveGallery(HttpServletRequest request, HttpServletResponse response);
+	public FreeDTO getGalleryByNo(int galleryNo);
 	
 //	public int increaseGalleryHit(int galleryNo);
 //	public ImageDTO getGalleryByNo(int galleryNo);

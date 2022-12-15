@@ -54,7 +54,7 @@ function fn_getlist() {
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="${contextPath}/free/write">글쓰러가기</a>  </div>
+		<div><a href="/free/write">글쓰러가기</a>  </div>
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<form id="frm_search" method="post">
@@ -69,18 +69,13 @@ function fn_getlist() {
 				
 				<table border="1">
 					<thead>
-						<tr>							
-							<td>회원 아이디</td>
-							<td>회원 번호</td>
+						<tr>	
+										
+							<td>글 제목</td>	
+							<td>회원 아이디</td>						
 							<td>회원 이름</td>
-							<td>회원 성별</td>
-							<td>회원 이메일</td>
-							<td>회원 핸드폰번호</td>
-							<!--  
-							<td>회원 생년월일</td>
-							<td>회원 주소</td>
-							-->
-							<td>회원 가입일</td>						
+							<td>회원 성별</td>						
+							<td>회원 핸드폰번호</td>												
 							<td>회원 포인트</td>	
 						<!--  
 							<td>작성 글 수</td>
@@ -88,8 +83,17 @@ function fn_getlist() {
 						</tr>
 					</thead>
 					<tbody id="list">						
-						<c:forEach var="boardMap" items="${boardList}">
-						    <p><c:out value="${boardMap.title}" /></p>
+						<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
+							<tr>
+								<td>${beginNo - vs.index}</td>
+								<td><a id="moveDetail"
+									href="/gallery/increase/hit?galleryNo=${gallery.freeNo}">${gallery.title}</a></td>									
+								<td>${gallery.users.id}</td>
+								<td>${gallery.users.nickName}</td>
+								<td>${gallery.users.gender}</td>
+								<td>${gallery.createDate}</td>
+								<td>${gallery.hit}</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 					
