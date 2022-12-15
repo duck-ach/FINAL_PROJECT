@@ -36,17 +36,17 @@ $(document).ready(function(){
 				for(let i = 0; i < files.length; i++) {
 					// 이미지를 ajax를 이용해서 서버로 보낼 때 가상 form 데이터 사용 
 					var formData = new FormData();
-					formData.append('file', files[i]);  // 파라미터 file, summernote 편집기에 추가된 이미지가 files[i]임						
+					formData.append('file', files[i]);  // 파라미터 file, summernote 편집기에 추가된 이미지가 files[i]임
 					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
 					$.ajax({
-						type:'post',
+						type: 'post',
 						url: '/shopAdmin/prodImage',
 						data: formData,
 						contentType: false,  // ajax 이미지 첨부용
 						processData: false,  // ajax 이미지 첨부용
-						enctype : 'multipart/form-data',
 						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
 						success: function(resData){
+							console.log(resData);
 							$('#content').summernote('insertImage', resData.src);
 							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
 						}
