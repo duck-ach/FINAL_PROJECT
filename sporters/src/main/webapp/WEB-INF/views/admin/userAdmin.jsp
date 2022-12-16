@@ -9,13 +9,25 @@
 	$(document).ready(function(){
 		fn_getUserList();
 		fn_checkAll();
+		fn_checkOne();
 		
 	// 전체선택
 	function fn_checkAll(){
 		$('#check_all').click(function(){
 			$('.check_one').prop('checked', $('#check_all').prop('checked'));
 		});
-	}	
+		
+	// 개별 선택
+	}
+	function fn_checkOne(){
+		$('.check_one').click(function(){
+			var checkCount = 0;
+			for(let i = 0; i < $('.checkOne').length; i++){
+				checkCount += $($('.check_one')[i]).prop('checked');
+			}
+			$('#check_all').prop('checked', checkCount == $('.check_one').length);
+		});
+	}
 
 	// 유저리스트 불러오기
 	function fn_getUserList() {
@@ -84,14 +96,20 @@
 		})
 	})
 	
-	$('.btn_deleteUser').click(function(){
-		if(confirm('탈퇴가 처리되면 회원정보가 영구적으로 삭제됩니다. 계속하시겠습니까?') == false){
-			event.preventDefault();
-			return;
-		}else{
-			$("frm_user_list").attr("action", "/admin/remove").submit();
-		}
-	})
+	// 선택삭제
+	function fn_removeList(){
+		$('#frm_user_list').submit(function(event){
+			if(confirm('선택된 회원을 삭제합니다.') == false){
+				event.preventDefault();
+				return;
+			}
+			if($('.check_one:checked').length == 0){
+				alert('선택된 회원이 없습니다.');
+				event.preventDefault();
+				return;
+			}
+		});
+	}
 	});
 </script>
 <body>

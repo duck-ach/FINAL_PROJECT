@@ -1,21 +1,21 @@
 package com.gdu.sporters.admin.service;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.sporters.admin.mapper.AdminMapper;
 import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
-import com.gdu.sporters.users.mapper.UsersMapper;
 import com.gdu.sporters.util.SecurityUtil;
 
 @Service
@@ -57,16 +57,9 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
+	@Transactional
 	@Override
-	public void removeUser(int userNo, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> map= new HashMap<String, Object>();
-		List<UsersDTO> user = adminMapper.selectUsersByNo(userNo);
-		List<RetireUsersDTO> retireList = new ArrayList<>();
-		for(int i = 0; i < retireList.size(); i++) {
-			RetireUsersDTO retireUser = RetireUsersDTO.builder()
-					.retireUserId(retire);
-		}
-		
+	public Map<String, Object> removeUser() {
 		
 	}
 

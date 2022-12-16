@@ -3,11 +3,13 @@ package com.gdu.sporters.admin.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.sporters.admin.service.AdminService;
@@ -42,5 +44,20 @@ public class AdminController {
 	public Map<String, Object> getSearchUsers(HttpServletRequest request){
 		return adminService.searchUsersbyQuery(request);
 	}
+	
+	// 회원 탈퇴하기
+	@PostMapping("/admin/userAdmin/remove")
+	public void remove(HttpServletRequest request, HttpServletResponse response) {
+		adminService.removeUser(request, response);
+	}
+	
+	// 선택회원 탈퇴하기
+	@PostMapping("/admin/userAdmin/remove/list")
+	public void removeList(HttpServletRequest request, HttpServletResponse response) {
+		adminService.removeUserList(request, response);
+		System.out.println(request);
+		System.out.println(response);
+	}
+	
 
 }
