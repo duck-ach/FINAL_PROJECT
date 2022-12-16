@@ -1,4 +1,4 @@
-package com.gdu.sporters.shop.domain;
+package com.gdu.sporters.board.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CartListDTO {
-	private int cartNo;
-	private int prodNo;
-	private int prodCnt;
+public class LocalImageDTO {
+	private int imageNo;	
+	private int localBoardNo;
+	private String filesystem;
 }

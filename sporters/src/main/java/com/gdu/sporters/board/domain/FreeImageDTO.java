@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class ImageDTO {
+public class FreeImageDTO {
 	private int imageNo;	
 	private int boardNo;
 	private int spoReviewNo;
 	private int freeNo;
-	private String fileName;
+	private String filesystem;
 }
