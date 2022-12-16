@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,13 +54,19 @@ public class UsersController {
 		return usersService.isSameEmail(email);
 	}
 	
+	@ResponseBody
+	@GetMapping(value="/users/checkSameNickname", produces="application/json")
+	public Map<String, Object> checkSameNickname(String nickname){
+		return usersService.isSameNickname(nickname);
+	}
+	
 	@GetMapping("/users/agree/form")
 	public String agreeForm() {
 		return "users/agree";
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/users/sendAuthCode", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/users/sendAuthCode", produces="application/json")
 	public Map<String, Object> sendAuthCode(String email){
 		return usersService.sendAuthCode(email);
 	}
@@ -99,5 +104,19 @@ public class UsersController {
 	public void naverJoin(HttpServletRequest request, HttpServletResponse response) {
 		usersService.naverJoin(request, response);
 	}
+	
+	
+	@GetMapping("/users/sleep/display")
+	public String sleepDisplay() {
+		return "users/sleep";
+	}
+	
+	@PostMapping("/users/comeback")
+	public void comeback(HttpServletRequest request, HttpServletResponse response) {
+		usersService.comebackUser(request, response);
+	}
+	
+	
+	
 	
 }

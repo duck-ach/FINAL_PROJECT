@@ -19,5 +19,9 @@ public interface UsersMapper {
 	public int updateSessionInfo(UsersDTO user);
 	public int insertUser(UsersDTO user);
 	public int insertNaverUser(UsersDTO user);
+	public int insertSleepUser();
+	public int deleteUserForSleep();
+	public int insertComebackUser(int userNo);
+	public int deleteSleepUser(int userNo);
 
 }

@@ -61,18 +61,28 @@ public class UsersServiceImpl implements UsersService {
 	public Map<String, Object> isSameEmail(String email) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
-		System.out.println(result);
 		return result;
 	}
+	
+// 이메일 중복 확인
+	@Override
+	public Map<String, Object> isSameNickname(String nickname) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nickname", nickname);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
+		return result;
+	}	
 	
 	
 // 인증코드
 	@Override
 	public Map<String, Object> sendAuthCode(String email) {
-		
-		System.out.println("임플에 들어왔다.");
+
 		// 인증코드 만들기
 		String authCode = securityUtil.getAuthCode(6);  // String authCode = securityUtil.generateRandomString(6);
 		System.out.println("발송된 인증코드 : " + authCode);
@@ -164,7 +174,7 @@ public class UsersServiceImpl implements UsersService {
 				}
 				out.println("<script>");
 				out.println("alert('회원 가입되었습니다.');");
-				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("location.href='/';");
 				out.println("</script>");
 			} else {
 				out.println("<script>");
@@ -176,6 +186,13 @@ public class UsersServiceImpl implements UsersService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		/*
+		try {
+			response.sendRedirect("/");				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		*/
 	}
 	
 	
@@ -223,7 +240,7 @@ public class UsersServiceImpl implements UsersService {
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('일치하는 회원 정보가 없습니다.');");
-				out.println("locaion.href='" + request.getContextPath() + "';");
+				out.println("location.href='/'");
 				out.println("</script>");
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -243,7 +260,8 @@ public class UsersServiceImpl implements UsersService {
 			String sessionId = request.getSession().getId();
 			Cookie cookie = new Cookie("keppLogin", sessionId);
 			cookie.setMaxAge(60 * 60 * 24 * 14);	// 로그인 유지기간 14일
-			cookie.setPath(request.getContextPath());
+			cookie.setPath("/");
+			//cookie.setPath(request.getContextPath());
 			response.addCookie(cookie);
 			
 			UsersDTO users = UsersDTO.builder()
@@ -560,5 +578,66 @@ public class UsersServiceImpl implements UsersService {
 		}
 		
 	}
+	
+	@Transactional
+	@Override
+	public void sleepUserHandle() {
+		int insertCount = usersMapper.insertSleepUser();
+		if(insertCount > 0) {
+			usersMapper.deleteUserForSleep();
+		}	
+	}
+	
+	
+	@Override
+	public void comebackUser(HttpServletRequest request, HttpServletResponse response) {
+		// 복구하는 사용자 아이디
+		HttpSession session = request.getSession();
+		SleepUsersDTO sleepUser = (SleepUsersDTO)session.getAttribute("sleepUser");
+		int userNo = sleepUser.getUserNo();
+		
+		// 복구
+		int insertCount = usersMapper.insertComebackUser(userNo);
+		int deleteCount = 0;
+		if(insertCount > 0 ) {
+			deleteCount = usersMapper.deleteSleepUser(userNo);
+		}
+		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(insertCount > 0 && deleteCount > 0) {
+				session.removeAttribute("sleepUser");
+				out.println("<script>");
+				out.println("alert('휴면 계정이 복구되었습니다. 휴면 계정 활성화를 위해 곧바로 로그인을 해 주세요.');");
+				// out.println("location.href='" + request.getContextPath() + "/user/login/form';");  // 로그인 후 referer에 의해 /user/restore로 되돌아오기 때문에 사용하지 말 것
+				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('휴면 계정이 복구되지 않았습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			out.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

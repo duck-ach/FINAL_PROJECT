@@ -10,6 +10,7 @@
 		fn_idCheck();
 		fn_pwCheck();
 		fn_pwCheckAgain();
+		fn_nicknameCheck();
 		fn_nameCheck();
 		fn_mobileCheck();
 		fn_birthyear();
@@ -22,7 +23,7 @@
 	var idPass = false;
 	var pwPass = false;
 	var rePwPass = false;
-	//var nicknamePass = false;ss
+	var nicknamePass = false;
 	var namePass = false;
 	var mobilePass = false;
 	var authCodePass = false;
@@ -90,6 +91,30 @@
 			}
 		});
 	}
+	
+	
+	function fn_nicknameCheck(){
+		$('#nickname').keyup(function(){
+			let nicknameValue = $(this).val();
+			
+			$.ajax({
+				type: 'get',
+				url: '/users/checkSameNickname',
+				data: 'nickname=' + nicknameValue,
+				dataType: 'json',
+				success: function(resData){
+					if(resData.isUser){
+						$('#msg_nickname').text('이미 사용중인 닉네임입니다.');
+						nicknamePass = false;
+					} else {	
+						$('#msg_nickname').text('사용 가능한 닉네임입니다.');
+						nicknamePass = true;
+					}
+				}
+			});
+		});
+	}
+	
 	
 	
 	function fn_nameCheck(){
@@ -330,7 +355,7 @@
 				<div>
 					<label for="nickname">닉네임 *</label>
 					<input type="text" name="nickname" id="nickname">
-					<span id="msg_re_pw"></span>
+					<span id="msg_nickname"></span>
 				</div>
 				<!-- 이름 -->
 				<div>
@@ -439,7 +464,7 @@
 				
 				<div>
 					<button>가입하기</button>
-					<input type="button" value="가입취소" onclick="location.href='${contextPath}'">
+					<input type="button" value="가입취소" onclick="location.href='/'">
 				</div>
 			</form>
 		</div>
