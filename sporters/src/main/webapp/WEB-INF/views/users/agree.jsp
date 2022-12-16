@@ -65,7 +65,7 @@
 		<div>
 			<span>약관 동의</span>
 			
-			<form id="frm_agree" action="${contextPath}/users/join/write">
+			<form id="frm_agree" action="/users/join/write">
 				<div>
 					<input type="checkbox" id="service" class="check_one blind">
 					<label for="sevice" class="label_one">이용약관 동의(필수)</label>

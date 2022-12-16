@@ -73,7 +73,7 @@
 				<a href="${contextPath}/users/findPw">비밀번호 찾기</a>
 			</div>
 			<div>
-				<a href="${contextPath}/users/agree">회원가입</a>
+				<a href="${contextPath}/users/agree/form">회원가입</a>
 			</div>
 			
 			<hr>

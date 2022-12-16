@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,13 +44,13 @@ public class UsersController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/users/checkSameId", produces="appliaction/json")
+	@GetMapping(value="/users/checkSameId", produces="application/json")
 	public Map<String, Object> checkSameId(String id){
 		return usersService.isSameId(id);
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/users/checkSameEmail", produces="applicaton/json")
+	@GetMapping(value="/users/checkSameEmail", produces="application/json")
 	public Map<String, Object> checkSameEmail(String email){
 		return usersService.isSameEmail(email);
 	}
@@ -60,7 +61,7 @@ public class UsersController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/users/sendAuthCode", produces="application/json")
+	@GetMapping(value="/users/sendAuthCode", produces=org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> sendAuthCode(String email){
 		return usersService.sendAuthCode(email);
 	}

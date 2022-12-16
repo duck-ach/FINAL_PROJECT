@@ -22,7 +22,7 @@
 	var idPass = false;
 	var pwPass = false;
 	var rePwPass = false;
-	var nicknamePass = false;
+	//var nicknamePass = false;ss
 	var namePass = false;
 	var mobilePass = false;
 	var authCodePass = false;
@@ -32,25 +32,25 @@
 	function fn_idCheck(){
 		$('#id').keyup(function(){
 			let idValue = $(this).val();
-			let regId = /^[0-9a-z][0-9a-z-_]{3,19}$/;
+			let regId = /^[0-9a-z][0-9a-z]{3,19}$/;
 			
 			if(regId.test(idValue) == false){
-				$('#msg_id').text('4~20자의 소문자, 숫자, 특수문자(-,_)를 조합해주세요');
+				$('#msg_id').text('4~20자의 소문자, 숫자를 조합해주세요');
 				idPass = false;
 				return;
 			}
 			
 			$.ajax({
 				type: 'get',
-				url: '${contextPath}/users/checkSameId',
+				url: '/users/checkSameId',
 				data: 'id=' + idValue,
 				dataType: 'json',
 				success: function(resData){
 					if(resData.isUser || resData.isRetireUser){
 						$('#msg_id').text('이미 사용중이거나 탈퇴한 아이디입니다.');
 						idPass = false;
-					} else {
-						$('#mag_id').text('사용 가능한 아이디입니다.');
+					} else {	
+						$('#msg_id').text('사용 가능한 아이디입니다.');
 						idPass = true;
 					}
 				}
@@ -67,8 +67,8 @@
             				+ /[a-z]/.test(pwValue)        // 소문자가 있으면 true, 없으면 false
             				+ /[A-Z]/.test(pwValue)        // 대문자가 있으면 true, 없으면 false
             				+ /[!@#$%^&*]/.test(pwValue);  // 특수문자8종이 있으면 true, 없으면 false 
-            if(regPw.text(pwValue) == false || validatePw < 3){
-            	$('#msg_pw').text('8~20자의 소문자, 대문자, 숫자, 특수문자(!@#$%^&*)를 3개 이상 조합해야 합니다.');
+            if(regPw.test(pwValue) == false || validatePw < 3){
+            	$('#msg_pw').text('6~20자의 소문자, 대문자, 숫자, 특수문자(!@#$%^&*)를 3개 이상 조합해야 합니다.');
 				pwPass = false;
             } else {
             	$('#msg_pw').text('사용 가능한 비밀번호입니다.');
@@ -85,7 +85,7 @@
 				$('#msg_re_pw').text('비밀번호를 확인하세요.');
 				rePwPass = false;
 			} else {
-				$('#msg_re_pw').text('');
+				$('#msg_re_pw').text('비밀번호가 일치합니다.');
 				rePwPass = true;
 			}
 		});
@@ -102,7 +102,7 @@
 	
 	function fn_mobileCheck(){
 		$('#mobile').keyup(function(){
-			let modileValue = $(this).val();
+			let mobileValue = $(this).val();
 			let regMobile = /^010[0-9]{7,8}$/;
 			if(regMobile.test(mobileValue) == false){
 				$('#msg_mobile').text('휴대전화를 확인하세요.');
@@ -173,13 +173,12 @@
 	function fn_emailCheck(){
 		$('#btn_getAuthCode').click(function(){
 			
-			// 인증코드를 입력할 수 있는 상태로 변경함
+			// 인증코드를 입력할 수 있는 상태로 변경함s
 			$('#authCode').prop('readonly', false);
 			
 			// resolve : 성공하면 수행할 function
 			// reject  : 실패하면 수행할 function
 			new Promise(function(resolve, reject) {
-		
 				// 정규식 
 				let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;
 				
@@ -192,16 +191,16 @@
 					authCodePass = false;
 					return;     // 아래 ajax 코드 진행을 막음
 				}
-				
 				// 이메일 중복 체크
 				$.ajax({
 					/* 요청 */
 					type: 'get',
-					url: '${contextPath}/users/checkSameEmail',
+					url: '/users/checkSameEmail',
 					data: 'email=' + $('#email').val(),
 					/* 응답 */
 					dataType: 'json',
 					success: function(resData){
+						alert('이메일 중복 체크 성공');
 						// 기존 회원 정보에 등록된 이메일이라면 실패 처리
 						if(resData.isUser){
 							reject(2);   // catch의 function으로 넘기는 인수 : 2(다른 회원이 사용중인 이메일이라서 등록이 불가능한 경우)
@@ -212,12 +211,12 @@
 				});  // ajax
 				
 			}).then(function(){
-				
+				console.log('인증번호 검사');
 				// 인증번호 보내는 ajax
 				$.ajax({
 					/* 요청 */
 					type: 'get',
-					url: '${contextPath}/users/sendAuthCode',
+					url: '/users/sendAuthCode',
 					data: 'email=' + $('#email').val(),
 					/* 응답 */
 					dataType: 'json',
@@ -305,7 +304,7 @@
 			
 			<hr>
 			
-			<form id="frm_join" action="${contextPath}/users/join" method="post">
+			<form id="frm_join" action="/users/join" method="post">
 				<!-- 약관 동의 여부 -->
 				<input type="hidden" name="location" value="${location}">
 				<input type="hidden" name="marketing" value="${marketing}">
@@ -336,7 +335,7 @@
 				<!-- 이름 -->
 				<div>
 					<label for="name">이름 *</label>
-					<input type="text" name="name" id="ㄴname">
+					<input type="text" name="name" id="name">
 				</div>
 				<!-- 성별 -->
 				<div>

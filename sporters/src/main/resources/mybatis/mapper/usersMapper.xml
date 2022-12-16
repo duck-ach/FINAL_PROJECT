@@ -11,8 +11,11 @@
 		SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
 		  FROM USERS
 		  <where>
+		  <if test="userNo != null">
+		  	USER_NO = #{userNo}
+		  </if>
 		  	<if test="id != null">
-		  		ID = #{id}
+		  		AND ID = #{id}
 		  	</if>
 		  	<if test="pw != null">
 		  		AND PW = #{pw}
@@ -24,10 +27,13 @@
 		  		AND SESSION_ID = #{sessionId}
 		  		AND SESSION_LIMIT_DATE > SYSDATE
 		  	</if>
+		  	<if test="nickname != null">
+		  		AND NICKNAME = #{nickname}
+		  	</if>
 		  </where>
 	</select>
 	
-	<select id="selectUsersById" parameterType="String" resultType="UsersDTO">
+<!-- 	<select id="selectUsersById" parameterType="String" resultType="UsersDTO">
 		SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
 		  FROM USERS
 		 WHERE ID = #{id}
@@ -44,19 +50,25 @@
 		SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
 		  FROM USERS
 		 WHERE EMAIL = #{email}
-	</select>
+	</select> -->
 	
 	<!-- 로그인 기록(ACCESS_LOG) 남기기 -->
-	<update id="updateAccessLog" parameterType="String">
+	<update id="updateAccessLog" parameterType="int">
 		UPDATE ACCESS_LOG
 		   SET LAST_LOGIN_DATE = SYSDATE
 		 WHERE USER_NO = #{userNo}
 	</update>
-	<insert id="insertAccessLog" parameterType="String">
+	<insert id="insertAccessLog" parameterType="int">
+	<!--  
+	<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+			SELECT USERS_SEQ.NEXTVAL
+			  FROM DUAL
+		</selectKey>
+	-->
 		INSERT INTO ACCESS_LOG
-			(ACCESS_LOG_NO, ID, LAST_LOGIN_DATE)
+			(ACCESS_LOG_NO, USER_NO, LAST_LOGIN_DATE)
 		VALUES
-			(ACCESS_LOG_SEQ.NEXTVAL, #{id}, SYSDATE)
+			(ACCESS_LOG_SEQ.NEXTVAL, #{userNo}, SYSDATE)
 	</insert>
 	
 	<!-- 로그인 유지를 위한 SESSION_ID/ SESSION_LIMIT_DATE 업데이트 -->
@@ -86,7 +98,7 @@
 		INSERT INTO USERS
 			(USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
 		VALUES
-			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, #{snsType}, SYSDATE, SYSDATE, SYSDATE, NULL, NULL, #{BannedState);
+			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, '0', SYSDATE, SYSDATE, SYSDATE, NULL, NULL, '0')
 	</insert>
 	
 	<!-- 네아로가입 -->
@@ -94,7 +106,7 @@
 		INSERT INTO USERS
 			(USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
 		VALUES
-			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, #{snsType}, SYSDATE, SYSDATE, SYSDATE, NULL, NULL, #{BannedState);
+			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, #{snsType}, SYSDATE, SYSDATE, SYSDATE, NULL, NULL, #{BannedState})
 	</insert>
 	
 	

@@ -12,16 +12,7 @@ import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,35 +20,29 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.sporters.users.domain.SleepUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.users.mapper.UsersMapper;
+import com.gdu.sporters.util.JavaMailUtil;
 import com.gdu.sporters.util.SecurityUtil;
 
-import netscape.javascript.JSObject;
 
-
-@PropertySource(value = {"classpath:email.properties"})
 @Service
 public class UsersServiceImpl implements UsersService {
-	
-	// 이메일을 보내는 사용자 정보
-	@Value(value = "${mail.username}")
-	private String username;
-	@Value(value = "${mail.password}")
-	private String password;
+
 	
 	@Autowired
 	private UsersMapper usersMapper;
 	
 	@Autowired
 	private SecurityUtil securityUtil;
-
+	
+	@Autowired
+	private JavaMailUtil javaMailUtil;
+	
 	
 // 아이디 중복 확인
 	@Override
@@ -67,7 +52,7 @@ public class UsersServiceImpl implements UsersService {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
-		result.put("isRetireUser", usersMapper.selectRetireUsersById(id) != null);
+		//result.put("isRetireUser", usersMapper.selectRetireUsersById(id) != null);
 		return result;
 	}
 	
@@ -76,9 +61,9 @@ public class UsersServiceImpl implements UsersService {
 	public Map<String, Object> isSameEmail(String email) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
+		System.out.println(result);
 		return result;
 	}
 	
@@ -86,38 +71,25 @@ public class UsersServiceImpl implements UsersService {
 // 인증코드
 	@Override
 	public Map<String, Object> sendAuthCode(String email) {
-		String authCode = securityUtil.getAuthCode(6);
+		
+		System.out.println("임플에 들어왔다.");
+		// 인증코드 만들기
+		String authCode = securityUtil.getAuthCode(6);  // String authCode = securityUtil.generateRandomString(6);
 		System.out.println("발송된 인증코드 : " + authCode);
 		
-		Properties properties = new Properties();
-		properties.put("mail.smtp.host", "smtp.gmail.com");			// 구글 메일로 보냄 (보내는 메일은 구글메일만 가능)
-		properties.put("mail.smtp.port", "587");					// 구글 메일로 보내는 포트 번호
-		properties.put("mail.smtp.auth", "true");					// 인증된 메일
-		properties.put("mail.smtp.starttls.enable","true");			// TLS 허용
+		// 메일 전송
+		javaMailUtil.sendJavaMail(email, "[SPORTERS] 인증요청", "인증번호는 <strong>" + authCode + "</strong>입니다.");
 		
-		Session session = Session.getInstance(properties, new Authenticator() {
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
-		
-		try {
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress());
-			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			message.setSubject("[SPORTERS] 인증 요청 메일입니다.");
-			message.setContent("인증번호는 <strong>" + authCode + "</strong>입니다.", "text/html; charset=UTF-8");
-			Transport.send(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		// join.jsp로 생성한 인증코드를 보내줘야 함
+		// 그래야 사용자가 입력한 인증코드와 비교를 할 수 있음
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("authCode", authCode);
 		return result;
+
 	}
 	
+	
+// 회원가입	
 	@Transactional
 	@Override
 	public void join(HttpServletRequest request, HttpServletResponse response) {
@@ -129,7 +101,7 @@ public class UsersServiceImpl implements UsersService {
 		String email = request.getParameter("email");
 		String mobile = request.getParameter("mobile");
 		String birthyear = request.getParameter("birthyear");
-		String birthmonth = request.getParameter("bitrhmonth");
+		String birthmonth = request.getParameter("birthmonth");
 		String birthday = request.getParameter("birthday");
 		String postcode = request.getParameter("postcode");
 		String roadAddress = request.getParameter("roadAddress");
@@ -154,7 +126,7 @@ public class UsersServiceImpl implements UsersService {
 		// DB로 보낼 UsersDTO
 		UsersDTO user = UsersDTO.builder()
 				.id(id)
-				.nickName(nickname)
+				.nickname(nickname)
 				.pw(pw)
 				.name(name)
 				.gender(gender)
@@ -169,22 +141,26 @@ public class UsersServiceImpl implements UsersService {
 				.detailAddress(detailAddress)
 				.agreeCode(agreeCode)
 				.build();
+		
 		int result = usersMapper.insertUser(user);
 		
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			if(result > 0) {
+				
+				
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("id", id);
+				map.put("id", user.getId());
+				UsersDTO loginUser = usersMapper.selectUsersByMap(map);
 				
 				// 세션에 로그인 정보 올리기
-				request.getSession().setAttribute("loginUser", usersMapper.selectUsersByMap(map));
+				request.getSession().setAttribute("loginUser", loginUser);
 				
 				// 로그인 기록 남기기
-				int updateResult = usersMapper.updateAccessLog(id);
+				int updateResult = usersMapper.updateAccessLog(loginUser.getUserNo());
 				if(updateResult == 0) {
-					usersMapper.insertAccessLog(id);
+					usersMapper.insertAccessLog(loginUser.getUserNo());
 				}
 				out.println("<script>");
 				out.println("alert('회원 가입되었습니다.');");
@@ -227,9 +203,9 @@ public class UsersServiceImpl implements UsersService {
 			request.getSession().setAttribute("loginUser", loginUser);
 			
 			// 로그인 기록 남기기
-			int updateResult = usersMapper.updateAccessLog(id);
+			int updateResult = usersMapper.updateAccessLog(loginUser.getUserNo());
 			if(updateResult == 0) {
-				usersMapper.updateAccessLog(id);
+				usersMapper.insertAccessLog(loginUser.getUserNo());
 			}
 			
 			// 로그인페이지 이전 페이지로
@@ -484,10 +460,10 @@ public class UsersServiceImpl implements UsersService {
 		request.getSession().setAttribute("loginUser", naverUser);
 		
 		// 로그인 기록 남기기
-		String id = naverUser.getId();
-		int updateResult = usersMapper.updateAccessLog(id);
+		int userNo = naverUser.getUserNo();
+		int updateResult = usersMapper.updateAccessLog(userNo);
 		if(updateResult == 0) {
-			usersMapper.insertAccessLog(id);
+			usersMapper.insertAccessLog(userNo);
 		}
 		
 	}
@@ -526,7 +502,7 @@ public class UsersServiceImpl implements UsersService {
 		// DB로 보낼 UserDTO 만들기
 		UsersDTO user = UsersDTO.builder()
 				.id(id)
-				.nickName(nickname)
+				.nickname(nickname)
 				.pw(pw)
 				.name(name)
 				.gender(gender)
@@ -552,15 +528,15 @@ public class UsersServiceImpl implements UsersService {
 				
 				// 조회 조건으로 사용할 Map
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("id", id);
+				map.put("userNo", user.getUserNo());
 				
 				// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
 				request.getSession().setAttribute("loginUser", usersMapper.selectUsersByMap(map));
 				
 				// 로그인 기록 남기기
-				int updateResult = usersMapper.updateAccessLog(id);
+				int updateResult = usersMapper.updateAccessLog(user.getUserNo());
 				if(updateResult == 0) {
-					usersMapper.insertAccessLog(id);
+					usersMapper.insertAccessLog(user.getUserNo());
 				}
 				
 				out.println("<script>");

@@ -16,11 +16,13 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<org.springframework-version>5.3.3</org.springframework-version>
+		<org.aspectj-version>1.9.6</org.aspectj-version>
+		<org.slf4j-version>1.7.30</org.slf4j-version>
 	</properties>
 	<dependencies>
 	
-
-		
+			
 		<!-- 암호화/복호화 -->
 		<dependency>
 		    <groupId>commons-codec</groupId>
@@ -44,6 +46,13 @@
 		    <groupId>com.sun.mail</groupId>
 		    <artifactId>javax.mail</artifactId>
 		    <version>1.6.2</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
