@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.shop.domain.CartDTO;
-import com.gdu.sporters.shop.domain.CartListDTO;
-import com.gdu.sporters.shop.domain.ProductDTO;
 import com.gdu.sporters.shop.mapper.ShopMapper;
 import com.gdu.sporters.shop.util.ShopPageUtil;
 
@@ -46,12 +44,8 @@ public class ShopServiceImpl implements ShopService {
 	
 	@Override
 	public void addCart(CartDTO cart) {
+		System.out.println(cart);
 		shopMapper.addCart(cart);
-	}
-	
-	@Override
-	public void addCartList(CartListDTO cartList) {
-		shopMapper.addCartList(cartList);
 	}
 	
 	@Override
