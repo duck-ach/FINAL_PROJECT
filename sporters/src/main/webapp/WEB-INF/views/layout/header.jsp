@@ -14,11 +14,11 @@
 <head>
 <meta charset="UTF-8">
 <title>${title}</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.min.css">
-<script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
-<script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/reset.css">
+<script src="/resources/js/jquery-3.6.1.min.js"></script>
+<link rel="stylesheet" href="/resources/summernote-0.8.18-dist/summernote-lite.min.css">
+<script src="/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+<script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
 <style type="text/css">
 	body{
 		
@@ -97,7 +97,7 @@ $(function(){
 <header class="main_header_area">
 	<div class="main_header_area_fix">
 	<nav class="spoters_logo_area">
-		<h1 class="spoters_logo"><img alt="we are best team!" src="${contextPath}/resources/images/spoters_logo_2.jpg"></h1>
+		<h1 class="spoters_logo"><a href="/"><img alt="we are best team!" src="/resources/images/spoters_logo_2.jpg"></a></h1>
 	</nav>
 	
 	
@@ -108,15 +108,15 @@ $(function(){
 
 <nav class="left_side_gnd_area">
 		 <ul>
-		 	<li><a href="${contextPath}/users/agree/form">회원가입</a> </li>
-		 	<li><a href="${contextPath}/users/login/form">로그인</a> </li>
-		 	<li><a href="${contextPath}/local/list">지역별게시판</a> </li>
-		 	<li><a href="${contextPath}/spoReview/list">운동후기게시판</a> </li>
-		 	<li><a href="${contextPath}/free/list">자유게시판</a> </li>
-		 	<li><a href="${contextPath}/shop/list">쇼핑몰</a> </li>
-		 	<li><a href="${contextPath}/supp/singo">신고게시판</a> </li>
-		 	<li><a href="${contextPath}/supp/qnaList">고객문의게시판</a> </li>
-		 	<li><a href="${contextPath}/admin/adminIndex">관리자게시판</a> </li>
-		 	<li><a href="${contextPath}/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
+		 	<li><a href="/users/agree/form">회원가입</a> </li>
+		 	<li><a href="/users/login/form">로그인</a> </li>
+		 	<li><a href="/local/list">지역별게시판</a> </li>
+		 	<li><a href="/spoReview/list">운동후기게시판</a> </li>
+		 	<li><a href="/free/list">자유게시판</a> </li>
+		 	<li><a href="/shop/list">쇼핑몰</a> </li>
+		 	<li><a href="/supp/singo">신고게시판</a> </li>
+		 	<li><a href="/supp/qnaList">고객문의게시판</a> </li>
+		 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
+		 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
 		 </ul>
 	</nav>
