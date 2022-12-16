@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.sporters.board.domain.FreeDTO;
-import com.gdu.sporters.board.domain.ImageDTO;
+import com.gdu.sporters.board.domain.FreeImageDTO;
 import com.gdu.sporters.board.mapper.BoardMapper;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.GalleryPageUtil;
@@ -29,7 +29,7 @@ import com.gdu.sporters.util.MyFileUtil;
 public class GalleryServiceImpl implements GalleryService {
 
 	@Autowired
-	private BoardMapper galleryMapper;
+	private BoardMapper boardMapper;
 	
 	@Autowired
 	private MyFileUtil myFileUtil;
@@ -46,20 +46,22 @@ public class GalleryServiceImpl implements GalleryService {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 
-		int totalRecord = galleryMapper.selectFreeListCnt();
-
+		int totalRecord = boardMapper.selectFreeListCnt();
+		
+		
+		
 		galleryPageUtil.setPageUtil(page, totalRecord);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", galleryPageUtil.getBegin());
 		map.put("end", galleryPageUtil.getEnd());
 
-		List<FreeDTO> galleryList = galleryMapper.selectFreeList(map);
+		List<FreeDTO> galleryList = boardMapper.selectFreeList(map);
 
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
 		model.addAttribute("galleryList", galleryList);
-		model.addAttribute("paging", galleryPageUtil.getPaging(request.getContextPath() + "/gallery/list"));
+		model.addAttribute("paging", galleryPageUtil.getPaging("/gallery/list"));
 
 	}
 	
@@ -67,60 +69,60 @@ public class GalleryServiceImpl implements GalleryService {
 	@Transactional
 	@Override
 	public void saveGallery(HttpServletRequest request, HttpServletResponse response) {
-		int imageNo =  Integer.parseInt(request.getParameter("imageNo"));
-		int boardNo =  Integer.parseInt(request.getParameter("boardNo"));
-		int spoReviewNo =  Integer.parseInt(request.getParameter("spoReviewNo"));
-		int freeNo =  Integer.parseInt(request.getParameter("freeNo"));
-
-		String fileName = request.getParameter("fileName");
-
+		String filesystem = request.getParameter("filesystem");
+		System.out.println(filesystem);
+		
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");	
 		Optional<String> opt = Optional.ofNullable(request.getHeader("X-Forwarded-For"));
-		String ip = opt.orElse(request.getRemoteAddr());
-
+		String Ip = opt.orElse(request.getRemoteAddr());		
+	
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
 		
-		ImageDTO gallery = ImageDTO.builder()
-						.imageNo(imageNo)
-						.boardNo(boardNo)
-						.spoReviewNo(spoReviewNo)
-						.freeNo(freeNo)
-						.fileName(fileName)						
+		FreeDTO freeBbs = FreeDTO.builder()
+						.title(title)
+						.content(content)						
+						.ip(Ip)
+						.userNo(loginUser.getUserNo())
 						.build();
+					System.out.println(freeBbs);
 		
 	
 
 		// DB에 Gallery 저장
-		int result = galleryMapper.insertFree(gallery);
-
+		int result = boardMapper.insertFree(freeBbs);
+		
+		
 		// 응답
 		try {
 
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-
+			System.out.println("result="+result);
 			out.println("<script>");
 			if (result > 0) {
 
 				// 파라미터 summernoteImageNames
 				String[] summernoteImageNames = request.getParameterValues("summernoteImageNames");
-
+				
 				// DB에 SummernoteImage 저장
 				if (summernoteImageNames != null) {
-					for (String filesystem : summernoteImageNames) {
-						ImageDTO summernoteImage = ImageDTO.builder()
-								.boardNo(imageNo)
-								.boardNo(boardNo)
-								.spoReviewNo(spoReviewNo)
-								.freeNo(freeNo)
-								.fileName(fileName)						
+					System.out.println("summernoteImageNames="+summernoteImageNames);
+					for (String summernoteImage : summernoteImageNames) {
+						FreeImageDTO summernote = FreeImageDTO.builder()
+								.filesystem(summernoteImage)
+								.freeNo(freeBbs.getFreeNo())												
 								.build();
-						galleryMapper.insertSummernoteImage(summernoteImage);
+						boardMapper.insertSummernoteImage(summernote);
+						System.out.println("summernote="+summernote);
 					}
 				}
-
+				
+				
+			
 				out.println("alert('게시글을 등록했습니다.');");
-				out.println("location.href='" + request.getContextPath() + "/gallery/list';");
+				out.println("location.href='/free/list';");
 			} else {
 				out.println("alert('게시글을 등록할 수 없습니다.');");
 				out.println("history.back();");
@@ -169,7 +171,8 @@ public class GalleryServiceImpl implements GalleryService {
 	*/
 		// 저장된 파일을 확인할 수 있는 매핑을 반환
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("src", multipartRequest.getContextPath() + "/load/image/" + filesystem);
+		map.put("src", "/load/image/" + filesystem);
+		map.put("filesystem", filesystem);
 		return map;
 
 		// 저장된 파일이 aaa.jpg라고 가정하면
@@ -177,8 +180,61 @@ public class GalleryServiceImpl implements GalleryService {
 
 	}
 	
-	
+	@Override
+	public FreeDTO getGalleryByNo(int freeNo) {
 
-	
+		// DB에서 갤러리 정보 가져오기
+		FreeDTO gallery = boardMapper.selectFreeByNo(freeNo);
 
+		// 갤러리에서 사용한 것으로 되어 있는 써머노트 이미지(저장된 파일명이 DB에 저장되어 있고, 실제로 HDD에도 저장되어 있음)
+		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(freeNo);
+
+		// 갤러리에서 사용한 것으로 저장되어 있으나 갤러리 내용(content)에는 없는 써머노트 이미지를 찾아서 제거
+		if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
+			for (FreeImageDTO summernoteImage : summernoteImageList) {
+				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
+					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
+					if (file.exists()) {
+						file.delete();
+					}
+				}
+			}
+		}
+
+		// 갤러리 반환
+		return gallery;
+	}
+
+	@Override
+	public int increaseFreeHit(int freeNo) {
+		return boardMapper.updateHit(freeNo);
+	}
+	
+	/*
+	@Override
+	public ResponseEntity<byte[]> display(int freeNo) {
+		FreeImageDTO product = boardMapper.selectSThumbNail(freeNo);
+		File file = new File(product.getPath(), product.getFilesystem());
+
+		ResponseEntity<byte[]> result = null;
+
+		try {
+
+			if(product.getProdThumbnail() == 1) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Type", Files.probeContentType(file.toPath()));
+				File thumbnail = new File(product.getPath(), "s_" + product.getFilesystem());
+				result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(thumbnail), headers, HttpStatus.OK);
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	*/
+	
+	
 }

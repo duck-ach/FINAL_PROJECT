@@ -2,6 +2,8 @@ package com.gdu.sporters.board.domain;
 
 import java.sql.Date;
 
+import com.gdu.sporters.users.domain.UsersDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,4 +23,5 @@ public class FreeDTO {
 	private int state;
 	private String ip;
 	private Date modifyDate;
+	private UsersDTO users;
 }
