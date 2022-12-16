@@ -75,7 +75,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 		
 		// 저장경로
-		String path = myFileUtil.getSummernotePath();
+		String path =  "C:" + File.separator + "summernoteImage";
 		
 		// 저장할 파일명
 		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());
@@ -98,7 +98,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 		// 저장된 파일을 확인할 수 있는 매핑을 반납
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("src", "/load/image/" + filesystem);
+		map.put("src", multipartRequest.getContextPath() + "/load/image/" + filesystem);
 		map.put("filesystem", filesystem);
 		
 		return map;
@@ -265,7 +265,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 	public ProductDTO getProdByNo(int prodNo) {
 
 		// 써머노트 이미지
-		List<ProdImageDTO> imageList = shopAdminMapper.selectProdImageList(prodNo);
+		List<ProdImageDTO> imageList = shopAdminMapper.selectProdImageListByNo(prodNo);
 		
 		ProductDTO product = shopAdminMapper.selectProdByNo(prodNo);
 		
