@@ -26,7 +26,10 @@
 				url: '/shop/addCart',
 				type: 'post',
 				data: data,
-				success: function(){
+				success: function(
+
+				
+				){
 					alert('카트 담기 성공');
 					$('#prodCnt').val("1");
 				},
@@ -101,7 +104,6 @@
 			<li><a href="">음식</a></li>
 			<li><a href="">의류</a></li>
 			<li><a href="">기타</a></li>
-			<li><a href="/shop/cart">장바구니로 이동</a></li>
 		</ul>
 	</div>
 	<div>
@@ -114,8 +116,8 @@
 							<img src="${list.prodThumbnail}"><br>
 							<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
 							<input type="hidden" id="prodNo" value="${list.prodNo}">
-							<span>개당 가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
-							재고 : ${list.stock} 개<br>
+							가격 : ${list.price} 원<br>
+							<span>재고 : ${list.stock} 개<br></span>
 							구매할 수량 : 
 							<select name="prodCnt" id="prodCnt">
 							<%for(int i=1; i<100; i++){%>

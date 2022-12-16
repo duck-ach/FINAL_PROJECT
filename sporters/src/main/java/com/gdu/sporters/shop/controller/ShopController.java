@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.sporters.shop.domain.CartDTO;
-import com.gdu.sporters.shop.domain.CartListDTO;
 import com.gdu.sporters.shop.service.ShopService;
 import com.gdu.sporters.users.domain.UsersDTO;
 
@@ -32,16 +31,12 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value="/shop/addCart", method=RequestMethod.POST)
 	public void addCart(CartDTO cart, HttpSession session) {
-		UsersDTO user = (UsersDTO)session.getAttribute("user");
-		cart.setUserNo(user.getUserNo());
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		cart.setUserNo(userNo);
+		System.out.println(cart);
 		
 		shopService.addCart(cart);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/shop/addCartList", method=RequestMethod.POST)
-	public void addCartList(HttpServletRequest request, HttpSession session) {
-		
 	}
 	
 	@GetMapping("/shop/detail")
