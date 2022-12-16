@@ -285,5 +285,143 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		return shopAdminMapper.selectProdByNo(prodNo);
 	}
 	
+	@Transactional
+	@Override
+	public void prodModify(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+		
+		// 파라미터
+		int prodNo = Integer.parseInt(multipartRequest.getParameter("prodNo"));
+		String prodName = multipartRequest.getParameter("prodName");
+		int prodCategoryNo = Integer.parseInt(multipartRequest.getParameter("prodCategoryNo"));
+		int price = Integer.parseInt(multipartRequest.getParameter("price"));
+		int discount = Integer.parseInt(multipartRequest.getParameter("discount"));
+		String origin = multipartRequest.getParameter("origin");
+		int stock = Integer.parseInt(multipartRequest.getParameter("stock"));
+		String content = multipartRequest.getParameter("content");
+		
+		// 새로 바꾸려는 썸네일
+		List<MultipartFile> thumbnail = multipartRequest.getFiles("thumbnail");
+		
+		// 수정 전 상품 불러오기
+		
+		String path = "";
+		String filesystem = "";
+		// Thumbnail 새로 추가하려고 한다면 filesystem 삭제 후 교체, 아니라면 그대로 유지
+		  if(thumbnail.get(0).getSize() == 0) {
+			filesystem = multipartRequest.getParameter("bef_thumbnail");
+		 } else {
+		
+			// 첨부된 파일 목록 순회(하나씩 저장)
+			for(MultipartFile multipartFile : thumbnail) {
+				
+				try {
+					
+					// 첨부가 있는지 점검
+					if(multipartFile != null && multipartFile.isEmpty() == false) {  // 둘 다 필요함
+						
+						// 원래 이름
+						String originName = multipartFile.getOriginalFilename();
+						originName = originName.substring(originName.lastIndexOf("\\") + 1);  // IE는 origin에 전체 경로가 붙어서 파일명만 사용해야 함
+						
+						// 저장할 이름
+						filesystem = myFileUtil.getFilename(originName);
+						
+						// 저장할 경로
+						path = "testImageThumb";
+						
+						// 저장할 경로 만들기
+						File dir = new File(path);
+						if(dir.exists() == false) {
+							dir.mkdirs();
+						}
+						
+						// 첨부할 File 객체
+						File file = new File(dir, filesystem);
+						
+						// 첨부파일 서버에 저장(업로드 진행)
+						multipartFile.transferTo(file);
+
+						
+						// 첨부파일의 Content-Type 확인
+						String contentType = Files.probeContentType(file.toPath());  // 이미지의 Content-Type(image/jpeg, image/png, image/gif)
+
+						// 첨부파일이 이미지이면 썸네일을 만듬
+						if(contentType != null && contentType.startsWith("image")) {
+						
+							// 썸네일을 서버에 저장
+							Thumbnails.of(file)
+								.size(500, 500)
+								.toFile(new File(dir, "s_" + filesystem));  // 썸네일의 이름은 s_로 시작함
+							
+						}
+						
+					}
+					
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			
+			}
+			}  // for
+			
+			ProductDTO product = ProductDTO.builder()
+					.prodNo(prodNo)
+					.prodName(prodName)
+					.prodCategoryNo(prodCategoryNo)
+					.price(price)
+					.discount(discount)
+					.origin(origin)
+					.filesystem(filesystem)
+					.stock(stock)
+					.prodContent(content)
+					.path(path)
+					.build();
+			
+			System.out.println(product);
+			
+			int result = shopAdminMapper.updateProd(product);
+			
+			System.out.println(result);
+			// 응답
+			try {
+				
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				
+				out.println("<script>");
+				if(result > 0) {
+					
+					// 파라미터 summernoteImageNames
+					String[] summernoteImageNames = multipartRequest.getParameterValues("summernoteImageNames");
+					
+					// DB에 SummernoteImage 저장
+					if(summernoteImageNames !=  null) {
+						for(String summernoteImage : summernoteImageNames) {
+							ProdImageDTO prodImageDTO = ProdImageDTO.builder()
+									.prodNo(product.getProdNo())
+									.filesystem(summernoteImage)
+									.build();
+							System.out.println(prodImageDTO);
+							shopAdminMapper.insertProdImage(prodImageDTO);
+						}
+					}
+					
+					out.println("alert('수정 성공');");
+					out.println("location.href='/shopAdmin/prod/detail?prodNo=" + prodNo + "';");
+				} else {
+					out.println("alert('수정 실패');");
+					out.println("history.back();");
+				}
+				out.println("</script>");
+				out.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+			
+		
+	}
 	
-}
+	
+ }

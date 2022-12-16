@@ -10,7 +10,7 @@
 <hr>
 
 <ul>
-	<li><a href="/shopAdmin/prodWrite">상품등록</a></li>
+	<li><a href="/shopAdmin/prod/write">상품등록</a></li>
 	<li><a href="/shopAdmin/prodManage">상품관리</a></li>
 	<li><a href="/shopAdmin/orderManage">주문관리</a></li>
 </ul>

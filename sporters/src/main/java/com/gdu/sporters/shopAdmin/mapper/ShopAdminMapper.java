@@ -28,4 +28,7 @@ public interface ShopAdminMapper {
 	public int insertProdImage(ProdImageDTO prodImage);
 	public int insertProd(ProductDTO product);
 	
+	// 상품수정하기
+	public int updateProd(ProductDTO product);
+	
 }

@@ -40,7 +40,7 @@
 	
 	<!-- 상품 상세보기 (상세보기 정보용)-->
 	<select id="selectProdByNo" parameterType="int" resultMap="ProductMap">
-		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, C.PROD_CATEGORY_NAME, P.PATH, P.PROD_THUMBNAIL
+		SELECT P.PROD_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, P.PROD_CATEGORY_NO, C.PROD_CATEGORY_NAME, P.PATH, P.PROD_THUMBNAIL
 		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
 		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
 		 WHERE PROD_NO = #{prodNo}
@@ -91,5 +91,22 @@
 		VALUES
 			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, #{filesystem}, #{path}, #{prodThumbnail})
 	</insert>
+	
+	<!-- 상품수정 -->
+	<update id="updateProd" parameterType="ProductDTO">
+		UPDATE PRODUCT
+		   SET PROD_NAME = #{prodName}
+		     , PROD_CATEGORY_NO = #{prodCategoryNo}
+		     , PRICE = #{price}
+		     , DISCOUNT = #{discount}
+		     , ORIGIN = #{origin}
+		     , STOCK = #{stock}
+		     , PROD_CONTENT = #{prodContent}
+		     , PATH = #{path}
+		     , FILESYSTEM = #{filesystem}
+		 WHERE PROD_NO = #{prodNo}
+	</update>
+	
+	
 	
 </mapper>

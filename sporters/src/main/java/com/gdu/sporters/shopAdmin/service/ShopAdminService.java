@@ -17,4 +17,5 @@ public interface ShopAdminService {
 	public void saveProd(MultipartHttpServletRequest request, HttpServletResponse response);
 	public ResponseEntity<byte[]> display(int attachNo);
 	public ProductDTO getProdByNo(int prodNo);
+	public void prodModify(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 }

@@ -46,7 +46,6 @@ $(document).ready(function(){
 						processData: false,  // ajax 이미지 첨부용
 						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
 						success: function(resData){
-							console.log(resData);
 							$('#content').summernote('insertImage', resData.src);
 							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
 						}
@@ -118,17 +117,18 @@ $(document).ready(function(){
 	});
 </script>
 <body>
-	<form id="frm_write" action="/shopAdmin/prod/add" method="post" enctype="multipart/form-data">
+	<form id="frm_write" action="/shopAdmin/prod/modify" method="post" enctype="multipart/form-data">
 		<div>
 			<h1>상품등록</h1>
+			<input type="hidden" name="prodNo" value="${product.prodNo}">
 			<div>
 				<label for="prodName">상품명</label>
-				<input type="text" id="prodName" name="prodName">
+				<input type="text" id="prodName" name="prodName" value="${product.prodName}">
 			</div>
 			<div>
 				상품카테고리
 				<select name="prodCategoryNo" id="prodCategoryNo">
-					<option value="">===선택===</option>
+					<option value="${product.prodCategoryNo}">${product.prodCategory.prodCategoryName}</option>
 					<option value="1">식품</option>
 					<option value="2">의류</option>
 					<option value="3">물건</option>
@@ -136,31 +136,33 @@ $(document).ready(function(){
 			</div>
 			<div>
 				<label for="price">정가격</label>
-				<input type="number" id="price" name="price">
+				<input type="number" id="price" name="price" value="${product.price}">
 				<label for="discount">할인가격</label>
-				<input type="number" id="discount" name="discount">
+				<input type="number" id="discount" name="discount" value="${product.discount}">
 			</div>
 			<div>
 				<label for="thumbnail">상품 썸네일(대표사진)</label>
+				<img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
+				<input type="hidden" name="bef_thumbnail" value="${product.filesystem}">
 				<input type="file" name="thumbnail" accept="image" id="thumbnail" multiple="multiple">
 			</div>
 			<div>
 				<label for="origin">원산지</label>
-				<input type="text" id="origin" name="origin">
+				<input type="text" id="origin" name="origin" value="${product.origin}">
 			</div>
 			<div>
 				<label for="stock">재고</label>
-				<input type="number" id="stock" name="stock">
+				<input type="number" id="stock" name="stock" value="${product.stock}">
 			</div>
 			
 			<div>
 				<label for="content"></label>
-		        <textarea name="content" id="content" name="content"></textarea>   
+		        <textarea name="content" id="content" name="content">${product.prodContent}</textarea>   
 			</div>
 			<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 			<div id="summernote_image_list"></div>
 			<div>
-				<button>등록하기</button>
+				<button>수정하기</button>
 				<input type="button" value="목록" id="btn_list">
 			</div>
 		</div>

@@ -11,8 +11,26 @@
 	<h1>상품관리</h1>
 	<div>
 		<span>${product.prodName}</span>
-		<a href="/shopAdmin/prodEdit">상품정보수정</a>
-		<a href="/shopAdmin/prodManage">상품목록</a>
+	</div>
+	<div>
+		<form id="frm_btn" method="post">
+			<input type="hidden" name="prodNo" value="${product.prodNo}">
+			<input type="button" value="상품수정" id="btn_edit_prod">
+			<input type="button" value="상품삭제" id="btn_remove_prod">
+			<input type="button" value="목록" onclick="location.href='/shopAdmin/prodManage'">
+		</form>
+		<script>
+			$('#btn_edit_prod').click(function(){
+				$('#frm_btn').attr('action', '/shopAdmin/prod/edit');
+				$('#frm_btn').submit();
+			});
+			$('#btn_remove_prod').click(function(){
+				if(confirm('상품을 삭제하게 되면 다시 되돌리거나 확인할 수 없습니다. 상품을 삭제하시겠습니까?')){
+					$('#frm_btn').attr('action', '/shopAdmin/prod/remove');
+					$('#frm_btn').submit();
+				}
+			});
+		</script>
 	</div>
 	<hr>
 	
