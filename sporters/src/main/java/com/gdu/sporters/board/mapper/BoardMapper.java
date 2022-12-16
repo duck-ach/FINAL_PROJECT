@@ -7,12 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.sporters.board.domain.FreeDTO;
 import com.gdu.sporters.board.domain.FreeImageDTO;
+import com.gdu.sporters.shop.domain.ProdImageDTO;
 
 @Mapper
 public interface BoardMapper {
 	public int selectFreeListCnt();
 	public List<FreeDTO> selectFreeList(Map<String, Object> map);
-	public List<FreeImageDTO> selectSummernoteImageListInGallery(int galleryNo);
+	public List<FreeImageDTO> selectSummernoteImageListInGallery(int freeNo);
 	public List<FreeImageDTO> selectAllSummernoteImageList();
 	public int insertFree(FreeDTO gallery);
 	public int insertSummernoteImage(FreeImageDTO summernote);
@@ -21,7 +22,10 @@ public interface BoardMapper {
 	
 	
 	// detail
-	public FreeDTO selectGalleryByNo(int galleryNo);
-	public int updateHit(int galleryNo);
+	public FreeDTO selectFreeByNo(int userNo);
+	public int updateHit(int userNo);
+	
+	public List<FreeImageDTO> selectSThumbNail(int freeNo);
+	
 	
 }
