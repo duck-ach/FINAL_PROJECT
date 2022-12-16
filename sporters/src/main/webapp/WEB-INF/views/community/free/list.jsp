@@ -86,8 +86,11 @@ function fn_getlist() {
 						<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
 							<tr>
 								<td>${beginNo - vs.index}</td>
+								<!--  
+								<td>${gallery.content.imageNo}</td>
+								-->
 								<td><a id="moveDetail"
-									href="/gallery/increase/hit?galleryNo=${gallery.freeNo}">${gallery.title}</a></td>									
+									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
 								<td>${gallery.users.id}</td>
 								<td>${gallery.users.nickName}</td>
 								<td>${gallery.users.gender}</td>

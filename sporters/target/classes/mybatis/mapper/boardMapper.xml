@@ -33,6 +33,10 @@
 		SELECT COUNT(*)
 		FROM FREE
 	</select>
+	
+	
+	
+	
 
 	<!-- 게시판목록 -->
 	<select id="selectFreeList" parameterType="Map" resultMap="FreeDtoMap">
@@ -62,7 +66,7 @@
 
 
 	<!-- 상세보기 -->
-	<select id="selectGalleryByNo" parameterType="int" resultType="FreeDTO">
+	<select id="selectFreeByNo" parameterType="int" resultType="FreeDTO">
 	  SELECT FREE_NO, TITLE, CONTENT, CREATE_DATE, HIT, USER_NO, STATE,IP,MODIFY_DATE
 	  FROM FREE
 	  WHERE FREE_NO = #{freeNo}
@@ -75,9 +79,19 @@
 		 WHERE FREE_NO = #{freeNo}
 	</update>
 
+	<select id="selectSummernoteImageListInGallery" parameterType="int" resultType="FreeImageDTO">
+		SELECT IMAGE_NO, FILESYSTEM
+		  FROM FREE_IMAGE
+		 WHERE IMAGE_NO = #{imageNo}
+	</select>
 
 
-
-
+	<!-- 상품 상세보기 (상세보기 Thumbnail용)-->
+	<select id="selectSThumbNail" parameterType="int" resultType="FreeImageDTO">
+		SELECT F.IMAGE_NO, F.FILESYSTEM, U.FREE_NO
+		FROM    FREE_IMAGE F INNER JOIN USERS U	
+		ON F.IMAGE_NO = U.USERS
+		WHERE FREE_NO = #{freeNo}
+	</select>
 	
 </mapper>

@@ -47,7 +47,9 @@ public class GalleryServiceImpl implements GalleryService {
 		int page = Integer.parseInt(opt.orElse("1"));
 
 		int totalRecord = boardMapper.selectFreeListCnt();
-
+		
+		
+		
 		galleryPageUtil.setPageUtil(page, totalRecord);
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -179,13 +181,13 @@ public class GalleryServiceImpl implements GalleryService {
 	}
 	
 	@Override
-	public FreeDTO getGalleryByNo(int galleryNo) {
+	public FreeDTO getGalleryByNo(int freeNo) {
 
 		// DB에서 갤러리 정보 가져오기
-		FreeDTO gallery = boardMapper.selectGalleryByNo(galleryNo);
+		FreeDTO gallery = boardMapper.selectFreeByNo(freeNo);
 
 		// 갤러리에서 사용한 것으로 되어 있는 써머노트 이미지(저장된 파일명이 DB에 저장되어 있고, 실제로 HDD에도 저장되어 있음)
-		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(galleryNo);
+		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(freeNo);
 
 		// 갤러리에서 사용한 것으로 저장되어 있으나 갤러리 내용(content)에는 없는 써머노트 이미지를 찾아서 제거
 		if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
@@ -203,6 +205,36 @@ public class GalleryServiceImpl implements GalleryService {
 		return gallery;
 	}
 
+	@Override
+	public int increaseFreeHit(int freeNo) {
+		return boardMapper.updateHit(freeNo);
+	}
 	
+	/*
+	@Override
+	public ResponseEntity<byte[]> display(int freeNo) {
+		FreeImageDTO product = boardMapper.selectSThumbNail(freeNo);
+		File file = new File(product.getPath(), product.getFilesystem());
 
+		ResponseEntity<byte[]> result = null;
+
+		try {
+
+			if(product.getProdThumbnail() == 1) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.add("Content-Type", Files.probeContentType(file.toPath()));
+				File thumbnail = new File(product.getPath(), "s_" + product.getFilesystem());
+				result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(thumbnail), headers, HttpStatus.OK);
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	*/
+	
+	
 }
