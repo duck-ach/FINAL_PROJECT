@@ -14,10 +14,14 @@ public interface UsersMapper {
 	public UsersDTO selectUsersByMap(Map<String, Object> map);
 	public RetireUsersDTO selectRetireUsersById(String id);
 	public SleepUsersDTO selectSleepUserById(String id);
-	public int updateAccessLog(String id);
-	public int insertAccessLog(String id);
+	public int updateAccessLog(int userNo);
+	public int insertAccessLog(int userNo);
 	public int updateSessionInfo(UsersDTO user);
-	
-		
+	public int insertUser(UsersDTO user);
+	public int insertNaverUser(UsersDTO user);
+	public int insertSleepUser();
+	public int deleteUserForSleep();
+	public int insertComebackUser(int userNo);
+	public int deleteSleepUser(int userNo);
 
 }

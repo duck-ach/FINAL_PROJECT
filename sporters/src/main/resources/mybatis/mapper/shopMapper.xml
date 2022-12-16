@@ -18,18 +18,11 @@
 		  FROM PRODUCT
 	</select>
 	
-	<insert id="addCart">
-		INSERT CART
-			(CART_NO, USER_NO)
+	<insert id="addCart" parameterType="CartDTO">
+		INSERT INTO CART
+			(CART_NO, USER_NO, PROD_NO, PROD_CNT)
 		VALUES
-			(CART_SEQ.VAL, #{userNo})
-	</insert>
-	
-	<insert id="addCartList">
-		INSERT INTO CART_LIST
-			(CART_NO, PROD_NO, PROD_CNT)
-		VALUES
-			(#{cartNo}, #{prodNo}, #{prodCnt})
+			(CART_SEQ.NEXTVAL, #{userNo}, #{prodNo}, #{prodCnt})
 	</insert>
 	
 	<select id="selectProductByNo" parameterType="int" resultType="Map">

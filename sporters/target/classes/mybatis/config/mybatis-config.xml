@@ -37,7 +37,6 @@
 		<typeAlias type="com.gdu.sporters.shop.domain.PickDTO" alias="PickDTO" />
 		<typeAlias type="com.gdu.sporters.shop.domain.ProdCategoryDTO" alias="ProdCategoryDTO" />
 		<typeAlias type="com.gdu.sporters.shop.domain.ProdImageDTO" alias="ProdImageDTO" />
-		<typeAlias type="com.gdu.sporters.shop.domain.CartListDTO" alias="CartListDTO" />
 		
 
 		<typeAlias type="com.gdu.sporters.userSupport.domain.QnaDTO" alias="QnaDTO" />
