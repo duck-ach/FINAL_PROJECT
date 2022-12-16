@@ -6,11 +6,17 @@
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
 <script type="text/javascript">
-	$(window).on('load', function() {
+	$(document).ready(function(){
 		fn_getUserList();
-	})
-	
-	
+		fn_checkAll();
+		
+	// 전체선택
+	function fn_checkAll(){
+		$('#check_all').click(function(){
+			$('.check_one').prop('checked', $('#check_all').prop('checked'));
+		});
+	}	
+
 	// 유저리스트 불러오기
 	function fn_getUserList() {
 		$.ajax({
@@ -49,12 +55,13 @@
 		$.ajax({
 			type:'get',
 			url :'/searchUsers',
-			data : 'column=' + $('column').val() + '&searchText=' + $('#searchText').val(),
+			data : 'column=' + $('#column').val() + '&searchText=' + $('#searchText').val(),
 			dataType:'json',
 			success : function(resData){
 				console.log(resData);
+				console.log(resData.users);
 				$('#list').empty();
-				$.each(resData, function(i, user){
+				$.each(resData.users, function(i, user){
 					var tr = '<tr>';
 					tr += '<td><input type="checkbox" class="check_one" value="'+ user.userNo +'"></td>';
 					tr += '<td>' + user.userNo + '</td>';
@@ -70,6 +77,9 @@
 					tr += '</tr>';
 					$('#list').append(tr);
 				})
+			},
+			error : function() {
+				alert('실패');
 			}
 		})
 	})
@@ -82,6 +92,7 @@
 			$("frm_user_list").attr("action", "/admin/remove").submit();
 		}
 	})
+	});
 </script>
 <body>
 

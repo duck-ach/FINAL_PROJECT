@@ -12,7 +12,9 @@ public interface AdminMapper {
 	
 	public int selectAllUsersCount();
 	public List<UsersDTO> selectAllUsers();
-	public List<UsersDTO> selectAllUsersByQuery(Map<String, Object> map);
+	public List<UsersDTO> selectUsersByQuery(Map<String, Object> map);
+	public List<UsersDTO> selectUsersByNo(int userNo);
+	public int deleteUsers(Map<String, Object> map);
 	public int insertRetireUser(Map<String, Object> map);
 
 }

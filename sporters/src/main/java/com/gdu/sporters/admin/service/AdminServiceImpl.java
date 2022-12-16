@@ -1,17 +1,21 @@
 package com.gdu.sporters.admin.service;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gdu.sporters.admin.mapper.AdminMapper;
+import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
+import com.gdu.sporters.users.mapper.UsersMapper;
 import com.gdu.sporters.util.SecurityUtil;
 
 @Service
@@ -37,15 +41,33 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public Map<String, Object> searchUsers(HttpServletRequest request) {
+	public Map<String, Object> searchUsersbyQuery(HttpServletRequest request) {
 		
 		String column = request.getParameter("column");
 		String searchText = securityUtil.preventXSS(request.getParameter("searchText"));
-		
+		System.out.println(column);
+		System.out.println(searchText);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("column", column);
 		map.put("searchText", searchText);
+		List<UsersDTO> users = adminMapper.selectUsersByQuery(map);
+		System.out.println(users);
+		map.put("users", users);
 		return map;
+		
+	}
+	
+	@Override
+	public void removeUser(int userNo, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map= new HashMap<String, Object>();
+		List<UsersDTO> user = adminMapper.selectUsersByNo(userNo);
+		List<RetireUsersDTO> retireList = new ArrayList<>();
+		for(int i = 0; i < retireList.size(); i++) {
+			RetireUsersDTO retireUser = RetireUsersDTO.builder()
+					.retireUserId(retire);
+		}
+		
+		
 	}
 
 //	@Override
