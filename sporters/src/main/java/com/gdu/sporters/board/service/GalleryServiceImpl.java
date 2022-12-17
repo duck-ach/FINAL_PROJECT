@@ -210,6 +210,65 @@ public class GalleryServiceImpl implements GalleryService {
 		return boardMapper.updateHit(freeNo);
 	}
 	
+	@Override
+	public void modifyGallery(HttpServletRequest request, HttpServletResponse response) {
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		int freeNo = Integer.parseInt(request.getParameter("freeNo"));		
+
+		// DB에서 갤러리 정보 가져오기
+		// FreeDTO gallery = boardMapper.selectFreeByNo(freeNo);
+		// db로 보낼 freeDTO
+		FreeDTO freeBbs = FreeDTO.builder()
+				.title(title)
+				.content(content)
+				.freeNo(freeNo)
+				.build();
+		
+		int result = boardMapper.updateFree(freeBbs);
+		
+		// 응답 
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			
+			if( result > 0 ) {
+				
+				String[] summernoteImageNames = request.getParameterValues("summernoteImageNames");
+				
+				// db에 서머노트 저장
+				if( summernoteImageNames != null ) {
+					for( String filesystem : summernoteImageNames  ) {
+						FreeImageDTO summernoteImage = FreeImageDTO.builder()
+								.filesystem(filesystem)
+								.freeNo(freeBbs.getFreeNo())												
+								.build();		
+						boardMapper.insertSummernoteImage(summernoteImage);
+					}					
+				}
+				out.println("alert('게시글을 수정하였습니다.');");
+				out.println(
+						"location.href='/free/detail?freeNo=" + freeNo + "';");
+				}else {
+					out.println("alert('게시글을 수정할 수 없습니다');");
+					out.println("history.back();");
+				}
+				out.println("</script>");
+				out.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		
+		
+	
+	
+	
+	
 	/*
 	@Override
 	public ResponseEntity<byte[]> display(int freeNo) {

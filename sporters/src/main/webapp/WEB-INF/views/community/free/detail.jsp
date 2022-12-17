@@ -30,6 +30,43 @@
 			<div>
 				${gallery.content}
 			</div>
+			<div>
+				<form id="frm_btn" method="post">
+					<input type="hidden" name="freeNo" value="${gallery.freeNo}">
+					<c:if test="${loginUser.id != null}">
+						<input type="button" value="수정" id="btn_edit_gallery">
+						<input type="button" value="삭제" id="btn_remove_gallery">
+					</c:if>
+				</form>
+			</div>
+	
+		   
+		   <hr>
+				
+				
+				
+			<script>
+
+			
+		
+			$('#btn_edit_gallery').click(function(){
+				$('#frm_btn').attr('action', '/free/edit');
+				$('#frm_btn').submit();
+			});
+			$('#btn_remove_gallery').click(function(){
+				if(confirm('게시글을 삭제하면 적립된 포인트가 회수됩니다. 삭제하시겠습니까?')){
+					$('#frm_btn').attr('action', '/free/remove');
+					$('#frm_btn').submit();
+				}
+			});
+			
+			
+			
+
+</script> 		
+			
+			
+			
 			
 			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
