@@ -7,9 +7,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 	
-	fn_pwCheck();
-	fn_pwCheckAgain();
-	fn_pwSubmit();
+	$(function(){		
+		fn_pwCheck();
+		fn_pwCheckAgain();
+		fn_pwSubmit();
+		fn_cancel();
+	});
 	
 	var pwPass = false;
 	var rePwPass = false;
@@ -23,7 +26,7 @@
 			               + /[A-Z]/.test(pwValue)        // 대문자가 있으면 true, 없으면 false
 			               + /[!@#$%^&*]/.test(pwValue);  // 특수문자8종이 있으면 true, 없으면 false
 			if(regPw.test(pwValue) == false || validatePw < 3){
-				$('#msg_pw').text('8~20자의 소문자, 대문자, 숫자, 특수문자(!@#$%^&*)를 3개 이상 조합해야 합니다.');
+				$('#msg_pw').text('6~20자의 소문자, 대문자, 숫자, 특수문자(!@#$%^&*)를 3개 이상 조합해야 합니다.');
 				pwPass = false;
 			} else {
 				$('#msg_pw').text('사용 가능한 비밀번호입니다.');
@@ -39,7 +42,7 @@
 				$('#msg_re_pw').text('비밀번호를 확인하세요.');
 				rePwPass = false;
 			} else {
-				$('#msg_re_pw').text('');
+				$('#msg_re_pw').text('비밀번호가 일치합니다.');
 				rePwPass = true;
 			}
 		});
@@ -54,6 +57,13 @@
 			}
 		});
 	}
+	
+	function fn_cancel(){
+		$('#btn_cancel').click(function(){
+			history.back();
+		});
+	}
+
 	
 	
 </script>
@@ -78,7 +88,7 @@
 					</div>
 					<div>
 						<button>비밀번호 변경하기</button>
-						<input type="button" value="비밀번호 변경 취소하기" id="btn_edit_pw_cancel">
+						<input type="button" value="비밀번호 변경 취소하기" id="btn_cancel">
 					</div>
 				</form>
 			</div>

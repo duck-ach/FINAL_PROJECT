@@ -92,7 +92,7 @@
 			}
 		}
 		$('#birthmonth').append(strMonth);
-		$('#birthmonth').val('${loginUser.birthmonth)}').prop('selected', true);
+		$('#birthmonth').val('${loginUser.birthmonth}').prop('selected', true);
 	}
 	
 	function fn_birthday(){
@@ -122,9 +122,31 @@
 		$('#birthday').val('${loginUser.birthday}').prop('selected', true);
 	}
 	
+	function fn_modify(){
+		$('#frm_edit').submit(function(event){
+			if(namePass == false){
+				alert('이름을 확인하세요.');
+				event.preventDefault();
+				return;
+			} else if(mobilePass == false){
+				alert('휴대전화번호를 확인하세요.');
+				event.preventDefault();
+				return;
+			} else if($('#birthyear').val() == '' || $('#birthmonth').val() == '' || $('#birthday').val() == ''){
+				alert('생년월일을 확인하세요.');
+				event.preventDefault();
+				return;
+			} else if(emailPass == false){
+				alert('이메일을 확인하세요.');
+				event.preventDefault();
+				return;
+			}
+		});
+	}
+	
 	function fn_cancel(){
 		$('#btn_cancel').click(function(){
-			location.href='/';
+			history.back();
 		});
 	}
 
@@ -253,8 +275,8 @@
 					<hr>
 					
 					<div>
-						<input type="button" value="취소하기" id="btn_cancel">
 						<button>수정하기</button>
+						<input type="button" value="취소하기" id="btn_cancel">
 					</div>
 				</form>
 

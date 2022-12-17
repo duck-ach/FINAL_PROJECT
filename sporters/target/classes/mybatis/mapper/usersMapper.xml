@@ -169,7 +169,7 @@
 		UPDATE USERS
 		  SET PW = #{pw}
 		    , PW_MODIFY_DATE = SYSDATE
-		WHERE USER_NO = {userNo}
+		WHERE USER_NO = #{userNo}
 	</update>
 	
 	<!-- 회원탈퇴 -->
