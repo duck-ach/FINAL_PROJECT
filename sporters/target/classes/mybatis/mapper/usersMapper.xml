@@ -98,7 +98,7 @@
 		INSERT INTO USERS
 			(USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
 		VALUES
-			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, '0', SYSDATE, SYSDATE, SYSDATE, NULL, NULL, '0')
+			(USERS_SEQ.NEXTVAL, #{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, #{postcode}, #{roadAddress}, #{jibunAddress}, #{detailAddress}, #{agreeCode}, '0', SYSDATE, SYSDATE, SYSDATE, NULL, NULL, '0')
 	</insert>
 	
 	<!-- 네아로가입 -->
@@ -133,7 +133,7 @@
 	<!-- 휴면복원 : 복귀회원을 USERS테이블에 삽입 -->
 	<insert id="insertComebackUser" parameterType="int">
 		INSERT INTO USERS (USER_NO, ID, PW, NICKNAME, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
-			(SELECT USER_NO, SLEEP_USER_ID, SLEEP_USER_PW, SLEEP_USER_NICKNAME, SLEEP_USER_NAME, SLEEP_USER_GENDER, SLEEP_USER_EMAIL, SLEEP_USER_MOBILE, SLEEP_USER_BIRTHYEAR, SLEEP_USER_BIRTHMONTH, SLEEP_USER_BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, LAST_LOGIN_DATE, SLEEP_DATE
+			(SELECT USER_NO, SLEEP_USER_ID, SLEEP_USER_PW, SLEEP_USER_NICKNAME, SLEEP_USER_NAME, SLEEP_USER_GENDER, SLEEP_USER_EMAIL, SLEEP_USER_MOBILE, SLEEP_USER_BIRTHYEAR, SLEEP_USER_BIRTHMONTH, SLEEP_USER_BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, NULL, NULL, NULL, NULL, '0'
 			   FROM SLEEP_USERS
 			  WHERE USER_NO = #{userNo})
 	</insert>
@@ -146,5 +146,45 @@
 	</delete>
 	
 	
+	<!-- 회원정보수정 -->
+	<update id="updateUser" parameterType="UsersDTO">
+		UPDATE USERS
+		   SET NAME = #{name}
+		   	 , EMAIL = #{email}
+		   	 , MOBILE = #{mobile}
+		   	 , GENDER = #{gender}
+		   	 , BIRTHYEAR = #{birthyear}
+		   	 , BIRTHMONTH = #{birthmonth}
+		   	 , BIRTHDAY = #{birthday}
+		   	 , POSTCODE = #{postcode}
+		   	 , ROAD_ADDRESS = #{roadAddress}
+		   	 , JIBUN_ADDRESS = #{jibunAddress}
+		   	 , DETAIL_ADDRESS = #{detailAddress}
+		   	 , INFO_MODIFY_DATE = SYSDATE
+		 WHERE ID = #{id}
+	</update>
+	
+	<!-- 비번수정, 임시비번으로수정 -->
+	<update id="updateUserPassword" parameterType="UsersDTO">
+		UPDATE USERS
+		  SET PW = #{pw}
+		    , PW_MODIFY_DATE = SYSDATE
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="deleteUser" parameterType="int">
+		DELETE
+		  FROM USERS
+		 WHERE USER_NO = #{userNo}
+		   AND PW = #{pw} 
+	</delete>
+	
+	<insert id="insertWithdrawUser" parameterType="RetireUsersDTO">
+		INSERT INTO RETIRE_USERS
+			(RETIRE_USER_NO, RETIRE_USER_ID, RETIRE_JOIN_DATE, RETIRE_DATE)
+		VALUES
+			(#{userNo}, #{id}, #{joinDate}, SYSDATE)
+	</insert>
 	
 </mapper>

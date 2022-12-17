@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class RetireUsersDTO {
 	private int retireUserNo;
 	private String retireUserId;
-	private String retireUserNickname;
 	private Date retireJoinDate;
 	private Date retireDate;
 }
