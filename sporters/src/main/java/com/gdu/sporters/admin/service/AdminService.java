@@ -11,7 +11,7 @@ public interface AdminService {
 	public int getAllUsersCount(HttpServletRequest request);
 	public Map<String, Object> getAllUsers(HttpServletRequest request);
 	public Map<String, Object> searchUsersbyQuery(HttpServletRequest request);
-	public Map<String, Object> removeUser();
+	public Map<String, Object> removeUser(List<String> id);
 	
 
 }

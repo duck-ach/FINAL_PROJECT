@@ -59,9 +59,13 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Transactional
 	@Override
-	public Map<String, Object> removeUser() {
+	public Map<String, Object> removeUser(List<String> id) {
 		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isRemove", commentMapper.deleteComment(commentNo) == 1);
+		return result;
 	}
+		
 
 //	@Override
 //	public List<UsersDTO> getAllUsers(HttpServletRequest request) {
