@@ -7,50 +7,7 @@
 </jsp:include>
 
 <body>
-<!-- 
-<script type="text/javascript">
-$(window).on('load', function(){
-	fn_getlist();
-	
-	
-});
-function fn_getlist() {
-	
-	$.ajax({
-		type: 'get',
-		url : '${contextPath}/searchAllUsers',
-		dataType: 'json',
-		success: function(resData) {
-			$('#list').empty();				
-		//	alert("전체"+trs+" 개의 목록을 가져왔습니다.");
-			$.each(resData, function(i, users){
-				$('<tr>')
-				.append($('<td class="userId" name="id">').text(users.id))
-				.append($('<input type="hidden" name="" value=""  class="userIdIn">'))
-				.append($('<td class="td_userNo">').text(users.userNo))
-				.append($('<td>').text(users.name))					
-				.append($('<td>').text(users.gender))					
-				.append($('<td>').text(users.email))
-				.append($('<td>').text(users.mobile))
-				.append($('<td class="userJoinDate">').text(users.joinDate))
-				.append($('<input type="hidden" value=""  class="userJoinDateIn">'))
-				.append($('<td>').text(users.point))
-			//	.append($('<td>').text(${cntUserBoard}))
-				
-				
-				.append($('<td class="checkUserNo">').html("<input type='checkBox' name='userNo' >"))
-				.append($('<td class="checkSleepUserNo">').html("<input type='checkBox' name='userNo' >"))	
-				.appendTo('#list');					
-			});
-			
-		}
-	});
-	
-}
 
-
-</script>
-	 -->
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
@@ -85,10 +42,7 @@ function fn_getlist() {
 					<tbody id="list">						
 						<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
 							<tr>
-								<td>${beginNo - vs.index}</td>
-								<!--  
-								<td>${gallery.content.imageNo}</td>
-								-->
+								<td>${beginNo - vs.index}</td>						
 								<td><a id="moveDetail"
 									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
 								<td>${gallery.users.id}</td>
