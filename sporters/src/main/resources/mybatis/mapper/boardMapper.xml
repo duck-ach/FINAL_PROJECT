@@ -55,6 +55,7 @@
 			(FREE_SEQ.NEXTVAL, #{title}, #{content}, SYSDATE, 0,#{userNo}, 0, #{ip}, SYSDATE)
 	</insert>
 	
+	
 	<!-- 이미지 삽입 -->
 	<insert id="insertSummernoteImage" parameterType="FreeImageDTO">
 		INSERT INTO FREE_IMAGE
@@ -93,5 +94,18 @@
 		ON F.IMAGE_NO = U.USERS
 		WHERE FREE_NO = #{freeNo}
 	</select>
+	
+	
+	
+	
+	<!-- 수정 -->
+	<update id="updateFree" parameterType="FreeDTO">
+		UPDATE FREE
+		   SET TITLE = #{title}, CONTENT = #{content}, MODIFY_DATE = SYSDATE
+		 WHERE FREE_NO = #{freeNo}
+	</update>
+	
+	
+	
 	
 </mapper>
