@@ -19,7 +19,7 @@ public interface GalleryService {
 	
 	public int increaseFreeHit(int freeNo);
 //	public ImageDTO getGalleryByNo(int galleryNo);
-//	public void modifyGallery(HttpServletRequest request, HttpServletResponse response);
+	public void modifyGallery(HttpServletRequest request, HttpServletResponse response);
 //	public void removeGallery(HttpServletRequest request, HttpServletResponse response);
 //	public Map<String, Object> getLikedUser(HttpServletRequest request);
 	

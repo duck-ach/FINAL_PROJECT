@@ -15,7 +15,7 @@ public class SleepUsersDTO {
 	private int userNo;
 	private String sleepUserId;
 	private String sleepUserPw;
-	private String sleepUserNickName;
+	private String sleepUserNickname;
 	private String sleepUserName;
 	private String sleepUserGender;
 	private String sleepUserEmail;

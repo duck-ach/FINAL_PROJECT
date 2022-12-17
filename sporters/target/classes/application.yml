@@ -30,6 +30,19 @@ spring:
       jdbc-url: jdbc:oracle:thin:@localhost:1521:xe
       username: SCOTT
       password: TIGER
+
+# email
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nayoung181818@gmail.com
+    password: daqumhodkgctfiee
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
       
 # mybatis
 mybatis:
