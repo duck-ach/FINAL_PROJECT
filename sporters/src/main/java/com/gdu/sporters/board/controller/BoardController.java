@@ -75,18 +75,19 @@ public class BoardController {
 		model.addAttribute("gallery", galleryService.getGalleryByNo(freeNo));
 		return "community/free/detail";
 	}
-	/*
-	@PostMapping("/gallery/edit")
-	public String edit(int galleryNo, Model model) {
-		model.addAttribute("gallery", galleryService.getGalleryByNo(galleryNo));
-		return "gallery/edit";
+	
+	@PostMapping("/free/edit")
+	public String edit(int freeNo, Model model) {
+		model.addAttribute("gallery", galleryService.getGalleryByNo(freeNo));
+		return "community/free/edit";
 	}
-	*/
-	/*
+	
+	
 	@PostMapping("/gallery/modify")
 	public void modify(HttpServletRequest request, HttpServletResponse response) {
 		galleryService.modifyGallery(request, response); // 수정 후 상세보기로
 	}
+	/*
 	
 	@PostMapping("/gallery/remove")
 	public void remove(HttpServletRequest request, HttpServletResponse response) {
