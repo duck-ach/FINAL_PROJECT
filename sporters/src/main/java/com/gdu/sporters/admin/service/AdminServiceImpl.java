@@ -1,7 +1,6 @@
 package com.gdu.sporters.admin.service;
 
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +60,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Map<String, Object> removeUser(List<String> id) {
 		
+		List<RetireUsersDTO> retireUserList = new ArrayList<RetireUsersDTO>();
+		UsersDTO user;
+		int count = id.size();
+		for (int i = 0; i < count; i++) {
+			RetireUsersDTO retireUser = RetireUsersDTO.builder()
+					.retireUserId(id.get(i))
+					.retireJoinDate(user.getJoinDate())
+					.build();
+			retireUserList.add(retireUser);
+					
+		}
 		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("idList", id);
+		result.put("retireUserList", retireUserList);
+		
 		result.put("isRemove", commentMapper.deleteComment(commentNo) == 1);
 		return result;
 	}
