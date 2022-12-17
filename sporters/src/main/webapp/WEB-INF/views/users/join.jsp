@@ -424,12 +424,12 @@
 					                document.getElementById("jibunAddress").value = data.jibunAddress;
 					                
 					                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-					                if(roadAddr !== ''){
+					                /* if(roadAddr !== ''){
 					                    document.getElementById("extraAddress").value = extraRoadAddr;
 					                } else {
 					                    document.getElementById("extraAddress").value = '';
 					                }
-					
+					 */
 					                var guideTextBox = document.getElementById("guide");
 					                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
 					                if(data.autoRoadAddress) {

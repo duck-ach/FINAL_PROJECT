@@ -93,8 +93,8 @@
 		      <br>
 		      
 		      <div id="mypage_footer">
-		         <a href="/users/check/form" id="mypage_footer_name">${loginUser.name}</a> 님 반갑습니다.<br>
-		         <a href="/users/check/form">마이페이지로 이동</a><br>
+		         <a href="/users/mypage" id="mypage_footer_name">${loginUser.name}</a> 님 반갑습니다.<br>
+		         <a href="/users/mypage">마이페이지로 이동</a><br>
 		         <a href="/users/logout">로그아웃</a>
 		      </div>
 		      

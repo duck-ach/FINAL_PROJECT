@@ -8,36 +8,22 @@
 <script>
 	
 	
+	
 </script>
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div>
-			<div style="font-size: 32px; font-weight: bold;">❗❗휴면계정안내❗❗</div>
+			<div> 탈퇴한 아이디는 사용할 수 없게 됩니다 <br> 탈퇴를 원하시는 경우 비밀번호를 입력해주세요!</div>
 			
 			<div>
-			<br>
-				안녕하세요 <br>
-				${sleepUser.sleepUserId}님은 1년 이상 로그인하지 않아 관련 법령에 의해 휴면계정으로 전환되었습니다. <br><br>
-				<ul>
-					<li>가입일 ▷ ${sleepUser.joinDate}</li>
-					<li>마지막 로그인  ▷ ${sleepUser.lastLoginDate}</li>
-					<li>휴면계정전환일 ▷ ${sleepUser.sleepDate}</li>
-				</ul>
+				<label for="pw">비밀번호 확인 ▷ </label>
+				<input type="password" id="pw" name="pw">
 			</div>
-			
-			<hr>
-			
 			<div>
-				<div> 휴면해제를 위해 아래 버튼을 클릭해주세요 :)</div>
-				<form id="frm_comeback" action="/users/comeback" method="post">
-					<div>
-						<button>휴면해제하기</button>
-						<input type="button" value="취소" onclick="location.href='/'">
-					</div>
-				</form>
-			
+				<input type="button" value="탈퇴하기" onclick="location.href='/users/withdraw/form'">
+				<input type="button" value="돌아가기" onclick="location.href='/users/mypage'">
 			</div>
 		</div>
 	</section><!-- 기본틀 2 -->

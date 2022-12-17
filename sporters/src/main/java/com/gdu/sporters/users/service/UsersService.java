@@ -23,6 +23,12 @@ public interface UsersService {
 	public void sleepUserHandle();
 	public void comebackUser(HttpServletRequest request, HttpServletResponse response);
 	
+	// 정보수정
+	public void modifyInfo(HttpServletRequest request, HttpServletResponse response);
+	public void modifyPw(HttpServletRequest request, HttpServletResponse response);
+	
+	// 탈퇴
+	public void withdraw(HttpServletRequest request, HttpServletResponse response);
 	
 	// 네이버 아이디 로그인
 	public String getNaverLoginApiURL(HttpServletRequest request);
