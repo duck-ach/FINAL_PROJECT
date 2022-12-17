@@ -23,5 +23,9 @@ public interface UsersMapper {
 	public int deleteUserForSleep();
 	public int insertComebackUser(int userNo);
 	public int deleteSleepUser(int userNo);
+	public int updateUser(UsersDTO user);
+	public int updateUserPassword(UsersDTO user);
+	public int deleteUser(int userNo);
+	public int insertWithdrawUser(RetireUsersDTO retireUser);
 
 }

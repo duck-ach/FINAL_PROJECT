@@ -116,6 +116,27 @@ public class UsersController {
 		usersService.comebackUser(request, response);
 	}
 	
+	@GetMapping("/users/mypage")
+	public String requiredLogin_mypage() {
+		return "users/mypage";
+	}
+
+	@PostMapping("/users/modify/info")
+	public void requiredLogin_modifyInfo(HttpServletRequest request, HttpServletResponse response) {
+		usersService.modifyInfo(request, response);
+	}
+	
+	@PostMapping("/users/modify/pw")
+	public void requiredLogin_modifyPW(HttpServletRequest request, HttpServletResponse response) {
+		usersService.modifyPw(request, response);
+	}
+	
+	@PostMapping("/users/withdraw")
+	public void withdraw(HttpServletRequest request, HttpServletResponse response) {
+		usersService.withdraw(request, response);
+	}
+	
+	
 	
 	
 	

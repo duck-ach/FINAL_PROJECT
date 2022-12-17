@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.SleepUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.users.mapper.UsersMapper;
@@ -627,13 +628,168 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 	
+// 회원정보수정	
+	@Override
+	public void modifyInfo(HttpServletRequest request, HttpServletResponse response) {
 	
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String mobile = request.getParameter("mobile");
+		String gender = request.getParameter("gender");
+		String birthyear = request.getParameter("birthyear");
+		String birthmonth = request.getParameter("birthmonth");
+		String birthday = request.getParameter("birthday");
+		String postcode = request.getParameter("postcode"); 
+		String roadAddress = request.getParameter("roadAddress");
+		String jibunAddress = request.getParameter("jibunAddress");
+		String detailAddress = request.getParameter("detailAddress");
+
+
+		// DB로 보낼 DTO
+		UsersDTO user = UsersDTO.builder()
+						.id(id)
+						.name(name)
+						.email(email)
+						.gender(gender)
+						.mobile(mobile)
+						.birthyear(birthyear)
+						.birthmonth(birthmonth)
+						.birthday(birthday)
+						.postcode(postcode)
+						.roadAddress(roadAddress)
+						.jibunAddress(jibunAddress)
+						.detailAddress(detailAddress)
+						.build();
+		int result = usersMapper.updateUser(user);		
+		
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				
+				// 조회 조건으로 사용할 Map
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", id);
+				
+				// session에 올라간 정보를 수정된 내용으로 업데이트
+				request.getSession().setAttribute("loginUser", usersMapper.selectUsersByMap(map));
+				
+				out.println("<script>");
+				out.println("alert('회원 정보가 수정되었습니다.');");
+				out.println("location.href='/';");
+				out.println("</script>");
+				
+			} else {
+				
+				out.println("<script>");
+				out.println("alert('회원 정보 수정이 실패했습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+				
+			}
+			
+			out.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
+	@Override
+	public void modifyPw(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = ((UsersDTO)session.getAttribute("loginUser"));
+		String pw = securityUtil.sha256(request.getParameter("pw"));
+		
+		if(pw.equals(loginUser.getPw())) {
+			try {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				
+				out.println("<script>");
+				out.println("alert('현재 비밀번호와 동일한 비밀번호로 변경할 수 없습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		int userNo = loginUser.getUserNo();
+		
+		UsersDTO user = UsersDTO.builder()
+				.userNo(userNo)
+				.pw(pw)
+				.build();
+		int result = usersMapper.updateUserPassword(user);	
+		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				loginUser.setPw(pw);
+				out.println("<script>");
+				out.println("alert('비밀번호가 수정되었습니다.');");
+				out.println("location.href='/';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('비밀번호가 수정되지 않았습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			out.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
-	
-	
-	
-	
+	@Transactional
+	@Override
+	public void withdraw(HttpServletRequest request, HttpServletResponse response) {
+
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		
+		RetireUsersDTO withdrawUser = RetireUsersDTO.builder()
+									.retireUserNo(loginUser.getUserNo())
+									.retireUserId(loginUser.getId())
+									.retireJoinDate(loginUser.getJoinDate())
+									.build();
+		int deleteResult = usersMapper.deleteUser(loginUser.getUserNo());
+		int insertResult = usersMapper.insertWithdrawUser(withdrawUser);
+		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(deleteResult > 0 && insertResult > 0) {
+				
+				// 세션 초기화
+				session.invalidate();
+				
+				out.println("<script>");
+				out.println("alert('회원 탈퇴되었습니다.');");
+				out.println("location.href='/';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('회원 탈퇴에 실패했습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	
