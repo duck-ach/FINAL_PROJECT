@@ -38,7 +38,12 @@
 					<td>${beginNo - vs.index}</td>
 					<td>${prod.prodNo}</td>
 					<td>
-						<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
+						<c:if test="${prod.prodThumbnail.isThumbnail == 1}">
+							<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodThumbnail.tnFilesystem}">
+						</c:if>
+						<c:if test="${prod.prodThumbnail.isThumbnail == 0 || prod.prodThumbnail.isThumbnail == null}">
+							<img src="/resources/images/shopAdmin/no-image.jpeg" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodName}">
+						</c:if>
 					</td>
 					<td>${prod.prodCategory.prodCategoryName}</td>
 					<td><a href="/shopAdmin/prod/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>

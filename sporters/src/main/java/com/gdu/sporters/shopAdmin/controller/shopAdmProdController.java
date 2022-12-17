@@ -64,6 +64,7 @@ public class shopAdmProdController {
 	@GetMapping("/shopAdmin/prod/detail")
 	public String detail(@RequestParam(value="prodNo", required=false, defaultValue="0") int prodNo, Model model) {
 		model.addAttribute("product", shopAdminService.getProdByNo(prodNo));
+		model.addAttribute("prodThumbnail", shopAdminService.getProdThumbnailByNo(prodNo));
 		return "shopAdmin/prodDetail";
 	}
 	
@@ -71,6 +72,7 @@ public class shopAdmProdController {
 	@PostMapping("/shopAdmin/prod/edit")
 	public String edit(int prodNo, Model model) {
 		model.addAttribute("product", shopAdminService.getProdByNo(prodNo));
+		model.addAttribute("prodThumbnail", shopAdminService.getProdThumbnailByNo(prodNo));
 		return "shopAdmin/prodEdit";
 	}
 	
@@ -80,10 +82,16 @@ public class shopAdmProdController {
 		shopAdminService.prodModify(multipartRequest, response);
 	}
 	
+	// 상품 썸네일 삭제
+	@GetMapping("/shopAdmin/prodThumbnail/remove")
+	public void removeThumbnail(@RequestParam("tnNo") int tnNo, HttpServletResponse response) {
+		shopAdminService.removeThumbnailByTnNo(tnNo, response);
+	}
+	
 	// 상품 삭제
-	@PostMapping("/blog/remove")
+	@PostMapping("/shopAdmin/prod/remove")
 	public void remove(HttpServletRequest request, HttpServletResponse response) {
-		// blogService.removeBlog(request, response);
+		shopAdminService.removeProd(request, response);
 	}
 	
 }

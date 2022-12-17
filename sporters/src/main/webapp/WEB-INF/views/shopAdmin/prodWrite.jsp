@@ -11,7 +11,9 @@
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
 <script>
 
-$(document).ready(function(){
+$(function(){
+	
+	fileCheck();
 	
 	// summernote
 	$('#content').summernote({
@@ -46,7 +48,6 @@ $(document).ready(function(){
 						processData: false,  // ajax 이미지 첨부용
 						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
 						success: function(resData){
-							console.log(resData);
 							$('#content').summernote('insertImage', resData.src);
 							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
 						}
@@ -55,6 +56,33 @@ $(document).ready(function(){
 			}  // onImageUpload
 		}  // callbacks
 	});
+	
+	function fileCheck() {
+		
+		$('#thumbnail').on('change', function(){
+			
+			// 파일 확장자 제한
+			var file_path = $(this).val();
+			var reg = /(.*?)\.(gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG)$/;
+			
+			// 허용되지 않은 확장자일 경우
+			if(file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
+				alert('이미지 파일만 업로드 가능합니다.');
+				$(this).val('');
+			}
+			
+			// 대표사진(썸네일) 개수 체크
+			if($('#thumbnail')[0].files.length > 1) {
+				console.log($(this));
+				alert('대표사진은 1장만 설정할 수 있습니다.');
+				$(this).val(''); 
+				event.preventDefault();
+				return;
+			}
+			
+		});
+		
+	}
 
 		// 목록
 		$('#btn_list').click(function(){
@@ -112,6 +140,13 @@ $(document).ready(function(){
 				return;  // 더 이상 코드 실행할 필요 없음
 			}
 			
+			if($('#thumbnail').val() == ''){
+				alert('상품 대표사진은 필수 삽입해야 합니다.');
+				event.preventDefault();  // 서브밋 취소
+				$('#thumbnail').focus();
+				return;  // 더 이상 코드 실행할 필요 없음
+			}
+			
 		});
 		
 		
@@ -141,8 +176,8 @@ $(document).ready(function(){
 				<input type="number" id="discount" name="discount">
 			</div>
 			<div>
-				<label for="thumbnail">상품 썸네일(대표사진)</label>
-				<input type="file" name="thumbnail" accept="image" id="thumbnail" multiple="multiple">
+				<label for="thumbnail">상품 썸네일(대표사진)<span>gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span></label>
+				<input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
 			</div>
 			<div>
 				<label for="origin">원산지</label>

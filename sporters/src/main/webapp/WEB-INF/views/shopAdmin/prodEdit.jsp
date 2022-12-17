@@ -5,13 +5,16 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-<script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
-<script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
+<script src="/resources/js/jquery-3.6.1.min.js"></script>
+<script src="/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
+<script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
+<link rel="stylesheet" href="/resources/summernote-0.8.18-dist/summernote-lite.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script>
 
 $(document).ready(function(){
+	
+	fileCheck();
 	
 	// summernote
 	$('#content').summernote({
@@ -54,7 +57,38 @@ $(document).ready(function(){
 			}  // onImageUpload
 		}  // callbacks
 	});
-
+	
+	function fileCheck() {
+		
+		$('#thumbnail').on('change', function(){
+			
+			if(confirm('새로운 사진을 등록하면 기존 사진은 삭제됩니다. 사진을 변경하시겠습니까?')) {
+				// 파일 확장자 제한
+				var file_path = $(this).val();
+				var reg = /(.*?)\.(gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG)$/;
+				
+				// 허용되지 않은 확장자일 경우
+				if(file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
+					alert('이미지 파일만 업로드 가능합니다.');
+					$(this).val('');
+				}
+				
+				// 대표사진(썸네일) 개수 체크
+				if($('#thumbnail')[0].files.length > 1) {
+					console.log($(this));
+					alert('대표사진은 1장만 설정할 수 있습니다.');
+					$(this).val(''); 
+					event.preventDefault();
+					return;
+				}
+			} else {
+				$(this).val('');
+				return;
+			}
+				
+		});
+		
+	}
 		// 목록
 		$('#btn_list').click(function(){
 			location.href = '/shopAdmin/prodManage';
@@ -142,9 +176,11 @@ $(document).ready(function(){
 			</div>
 			<div>
 				<label for="thumbnail">상품 썸네일(대표사진)</label>
-				<img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
-				<input type="hidden" name="bef_thumbnail" value="${product.filesystem}">
-				<input type="file" name="thumbnail" accept="image" id="thumbnail" multiple="multiple">
+				<c:if test="${prodThumbnail.isThumbnail == 1}">
+					<img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
+				</c:if>
+				<input type="hidden" class="tnNo" name="tnNo" value="${prodThumbnail.tnNo}">
+				<input type="file" name="thumbnail" accept="image" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
 			</div>
 			<div>
 				<label for="origin">원산지</label>

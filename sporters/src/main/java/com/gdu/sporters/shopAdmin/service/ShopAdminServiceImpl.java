@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.sporters.shop.domain.ProdImageDTO;
+import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
 import com.gdu.sporters.shopAdmin.mapper.ShopAdminMapper;
 import com.gdu.sporters.shopAdmin.util.ShopAdminPageUtil;
@@ -65,6 +66,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		model.addAttribute("prodList", shopAdminMapper.selectProdListAllByPage(map));
 		model.addAttribute("beginNo", totalProdRecord - (page - 1) * pageUtil.getRecordPerPage());
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/admin/prodManage"));
+	//	model.addAttribute("prodThumbnail", shopAdminMapper.selectProdThumbnailListByNo(prodNo));
 		
 	}
 	
@@ -99,7 +101,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		// 저장된 파일을 확인할 수 있는 매핑을 반납
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("src", multipartRequest.getContextPath() + "/load/image/" + filesystem);
-		map.put("filesystem", filesystem);
+		map.put("tnFilesystem", filesystem);
 		
 		return map;
 	}
@@ -120,10 +122,33 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		// 썸네일 받아오기
 		List<MultipartFile> thumbnail = multipartRequest.getFiles("thumbnail");
 		
+		System.out.println(thumbnail);
+		
+		
 		String filesystem = null;
 		String path = null;
 		ProductDTO product= null;
-		int isThumbnail = 0;
+		
+		// 첨부 결과
+		int thumbnailResult;
+		if(thumbnail.get(0).getSize() == 0) {  // 첨부가 없는 경우 (files 리스트에 [MultipartFile[field="files", filename=, contentType=application/octet-stream, size=0]] 이렇게 저장되어 있어서 files.size()가 1이다.
+			thumbnailResult = 1;
+		} else {
+			thumbnailResult = 0;
+		}
+				
+		product = ProductDTO.builder()
+				.prodName(prodName)
+				.prodCategoryNo(prodCategoryNo)
+				.price(price)
+				.discount(discount)
+				.origin(origin)
+				.stock(stock)
+				.prodContent(content)
+				.build();
+		
+		// 상품 DB에 저장
+		int result = shopAdminMapper.insertProd(product);
 		
 		// 첨부된 파일 목록 순회(하나씩 저장)
 		for(MultipartFile multipartFile : thumbnail) {
@@ -155,6 +180,14 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 					// 첨부파일 서버에 저장(업로드 진행)
 					multipartFile.transferTo(file);
 
+					// ThumbnailDTO 생성
+					ProdThumbnailDTO thumbnailDTO = ProdThumbnailDTO.builder()
+							.prodNo(product.getProdNo())
+							.tnPath(path)
+							.tnOrigin(originName)
+							.tnFilesystem(filesystem)
+							.isThumbnail(0)
+							.build();
 					
 					// 첨부파일의 Content-Type 확인
 					String contentType = Files.probeContentType(file.toPath());  // 이미지의 Content-Type(image/jpeg, image/png, image/gif)
@@ -167,7 +200,11 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 							.size(500, 500)
 							.toFile(new File(dir, "s_" + filesystem));  // 썸네일의 이름은 s_로 시작함
 						
+						thumbnailDTO.setIsThumbnail(1);
 					}
+					
+					// DB에 Thumbnail 저장
+					thumbnailResult += shopAdminMapper.insertThumbnail(thumbnailDTO);
 					
 				}
 				
@@ -177,24 +214,6 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 			
 		}  // for
 		
-		if(thumbnail != null) {
-			isThumbnail = 1;
-		}
-		
-		product = ProductDTO.builder()
-				.prodName(prodName)
-				.prodCategoryNo(prodCategoryNo)
-				.price(price)
-				.discount(discount)
-				.origin(origin)
-				.filesystem(filesystem)
-				.stock(stock)
-				.prodContent(content)
-				.path(path)
-				.prodThumbnail(isThumbnail)
-				.build();
-		
-		int result = shopAdminMapper.insertProd(product);
 		
 		// 응답
 		try {
@@ -203,7 +222,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 			PrintWriter out = response.getWriter();
 			
 			out.println("<script>");
-			if(result > 0) {
+			if(result > 0 || thumbnailResult > 0) {
 				
 				// 파라미터 summernoteImageNames
 				String[] summernoteImageNames = multipartRequest.getParameterValues("summernoteImageNames");
@@ -215,15 +234,14 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 								.prodNo(product.getProdNo())
 								.filesystem(summernoteImage)
 								.build();
-						System.out.println(prodImageDTO);
 						shopAdminMapper.insertProdImage(prodImageDTO);
 					}
 				}
 				
-				out.println("alert('삽입 성공');");
+				out.println("alert('상품이 등록되었습니다.');");
 				out.println("location.href='/shopAdmin/prodManage';");
 			} else {
-				out.println("alert('삽입 실패');");
+				out.println("alert('예기치 못한 오류로 상품의 등록을 완료하지 못했습니다.\n다시 시도해 주세요.');");
 				out.println("history.back();");
 			}
 			out.println("</script>");
@@ -238,18 +256,18 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 	@Override
 	public ResponseEntity<byte[]> display(int prodNo) {
 		
-		ProductDTO product = shopAdminMapper.selectProdByNoThumbnail(prodNo);
-		File file = new File(product.getPath(), product.getFilesystem());
+		ProdThumbnailDTO thumbnail = shopAdminMapper.selectProdThumbnailListByNo(prodNo);
+		File file = new File(thumbnail.getTnPath(), thumbnail.getTnFilesystem());
 
 		ResponseEntity<byte[]> result = null;
-
+		
 		try {
 
-			if(product.getProdThumbnail() == 1) {
+			if(thumbnail.getIsThumbnail() == 1) {
 				HttpHeaders headers = new HttpHeaders();
 				headers.add("Content-Type", Files.probeContentType(file.toPath()));
-				File thumbnail = new File(product.getPath(), "s_" + product.getFilesystem());
-				result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(thumbnail), headers, HttpStatus.OK);
+				File thumbnailFile = new File(thumbnail.getTnPath(), "s_" + thumbnail.getTnFilesystem());
+				result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(thumbnailFile), headers, HttpStatus.OK);
 			}
 		
 		} catch (Exception e) {
@@ -298,26 +316,36 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		String origin = multipartRequest.getParameter("origin");
 		int stock = Integer.parseInt(multipartRequest.getParameter("stock"));
 		String content = multipartRequest.getParameter("content");
+		int tnNo = Integer.parseInt(multipartRequest.getParameter("tnNo"));
 		
 		// 새로 바꾸려는 썸네일
 		List<MultipartFile> thumbnail = multipartRequest.getFiles("thumbnail");
 		
-		// 수정 전 상품 불러오기
+		ProductDTO product = ProductDTO.builder()
+				.prodNo(prodNo)
+				.prodName(prodName)
+				.prodCategoryNo(prodCategoryNo)
+				.price(price)
+				.discount(discount)
+				.origin(origin)
+				.stock(stock)
+				.prodContent(content)
+				.build();
 		
+		// 수정 전 상품 불러오기
 		String path = "";
 		String filesystem = "";
+		int thumbnailResult = 0;
 		// Thumbnail 새로 추가하려고 한다면 filesystem 삭제 후 교체, 아니라면 그대로 유지
-		  if(thumbnail.get(0).getSize() == 0) {
-			filesystem = multipartRequest.getParameter("bef_thumbnail");
-		 } else {
-		
-			// 첨부된 파일 목록 순회(하나씩 저장)
+		if(thumbnail.size() > 0) {
+		// 첨부된 파일 목록 순회(하나씩 저장)
 			for(MultipartFile multipartFile : thumbnail) {
 				
 				try {
 					
 					// 첨부가 있는지 점검
 					if(multipartFile != null && multipartFile.isEmpty() == false) {  // 둘 다 필요함
+						
 						
 						// 원래 이름
 						String originName = multipartFile.getOriginalFilename();
@@ -341,6 +369,21 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 						// 첨부파일 서버에 저장(업로드 진행)
 						multipartFile.transferTo(file);
 
+						// ThumbnailDTO 생성
+						ProdThumbnailDTO thumbnailDTO = ProdThumbnailDTO.builder()
+								.tnNo(tnNo)
+								.prodNo(product.getProdNo())
+								.tnPath(path)
+								.tnOrigin(originName)
+								.tnFilesystem(filesystem)
+								.isThumbnail(1)
+								.build();
+						
+						// 기존 썸네일 이미지 삭제
+						File thumbnailFile = new File(thumbnailDTO.getTnPath(), "s_" + thumbnailDTO.getTnFilesystem());
+						if(thumbnailFile.exists()) {
+							thumbnailFile.delete();
+						}
 						
 						// 첨부파일의 Content-Type 확인
 						String contentType = Files.probeContentType(file.toPath());  // 이미지의 Content-Type(image/jpeg, image/png, image/gif)
@@ -355,6 +398,9 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 							
 						}
 						
+						// DB에 Thumbnail 저장
+						thumbnailResult = shopAdminMapper.updateThumbnail(thumbnailDTO);
+						
 					}
 					
 				} catch(Exception e) {
@@ -362,26 +408,10 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 				}
 			
 			}
-			}  // for
-			
-			ProductDTO product = ProductDTO.builder()
-					.prodNo(prodNo)
-					.prodName(prodName)
-					.prodCategoryNo(prodCategoryNo)
-					.price(price)
-					.discount(discount)
-					.origin(origin)
-					.filesystem(filesystem)
-					.stock(stock)
-					.prodContent(content)
-					.path(path)
-					.build();
-			
-			System.out.println(product);
+		} 
 			
 			int result = shopAdminMapper.updateProd(product);
 			
-			System.out.println(result);
 			// 응답
 			try {
 				
@@ -389,7 +419,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 				PrintWriter out = response.getWriter();
 				
 				out.println("<script>");
-				if(result > 0) {
+				if(result > 0 && thumbnailResult == thumbnail.size()) {
 					
 					// 파라미터 summernoteImageNames
 					String[] summernoteImageNames = multipartRequest.getParameterValues("summernoteImageNames");
@@ -401,15 +431,14 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 									.prodNo(product.getProdNo())
 									.filesystem(summernoteImage)
 									.build();
-							System.out.println(prodImageDTO);
 							shopAdminMapper.insertProdImage(prodImageDTO);
 						}
 					}
 					
-					out.println("alert('수정 성공');");
+					out.println("alert('상품 정보가 수정되었습니다.');");
 					out.println("location.href='/shopAdmin/prod/detail?prodNo=" + prodNo + "';");
 				} else {
-					out.println("alert('수정 실패');");
+					out.println("alert('변경사항이 없습니다. 상품 정보를 변경해주세요.');");
 					out.println("history.back();");
 				}
 				out.println("</script>");
@@ -423,5 +452,100 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 	}
 	
+	@Override
+	public void removeThumbnailByTnNo(int tnNo, HttpServletResponse response) {
+
+		// 삭제할 썸네일 정보 가져오기
+		ProdThumbnailDTO thumbnail = shopAdminMapper.selectProdThumbnailListByNo(tnNo);
+		
+		thumbnail = ProdThumbnailDTO.builder()
+				.prodNo(0)
+				.tnPath("")
+				.tnOrigin("")
+				.tnFilesystem("")
+				.isThumbnail(0)
+				.build();
+		
+		// DB에서 썸네일 삭제
+		int result = shopAdminMapper.updateThumbnail(thumbnail);
+		
+		if(result > 0) {
+			
+			// 첨부 파일을 File 객체로 만듬
+			File file = new File(thumbnail.getTnPath(), thumbnail.getTnFilesystem());
+			
+			// 원본 이미지 삭제
+			if(file.exists()) {
+				file.delete();
+			}
+			
+			// 첨부파일이 이미지이면 썸네일을 삭제
+			if(thumbnail.getIsThumbnail() == 1) {
+				
+			// 썸네일 이미지 삭제
+			File thumbnailFile = new File(thumbnail.getTnPath(), "s_" + thumbnail.getTnFilesystem());
+			if(thumbnailFile.exists()) {
+				thumbnailFile.delete();
+			}
+				
+			}
+			
+		}
+		
+		// 응답
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			if(result > 0) {
+				out.println("alert('상품의 썸네일(대표사진)이 삭제되었습니다.');");
+			} else {
+				out.println("alert('상품의 썸네일(대표사진)을 삭제하지 못했습니다. 다시 시도해주세요.');");
+			}
+			out.println("</script>");
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public ProdThumbnailDTO getProdThumbnailByNo(int prodNo) {
+		return shopAdminMapper.selectProdThumbnailListByNo(prodNo);
+	}
+
+	@Override
+	public void removeProd(HttpServletRequest request, HttpServletResponse response) {
+		
+		int prodNo = Integer.parseInt(request.getParameter("prodNo"));
+		
+		int result = shopAdminMapper.deleteProd(prodNo);
+		
+		// 응답
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				out.println("<script>");
+				out.println("alert('상품이 삭제 되었습니다.');");
+				out.println("location.href='" + "/shopAdmin/prodManage'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('상품 삭제가 실패했습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
  }
