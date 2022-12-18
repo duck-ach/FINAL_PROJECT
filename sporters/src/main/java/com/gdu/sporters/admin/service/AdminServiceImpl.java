@@ -56,28 +56,33 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
-	@Transactional
-	@Override
-	public Map<String, Object> removeUser(List<String> id) {
-		
-		List<RetireUsersDTO> retireUserList = new ArrayList<RetireUsersDTO>();
-		UsersDTO user;
-		int count = id.size();
-		for (int i = 0; i < count; i++) {
-			RetireUsersDTO retireUser = RetireUsersDTO.builder()
-					.retireUserId(id.get(i))
-					.retireJoinDate(user.getJoinDate())
-					.build();
-			retireUserList.add(retireUser);
-					
-		}
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("idList", id);
-		result.put("retireUserList", retireUserList);
-		
-		result.put("isRemove", commentMapper.deleteComment(commentNo) == 1);
-		return result;
-	}
+	 @Transactional
+	 @Override
+	 public Map<String, Object> removeUser(Map<String, Object> userNo) {
+	      
+
+      Map<String, Object> deleteUser = new HashMap<>();
+      List<UsersDTO> users = adminMapper.selectUserByNo(userNo);
+
+      List<RetireUsersDTO> retireUserList = new ArrayList<>();
+      for(int i = 0; i < users.size(); i ++) {
+         RetireUsersDTO retireUser = new RetireUsersDTO();
+         retireUser.setId(users.get(i).getId());
+         retireUser.setJoinDate(users.get(i).getJoinDate());
+         retireUserList.add(i, retireUser);
+      }
+      Map<String, Object> rUser = new HashMap<>();
+      rUser.put("retireUserList", retireUserList);
+      int insertResult = adminMapper.insertRetireUser(rUser);
+      int deleteResult = adminMapper.deleteUserByNo(userNo);
+
+      deleteUser.put("isRemove", deleteResult);
+      System.out.println(insertResult +"," + deleteResult);
+
+      
+      return deleteUser;
+      
+	   }
 		
 
 //	@Override

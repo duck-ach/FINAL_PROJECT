@@ -45,7 +45,7 @@
 	INSERT INTO RETIRE_USERS
 	(RETIRE_USER_NO, RETIRE_USER_ID, RETIRE_USER_NICKNAME, RETIRE_JOIN_DATE, RETIRE_DATE)
 	VALUES
-	(#{userNo}, #{id}, #{nickname}, #{joinDate}, SYSDATE)
+	(#{userNo}, #{id}, #{nickName}, #{joinDate}, SYSDATE)
 </insert>
 	
 </mapper>

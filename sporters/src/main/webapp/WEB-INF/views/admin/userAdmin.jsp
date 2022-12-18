@@ -10,7 +10,9 @@
 		fn_getUserList();
 		fn_checkAll();
 		fn_checkOne();
+		fn_retireUser();
 		
+	});
 	// 전체선택
 	function fn_checkAll(){
 		$('#check_all').click(function(){
@@ -78,13 +80,13 @@
 					tr += '<td><input type="checkbox" class="check_one" value="'+ user.userNo +'"></td>';
 					tr += '<td>' + user.userNo + '</td>';
 					tr += '<td>' + user.id + '</td>';
-					tr += '<td>' + user.name + '</td>';
 					tr += '<td>' + user.nickName + '</td>';
+					tr += '<td>' + user.name + '</td>';
 					tr += '<td>' + (user.gender == 'M' ? '남자' : '여자') + '</td>';
 					tr += '<td>' + user.email + '</td>';
 					tr += '<td>' + user.mobile + '</td>';
 					tr += '<td>' + user.joinDate + '</td>';
-					tr += '<td></td>';
+					tr += '<td><input type="checkbox"></td>';
 					tr += '<td></td>';
 					tr += '</tr>';
 					$('#list').append(tr);
@@ -94,23 +96,15 @@
 				alert('실패');
 			}
 		})
-	})
-	
-	// 선택삭제
-	function fn_removeList(){
-		$('#frm_user_list').submit(function(event){
-			if(confirm('선택된 회원을 삭제합니다.') == false){
-				event.preventDefault();
-				return;
-			}
-			if($('.check_one:checked').length == 0){
-				alert('선택된 회원이 없습니다.');
-				event.preventDefault();
-				return;
-			}
-		});
-	}
 	});
+	
+	function fn_retireUser(){
+		$('#btn_deleteUser').click(function(){
+			alert('삭제');
+		})
+		
+	}
+	
 </script>
 <body>
 
@@ -139,7 +133,7 @@
 						<td>이메일</td>
 						<td>연락처</td>
 						<td>가입일</td>
-						<td><button class="btn_deleteUser">탈퇴처리</button></td>
+						<td>탈퇴</td>
 						<td><select id="ban"><option>정지</option>
 						</select>
 						<button class="btn_banUser">정지</button></td>

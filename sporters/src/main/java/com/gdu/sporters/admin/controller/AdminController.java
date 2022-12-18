@@ -1,5 +1,6 @@
 package com.gdu.sporters.admin.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.sporters.admin.service.AdminService;
@@ -45,18 +47,10 @@ public class AdminController {
 		return adminService.searchUsersbyQuery(request);
 	}
 	
-	// 회원 탈퇴하기
-	@PostMapping("/admin/userAdmin/remove")
-	public void remove(HttpServletRequest request, HttpServletResponse response) {
-		adminService.removeUser(request, response);
-	}
-	
-	// 선택회원 탈퇴하기
-	@PostMapping("/admin/userAdmin/remove/list")
-	public void removeList(HttpServletRequest request, HttpServletResponse response) {
-		adminService.removeUserList(request, response);
-		System.out.println(request);
-		System.out.println(response);
+	@ResponseBody
+	@PostMapping(value="/admin/userAdmin/retireUser", produces = "application/json")
+	public Map<String, Object> removeUser(@RequestParam("idValueArr[]") List<String> id){
+		return adminService.removeUser(id);
 	}
 	
 
