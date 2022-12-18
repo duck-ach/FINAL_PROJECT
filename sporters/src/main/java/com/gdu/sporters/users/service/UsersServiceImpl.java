@@ -53,7 +53,8 @@ public class UsersServiceImpl implements UsersService {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isUser", usersMapper.selectUsersByMap(map) != null);
-		//result.put("isRetireUser", usersMapper.selectRetireUsersById(id) != null);
+		result.put("isRetireUser", usersMapper.selectRetireUsersById(id) != null);
+		result.put("isSleepUser", usersMapper.selectSleepUserById(id) != null);
 		return result;
 	}
 	
@@ -816,6 +817,14 @@ public class UsersServiceImpl implements UsersService {
 		return result;
 	}
 	
+
+// 아이디 찾기
+	@Override
+	public Map<String, Object> findUser(Map<String, Object> map) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("findUser", usersMapper.selectUsersByMap(map));
+		return result;
+	}
 	
 	
 	

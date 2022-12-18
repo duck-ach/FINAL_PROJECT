@@ -69,8 +69,8 @@
 			</form>
 			
 			<div>
-				<a href="/users/findId">아이디 찾기</a> ｜
-				<a href="/users/findPw">비밀번호 찾기</a>
+				<a href="/users/findId/form">아이디 찾기</a> ｜
+				<a href="/users/findPw/form">비밀번호 찾기</a>
 			</div>
 			<div>
 				<a href="/users/agree/form">회원가입</a>

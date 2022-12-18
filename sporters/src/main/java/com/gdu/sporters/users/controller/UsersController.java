@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -156,9 +157,27 @@ public class UsersController {
 		return "users/check";
 	}
 	
-	@PostMapping(value="/users/check/pw",produces="application/json")
+	@ResponseBody
+	@PostMapping(value="/users/check/pw", produces="application/json")
 	public Map<String, Object> requiredLogin_checkPw(HttpServletRequest request) {
 		return usersService.confirmPassword(request);
 	}
+	
+	
+	@GetMapping("/users/findId/form")
+	public String findIdForm() {
+		return "users/findId";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/users/findId", produces="application/json")
+	public Map<String, Object> findId(@RequestBody Map<String, Object> map){
+		return usersService.findUser(map);
+	}
+	
+	
+	
+	
+	
 	
 }
