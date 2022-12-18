@@ -19,7 +19,7 @@
 		<association property="users"  javaType="UsersDTO" >
 			<id  property="userNo"  column="USER_NO"  />
 			<result property="id"  column="ID" />	
-			<result property="nickName"  column="NICKNAME" />	
+			<result property="nickname"  column="NICKNAME" />	
 			<result property="name"  column="NAME" />
 			<result property="joinDate"  column="JOINDATE" />
 			<result property="gender"  column="GENDER" />
