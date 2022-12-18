@@ -88,7 +88,7 @@
 	
 	<!-- 로그인 시에 휴면회원 확인 -->
 	<select id="selectSleepUserById" parameterType="String" resultType="SleepUsersDTO">
-		SELECT SLEEP_USER_ID, JOIN_DATE, LAST_LOGIN_DATE, SLEEP_DATE
+		SELECT USER_NO, SLEEP_USER_ID, SLEEP_USER_PW, SLEEP_USER_NICKNAME, SLEEP_USER_NAME, SLEEP_USER_GENDER, SLEEP_USER_EMAIL, SLEEP_USER_MOBILE, SLEEP_USER_BIRTHYEAR, SLEEP_USER_BIRTHMONTH, SLEEP_USER_BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, NULL, NULL, NULL, NULL, '0'
 		  FROM SLEEP_USERS
 		 WHERE SLEEP_USER_ID = #{id}
 	</select>
@@ -131,18 +131,18 @@
 	</delete>
 	
 	<!-- 휴면복원 : 복귀회원을 USERS테이블에 삽입 -->
-	<insert id="insertComebackUser" parameterType="int">
+	<insert id="insertComebackUser" parameterType="String">
 		INSERT INTO USERS (USER_NO, ID, PW, NICKNAME, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
 			(SELECT USER_NO, SLEEP_USER_ID, SLEEP_USER_PW, SLEEP_USER_NICKNAME, SLEEP_USER_NAME, SLEEP_USER_GENDER, SLEEP_USER_EMAIL, SLEEP_USER_MOBILE, SLEEP_USER_BIRTHYEAR, SLEEP_USER_BIRTHMONTH, SLEEP_USER_BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, NULL, NULL, NULL, NULL, '0'
 			   FROM SLEEP_USERS
-			  WHERE USER_NO = #{userNo})
+			  WHERE SLEEP_USER_ID = #{sleepUserId})
 	</insert>
 	
 	<!-- 휴면복원 : 복귀회원을 SLEEP_USER 테이블에서 삭제 -->
-	<delete id="deleteSleepUser" parameterType="int">
+	<delete id="deleteSleepUser" parameterType="String">
 		DELETE
 		  FROM SLEEP_USERS
-		 WHERE USER_NO = #{userNo}
+		 WHERE SLEEP_USER_ID = #{sleepUserId}
 	</delete>
 	
 	
@@ -177,14 +177,13 @@
 		DELETE
 		  FROM USERS
 		 WHERE USER_NO = #{userNo}
-		   AND PW = #{pw} 
 	</delete>
 	
 	<insert id="insertWithdrawUser" parameterType="RetireUsersDTO">
 		INSERT INTO RETIRE_USERS
 			(RETIRE_USER_NO, RETIRE_USER_ID, RETIRE_JOIN_DATE, RETIRE_DATE)
 		VALUES
-			(#{userNo}, #{id}, #{joinDate}, SYSDATE)
+			(#{retireUserNo}, #{retireUserId}, #{retireJoinDate}, SYSDATE)
 	</insert>
 	
 </mapper>

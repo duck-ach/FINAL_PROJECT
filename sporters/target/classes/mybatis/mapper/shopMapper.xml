@@ -18,6 +18,13 @@
 		  FROM PRODUCT
 	</select>
 	
+	<select id="selectProductByNo" parameterType="int" resultType="Map">
+		SELECT P.PROD_NO, P.PROD_CATEGORY_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, P.PROD_THUMBNAIL, C.PROD_CATEGORY_NAME
+		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
+		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
+		 WHERE P.PROD_NO = #{prodNo}
+	</select> 
+	
 	<insert id="addCart" parameterType="CartDTO">
 		INSERT INTO CART
 			(CART_NO, USER_NO, PROD_NO, PROD_CNT)
@@ -25,11 +32,13 @@
 			(CART_SEQ.NEXTVAL, #{userNo}, #{prodNo}, #{prodCnt})
 	</insert>
 	
-	<select id="selectProductByNo" parameterType="int" resultType="Map">
-		SELECT P.PROD_NO, P.PROD_CATEGORY_NO, P.PROD_NAME, P.PRICE, P.DISCOUNT, P.PROD_CONTENT, P.ORIGIN, P.STOCK, P.FILESYSTEM, P.PROD_THUMBNAIL, C.PROD_CATEGORY_NAME
-		  FROM PRODUCT P INNER JOIN PROD_CATEGORY C
-		    ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO
-		 WHERE P.PROD_NO = #{prodNo}
+	<select id="selectCartList" parameterType="Map" resultType="CartListDTO">
+		SELECT A.ROW_NUM, A.CART_NO, A.USER_NO, A.PROD_NO, A.PROD_CNT, A.CART_LIST_NO, A.PROD_NAME, A.PRICE
+		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY CART_NO DESC) AS ROW_NUM, C.CART_NO, C.USER_NO, C.PROD_NO, C.PROD_CNT, C.CART_LIST_NO, P.PROD_NAME, P.PRICE
+		  		  FROM CART_LIST C INNER JOIN PRODUCT P 
+		    		ON C.PROD_NO = P.PROD_NO) A
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+		   AND A.USER_NO = #{userNo}
 	</select>
 	
 </mapper>

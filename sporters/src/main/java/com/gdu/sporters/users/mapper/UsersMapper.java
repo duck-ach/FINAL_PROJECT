@@ -21,8 +21,8 @@ public interface UsersMapper {
 	public int insertNaverUser(UsersDTO user);
 	public int insertSleepUser();
 	public int deleteUserForSleep();
-	public int insertComebackUser(int userNo);
-	public int deleteSleepUser(int userNo);
+	public int insertComebackUser(SleepUsersDTO user);
+	public int deleteSleepUser(String id);
 	public int updateUser(UsersDTO user);
 	public int updateUserPassword(UsersDTO user);
 	public int deleteUser(int userNo);
