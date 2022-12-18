@@ -24,6 +24,7 @@ public interface UsersService {
 	public void comebackUser(HttpServletRequest request, HttpServletResponse response);
 	
 	// 정보수정
+	public Map<String, Object> confirmPassword(HttpServletRequest request);
 	public void modifyInfo(HttpServletRequest request, HttpServletResponse response);
 	public void modifyPw(HttpServletRequest request, HttpServletResponse response);
 	

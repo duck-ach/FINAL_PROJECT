@@ -589,31 +589,31 @@ public class UsersServiceImpl implements UsersService {
 		}	
 	}
 	
-	
+// 복구	
+	@Transactional
 	@Override
 	public void comebackUser(HttpServletRequest request, HttpServletResponse response) {
 		// 복구하는 사용자 아이디
 		HttpSession session = request.getSession();
-		SleepUsersDTO sleepUser = (SleepUsersDTO)session.getAttribute("sleepUser");
-		int userNo = sleepUser.getUserNo();
-		
+		SleepUsersDTO sleepSessionUser = (SleepUsersDTO)session.getAttribute("sleepUser");
+		String id = sleepSessionUser.getSleepUserId();
+		SleepUsersDTO sleepUser = usersMapper.selectSleepUserById(id);
 		// 복구
-		int insertCount = usersMapper.insertComebackUser(userNo);
+		int insertCount = usersMapper.insertComebackUser(sleepUser);
 		int deleteCount = 0;
 		if(insertCount > 0 ) {
-			deleteCount = usersMapper.deleteSleepUser(userNo);
+			deleteCount = usersMapper.deleteSleepUser(id);
 		}
 		
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			
 			if(insertCount > 0 && deleteCount > 0) {
 				session.removeAttribute("sleepUser");
 				out.println("<script>");
 				out.println("alert('휴면 계정이 복구되었습니다. 휴면 계정 활성화를 위해 곧바로 로그인을 해 주세요.');");
 				// out.println("location.href='" + request.getContextPath() + "/user/login/form';");  // 로그인 후 referer에 의해 /user/restore로 되돌아오기 때문에 사용하지 말 것
-				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("location.href='/';");
 				out.println("</script>");
 			} else {
 				out.println("<script>");
@@ -697,7 +697,9 @@ public class UsersServiceImpl implements UsersService {
 			e.printStackTrace();
 		}
 	}
+
 	
+// 비번수정	
 	@Override
 	public void modifyPw(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
@@ -750,6 +752,8 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 	
+	
+// 탈퇴	
 	@Transactional
 	@Override
 	public void withdraw(HttpServletRequest request, HttpServletResponse response) {
@@ -791,6 +795,26 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 	
+	
+// 비번확인
+	@Override
+	public Map<String, Object> confirmPassword(HttpServletRequest request) {
+		String pw =securityUtil.sha256(request.getParameter("pw"));
+		
+		HttpSession session = request.getSession();
+		String id = ((UsersDTO)session.getAttribute("loginUser")).getId();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pw", pw);
+		
+		UsersDTO user = usersMapper.selectUsersByMap(map);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isUser", user != null);
+		
+		return result;
+	}
 	
 	
 	

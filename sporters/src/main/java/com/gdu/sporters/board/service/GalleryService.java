@@ -13,6 +13,7 @@ import com.gdu.sporters.board.domain.FreeDTO;
 public interface GalleryService {
 	
 	public void getGalleryList(HttpServletRequest request, Model model);
+	public void getGalleryDetailUser(HttpServletRequest request, Model model);
 	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest);
 	public void saveGallery(HttpServletRequest request, HttpServletResponse response);
 	public FreeDTO getGalleryByNo(int freeNo);
