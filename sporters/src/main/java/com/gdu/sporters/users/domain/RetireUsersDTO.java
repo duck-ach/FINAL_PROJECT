@@ -17,3 +17,4 @@ public class RetireUsersDTO {
 	private Date retireJoinDate;
 	private Date retireDate;
 }
+   

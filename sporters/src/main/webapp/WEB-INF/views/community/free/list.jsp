@@ -46,7 +46,7 @@
 								<td><a id="moveDetail"
 									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
 								<td>${gallery.users.id}</td>
-								<td>${gallery.users.nickName}</td>
+								<td>${gallery.users.nickname}</td>
 								<td>${gallery.users.gender}</td>
 								<td>${gallery.createDate}</td>
 								<td>${gallery.hit}</td>
@@ -58,7 +58,9 @@
 				
 			</form>
 		
-			
+			<div class="div_paging">
+				${paging}
+			</div>
 			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
 		

@@ -65,6 +65,14 @@ public class GalleryServiceImpl implements GalleryService {
 
 	}
 	
+	@Override
+	public void getGalleryDetailUser(HttpServletRequest request, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<FreeDTO> galleryList = boardMapper.selectFreeList(map);
+		model.addAttribute("galleryList", galleryList);
+	}
+	
+	
 	
 	@Transactional
 	@Override
@@ -185,7 +193,7 @@ public class GalleryServiceImpl implements GalleryService {
 
 		// DB에서 갤러리 정보 가져오기
 		FreeDTO gallery = boardMapper.selectFreeByNo(freeNo);
-
+		
 		// 갤러리에서 사용한 것으로 되어 있는 써머노트 이미지(저장된 파일명이 DB에 저장되어 있고, 실제로 HDD에도 저장되어 있음)
 		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(freeNo);
 
@@ -265,7 +273,7 @@ public class GalleryServiceImpl implements GalleryService {
 		
 		
 		
-	
+
 	
 	
 	
