@@ -39,7 +39,7 @@
 				<hr>
 				
 				<div style="text-align: right;">
-					<input type="button" value="회원정보 변경" onclick="location.href='/users/modify/info'">
+					<input type="button" value="회원정보 변경" onclick="location.href='/users/check/form'">
 					<input type="button" value="비밀번호 변경" onclick="location.href='/users/modify/pw'">
 					<input type="button" value="탈퇴" onclick="location.href='/users/withdraw'">
 				</div>

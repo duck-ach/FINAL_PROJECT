@@ -8,17 +8,22 @@
 <script>
 	
 	$(function(){
-		fn_withdraw();
-	});
-	
-	function fn_withdraw(){
-		$('#btn_withdraw').click(function(){
-			if(confirm('동일한 아이디로 재가입이 불가능합니다. 회원 탈퇴하시겠습니까?')){
-				$('#lnk_withdraw').submit();
-			}
+		$('#btn_check_pw').click(function(){
+			$.ajax({
+				type: 'post',
+				url: '/users/check/pw',
+				data: 'pw=' + $('#pw').val(),
+				dataType: 'json',
+				success: function(resData){
+					if(resData.isUser){
+						location.href = '/users/modify/info';
+					} else {
+						alert('비밀번호를 확인하세요.');
+					}
+				}
+			});
 		});
-	}
-	
+	});
 	
 </script>
 <body>
@@ -26,17 +31,17 @@
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div>
-			<div> 탈퇴한 아이디는 사용할 수 없게 됩니다 <br> 탈퇴를 원하시는 경우 비밀번호를 입력해주세요!</div>
-			<input type="hidden" name="userNo" value="${loginUser.userNo}">
+			<div>회원의 정보를 안전하게 보호하기 위해서 비밀번호를 확인합니다.</div>
+			
 			<div>
-				<label for="pw">비밀번호 확인 ▷ </label>
-				<input type="password" id="pw" name="pw">
+				<label for="pw">비밀번호 ▷ </label>
+				<input type="password" id="pw">
 			</div>
+			
 			<div>
-				<input type="button" id="btn_withdraw" value="탈퇴하기"></input>
-				<input type="button" value="돌아가기" onclick="location.href='/users/mypage'">
+				<input type="button" value="취소" onclick="history.back()">
+				<input type="button" value="확인" id="btn_check_pw">
 			</div>
-			<form id="lnk_withdraw" action="/users/withdraw" method="post"></form>
 		</div>
 	</section><!-- 기본틀 2 -->
 </section><!-- 기본틀 1 -->
