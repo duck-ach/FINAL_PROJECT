@@ -14,14 +14,7 @@
 		<div><a href="/free/write">글쓰러가기</a>  </div>
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<form id="frm_search" method="post">
-				<select id="column" name="column">
-					<option value="NAME">이름</option>
-					<option value="USER_NO">회원번호</option>				
-				</select>
-				<input type="text" id="searchText" name="searchText">
-				<input type="button" id="btn_search" value="검색">
-				<input type="button" id="btn_init" value="초기화">			
+			<form id="frm_search" method="post">										
 				<br><hr><br>
 				
 				<table border="1">

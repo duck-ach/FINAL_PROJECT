@@ -19,6 +19,10 @@
 <script src="/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
 <script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
+<!-- 
+<link rel="stylesheet" type="text/css" href="/resources/css/left_menus.css">
+<script src="/resources/js/left_menus.js"></script>
+ -->
 <style type="text/css">
 	body{
 		
@@ -66,7 +70,7 @@
 	
 
 	.wrap{
-		margin: 100px auto;
+		margin: 222px auto;
 	   
 	    width: 70%;
 	    overflow: hidden;
@@ -85,8 +89,8 @@
 </head>
 <script type="text/javascript">
 $(function(){
-	var header_height = $('.main_header_area').height()  +  50;
-	$('.wrap').css({marginTop: header_height });
+//	var header_height = $('.main_header_area').height()  +  50;
+//	$('.wrap').css({marginTop: header_height });
 });
 
 
@@ -98,25 +102,31 @@ $(function(){
 	<div class="main_header_area_fix">
 	<nav class="spoters_logo_area">
 		<h1 class="spoters_logo"><a href="/"><img alt="we are best team!" src="/resources/images/spoters_logo_2.jpg"></a></h1>
-	</nav>
-	
-	
-
-	
+	</nav>	
 	</div>
-</header>
 
-<nav class="left_side_gnd_area">
-		 <ul>
-		 	<li><a href="/users/agree/form">회원가입</a> </li>
-		 	<li><a href="/users/login/form">로그인</a> </li>
-		 	<li><a href="/local/list">지역별게시판</a> </li>
-		 	<li><a href="/spoReview/list">운동후기게시판</a> </li>
-		 	<li><a href="/free/list">자유게시판</a> </li>
-		 	<li><a href="/shop/list">쇼핑몰</a> </li>
-		 	<li><a href="/supp/singo">신고게시판</a> </li>
-		 	<li><a href="/supp/qnaList">고객문의게시판</a> </li>
-		 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
-		 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
-		 </ul>
-	</nav>
+
+
+
+<div id="left_side_gnd_area"  class="left_side_gnd_area">
+          
+      <ul>
+        <li><a href="/users/agree/form">회원가입</a> </li>
+	 	<li><a href="/users/login/form">로그인</a> </li>
+	 	<li><a href="/local/list">지역별게시판</a> </li>
+	 	<li><a href="/spoReview/list">운동후기게시판</a> </li>
+	 	<li><a href="/free/list">자유게시판</a> </li>
+	 	<li><a href="/shop/list">쇼핑몰</a> </li>
+	 	<li><a href="/supp/singo">신고게시판</a> </li>
+	 	<li><a href="/supp/qnaList">고객문의게시판</a> </li>
+	 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
+	 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
+      </ul>
+   
+  
+  
+    
+  </div>
+
+
+</header>
