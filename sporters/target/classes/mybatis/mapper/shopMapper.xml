@@ -32,13 +32,13 @@
 			(CART_SEQ.NEXTVAL, #{userNo}, #{prodNo}, #{prodCnt})
 	</insert>
 	
-	<select id="selectCartList" parameterType="Map" resultType="Map">
-		SELECT A.ROW_NUM, A.CART_NO, A.USER_NO, A.PROD_NO, A.PROD_CNT, A.PROD_THUMBNAIL, A.PROD_NAME, A.PRICE, A.STOCK
-		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY CART_NO DESC) AS ROW_NUM, C.CART_NO, C.USER_NO, C.PROD_NO, C.PROD_CNT, P.PROD_THUMBNAIL, P.PROD_NAME, P.PRICE, P.STOCK
-		  		  FROM CART C INNER JOIN PRODUCT P 
+	<select id="selectCartList" parameterType="Map" resultType="CartListDTO">
+		SELECT A.ROW_NUM, A.CART_NO, A.USER_NO, A.PROD_NO, A.PROD_CNT, A.CART_LIST_NO, A.PROD_NAME, A.PRICE
+		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY CART_NO DESC) AS ROW_NUM, C.CART_NO, C.USER_NO, C.PROD_NO, C.PROD_CNT, C.CART_LIST_NO, P.PROD_NAME, P.PRICE
+		  		  FROM CART_LIST C INNER JOIN PRODUCT P 
 		    		ON C.PROD_NO = P.PROD_NO) A
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
-		   AND USER_NO = #{userNo}
+		   AND A.USER_NO = #{userNo}
 	</select>
 	
 </mapper>

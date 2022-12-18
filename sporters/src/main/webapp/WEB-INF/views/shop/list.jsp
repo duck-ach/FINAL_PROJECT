@@ -13,31 +13,24 @@
 		$(".btn_addCart").click(function(){
 			var prodNo = $('#prodNo').val();
 			var prodCnt = $('#prodCnt').val();
+			alert(prodNo);
 			alert(prodCnt);
-			alert(prodStock);
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
 					};
-			if(prodCnt > prodStock)
-			{
-				alert('현재 구매하실 수 있는 수량은 ' + prodStock + '개 입니다.');
-				$('#prodCnt').val() == $('#prodBuyCnt').val();
-				return;
-			} else {
-				$.ajax({
-					url: '/shop/addCart',
-					type: 'post',
-					data: data,
-					success: function(){
-						alert('카트 담기 성공');
-						$('#prodCnt').val("1");
-					},
-					error: function(){
-						alert('카트 담기 실패');
-					}
-				})
-			}
+			$.ajax({
+				url: '/shop/addCart',
+				type: 'post',
+				data: data,
+				success: function(){
+					alert('카트 담기 성공');
+					$('#prodCnt').val("1");
+				},
+				error: function(){
+					alert('카트 담기 실패');
+				}
+			});
 		});
 		
 		
@@ -107,28 +100,25 @@
 	</div>
 	<div>
 		<form id="frm_product">
-			<table>
-				<tbody>
-					<c:forEach items="${productList}" var="list">
-						<tr class="product">
-							<td>
-							<img src="${list.prodThumbnail}"><br>
-							<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-							<span>개당 가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
-							재고 : ${list.stock} 개<br>
-							구매할 수량 : 
-							<select name="prodCnt" id="prodCnt">
-							<%for(int i=1; i<100; i++){%>
-								<option value="<%=i%>"><%=i%></option>
-							<%}%>
-							</select>개
-							<button class="btn_buy">구매하기</button>
-							<button class="btn_addCart">장바구니 담기</button>
-							</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+		<ul>
+			<c:forEach items="${productList}" var="list">
+				<li class="product">
+					<img src="${list.prodThumbnail}"><br>
+					<input type="hidden" value="${list.prodNo}">
+					<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
+					<span>개당 가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
+					<span>재고 : ${list.stock} 개</span><br>
+					<span>구매할 수량 : 
+					<select name="prodCnt" id="prodCnt">
+					<%for(int i=1; i<100; i++){%>
+						<option value="<%=i%>"><%=i%></option>
+					<%}%>
+					</select>개</span>
+					<button class="btn_buy">구매하기</button>
+					<button class="btn_addCart">장바구니 담기</button>
+				</li>
+			</c:forEach>
+		</ul>
 		</form>
 	</div>
 	<div id="paging">
