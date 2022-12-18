@@ -12,6 +12,7 @@ import com.gdu.sporters.shop.domain.ProductDTO;
 public interface ShopMapper {
 	public List<ProductDTO> selectProductListByMap(Map<String, Object> map);
 	public int selectProductCount();
-	public int addCart(CartDTO cart);
 	public Map<String, Object> selectProductByNo(int prodNo);
+	public int addCart(CartDTO cart);
+	public Map<String, Object> selectCartList(Map<String, Object> map);
 }

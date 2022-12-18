@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.gdu.sporters.shopAdmin.service.ShopAdminService;
 
 @Controller
-public class shopAdmController {
+public class shopAdmProdController {
 
 	@Autowired
 	private ShopAdminService shopAdminService;
@@ -35,13 +35,13 @@ public class shopAdmController {
 	}
 	
 	// 상품등록 페이지로 이동
-	@GetMapping("/shopAdmin/prodWrite")
+	@GetMapping("/shopAdmin/prod/write")
 	public String writeProd() {
 		return "shopAdmin/prodWrite";
 	}
 	
 	// 상품등록
-	@PostMapping("/shopAdmin/prodAdd")
+	@PostMapping("/shopAdmin/prod/add")
 	public void addProd(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		shopAdminService.saveProd(multipartRequest, response);
 	}
@@ -61,10 +61,37 @@ public class shopAdmController {
 	}
 	
 	// 상품 상세보기
-	@GetMapping("/shopAdmin/detail")
+	@GetMapping("/shopAdmin/prod/detail")
 	public String detail(@RequestParam(value="prodNo", required=false, defaultValue="0") int prodNo, Model model) {
 		model.addAttribute("product", shopAdminService.getProdByNo(prodNo));
+		model.addAttribute("prodThumbnail", shopAdminService.getProdThumbnailByNo(prodNo));
 		return "shopAdmin/prodDetail";
+	}
+	
+	// 상품 수정 페이지로 이동
+	@PostMapping("/shopAdmin/prod/edit")
+	public String edit(int prodNo, Model model) {
+		model.addAttribute("product", shopAdminService.getProdByNo(prodNo));
+		model.addAttribute("prodThumbnail", shopAdminService.getProdThumbnailByNo(prodNo));
+		return "shopAdmin/prodEdit";
+	}
+	
+	// 상품 수정 submit
+	@PostMapping("/shopAdmin/prod/modify")
+	public void modify(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+		shopAdminService.prodModify(multipartRequest, response);
+	}
+	
+	// 상품 썸네일 삭제
+	@GetMapping("/shopAdmin/prodThumbnail/remove")
+	public void removeThumbnail(@RequestParam("tnNo") int tnNo, HttpServletResponse response) {
+		shopAdminService.removeThumbnailByTnNo(tnNo, response);
+	}
+	
+	// 상품 삭제
+	@PostMapping("/shopAdmin/prod/remove")
+	public void remove(HttpServletRequest request, HttpServletResponse response) {
+		shopAdminService.removeProd(request, response);
 	}
 	
 }

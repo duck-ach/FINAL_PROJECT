@@ -20,6 +20,7 @@
 		<div class="product_detail_area" style="display: flex;justify-content: space-around;">
 			<div>이미지영역</div>
 			<div>
+				<input type="text" id="prodNo" value="${product.PROD_NO}">
 				<h1>&#91;${product.PROD_CATEGORY_NAME}&#93; ${product.PROD_NAME}</h1> 
 				<span>${product.PROD_CONTENT}</span><br>
 				<span>가격 : ${product.PRICE} 원</span><br>
@@ -33,7 +34,31 @@
 					</select>개
 				</span><br>
 				<button>구매하기</button>
-				<button>장바구니</button>
+				<button class="btn_addCart">장바구니</button>
+				<script>
+							$(".btn_addCart").click(function(){
+								var prodNo = $('#prodNo').val();
+								var prodCnt = $('#prodCnt').val();
+								alert(prodNo);
+								var data = {
+										prodNo: prodNo,
+										prodCnt: prodCnt
+										};
+								
+								$.ajax({
+									url: '/shop/addCart',
+									type: 'post',
+									data: data,
+									success: function(){
+										alert('카트 담기 성공');
+										$('#prodCnt').val("1");
+									},
+									error: function(){
+										alert('카트 담기 실패');
+									}
+								})
+							});
+							</script>
 			</div>
 		</div>
 		

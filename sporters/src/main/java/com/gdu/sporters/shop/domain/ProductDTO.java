@@ -1,5 +1,7 @@
 package com.gdu.sporters.shop.domain;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +20,7 @@ public class ProductDTO {
 	private String prodContent;
 	private String origin;
 	private int stock;
-	private String filesystem;
-	private int prodThumbnail;
-	private String path;
+	private Date prodCreateDate;
 	private ProdCategoryDTO prodCategory;
+	private ProdThumbnailDTO prodThumbnail;
 }
