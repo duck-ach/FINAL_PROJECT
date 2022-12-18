@@ -110,14 +110,14 @@
 		<form id="frm_product">
 			<table>
 				<tbody>
-					<c:forEach items="${productList}" var="list">
+					<c:forEach items="${cartList}" var="cartList">
 						<tr class="product">
 							<td>
-							<img src="${list.prodThumbnail}"><br>
-							<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-							<input type="hidden" id="prodNo" value="${list.prodNo}">
-							가격 : ${list.price} 원<br>
-							<span>재고 : ${list.stock} 개<br></span>
+							<img src="${cartList}"><br>
+							<a href="${contextPath}/shop/cartlist?userNo=${cartList}">${cartList}</a><br>
+							<input type="hidden" id="prodNo" value="${cartList}">
+							가격 : ${cartList} 원<br>
+							<span>재고 : ${cartList} 개<br></span>
 							구매할 수량 : 
 							<select name="prodCnt" id="prodCnt">
 							<%for(int i=1; i<100; i++){%>

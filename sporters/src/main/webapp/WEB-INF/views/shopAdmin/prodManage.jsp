@@ -16,7 +16,7 @@
 	<h1>상품관리</h1>
 	<div>
 		<span>상품목록 (전체 ${totalRecord}개)</span>
-		<a href="/shopAdmin/prodWrite">상품등록</a>
+		<a href="/shopAdmin/prod/write">상품등록</a>
 	</div>
 	<hr>
 	<table>
@@ -38,10 +38,15 @@
 					<td>${beginNo - vs.index}</td>
 					<td>${prod.prodNo}</td>
 					<td>
-						<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
+						<c:if test="${prod.prodThumbnail.isThumbnail == 1}">
+							<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodThumbnail.tnFilesystem}">
+						</c:if>
+						<c:if test="${prod.prodThumbnail.isThumbnail == 0 || prod.prodThumbnail.isThumbnail == null}">
+							<img src="/resources/images/shopAdmin/no-image.jpeg" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodName}">
+						</c:if>
 					</td>
 					<td>${prod.prodCategory.prodCategoryName}</td>
-					<td><a href="/shopAdmin/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>
+					<td><a href="/shopAdmin/prod/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>
 					<td>${prod.price}</td>
 					<td>${prod.discount}</td>
 					<td>${prod.stock}</td>

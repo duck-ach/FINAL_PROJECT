@@ -13,36 +13,34 @@
 		$(".btn_addCart").click(function(){
 			var prodNo = $('#prodNo').val();
 			var prodCnt = $('#prodCnt').val();
-			
+			alert(prodCnt);
+			alert(prodStock);
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
 					};
-			alert(prodNo);
-			alert(prodCnt);
-			alert(data);
-			
-			$.ajax({
-				url: '/shop/addCart',
-				type: 'post',
-				data: data,
-				success: function(){
-					alert('카트 담기 성공');
-					$('#prodCnt').val("1");
-				},
-				error: function(){
-					alert('카트 담기 실패');
-				}
-			})
-		});
-		
-		$('#prodCnt').keyup(function(){
-			if($(this).val() > $('#prodBuyCnt').val()){
-				alert('현재 구매하실 수 있는 수량은 ' + ${list.stock} + '개 입니다.');
-				$(this).val() == $('#prodBuyCnt').val();
+			if(prodCnt > prodStock)
+			{
+				alert('현재 구매하실 수 있는 수량은 ' + prodStock + '개 입니다.');
+				$('#prodCnt').val() == $('#prodBuyCnt').val();
 				return;
+			} else {
+				$.ajax({
+					url: '/shop/addCart',
+					type: 'post',
+					data: data,
+					success: function(){
+						alert('카트 담기 성공');
+						$('#prodCnt').val("1");
+					},
+					error: function(){
+						alert('카트 담기 실패');
+					}
+				})
 			}
 		});
+		
+		
 	
 	});
 	
@@ -56,6 +54,9 @@
 	}
 	a {
 		text-decoration:none;
+	}
+	#paging {
+		text-align: center;
 	}
 	#aside {
 		float: left;
@@ -98,10 +99,10 @@
 		<br>
 		<h3>카테고리</h3>
 		<ul>
-			<li><a href="">음식</a></li>
-			<li><a href="">의류</a></li>
-			<li><a href="">기타</a></li>
-			<li><a href="/shop/cart">장바구니로 이동</a></li>
+			<li><a href="/shop/list?c=1">음식</a></li>
+			<li><a href="/shop/list?c=2">의류</a></li>
+			<li><a href="/shop/list?c=3">기타</a></li>
+			<li><a href="/shop/cartList">장바구니로 이동</a></li>
 		</ul>
 	</div>
 	<div>
@@ -113,7 +114,6 @@
 							<td>
 							<img src="${list.prodThumbnail}"><br>
 							<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-							<input type="hidden" id="prodNo" value="${list.prodNo}">
 							<span>개당 가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
 							재고 : ${list.stock} 개<br>
 							구매할 수량 : 
@@ -128,13 +128,11 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="5">${paging}</td>
-					</tr>
-				</tfoot>
 			</table>
 		</form>
+	</div>
+	<div id="paging">
+		${paging}
 	</div>
 	</section><!-- 기본틀 2 -->
 </section><!-- 기본틀 1 -->

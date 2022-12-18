@@ -5,13 +5,14 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-<script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
-<script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
+<script src="/resources/js/jquery-3.6.1.min.js"></script>
+<script src="/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
+<script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
+<link rel="stylesheet" href="/resources/summernote-0.8.18-dist/summernote-lite.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script>
 
-$(function(){
+$(document).ready(function(){
 	
 	fileCheck();
 	
@@ -61,29 +62,33 @@ $(function(){
 		
 		$('#thumbnail').on('change', function(){
 			
-			// 파일 확장자 제한
-			var file_path = $(this).val();
-			var reg = /(.*?)\.(gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG)$/;
-			
-			// 허용되지 않은 확장자일 경우
-			if(file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
-				alert('이미지 파일만 업로드 가능합니다.');
+			if(confirm('새로운 사진을 등록하면 기존 사진은 삭제됩니다. 사진을 변경하시겠습니까?')) {
+				// 파일 확장자 제한
+				var file_path = $(this).val();
+				var reg = /(.*?)\.(gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG)$/;
+				
+				// 허용되지 않은 확장자일 경우
+				if(file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
+					alert('이미지 파일만 업로드 가능합니다.');
+					$(this).val('');
+				}
+				
+				// 대표사진(썸네일) 개수 체크
+				if($('#thumbnail')[0].files.length > 1) {
+					console.log($(this));
+					alert('대표사진은 1장만 설정할 수 있습니다.');
+					$(this).val(''); 
+					event.preventDefault();
+					return;
+				}
+			} else {
 				$(this).val('');
-			}
-			
-			// 대표사진(썸네일) 개수 체크
-			if($('#thumbnail')[0].files.length > 1) {
-				console.log($(this));
-				alert('대표사진은 1장만 설정할 수 있습니다.');
-				$(this).val(''); 
-				event.preventDefault();
 				return;
 			}
-			
+				
 		});
 		
 	}
-
 		// 목록
 		$('#btn_list').click(function(){
 			location.href = '/shopAdmin/prodManage';
@@ -140,30 +145,24 @@ $(function(){
 				return;  // 더 이상 코드 실행할 필요 없음
 			}
 			
-			if($('#thumbnail').val() == ''){
-				alert('상품 대표사진은 필수 삽입해야 합니다.');
-				event.preventDefault();  // 서브밋 취소
-				$('#thumbnail').focus();
-				return;  // 더 이상 코드 실행할 필요 없음
-			}
-			
 		});
 		
 		
 	});
 </script>
 <body>
-	<form id="frm_write" action="/shopAdmin/prod/add" method="post" enctype="multipart/form-data">
+	<form id="frm_write" action="/shopAdmin/prod/modify" method="post" enctype="multipart/form-data">
 		<div>
 			<h1>상품등록</h1>
+			<input type="hidden" name="prodNo" value="${product.prodNo}">
 			<div>
 				<label for="prodName">상품명</label>
-				<input type="text" id="prodName" name="prodName">
+				<input type="text" id="prodName" name="prodName" value="${product.prodName}">
 			</div>
 			<div>
 				상품카테고리
 				<select name="prodCategoryNo" id="prodCategoryNo">
-					<option value="">===선택===</option>
+					<option value="${product.prodCategoryNo}">${product.prodCategory.prodCategoryName}</option>
 					<option value="1">식품</option>
 					<option value="2">의류</option>
 					<option value="3">물건</option>
@@ -171,31 +170,35 @@ $(function(){
 			</div>
 			<div>
 				<label for="price">정가격</label>
-				<input type="number" id="price" name="price">
+				<input type="number" id="price" name="price" value="${product.price}">
 				<label for="discount">할인가격</label>
-				<input type="number" id="discount" name="discount">
+				<input type="number" id="discount" name="discount" value="${product.discount}">
 			</div>
 			<div>
-				<label for="thumbnail">상품 썸네일(대표사진)<span>gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span></label>
-				<input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
+				<label for="thumbnail">상품 썸네일(대표사진)</label>
+				<c:if test="${prodThumbnail.isThumbnail == 1}">
+					<img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
+				</c:if>
+				<input type="hidden" class="tnNo" name="tnNo" value="${prodThumbnail.tnNo}">
+				<input type="file" name="thumbnail" accept="image" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
 			</div>
 			<div>
 				<label for="origin">원산지</label>
-				<input type="text" id="origin" name="origin">
+				<input type="text" id="origin" name="origin" value="${product.origin}">
 			</div>
 			<div>
 				<label for="stock">재고</label>
-				<input type="number" id="stock" name="stock">
+				<input type="number" id="stock" name="stock" value="${product.stock}">
 			</div>
 			
 			<div>
 				<label for="content"></label>
-		        <textarea name="content" id="content" name="content"></textarea>   
+		        <textarea name="content" id="content" name="content">${product.prodContent}</textarea>   
 			</div>
 			<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 			<div id="summernote_image_list"></div>
 			<div>
-				<button>등록하기</button>
+				<button>수정하기</button>
 				<input type="button" value="목록" id="btn_list">
 			</div>
 		</div>
