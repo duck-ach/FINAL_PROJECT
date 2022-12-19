@@ -1,11 +1,13 @@
 package com.gdu.sporters.shopAdmin.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shopAdmin.service.ShopAdminService;
 
 @Controller
@@ -36,7 +39,8 @@ public class shopAdmProdController {
 	
 	// 상품등록 페이지로 이동
 	@GetMapping("/shopAdmin/prod/write")
-	public String writeProd() {
+	public String writeProd(Model model) {
+		model.addAttribute("prodCategoryList", shopAdminService.getCategoryList());
 		return "shopAdmin/prodWrite";
 	}
 	
@@ -73,6 +77,7 @@ public class shopAdmProdController {
 	public String edit(int prodNo, Model model) {
 		model.addAttribute("product", shopAdminService.getProdByNo(prodNo));
 		model.addAttribute("prodThumbnail", shopAdminService.getProdThumbnailByNo(prodNo));
+		model.addAttribute("prodCategoryList", shopAdminService.getCategoryList());
 		return "shopAdmin/prodEdit";
 	}
 	
@@ -92,6 +97,33 @@ public class shopAdmProdController {
 	@PostMapping("/shopAdmin/prod/remove")
 	public void remove(HttpServletRequest request, HttpServletResponse response) {
 		shopAdminService.removeProd(request, response);
+	}
+	
+	// 카테고리 관리 페이지 이동
+	@GetMapping("/shopAdmin/categoryManage")
+	public String categoryManage(HttpServletRequest request, Model model) {
+		return "shopAdmin/prodCategoryMng";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/shopAdmin/getCategoryList"
+				, produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<ProdCategoryDTO> categoryList() {
+		return shopAdminService.getCategoryList();
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/shopAdmin/categoryAdd")
+	public String categoryAdd(HttpServletRequest request) {
+		System.out.println(request.getParameter("cateName"));
+		shopAdminService.addCategory(request);
+		return "/shopAdmin/getCategoryList";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/shopAdmin/categoryRemove")
+	public void categoryRemove(HttpServletRequest request, HttpServletResponse response) {
+		shopAdminService.deleteCategory(request, response);
 	}
 	
 }
