@@ -151,8 +151,14 @@ public class UsersController {
 		usersService.withdraw(request, response);
 	}
 	
+	@GetMapping("/users/check/form")
+	public String requiredLogin_checkForm() {
+		return "users/check";
+	}
 	
-	
-	
+	@PostMapping(value="/users/check/pw",produces="application/json")
+	public Map<String, Object> requiredLogin_checkPw(HttpServletRequest request) {
+		return usersService.confirmPassword(request);
+	}
 	
 }

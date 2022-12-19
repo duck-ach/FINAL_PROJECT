@@ -5,7 +5,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gdu.sporters.board.mapper.BoardMapper">
-
 	<resultMap type="FreeDTO" id="FreeDtoMap">
 		<id property="freeNo"  column="FREE_NO" />
 		<result property="title"  column="TITLE" />
@@ -19,13 +18,11 @@
 		<association property="users"  javaType="UsersDTO" >
 			<id  property="userNo"  column="USER_NO"  />
 			<result property="id"  column="ID" />	
-			<result property="nickName"  column="NICKNAME" />	
+			<result property="nickname"  column="NICKNAME" />	
 			<result property="name"  column="NAME" />
 			<result property="joinDate"  column="JOINDATE" />
-			<result property="gender"  column="GENDER" />
-		
-		</association>
-		
+			<result property="gender"  column="GENDER" />		
+		</association>		
 	</resultMap>
 
 
@@ -67,12 +64,21 @@
 
 
 	<!-- 상세보기 -->
+	<!-- 
 	<select id="selectFreeByNo" parameterType="int" resultType="FreeDTO">
 	  SELECT FREE_NO, TITLE, CONTENT, CREATE_DATE, HIT, USER_NO, STATE,IP,MODIFY_DATE
 	  FROM FREE
 	  WHERE FREE_NO = #{freeNo}
 	</select>
-	
+	 -->
+	 <select id="selectFreeByNo" parameterType="int" resultMap="FreeDtoMap">
+	 SELECT  F.FREE_NO, F.TITLE, F.CONTENT, F.CREATE_DATE,  F.HIT, F.USER_NO , F.STATE, F.IP, F.MODIFY_DATE, U.ID, U.NICKNAME, U.GENDER
+		  		  FROM FREE F INNER JOIN USERS U
+		     	    ON F.USER_NO = U.USER_NO
+		 WHERE F.FREE_NO = ${freeNo}
+	</select>
+	 
+	 
 		<!-- 상세보기(조회수) -->
 	<update id="updateHit" parameterType="int">
 		UPDATE FREE
@@ -105,6 +111,13 @@
 		 WHERE FREE_NO = #{freeNo}
 	</update>
 	
+	
+	<!-- 삭제 -->
+	<delete id="deleteFreeGallery" parameterType="int">
+		DELETE
+		  FROM FREE
+		 WHERE FREE_NO = #{freeNo}
+	</delete>
 	
 	
 	

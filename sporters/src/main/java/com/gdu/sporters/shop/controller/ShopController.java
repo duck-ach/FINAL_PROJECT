@@ -32,9 +32,7 @@ public class ShopController {
 	@RequestMapping(value="/shop/addCart", method=RequestMethod.POST)
 	public void addCart(CartDTO cart, HttpSession session) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
-		int userNo = loginUser.getUserNo();
-		cart.setUserNo(userNo);
-		System.out.println(cart);
+		cart.setUserNo(loginUser.getUserNo());
 		
 		shopService.addCart(cart);
 	}
@@ -43,6 +41,17 @@ public class ShopController {
 	public String detail(@RequestParam(value="prodNo", required=false) int prodNo, Model model) {
 		model.addAttribute("product", shopService.getProductByNo(prodNo));
 		return "shop/detail";
+	}
+	
+	@GetMapping(value="/shop/cartList", produces="application/json")
+	public String getCartList(HttpServletRequest request, HttpSession session, Model model) {
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		model.addAttribute("userNo", userNo);
+		System.out.println(userNo);
+		System.out.println("123");
+		shopService.getCartList(request, model);
+		return "shop/cartList";
 	}
 	
 }
