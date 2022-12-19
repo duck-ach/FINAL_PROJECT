@@ -26,14 +26,10 @@
 	</resultMap>
 
 
-<select id="selectFreeListCnt" resultType="int">
+	<select id="selectFreeListCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM FREE
 	</select>
-	
-	
-	
-	
 
 	<!-- 게시판목록 -->
 	<select id="selectFreeList" parameterType="Map" resultMap="FreeDtoMap">
@@ -45,20 +41,20 @@
 	</select>
 	
 <!-- 게시판 삽입(첨부파일 추가) -->
-	<insert id="insertFree" parameterType="FreeDTO">
+	<insert id="insertFree" parameterType="FreeDTO"  useGeneratedKeys="true" keyProperty="freeNo">
 		INSERT INTO FREE
-			(FREE_NO, TITLE, CONTENT,CREATE_DATE, HIT,USER_NO,STATE,IP,MODIFY_DATE)
+			(TITLE, CONTENT,CREATE_DATE, HIT,USER_NO,STATE,IP,MODIFY_DATE)
 		VALUES
-			(FREE_SEQ.NEXTVAL, #{title}, #{content}, SYSDATE, 0,#{userNo}, 0, #{ip}, SYSDATE)
+			(#{title}, #{content}, NOW(), 0,#{userNo}, 0, #{ip}, NOW())
 	</insert>
 	
 	
 	<!-- 이미지 삽입 -->
 	<insert id="insertSummernoteImage" parameterType="FreeImageDTO">
 		INSERT INTO FREE_IMAGE
-			(IMAGE_NO,FREE_NO, FILESYSTEM)
+			(FREE_NO, FILESYSTEM)
 		VALUES
-			( IMAGE_SEQ.NEXTVAL, FREE_SEQ.CURRVAL, #{filesystem})						
+			(#{freeNO}, #{filesystem})						
 	</insert>
 
 
