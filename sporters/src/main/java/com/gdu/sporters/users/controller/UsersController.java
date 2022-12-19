@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -88,8 +89,11 @@ public class UsersController {
 	@GetMapping("/users/naver/login")
 	public String naverLogin(HttpServletRequest request, Model model) {
 		String access_token = usersService.getNaverLoginToken(request);
+		System.out.println("access_token : " + access_token);
 		UsersDTO profile = usersService.getNaverLoginProfile(access_token);
+		System.out.println("profile : " + profile);
 		UsersDTO naverUser = usersService.getNaverUserById(profile.getId());
+		System.out.println(naverUser);
 		
 		if(naverUser == null) {
 			model.addAttribute("profile", profile);
@@ -156,9 +160,48 @@ public class UsersController {
 		return "users/check";
 	}
 	
-	@PostMapping(value="/users/check/pw",produces="application/json")
+	@ResponseBody
+	@PostMapping(value="/users/check/pw", produces="application/json")
 	public Map<String, Object> requiredLogin_checkPw(HttpServletRequest request) {
 		return usersService.confirmPassword(request);
 	}
+	
+
+// 아이디찾기
+	@GetMapping("/users/findId/form")
+	public String findIdForm() {
+		return "users/findId";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/users/findId", produces="application/json")
+	public Map<String, Object> findId(@RequestBody Map<String, Object> map){
+		return usersService.findUser(map);
+	}
+	
+	
+// 비번찾기	
+	@GetMapping("/users/findPw/form")
+	public String findPwForm() {
+		return "users/findPw";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/users/findPw", produces="application/json")
+	public Map<String, Object> findPw(@RequestBody Map<String, Object> map){
+		return usersService.findUser(map);
+	}
+	
+	// 임시비번전송
+	@ResponseBody
+	@PostMapping(value="/users/sendTemporaryPassword", produces="application/json")
+	public Map<String, Object> memberSendEmailTemporaryPassword(UsersDTO user){
+		return usersService.sendTemporaryPassword(user);
+	}
+	
+	
+	
+	
+	
 	
 }

@@ -83,28 +83,24 @@
 	<!-- 상품이미지 등록하기 -->
 	<insert id="insertProdImage" parameterType="ProdImageDTO">
 		INSERT INTO PROD_DETAIL_IMAGE
-			(PROD_DETAIL_IMAGE_NO, PROD_NO, FILESYSTEM)
+			(PROD_NO, FILESYSTEM)
 		VALUES
-			(PROD_DETAIL_IMAGE_SEQ.NEXTVAL, #{prodNo}, #{filesystem})
+			(#{prodNo}, #{filesystem})
 	</insert>
 	
 	<!-- 상품등록하기 -->
-	<insert id="insertProd" parameterType="ProductDTO">
-		<selectKey keyProperty="prodNo" resultType="int" order="BEFORE">
-			SELECT PRODUCT_SEQ.NEXTVAL
-			  FROM DUAL
-		</selectKey>
+	<insert id="insertProd" parameterType="ProductDTO" useGeneratedKeys="true" keyProperty="prodNo">
 		INSERT INTO PRODUCT
-			(PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, PROD_CREATE_DATE)
+			(PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, PROD_CREATE_DATE)
 		VALUES
-			(#{prodNo}, #{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, SYSDATE)
+			(#{prodCategoryNo}, #{prodName}, #{price}, #{discount}, #{prodContent}, #{origin}, #{stock}, NOW())
 	</insert>
 	<!-- Thumbnail 등록하기 -->
 	<insert id="insertThumbnail" parameterType="ProdThumbnailDTO">
 		INSERT INTO PROD_THUMBNAIL
-			(TN_NO, PROD_NO, TN_PATH, TN_ORIGIN, TN_FILESYSTEM, IS_THUMBNAIL)
+			(PROD_NO, TN_PATH, TN_ORIGIN, TN_FILESYSTEM, IS_THUMBNAIL)
 		VALUES
-			(PROD_TN_SEQ.NEXTVAL, #{prodNo}, #{tnPath}, #{tnOrigin}, #{tnFilesystem}, #{isThumbnail})
+			(#{prodNo}, #{tnPath}, #{tnOrigin}, #{tnFilesystem}, #{isThumbnail})
 	</insert>
 	
 	<!-- Thumbnail 삭제하기 -->
@@ -151,8 +147,8 @@
 	
 	<!-- 상품 카테고리 추가 -->
 	<insert id="insertCategory" parameterType="ProdCategoryDTO">
-		INSERT INTO PROD_CATEGORY (PROD_CATEGORY_NO, PROD_CATEGORY_NAME)
-		VALUES (PROD_CATEGORY_SEQ.NEXTVAL, #{prodCategoryName})
+		INSERT INTO PROD_CATEGORY (PROD_CATEGORY_NAME)
+		VALUES (#{prodCategoryName})
 	</insert>
 	
 	<!-- 상품 카테고리 삭제 -->
