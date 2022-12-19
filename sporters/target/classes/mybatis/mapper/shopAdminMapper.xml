@@ -137,5 +137,29 @@
 		 WHERE PROD_NO = #{prodNo}
 	</delete>
 	
+	<!-- 상품 카테고리 목록 -->
+	<select id="selectCategoryList" resultType="ProdCategoryDTO">
+		SELECT PROD_CATEGORY_NO, PROD_CATEGORY_NAME
+		  FROM PROD_CATEGORY
+	</select>
+	
+	<!-- 상품 카테고리 개수 -->
+	<select id="selectCategoryCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM PROD_CATEGORY
+	</select>
+	
+	<!-- 상품 카테고리 추가 -->
+	<insert id="insertCategory" parameterType="ProdCategoryDTO">
+		INSERT INTO PROD_CATEGORY (PROD_CATEGORY_NO, PROD_CATEGORY_NAME)
+		VALUES (PROD_CATEGORY_SEQ.NEXTVAL, #{prodCategoryName})
+	</insert>
+	
+	<!-- 상품 카테고리 삭제 -->
+	<delete id="deleteCategory" parameterType="int">
+		DELETE
+		  FROM PROD_CATEGORY
+		 WHERE PROD_CATEGORY_NO = #{prodCategoryNo}
+	</delete>
 	
 </mapper>
