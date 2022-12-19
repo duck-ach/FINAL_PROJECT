@@ -15,7 +15,7 @@
 <!-- 유저리스트 -->
 <select id="selectAllUsers" resultType="UsersDTO">
 	SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
-	FROM USERS
+		  FROM USERS
 	ORDER BY USER_NO
 </select>
 
@@ -27,7 +27,7 @@
 </select>
 
 
-<select id="selectAllUsersByNo" parameterType="int" resultType="UsersDTO">
+<select id="selectUserByNo" parameterType="Map" resultType="UsersDTO">
 	SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
 	FROM USERS
 	WHERE USER_NO = #{userNo}
@@ -43,9 +43,11 @@
 <!-- 탈퇴회원테이블 컬럼 삽입 -->
 <insert id="deleteUsersList" parameterType="Map">
 	INSERT INTO RETIRE_USERS
-	(RETIRE_USER_NO, RETIRE_USER_ID, RETIRE_USER_NICKNAME, RETIRE_JOIN_DATE, RETIRE_DATE)
-	VALUES
-	(#{userNo}, #{id}, #{nickName}, #{joinDate}, SYSDATE)
+			(RETIRE_USER_NO, RETIRE_USER_ID, RETIRE_JOIN_DATE, RETIRE_DATE)
+		VALUES
+			(#{retireUserNo}, #{retireUserId}, #{retireJoinDate}, NOW())
 </insert>
+
+
 	
 </mapper>

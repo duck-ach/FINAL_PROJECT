@@ -1,14 +1,13 @@
 package com.gdu.sporters.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,9 +47,11 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value="/admin/userAdmin/retireUser", produces = "application/json")
-	public Map<String, Object> removeUser(@RequestParam("idValueArr[]") List<String> id){
-		return adminService.removeUser(id);
+	@PostMapping(value="/retireUser", produces="application/json; charset=UTF-8")
+	public Map<String, Object> retire(@RequestParam(value="userNo[]") List<String> userNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		return adminService.removeUser(map);
 	}
 	
 

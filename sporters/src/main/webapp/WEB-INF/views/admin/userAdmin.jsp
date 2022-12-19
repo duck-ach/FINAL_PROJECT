@@ -12,15 +12,14 @@
 		fn_checkOne();
 		fn_retireUser();
 		
-	});
 	// 전체선택
 	function fn_checkAll(){
 		$('#check_all').click(function(){
 			$('.check_one').prop('checked', $('#check_all').prop('checked'));
 		});
+ 	}
 		
 	// 개별 선택
-	}
 	function fn_checkOne(){
 		$('.check_one').click(function(){
 			var checkCount = 0;
@@ -42,16 +41,15 @@
 				$('#list').empty();
 				$.each(resData.userList, function(i, user) {
 							var tr = '<tr>';
-							tr += '<td><input type="checkbox" class="check_one" value="'+ user.userNo +'"></td>';
+							tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+ user.userNo +'"></td>';
 							tr += '<td>' + user.userNo + '</td>';
 							tr += '<td>' + user.id + '</td>';
+							tr += '<td>' + user.nickname + '</td>';
 							tr += '<td>' + user.name + '</td>';
-							tr += '<td>' + user.nickName + '</td>';
 							tr += '<td>' + (user.gender == 'M' ? '남자' : '여자') + '</td>';
 							tr += '<td>' + user.email + '</td>';
 							tr += '<td>' + user.mobile + '</td>';
 							tr += '<td>' + user.joinDate + '</td>';
-							tr += '<td></td>';
 							tr += '<td></td>';
 							tr += '</tr>';
 							$('#list').append(tr);
@@ -77,16 +75,15 @@
 				$('#list').empty();
 				$.each(resData.users, function(i, user){
 					var tr = '<tr>';
-					tr += '<td><input type="checkbox" class="check_one" value="'+ user.userNo +'"></td>';
+					tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+user.userNo+'"></td>';
 					tr += '<td>' + user.userNo + '</td>';
 					tr += '<td>' + user.id + '</td>';
-					tr += '<td>' + user.nickName + '</td>';
+					tr += '<td>' + user.nickname + '</td>';
 					tr += '<td>' + user.name + '</td>';
 					tr += '<td>' + (user.gender == 'M' ? '남자' : '여자') + '</td>';
 					tr += '<td>' + user.email + '</td>';
 					tr += '<td>' + user.mobile + '</td>';
 					tr += '<td>' + user.joinDate + '</td>';
-					tr += '<td><input type="checkbox"></td>';
 					tr += '<td></td>';
 					tr += '</tr>';
 					$('#list').append(tr);
@@ -99,18 +96,37 @@
 	});
 	
 	function fn_retireUser(){
-		$('#btn_deleteUser').click(function(){
-			alert('삭제');
+		$('#btn_deleteUser').click(function(event){
+		if($('input[name="userCheck"]:checked').val() == 1){
+			console.log($('input[name="userCheck"]:checked').val());
+			alert('관리자는 탈퇴할 수 없습니다.');
+			event.preventDefault();
+			return;
+		}
+		var userArray = [];
+		$('input[name="userCheck"]:checked').each(function(i){
+			userArray.push($(this).val());
+			console.log($(this).val());
+		});
+		$.ajax({
+			type:'post',
+			url: '/retireUser',
+			data:{"userNo" : userArray},
+			dataType:'json',
+			success:function(resData){
+				console.log(resData);
+				$('#list').empty();
+			}
 		})
+		});
 		
-	}
+	}	});
 	
 </script>
 <body>
 
 	<div class="wrap">
 		<h1>회원 관리</h1>
-
 		<form id="frm_user_list" method="post">
 			<select name="column" id="column">
 				<option value="">회 원 분 류</option>
@@ -119,9 +135,10 @@
 				<option value="USER_NO">회원번호</option>
 			</select> <input type="text" id="searchText" name="searchText">
 				<input type="button" id="btn_search" value="검색"> 
-				<input type="button" id="btn_init" value="초기화"><br>
+				<input type="button" id="btn_init" value="초기화">
+				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
 
-			<table>
+			<table border="1" width="90%" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
 						<td><input type="checkbox" id="check_all"></td>
@@ -133,16 +150,16 @@
 						<td>이메일</td>
 						<td>연락처</td>
 						<td>가입일</td>
-						<td>탈퇴</td>
-						<td><select id="ban"><option>정지</option>
-						</select>
-						<button class="btn_banUser">정지</button></td>
 					</tr>
 				</thead>
 				<tbody id="list">
 
 				</tbody>
+				<tfoot>
+			
+				</tfoot>
 			</table>
+			
 		</form>
 	</div>
 

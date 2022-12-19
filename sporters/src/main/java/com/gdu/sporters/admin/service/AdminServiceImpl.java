@@ -49,7 +49,7 @@ public class AdminServiceImpl implements AdminService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("column", column);
 		map.put("searchText", searchText);
-		List<UsersDTO> users = adminMapper.selectUsersByQuery(map);
+		List<UsersDTO> users = adminMapper.selectAllUsersByQuery(map);
 		System.out.println(users);
 		map.put("users", users);
 		return map;
@@ -63,26 +63,25 @@ public class AdminServiceImpl implements AdminService {
 
       Map<String, Object> deleteUser = new HashMap<>();
       List<UsersDTO> users = adminMapper.selectUserByNo(userNo);
-
       List<RetireUsersDTO> retireUserList = new ArrayList<>();
       for(int i = 0; i < users.size(); i ++) {
          RetireUsersDTO retireUser = new RetireUsersDTO();
-         retireUser.setId(users.get(i).getId());
-         retireUser.setJoinDate(users.get(i).getJoinDate());
+         retireUser.setRetireUserId(users.get(i).getId());
+         retireUser.setRetireJoinDate(users.get(i).getJoinDate());
          retireUserList.add(i, retireUser);
+         System.out.println(retireUser);
       }
       Map<String, Object> rUser = new HashMap<>();
       rUser.put("retireUserList", retireUserList);
       int insertResult = adminMapper.insertRetireUser(rUser);
-      int deleteResult = adminMapper.deleteUserByNo(userNo);
-
+      int deleteResult = adminMapper.deleteUser(userNo);
+      
       deleteUser.put("isRemove", deleteResult);
       System.out.println(insertResult +"," + deleteResult);
 
-      
       return deleteUser;
       
-	   }
+ }
 		
 
 //	@Override
