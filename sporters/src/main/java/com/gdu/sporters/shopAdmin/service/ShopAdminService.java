@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
-import com.gdu.sporters.shop.domain.ProductDTO;
+import com.gdu.sporters.shop.domain.ProductDTO; 
 
 public interface ShopAdminService {
 	public void getProdList(HttpServletRequest request, Model model);
