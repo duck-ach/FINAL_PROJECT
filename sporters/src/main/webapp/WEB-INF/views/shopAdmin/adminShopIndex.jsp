@@ -5,8 +5,6 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="Sporters 쇼핑몰 관리자페이지" name="title" />
 </jsp:include>
-<body>
-
 <style>
 
 ul li{
@@ -16,6 +14,7 @@ ul li a{
 	font-size: 20px;
 } 
 </style>
+<body>
 
 <ul>
 	
