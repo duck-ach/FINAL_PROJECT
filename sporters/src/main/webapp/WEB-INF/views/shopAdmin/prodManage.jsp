@@ -54,12 +54,12 @@
 			</c:forEach>
 		</tbody>
 		<tfoot>
-				<tr>
-					<td colspan="7" style="text-align: center;">
-						${paging}
-					</td>
-				</tr>
-			</tfoot>
+			<tr>
+				<td colspan="7" style="text-align: center;">
+					${paging}
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </body>
 </html>

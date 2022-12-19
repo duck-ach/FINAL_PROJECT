@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
@@ -12,7 +13,7 @@
 		$(".btn_addCart").click(function(){
 			var prodNo = $('#prodNo').val();
 			var prodCnt = $('#prodCnt').val();
-			alert(prodNo);
+			
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
@@ -22,9 +23,16 @@
 				url: '/shop/addCart',
 				type: 'post',
 				data: data,
-				success: function(){
-					alert('카트 담기 성공');
-					$('#prodCnt').val("1");
+				success: function(result){
+					if(result == 1){
+						alert('카트 담기 성공');
+						$('#prodCnt').val("1");
+					} else {
+						if(confirm('회원만 사용할 수 있습니다. 로그인하시겠습니까?')){
+							location.href="${contextPath}/users/login/form";
+							$('#prodCnt').val("1");
+						}
+					}
 				},
 				error: function(){
 					alert('카트 담기 실패');
@@ -41,14 +49,14 @@
 		<div class="product_detail_area" style="display: flex;justify-content: space-around;">
 			<div>이미지영역</div>
 			<div>
-				<input type="hidden" id="prodNo" value="${product.PROD_NO}">
-				<h1>&#91;${product.PROD_CATEGORY_NAME}&#93; ${product.PROD_NAME}</h1> 
-				<span>${product.PROD_CONTENT}</span><br>
-				<span>가격 : ${product.PRICE} 원</span><br>
-				<span>재고 : ${product.STOCK} 개</span><br>
+				<input type="hidden" id="prodNo" value="${product.prodNo}">
+				<h1>&#91;${product.prodCategory.prodCategoryName}&#93; ${product.prodName}</h1> 
+				<span>${product.prodContent}</span><br>
+				<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${product.price}" /> 원<br /></span>
+				<span>재고 : ${product.stock} 개</span><br>
 				<span>
 					구매할 수량 : 
-					<select name="stock">
+					<select name="stock" id="prodCnt">
 					<%for(int i=1; i<100; i++){%>
 						<option value="<%=i%>"><%=i%></option>
 					<%}%>

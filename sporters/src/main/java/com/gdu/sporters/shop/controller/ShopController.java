@@ -30,26 +30,32 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value="/shop/addCart", method=RequestMethod.POST)
-	public void addCart(CartDTO cart, HttpSession session) {
-		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
-		cart.setUserNo(loginUser.getUserNo());
+	public int addCart(CartDTO cart, HttpServletRequest request, HttpSession session) {
+		int result = 0;
 		
-		shopService.addCart(cart);
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		if(loginUser != null) {
+			cart.setUserNo(loginUser.getUserNo());
+			shopService.addCart(cart);
+			result = 1;
+		}
+		
+		return result;
 	}
 	
 	@GetMapping("/shop/detail")
 	public String detail(@RequestParam(value="prodNo", required=false) int prodNo, Model model) {
 		model.addAttribute("product", shopService.getProductByNo(prodNo));
+		System.out.println(model);
 		return "shop/detail";
 	}
 	
 	@GetMapping(value="/shop/cartList", produces="application/json")
-	public String getCartList(HttpServletRequest request, HttpSession session, Model model) {
+	public String requiredLogin_getCartList(HttpServletRequest request, HttpSession session, Model model) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		model.addAttribute("userNo", userNo);
-		System.out.println(userNo);
-		System.out.println("123");
+		model.addAttribute("prodCnt", request.getParameter("prodCnt"));
 		shopService.getCartList(request, model);
 		return "shop/cartList";
 	}

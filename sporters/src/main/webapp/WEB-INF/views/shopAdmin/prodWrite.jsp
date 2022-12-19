@@ -164,9 +164,9 @@ $(function(){
 				상품카테고리
 				<select name="prodCategoryNo" id="prodCategoryNo">
 					<option value="">===선택===</option>
-					<option value="1">식품</option>
-					<option value="2">의류</option>
-					<option value="3">물건</option>
+					<c:forEach items="${prodCategoryList}" var="category">
+						<option value="${category.prodCategoryNo}">${category.prodCategoryName}</option>
+					</c:forEach>
 				</select>
 			</div>
 			<div>

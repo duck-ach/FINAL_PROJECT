@@ -25,8 +25,12 @@ public interface BoardMapper {
 	
 	// 상세
 	public FreeDTO selectFreeByNo(int userNo);
-	public int updateHit(int userNo);
 	
+	
+//	public List<FreeDTO> selectFreeByNo(Map<String, Object> map);
+	
+	public int updateHit(int userNo);
+	public int deleteFreeGallery(int freeNo);
 	
 	
 }

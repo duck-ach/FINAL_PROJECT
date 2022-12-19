@@ -30,16 +30,14 @@
 			<div>
 				${gallery.content}
 			</div>
-			<p>${gallery.users.nickname}
+			<p>${gallery.users.id}
 				<span>작성자</span>
 			</p>
 			<div>
-				<form id="frm_btn" method="post">
+				<form id="frm_btn" method="post">	
 					
-					
-					<input type="hidden" name="freeNo" value="${gallery.users.id}">
 					<input type="hidden" name="freeNo" value="${gallery.freeNo}">
-					<c:if test="${loginUser.id != null}" >
+					<c:if test="${loginUser.id == gallery.users.id}" >
 						<input type="button" value="수정" id="btn_edit_gallery">
 						<input type="button" value="삭제" id="btn_remove_gallery">
 					</c:if>
@@ -52,7 +50,9 @@
 				
 				
 			<script>
-
+			$(function(){
+				consol.log(${gallery.users});
+			});
 			
 		
 			$('#btn_edit_gallery').click(function(){
@@ -60,7 +60,7 @@
 				$('#frm_btn').submit();
 			});
 			$('#btn_remove_gallery').click(function(){
-				if(confirm('게시글을 삭제하면 적립된 포인트가 회수됩니다. 삭제하시겠습니까?')){
+				if(confirm('게시글을 삭제하시겠습니까?')){
 					$('#frm_btn').attr('action', '/free/remove');
 					$('#frm_btn').submit();
 				}
