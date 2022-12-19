@@ -69,7 +69,7 @@ public class UsersServiceImpl implements UsersService {
 		return result;
 	}
 	
-// 이메일 중복 확인
+// 닉네임 중복 확인
 	@Override
 	public Map<String, Object> isSameNickname(String nickname) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -301,7 +301,6 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.selectUsersByMap(map);
 	}
 	
-	
 	@Override
 	public SleepUsersDTO getSleepUsersById(String id) {
 		return usersMapper.selectSleepUserById(id);
@@ -380,7 +379,7 @@ public class UsersServiceImpl implements UsersService {
 			}
 			br.close();
 			con.disconnect();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -826,6 +825,26 @@ public class UsersServiceImpl implements UsersService {
 		return result;
 	}
 	
+	
+// 임시비번전송
+	@Override
+	public Map<String, Object> sendTemporaryPassword(UsersDTO user) {
+		String temporaryPassword = securityUtil.generateRandomString(9);
+		System.out.println("임시비번 : " + temporaryPassword);
+		
+		String text = "";
+		text += "비밀번호가 초기화되었습니다. <br>";
+		text += "임시비밀번호 : <strong>" + temporaryPassword + "</strong><br><br>";
+		text += "임시비밀번호로 로그인 후에 반드시 비밀번호를 변경해주세요!";
+		
+		javaMailUtil.sendJavaMail(user.getEmail(), "[SPORTERS] 임시비밀번호 발급", text);
+		
+		user.setPw(securityUtil.sha256(temporaryPassword));
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isSuccess", usersMapper.updateUserPassword(user));
+		return result;
+	}
 	
 	
 	

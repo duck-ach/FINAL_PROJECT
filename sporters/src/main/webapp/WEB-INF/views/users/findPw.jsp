@@ -8,40 +8,52 @@
 <script>
 	
 	$(document).ready(function(){
-		fn_findId();
+		fn_findPw();
 	});
 	
-	function fn_findId(){
-		
-		$('#btn_findId').click(function(){
-			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;
-			if(regEmail.test($('#email').val()) == false) {
-				alert('이메일 형식을 확인하세요!');
-				$('#msg_result').text('');
-				return;
-			}
-			
-			$.ajax({
-				type: 'POST',
-				url: '/users/findId',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					name: $('#name').val(),
-					email: $('#email').val()
-				}),
-				dataType: 'json',
-				success: function(resData){
-					if(resData.findUser != null){
-						let id = resData.findUser.id;
-						id = id.substring(0, 3) + '*****';
-						$('#msg_result').html('회원님의 아이디는 ' + id + '입니다.');
-					} else {
-						$('msg_result').html('일치하는 회원이 없습니다. 입력 정보를 확인해주세요.');
-					}
+	function fn_findPw(){
+		$('#btn_findPw').click(function(){
+			new Promise(function(resolve, reject){
+				if($('#id').val() == '' || $('#email').val() == ''){
+					reject('아이디와 이메일을 입력하세요!');
+					return;
 				}
+				$.ajax({
+					type: 'post',
+					url: '/users/findPw',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'id': $('#id').val(),
+						'email': $('#email').val() 
+					}),
+					dataType: 'json',
+					success: function(resData){
+						if(resData.findUser != null){
+							resolve(resData.findUser);
+						} else {
+							reject('일치하는 회원 정보가 없습니다.');
+						}
+					}
+				});
+			}).then(function(findUser){
+				$.ajax({
+					type: 'post',
+					url: '/users/sendTemporaryPassword',
+					data: 'userNo=' + findUser.userNo + "&email=" + findUser.email,
+					dataType: 'json',
+					success: function(resData){
+						if(resData.isSuccess){
+							alert('등록된 이메일로 임시 비밀번호가 발송되었습니다.');
+							location.href = '/';
+						}
+					}
+				});
+			}).catch(function(msg){
+				alert(msg);
 			});
 		});
 	}
+	
 	
 	
 </script>
@@ -51,12 +63,12 @@
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div>
 			
-			<div> 🔍 아이디 찾기 </div>
+			<div> 🔍 비밀번호 찾기 </div>
 			
 			<div>
-				<label for="name">
-					* 이름 <br>
-					<input type="text" name="name" id="name">
+				<label for="id">
+					* 아이디 <br>
+					<input type="text" name="id" id="id">
 				</label>
 			</div>
 			
@@ -68,13 +80,13 @@
 			</div>
 			
 			<div>
-				<input type="button" value="아이디찾기" id="btn_findId">
+				<input type="button" value="임시 비밀번호 발급받기" id="btn_findPw">
 			</div>
 			
 			<div>
 				<input type="button" value="로그인" onclick="location.href='/users/login/form'">
 				<input type="button" value="회원가입" onclick="location.href='/users/agree/form'">
-				<input type="button" value="비밀번호찾기" onclick="location.href='/users/findPw/form'">
+				<input type="button" value="아이디찾기" onclick="location.href='/users/findId/form'">
 			</div>
 			
 			<hr>
