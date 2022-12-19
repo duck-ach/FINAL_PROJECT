@@ -13,8 +13,6 @@
 		$(".btn_addCart").click(function(){
 			var prodNo = $('#prodNo').val();
 			var prodCnt = $('#prodCnt').val();
-			alert(prodNo);
-			alert(prodCnt);
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
@@ -23,9 +21,16 @@
 				url: '/shop/addCart',
 				type: 'post',
 				data: data,
-				success: function(){
-					alert('카트 담기 성공');
-					$('#prodCnt').val("1");
+				success: function(result){
+					if(result == 1){
+						alert('카트 담기 성공');
+						$('#prodCnt').val("1");
+					} else {
+						if(confirm('회원만 사용할 수 있습니다. 로그인하시겠습니까?')){
+							location.href="${contextPath}/users/login/form";
+							$('#prodCnt').val("1");
+						}
+					}
 				},
 				error: function(){
 					alert('카트 담기 실패');
@@ -106,7 +111,7 @@
 					<img src="${list.prodThumbnail}"><br>
 					<input type="hidden" value="${list.prodNo}">
 					<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-					<span>개당 가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
+					<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
 					<span>재고 : ${list.stock} 개</span><br>
 					<span>구매할 수량 : 
 					<select name="prodCnt" id="prodCnt">

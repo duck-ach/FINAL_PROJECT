@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.shop.domain.CartDTO;
+import com.gdu.sporters.shop.domain.ProductDTO;
 import com.gdu.sporters.shop.mapper.ShopMapper;
 import com.gdu.sporters.shop.util.ShopPageUtil;
 
@@ -43,7 +44,7 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public Map<String, Object> getProductByNo(int prodNo) {
+	public ProductDTO getProductByNo(int prodNo) {
 		return shopMapper.selectProductByNo(prodNo);
 	}
 	
@@ -57,19 +58,17 @@ public class ShopServiceImpl implements ShopService {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
-		int prodCount = shopMapper.selectProductCount();
-		shopPageUtil.setPageUtil(page, prodCount);
-		System.out.println(model.getAttribute("userNo"));
+		int cartListCount = shopMapper.selectCartListCount();
+		shopPageUtil.setPageUtil(page, cartListCount);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", shopPageUtil.getBegin());
 		map.put("end", shopPageUtil.getEnd());
 		map.put("userNo", model.getAttribute("userNo"));
 		
-		model.addAttribute("prodCount", prodCount);
-		model.addAttribute("cartList", shopMapper.selectCartList(map));
-		System.out.println(shopMapper.selectCartList(map));
-		model.addAttribute("beginNo", prodCount - (page - 1) * shopPageUtil.getRecordPerPage());
+		model.addAttribute("prodCount", cartListCount);
+		model.addAttribute("cartList", shopMapper.selectCartListByMap(map));
+		model.addAttribute("beginNo", cartListCount - (page - 1) * shopPageUtil.getRecordPerPage());
 		model.addAttribute("paging", shopPageUtil.getPaging(request.getContextPath() + "/shop/cartList"));
 	}
 	
