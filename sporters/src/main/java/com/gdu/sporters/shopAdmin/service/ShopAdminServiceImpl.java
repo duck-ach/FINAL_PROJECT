@@ -585,7 +585,9 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 			if(result > 0) {
 				out.println("<script>");
 				out.println("alert('카테고리가 정상적으로 삭제 되었습니다.');");
-				out.println("location.href='" + "/shopAdmin/getCategoryList'");
+			//	out.println("location.href='/shopAdmin/getCategoryList';");
+				out.println("location.href='/shopAdmin/categoryManage';");
+				
 				out.println("</script>");
 			} else {
 				out.println("<script>");

@@ -20,3 +20,6 @@
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/reset.css">
 </head>
+
+ <a href="/admin/shopIndex"><img alt="logoImage" src="${contextPath}/resources/images/shopAdmin/mainLogoImage.jpeg" width="200px"></a> 
+<hr>

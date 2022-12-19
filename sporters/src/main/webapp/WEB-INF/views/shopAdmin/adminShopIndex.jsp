@@ -6,8 +6,16 @@
 	<jsp:param value="Sporters 쇼핑몰 관리자페이지" name="title" />
 </jsp:include>
 <body>
-<img alt="logoImage" src="${contextPath}/resources/images/shopAdmin/mainLogoImage.jpeg" width="100px">
-<hr>
+
+<style>
+
+ul li{
+	margin:10px 0;
+}
+ul li a{
+	font-size: 20px;
+} 
+</style>
 
 <ul>
 	

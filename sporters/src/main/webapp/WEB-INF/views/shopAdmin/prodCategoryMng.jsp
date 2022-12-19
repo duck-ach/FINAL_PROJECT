@@ -6,6 +6,17 @@
 	<jsp:param value="Sporters 쇼핑몰 관리자페이지" name="title" />
 </jsp:include>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+<style>
+
+tr{
+border-bottom: 1px solid #000;
+padding-bottom:2px;
+}
+
+tr td{
+vertical-align: bottom;
+}
+</style>
 <body>
 <script>
 
@@ -24,7 +35,7 @@
 						$('<tr>')
 					  	.append($('<td>').text(data.prodCategoryNo))
 					  	.append($('<td>').text(data.prodCategoryName))
-					  	.append($('<td><a href="/shopAdmin/categoryRemove?prodCategoryNo='+data.prodCategoryNo+'"><i class="fa-sharp fa-solid fa-trash"></i></a>'))
+					  	.append($('<td><a style="display:block;" href="/shopAdmin/categoryRemove?prodCategoryNo='+data.prodCategoryNo+'"><i class="fa-sharp fa-solid fa-trash"></i></a>'))
 					  	.appendTo('#categoryList');
 				});
 			}
@@ -33,7 +44,7 @@
 	
 	
 	$(function(){
-		
+	
 		$('#addCategoryFrm').submit(function(){
 			
 			// 만약 빈칸이라면 submit 방지
@@ -54,12 +65,12 @@
 			
 		});
 		
+		
 	});
 </script>
-<img alt="logoImage" src="${contextPath}/resources/images/shopAdmin/mainLogoImage.jpeg" width="100px">
-<hr>
+
 <h2>카테고리 추가</h2>
-<form id="addCategoryFrm" method="post" action="/shopAdmin/categoryAdd">
+<form id="addCategoryFrm" method="get" >
 	<label for="cateName">카테고리 이름</label>
 	<input type="text" id="cateName">
 	<button>Add</button>
