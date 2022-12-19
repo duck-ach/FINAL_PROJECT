@@ -4,6 +4,10 @@
 # 프로퍼티
 *.properties
 
+# yaml
+*.yml
+*.yaml
+
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,git,windows,java,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,git,windows,java,macos
 

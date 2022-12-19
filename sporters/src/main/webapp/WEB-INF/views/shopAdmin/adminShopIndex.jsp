@@ -11,7 +11,7 @@
 
 <ul>
 	
-	<li><a href="/shopAdmin/prod/write">카테고리관리</a></li>
+	<li><a href="/shopAdmin/categoryManage">카테고리관리</a></li>
 	<li><a href="/shopAdmin/prod/write">상품등록</a></li>
 	<li><a href="/shopAdmin/prodManage">상품관리</a></li>
 	<li><a href="/shopAdmin/orderManage">주문관리</a></li>
