@@ -30,6 +30,14 @@
 				<label for="name">이름 * </label>
 				<input type="text" name="name" id="name" value="${profile.name}">
 			</div>
+			
+			<div>
+				<span>성별</span>
+				<input type="radio" name="gender" id="male" value="M">
+				<label for="male">남자</label>
+				<input type="radio" name="gender" id="female" value="F">
+				<label for="female">여자</label>
+			</div>
 
 		</div>
 	</section><!-- 기본틀 2 -->
