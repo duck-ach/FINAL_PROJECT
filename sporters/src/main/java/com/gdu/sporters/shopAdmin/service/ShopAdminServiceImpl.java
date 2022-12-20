@@ -60,7 +60,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		// Map 생성
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", pageUtil.getBegin());
-		map.put("end", pageUtil.getEnd());
+		map.put("recordPerPage", pageUtil.getRecordPerPage()); // begin부터 몇개 로 동작함.
 		
 		// view로 전달할 데이터 model에 저장
 		model.addAttribute("totalRecord", totalProdRecord); // 상품전체갯수

@@ -6,5 +6,49 @@
 
 <mapper namespace="com.gdu.sporters.chat.mapper.ChatMapper">
 
+	<resultMap type="ChatRoomDTO" id="ChatRoomMap">
+		<id property="chatRoomId" column="CHAT_ROOM_ID"/>
+		<result property="chatRoomTitle" column="CHAT_ROOM_TITLE"/>
+		<result property="maxUsersCnt" column="MAX_USERS_CNT"/>
+		<result property="createDate" column="CREATE_DATE"/>
+	</resultMap>
+	<resultMap type="UsersDTO" id="UserMap">
+		<id property="userNo" column="USER_NO"/>
+		<result property="id" column="ID"/>
+		<result property="nickname" column="NICKNAME"/>
+		<result property="gender" column="GENDER"/>
+		<result property="joinDate" column="JOIN_DATE"/>
+	</resultMap>
+	<resultMap type="ChatUserDTO" id="ChatUserMap">
+		<result property="chatRoomId" column="CHAT_ROOM_ID"/>
+		<result property="userNo" column="CHAT_ROOM_ID"/>
+		<collection property="ChatRoomDTO" resultMap="ChatRoomMap"></collection>
+	</resultMap>
+	
+	<!-- Chat Room Count -->
+	<select id="selectChatRoomCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM CHAT_ROOM
+	</select>
+	
+	<!-- Chat User Cnt -->
+	<select id="selectChatUserCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM CHAT_USERS
+	</select>
+	
+	<!-- Chat Room List -->
+	<select id="selectChatRoomListByMap" resultType="ChatRoomDTO" parameterType="Map">
+		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, CREATE_DATE
+		  FROM CHAT_ROOM
+		 LIMIT #{begin}, #{recordPerPage}
+	</select>
+	
+	<insert id="insertChatRoom" parameterType="ChatRoomDTO">
+		INSERT INTO CHAT_ROOM (CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW)
+		VALUES (#{chatRoomTitle}, #{maxUsersCnt}, #{isPw}, #{roomPw})
+	</insert>
+	
+	
 	
 </mapper>
