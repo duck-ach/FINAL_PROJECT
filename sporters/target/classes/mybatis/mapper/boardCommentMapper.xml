@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.sporters.board.mapper.boardCommentMapper">
+
+	<select id="selectCommentCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM FREE_COMMENT
+		 WHERE FREE = #{freeNO}
+	</select>
+	
+	<insert id="insertFreeComment" parameterType="FreeCommDTO">
+		INSERT INTO FREE_COMMENT
+			( FREE_NO, COMM_CONTENT,COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)
+		VALUES
+			( #{freeNO}, #{commContent}, NOW{}, 1, 0, #{groupNo}, NOW{}, #{id})
+	</insert>
+	
+	<select id="selectFreeCommentList" parameterType="Map" resultType="FreeCommDTO">
+		SELECT A.ROW_NUM, A.FREE_NO, A.COMM_CONTENT,A.COMM_CREATE_DATE, A.STATE, A.DEPTH, A.GROUP_NO, A.GROUP_ORDER, A.USER_NO
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY GROUP_NO DESC, DEPTH ASC, COMM_DATE DESC) AS ROW_NUM, FREE_NO, COMM_CONTENT,COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO
+		          FROM FREE_COMMENT
+		         WHERE FREE_NO = #{freeNO}) A
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<update id="deleteFreeComment" parameterType="int">
+		UPDATE FREE_COMMENT
+		   SET STATE = -1
+		 WHERE FREE_CO_NO = #{freeCoNo}
+	</update>
+	
+	<insert id="insertFreeReply" parameterType="FreeCommDTO">
+		INSERT INTO FREE_COMMENT
+			( FREE_NO, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE, ID)
+		VALUES
+			( #{freeNO}, #{commContent}, 1, 1, #{commGroupNo}, NOW{}, #{id})
+	</insert>
+	
+</mapper>
