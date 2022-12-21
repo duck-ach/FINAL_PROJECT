@@ -54,7 +54,7 @@
 		INSERT INTO FREE_IMAGE
 			(FREE_NO, FILESYSTEM)
 		VALUES
-			(#{freeNO}, #{filesystem})						
+			(#{freeNo}, #{filesystem})						
 	</insert>
 
 
@@ -83,17 +83,17 @@
 	</update>
 
 	<select id="selectSummernoteImageListInGallery" parameterType="int" resultType="FreeImageDTO">
-		SELECT IMAGE_NO, FILESYSTEM
+		SELECT FREE_IMAGE_NO, FILESYSTEM
 		  FROM FREE_IMAGE
-		 WHERE IMAGE_NO = #{imageNo}
+		 WHERE FREE_IMAGE_NO = #{imageNo}
 	</select>
 
 
 	<!-- 상품 상세보기 (상세보기 Thumbnail용)-->
 	<select id="selectSThumbNail" parameterType="int" resultType="FreeImageDTO">
-		SELECT F.IMAGE_NO, F.FILESYSTEM, U.FREE_NO
+		SELECT F.FREE_IMAGE_NO, F.FILESYSTEM, U.FREE_NO
 		FROM    FREE_IMAGE F INNER JOIN USERS U	
-		ON F.IMAGE_NO = U.USERS
+		ON F.FREE_IMAGE_NO = U.USERS
 		WHERE FREE_NO = #{freeNo}
 	</select>
 	
@@ -103,7 +103,7 @@
 	<!-- 수정 -->
 	<update id="updateFree" parameterType="FreeDTO">
 		UPDATE FREE
-		   SET TITLE = #{title}, CONTENT = #{content}, MODIFY_DATE = SYSDATE
+		   SET TITLE = #{title}, CONTENT = #{content}, MODIFY_DATE = NOW()
 		 WHERE FREE_NO = #{freeNo}
 	</update>
 	
