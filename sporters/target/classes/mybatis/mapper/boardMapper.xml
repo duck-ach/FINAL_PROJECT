@@ -26,14 +26,10 @@
 	</resultMap>
 
 
-<select id="selectFreeListCnt" resultType="int">
+	<select id="selectFreeListCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM FREE
 	</select>
-	
-	
-	
-	
 
 	<!-- 게시판목록 -->
 	<select id="selectFreeList" parameterType="Map" resultMap="FreeDtoMap">
@@ -45,20 +41,20 @@
 	</select>
 	
 <!-- 게시판 삽입(첨부파일 추가) -->
-	<insert id="insertFree" parameterType="FreeDTO">
+	<insert id="insertFree" parameterType="FreeDTO"  useGeneratedKeys="true" keyProperty="freeNo">
 		INSERT INTO FREE
-			(FREE_NO, TITLE, CONTENT,CREATE_DATE, HIT,USER_NO,STATE,IP,MODIFY_DATE)
+			(TITLE, CONTENT,CREATE_DATE, HIT,USER_NO,STATE,IP,MODIFY_DATE)
 		VALUES
-			(FREE_SEQ.NEXTVAL, #{title}, #{content}, SYSDATE, 0,#{userNo}, 0, #{ip}, SYSDATE)
+			(#{title}, #{content}, NOW(), 0,#{userNo}, 0, #{ip}, NOW())
 	</insert>
 	
 	
 	<!-- 이미지 삽입 -->
 	<insert id="insertSummernoteImage" parameterType="FreeImageDTO">
 		INSERT INTO FREE_IMAGE
-			(IMAGE_NO,FREE_NO, FILESYSTEM)
+			(FREE_NO, FILESYSTEM)
 		VALUES
-			( IMAGE_SEQ.NEXTVAL, FREE_SEQ.CURRVAL, #{filesystem})						
+			(#{freeNo}, #{filesystem})						
 	</insert>
 
 
@@ -87,17 +83,17 @@
 	</update>
 
 	<select id="selectSummernoteImageListInGallery" parameterType="int" resultType="FreeImageDTO">
-		SELECT IMAGE_NO, FILESYSTEM
+		SELECT FREE_IMAGE_NO, FILESYSTEM
 		  FROM FREE_IMAGE
-		 WHERE IMAGE_NO = #{imageNo}
+		 WHERE FREE_IMAGE_NO = #{imageNo}
 	</select>
 
 
 	<!-- 상품 상세보기 (상세보기 Thumbnail용)-->
 	<select id="selectSThumbNail" parameterType="int" resultType="FreeImageDTO">
-		SELECT F.IMAGE_NO, F.FILESYSTEM, U.FREE_NO
+		SELECT F.FREE_IMAGE_NO, F.FILESYSTEM, U.FREE_NO
 		FROM    FREE_IMAGE F INNER JOIN USERS U	
-		ON F.IMAGE_NO = U.USERS
+		ON F.FREE_IMAGE_NO = U.USERS
 		WHERE FREE_NO = #{freeNo}
 	</select>
 	
@@ -107,7 +103,7 @@
 	<!-- 수정 -->
 	<update id="updateFree" parameterType="FreeDTO">
 		UPDATE FREE
-		   SET TITLE = #{title}, CONTENT = #{content}, MODIFY_DATE = SYSDATE
+		   SET TITLE = #{title}, CONTENT = #{content}, MODIFY_DATE = NOW()
 		 WHERE FREE_NO = #{freeNo}
 	</update>
 	
