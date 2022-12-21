@@ -1,67 +1,66 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <style>
-
-.right_side_menu_area{
-		position: fixed;
-		/*
+.right_side_menu_area {
+	position: fixed;
+	/*
 		right:0px;
 		top:164px;
 		*/
-		border:1px solid #000;
-	
-	}
-	
-	.right_side_menu_area .weather_area{
-		width: 200px;
-		height:200px;
-		border:1px solid #000;
-	}
-	.right_side_menu_area .map_area{
-		width: 200px;
-		height:200px;
-		border:1px solid #000;
-		margin-top:20px;
-	}
-	
-	.right_side_menu_area .right_side_board_list{
-		width:200px;
-		height: 800px;
-		border:1px solid #000;
-		margin-top:20px;
-	}
-
-#map{
-	width:100%; height:100%;
+	border: 1px solid #000;
 }
 
+.right_side_menu_area .weather_area {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #000;
+}
 
+.right_side_menu_area .map_area {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #000;
+	margin-top: 20px;
+}
+
+.right_side_menu_area .right_side_board_list {
+	width: 200px;
+	height: 800px;
+	border: 1px solid #000;
+	margin-top: 20px;
+}
+
+#map {
+	width: 100%;
+	height: 100%;
+}
 </style>
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3436810b3f87959018036d9419f8c1b1"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3436810b3f87959018036d9419f8c1b1"></script>
 
 <nav class="right_side_menu_area">
-		<div class="weather_area">
+	<div class="weather_area">
 		<div id="openweathermap-widget-12"></div>
-<!-- <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 12,cityid: '1835848',appid: '17f7777f4c3c5d6b66df232b3ee2ffc8',units: 'metric',containerid: 'openweathermap-widget-12',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script> -->
+		<!-- <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 12,cityid: '1835848',appid: '17f7777f4c3c5d6b66df232b3ee2ffc8',units: 'metric',containerid: 'openweathermap-widget-12',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script> -->
 		<div class="weather">
-		<ul>
-			<li class="city"></li>
-			<li class="time">현재 시간 : </li>
-			<li class="ctemp">온도 : </li>
-			<li class="hightemp">최고 온도 : </li>
-			<li class="lowtemp">최저 온도 : </li>
-			<li class="humidity">습도 : </li>
-			<li class="wind">풍속 : </li>
-			<li class="icon"></li>
-		</ul>
-	</div>
-	<!-- 날씨 api 주소 -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- 날씨 api 구현 -->
-<script>
+			<ul>
+				<li class="city"></li>
+				<!-- 			<li class="time">현재 시간 : </li> -->
+				<li class="ctemp">온도 :</li>
+				<li class="hightemp">최고 온도 :</li>
+				<li class="lowtemp">최저 온도 :</li>
+				<li class="humidity">습도 :</li>
+				<li class="wind">풍속 :</li>
+				<li class="icon"></li>
+			</ul>
+		</div>
+		<!-- 날씨 api 주소 -->
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<!-- 날씨 api 구현 -->
+		<script>
 	$(document).ready(function(position) {
 		//위치 측정 불가인 경우 기본 경/위도 : 서울
 		var lat = 37.5683;
@@ -78,6 +77,7 @@
 			console.log('경도: ' + crd.longitude);
 			lat = crd.latitude;
 			lon = crd.longitude;
+			alert('찍힘');
 		};
 		function error(err) {
 			console.warn('ERROR(' + err.code + '): '
@@ -101,34 +101,39 @@
 				//아이콘
 				var wiconUrl = '<img src="http://openweathermap.org/img/wn/'+ result.weather[0].icon + '.png" alt="'+result.weather[0].description +'">'
 				$('.icon').html(wiconUrl);
-				//현재시간
-				var ct = result.dt;
-				function convertTime(t) {
-					var ot = new Date(t * 1000);
-					var hr = ot.getHours();
-					var m = ot.getMinutes()+4;
-					var s = ot.getSeconds();
-					var mo = ot.getMonth() + 1;
-					var d = ot.getDate();
-					//return ot;
-					return mo + '월' + d + '일' + '  '
-							+ hr + ':' + m + ':' + s;
+// 				//현재시간
+// 				var ct = result.dt;
+// 				function convertTime(t) {
+// 					console.log(t)
+// 					var ot = new Date(t * 1000);
+// 					var hr = ot.getHours();
+// 					var m = ot.getMinutes();
+// 					var s = ot.getSeconds();
+// 					var mo = ot.getMonth() + 1;
+// 					var d = ot.getDate();
+// 					//return ot;
+// 					return mo + '월' + d + '일' + '  '
+// 							+ hr + ':' + m + ':' + s;
+						
+// 				}
 				}
-				
-	})
+		})
 });
+	
 </script>
-	
-	
-		</div>
-		
-		<div class="map_area">
-			<div id="map" ></div>
-			<script type="text/javascript">
+
+
+	</div>
+
+	<div class="map_area">
+		<div id="map"></div>
+		<script type="text/javascript">
 			 function success({ coords, timestamp }) {
 		            const latitude = coords.latitude;   // 위도
 		            const longitude = coords.longitude; // 경도
 		            
+		            console.log(latitude);
+		            console.log(longitude);
 		         //   alert(`위도: ${latitude}, 경도: ${longitude}, 위치 반환 시간: ${timestamp}`);
 		           // alert(longitude);
 		            
@@ -186,15 +191,15 @@
 				
 				
 			</script>
-		</div>
-		
-		<div class="right_side_board_list">
-			<ul>
-				<li>right_side_board_list</li>
-				<li>right_side_board_list</li>
-				<li>right_side_board_list</li>
-				<li>right_side_board_list</li>
-			</ul>
-		</div>
-		
-	</nav>
+	</div>
+
+	<div class="right_side_board_list">
+		<ul>
+			<li>right_side_board_list</li>
+			<li>right_side_board_list</li>
+			<li>right_side_board_list</li>
+			<li>right_side_board_list</li>
+		</ul>
+	</div>
+
+</nav>

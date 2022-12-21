@@ -146,7 +146,7 @@
 	
 	function fn_cancel(){
 		$('#btn_cancel').click(function(){
-			history.back();
+			location.href = '/users/mypage';
 		});
 	}
 
@@ -192,7 +192,7 @@
 						<input type="radio" name="gender" id="male" value="M">
 						<label for="male">남자</label>
 						<input type="radio" name="gender" id="female" value="F">
-						<label for="female"></label>
+						<label for="female">여자</label>
 						<script>
 							$(':radio[name="gender"][value="${loginUser.gender}"]').prop('checked', true);
 						</script>

@@ -61,16 +61,11 @@ public class GalleryServiceImpl implements GalleryService {
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
 		model.addAttribute("galleryList", galleryList);
-		model.addAttribute("paging", galleryPageUtil.getPaging("/gallery/list"));
+		model.addAttribute("paging", galleryPageUtil.getPaging("/free/list"));
 
 	}
 	
-	@Override
-	public void getGalleryDetailUser(HttpServletRequest request, Model model) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<FreeDTO> galleryList = boardMapper.selectFreeList(map);
-		model.addAttribute("galleryList", galleryList);
-	}
+
 	
 	
 	
@@ -272,7 +267,62 @@ public class GalleryServiceImpl implements GalleryService {
 		}
 		
 		
-		
+
+	@Override
+	public void removeGallery(HttpServletRequest request, HttpServletResponse response) {
+		// 파라미터
+		int freeNo = Integer.parseInt(request.getParameter("freeNo"));
+
+		// HDD에서 삭제해야 하는 SummernoteImage 리스트
+		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(freeNo);
+
+		// DB에서 삭제
+		int result = boardMapper.deleteFreeGallery(freeNo);
+
+		// 응답
+		try {
+
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+
+			out.println("<script>");
+			if (result > 0) {
+
+				// HDD에서 SummernoteImage 리스트 삭제
+				if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
+					for (FreeImageDTO summernoteImage : summernoteImageList) {
+						File file = new File("C:" + File.separator + "summernoteImage",
+								summernoteImage.getFilesystem());
+						if (file.exists()) {
+							file.delete();
+						}
+					}
+				}
+
+				out.println("alert('게시글을 삭제하였습니다.');");
+
+				HttpSession session = request.getSession();
+				UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
+			//	boardMapper.cancelUserPoint(loginUser.getUserNo());
+			//	loginUser.setPoint(loginUser.getPoint() - 5);
+				
+				if(loginUser.getId().equals("admin")) {
+					out.println("location.href='/admin/galleryAdmin';");
+				} else {
+					out.println("location.href='/free/list';");
+				}
+			} else {
+				out.println("alert('게시글을 삭제할 수 없습니다.');");
+				out.println("history.back();");
+			}
+			out.println("</script>");
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	
 	

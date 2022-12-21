@@ -1,5 +1,6 @@
 package com.gdu.sporters.shopAdmin.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
-import com.gdu.sporters.shop.domain.ProductDTO;
+import com.gdu.sporters.shop.domain.ProductDTO; 
 
 public interface ShopAdminService {
 	public void getProdList(HttpServletRequest request, Model model);
@@ -22,4 +24,7 @@ public interface ShopAdminService {
 	public void removeThumbnailByTnNo(int tnNo, HttpServletResponse response);
 	public ProdThumbnailDTO getProdThumbnailByNo(int prodNo);
 	public void removeProd(HttpServletRequest request, HttpServletResponse response);
+	public List<ProdCategoryDTO> getCategoryList();
+	public void addCategory(HttpServletRequest request);
+	public void deleteCategory(HttpServletRequest request, HttpServletResponse response);
 }

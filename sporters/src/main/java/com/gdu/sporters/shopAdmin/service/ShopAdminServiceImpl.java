@@ -22,6 +22,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shop.domain.ProdImageDTO;
 import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
@@ -65,7 +66,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		model.addAttribute("totalRecord", totalProdRecord); // 상품전체갯수
 		model.addAttribute("prodList", shopAdminMapper.selectProdListAllByPage(map));
 		model.addAttribute("beginNo", totalProdRecord - (page - 1) * pageUtil.getRecordPerPage());
-		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/admin/prodManage"));
+		model.addAttribute("paging", pageUtil.getPaging("/shopAdmin/prodManage"));
 	//	model.addAttribute("prodThumbnail", shopAdminMapper.selectProdThumbnailListByNo(prodNo));
 		
 	}
@@ -548,4 +549,56 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		}
 	}
 	
+	@Override
+	public List<ProdCategoryDTO> getCategoryList() {
+		return shopAdminMapper.selectCategoryList();
+	}
+	
+	@Override
+	public void addCategory(HttpServletRequest request) {
+	
+		// 파라미터
+		String cateName = request.getParameter("cateName");
+		
+		ProdCategoryDTO category = ProdCategoryDTO.builder()
+				.prodCategoryName(cateName)
+				.build();
+		System.out.println(category);
+		
+		shopAdminMapper.insertCategory(category);
+	}
+	
+	@Override
+	public void deleteCategory(HttpServletRequest request, HttpServletResponse response) {
+		
+		int prodCategoryNo = Integer.parseInt(request.getParameter("prodCategoryNo"));
+		
+		// DB에서 카테고리 삭제
+		int result = shopAdminMapper.deleteCategory(prodCategoryNo);
+		
+		// 응답
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				out.println("<script>");
+				out.println("alert('카테고리가 정상적으로 삭제 되었습니다.');");
+			//	out.println("location.href='/shopAdmin/getCategoryList';");
+				out.println("location.href='/shopAdmin/categoryManage';");
+				
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('카테고리 삭제를 실패했습니다. 다시 시도해 주세요.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
  }

@@ -30,7 +30,14 @@ public class BoardController {
 	 * "community/free/list"; }
 	 */
 	
-	@GetMapping(value="/free/list", produces="application/josn")
+	@GetMapping(value="/local/list")
+	public String localList(HttpServletRequest request, Model model) {
+	//	galleryService.getGalleryList(request, model);
+		return "community/local/list";
+	}
+	
+	
+	@GetMapping(value="/free/list")
 	public String freeList(HttpServletRequest request, Model model) {
 		galleryService.getGalleryList(request, model);
 		return "community/free/list";
@@ -76,7 +83,7 @@ public class BoardController {
 	@GetMapping("/free/detail") // model에다 실어놓으면 수정하기 할때 재활용이 X
 	public String detail(@RequestParam(value="freeNo", required=false, defaultValue="0") int freeNo,HttpServletRequest request, Model model) {
 		model.addAttribute("gallery", galleryService.getGalleryByNo(freeNo));
-		galleryService.getGalleryList(request, model);
+	//	galleryService.getGalleryList(request, model);
 		return "community/free/detail";
 	}
 	
@@ -90,20 +97,20 @@ public class BoardController {
 	}
 	
 	
-	@PostMapping("/gallery/modify")
+	@PostMapping("/free/modify")
 	public void modify(HttpServletRequest request, HttpServletResponse response) {
 		galleryService.modifyGallery(request, response); // 수정 후 상세보기로
 	}
 	
 	
 	
-	/*
 	
-	@PostMapping("/gallery/remove")
+	
+	@PostMapping("/free/remove")
 	public void remove(HttpServletRequest request, HttpServletResponse response) {
 		galleryService.removeGallery(request, response); // 수정 후 목록보기로
 	}
-	*/
+	
 	
 	
 	

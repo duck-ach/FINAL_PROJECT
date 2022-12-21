@@ -10,42 +10,7 @@
 
 	$(document).ready(function(){
 		
-		$(".btn_addCart").click(function(){
-			var prodNo = $('#prodNo').val();
-			var prodCnt = $('#prodCnt').val();
-			
-			var data = {
-					prodNo: prodNo,
-					prodCnt: prodCnt
-					};
-			alert(prodNo);
-			alert(prodCnt);
-			alert(data);
-			
-			$.ajax({
-				url: '/shop/addCart',
-				type: 'post',
-				data: data,
-				success: function(
-
-				
-				){
-					alert('카트 담기 성공');
-					$('#prodCnt').val("1");
-				},
-				error: function(){
-					alert('카트 담기 실패');
-				}
-			})
-		});
 		
-		$('#prodCnt').keyup(function(){
-			if($(this).val() > $('#prodBuyCnt').val()){
-				alert('현재 구매하실 수 있는 수량은 ' + ${list.stock} + '개 입니다.');
-				$(this).val() == $('#prodBuyCnt').val();
-				return;
-			}
-		});
 	
 	});
 	
@@ -59,6 +24,9 @@
 	}
 	a {
 		text-decoration:none;
+	}
+	#paging {
+		text-align: center;
 	}
 	#aside {
 		float: left;
@@ -108,36 +76,40 @@
 	</div>
 	<div>
 		<form id="frm_product">
-			<table>
-				<tbody>
-					<tr class="product">
-						<c:forEach items="${cartList}" var="cartList">
-							<td>
-							<span>${cartList}</span>
-							<%-- <img src="${cartList}"><br>
-							<a href="${contextPath}/shop/cartlist?userNo=${cartList}">${cartList}</a><br>
-							<input type="hidden" id="prodNo" value="${cartList}">
-							가격 : ${cartList} 원<br>
-							<span>재고 : ${cartList} 개<br></span>
-							구매할 수량 : 
-							<select name="prodCnt" id="prodCnt">
-							<%for(int i=1; i<100; i++){%>
-								<option value="<%=i%>"><%=i%></option>
-							<%}%>
-							</select>개
-							<button class="btn_buy">구매하기</button>
-							<button class="btn_addCart">장바구니 담기</button> --%>
-							</td>
-						</c:forEach>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="5">${paging}</td>
-					</tr>
-				</tfoot>
-			</table>
+			<ul>
+				<li>
+					<div class="allCheck">
+						<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label> 
+					</div>
+		  
+					<div class="delBtn">
+						<button type="button" class="selectDelete_btn">선택 삭제</button> 
+					</div>
+				</li>
+				<c:forEach items="${cartList}" var="cartList">
+					<li class="product">
+						<input type="hidden" id="prodNo" value="${cartList.prodNo}">
+	 					<a href="${contextPath}/shop/detail?prodNo=${cartList.prodNo}">${cartList.product.prodName}</a><br>
+						<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
+						<span>재고 : ${cartList.product.stock} 개</span><br>
+						<span>구매할 수량 : 
+						<select name="prodCnt" id="prodCnt">
+						<%for(int i=1; i<100; i++){%>
+							<option value="<%=i%>"><%=i%></option>
+						<%}%>
+						</select>개</span>
+						<div class="delete">
+							<button type="button" class="delete_btn" data-cartNum="${cartList.cartNo}">삭제</button>
+						</div>
+					</li>
+					<c:set var="sum" value="${sum + (cartList.product.price * cartList.prodCnt)}" />
+				
+				</c:forEach>
+			</ul>
 		</form>
+	</div>
+	<div id="paging">
+		${paging}
 	</div>
 	</section><!-- 기본틀 2 -->
 </section><!-- 기본틀 1 -->

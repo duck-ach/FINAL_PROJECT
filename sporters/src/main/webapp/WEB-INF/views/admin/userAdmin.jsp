@@ -8,27 +8,29 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		fn_getUserList();
-		fn_checkAll();
-		fn_checkOne();
 		fn_retireUser();
 		
-	// 전체선택
-	function fn_checkAll(){
-		$('#check_all').click(function(){
-			$('.check_one').prop('checked', $('#check_all').prop('checked'));
-		});
- 	}
-		
-	// 개별 선택
-	function fn_checkOne(){
-		$('.check_one').click(function(){
-			var checkCount = 0;
-			for(let i = 0; i < $('.checkOne').length; i++){
-				checkCount += $($('.check_one')[i]).prop('checked');
-			}
-			$('#check_all').prop('checked', checkCount == $('.check_one').length);
-		});
-	}
+		// 문서객체
+        var checkall = document.getElementById('check_all');
+        var checkone = document.getElementsByClassName('check_one');
+
+        // 전체선택 클릭 이벤트
+        checkall.onclick = function(event) {
+            for(let i = 0; i < checkone.length; i++) {
+                checkone[i].checked = checkall.checked;
+            }
+        }
+            
+        // 개별선택 클릭 이벤트
+        for(let i = 0; i < checkone.length; i++) {
+            checkone[i].onclick = function(event) {
+                let checkcount = 0;
+                for(let j = 0; j < checkone.length; j++) {
+                    checkcount += checkone[j].checked;
+                }
+                checkall.checked = (checkcount == checkone.length);
+            }
+        }    
 
 	// 유저리스트 불러오기
 	function fn_getUserList() {
@@ -40,22 +42,25 @@
 				console.log(resData);
 				$('#list').empty();
 				$.each(resData.userList, function(i, user) {
-							var tr = '<tr>';
-							tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+ user.userNo +'"></td>';
-							tr += '<td>' + user.userNo + '</td>';
-							tr += '<td>' + user.id + '</td>';
-							tr += '<td>' + user.nickname + '</td>';
-							tr += '<td>' + user.name + '</td>';
-							tr += '<td>' + (user.gender == 'M' ? '남자' : '여자') + '</td>';
-							tr += '<td>' + user.email + '</td>';
-							tr += '<td>' + user.mobile + '</td>';
-							tr += '<td>' + user.joinDate + '</td>';
-							tr += '<td></td>';
-							tr += '</tr>';
-							$('#list').append(tr);
-						})
-
-			},
+			var tr = '<tr>';
+			if(user.id != 'admin'){
+				tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+ user.userNo +'"></td>';
+					}else{
+							tr += '<td></td>';	
+			}
+			tr += '<td>' + user.userNo + '</td>';
+			tr += '<td>' + user.id + '</td>';
+			tr += '<td>' + user.nickname + '</td>';
+			tr += '<td>' + user.name + '</td>';
+			tr += '<td>' + (user.gender == 'M' ? '남자' : '여자') + '</td>';
+			tr += '<td>' + user.email + '</td>';
+			tr += '<td>' + user.mobile + '</td>';
+			tr += '<td>' + user.joinDate + '</td>';
+			tr += '<td></td>';
+			tr += '</tr>';
+			$('#list').append(tr);
+			})
+		},
 			error : function() {
 				alert('실패');
 			}
@@ -75,7 +80,11 @@
 				$('#list').empty();
 				$.each(resData.users, function(i, user){
 					var tr = '<tr>';
-					tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+user.userNo+'"></td>';
+					if(user.id != 'admin'){
+						tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+ user.userNo +'"></td>';
+						}else{
+						tr += '<td></td>';	
+						}
 					tr += '<td>' + user.userNo + '</td>';
 					tr += '<td>' + user.id + '</td>';
 					tr += '<td>' + user.nickname + '</td>';
@@ -97,26 +106,34 @@
 	
 	function fn_retireUser(){
 		$('#btn_deleteUser').click(function(event){
-		if($('input[name="userCheck"]:checked').val() == 1){
-			console.log($('input[name="userCheck"]:checked').val());
-			alert('관리자는 탈퇴할 수 없습니다.');
-			event.preventDefault();
-			return;
-		}
+			
+// 		if($('input:[name="userCheck"]:checked').val() == 1){
+// 			console.log($('input[name="userCheck"]:checked').val());
+// 			alert('관리자는 탈퇴할 수 없습니다.');
+// 			event.preventDefault();
+// 			return;
+// 		}
 		var userArray = [];
-		$('input[name="userCheck"]:checked').each(function(i){
+		$('input:checkbox[name="userCheck"]:checked').each(function(i){
 			userArray.push($(this).val());
 			console.log($(this).val());
+			
 		});
+		
+			console.log(userArray);
 		$.ajax({
 			type:'post',
 			url: '/retireUser',
 			data:{"userNo" : userArray},
 			dataType:'json',
 			success:function(resData){
-				console.log(resData);
-				$('#list').empty();
+				/* $('#list').empty(); */
+				alert(resData);
+				
 			}
+			/* error: function(jqXHR){
+				alert('에러코드(' + jqXHR.status + ') ' + jqXHR.responseText);
+			} */
 		})
 		});
 		
@@ -138,7 +155,7 @@
 				<input type="button" id="btn_init" value="초기화">
 				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
 
-			<table border="1" width="90%" style="border-collapse:collapse; border:1px gray solid;">
+			<table border="1" width="70%" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
 						<td><input type="checkbox" id="check_all"></td>
