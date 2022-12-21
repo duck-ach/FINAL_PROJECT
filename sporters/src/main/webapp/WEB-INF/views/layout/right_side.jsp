@@ -47,6 +47,7 @@
 		<!-- <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 12,cityid: '1835848',appid: '17f7777f4c3c5d6b66df232b3ee2ffc8',units: 'metric',containerid: 'openweathermap-widget-12',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script> -->
 		<div class="weather">
 			<ul>
+				<li class="icon"></li>
 				<li class="city"></li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
 				<li class="ctemp">온도 :</li>
@@ -54,7 +55,6 @@
 				<li class="lowtemp">최저 온도 :</li>
 				<li class="humidity">습도 :</li>
 				<li class="wind">풍속 :</li>
-				<li class="icon"></li>
 			</ul>
 		</div>
 		<!-- 날씨 api 주소 -->
@@ -77,7 +77,6 @@
 			console.log('경도: ' + crd.longitude);
 			lat = crd.latitude;
 			lon = crd.longitude;
-			alert('찍힘');
 		};
 		function error(err) {
 			console.warn('ERROR(' + err.code + '): '
@@ -99,7 +98,7 @@
 				$('.humidity').append(result.main.humidity);
 				$('.wind').append(result.wind.speed);
 				//아이콘
-				var wiconUrl = '<img src="http://openweathermap.org/img/wn/'+ result.weather[0].icon + '.png" alt="'+result.weather[0].description +'">'
+				var wiconUrl = '<img width="100" src="http://openweathermap.org/img/wn/'+ result.weather[0].icon + '.png" alt="'+result.weather[0].description +'">'
 				$('.icon').html(wiconUrl);
 // 				//현재시간
 // 				var ct = result.dt;
