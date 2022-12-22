@@ -10,10 +10,10 @@
 
 	$(document).ready(function(){
 		
-		$(".btn_addCart").click(function(){
+		$("#btn_addCart").click(function(){
 			var prodNo = $('#prodNo').val();
 			var prodCnt = $('#prodCnt').val();
-			
+			alert(prodCnt);
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
@@ -63,7 +63,7 @@
 					</select>개
 				</span><br>
 				<button>구매하기</button>
-				<button class="btn_addCart">장바구니</button>
+				<button id="btn_addCart">장바구니</button>
 			</div>
 		</div>
 		

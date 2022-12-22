@@ -10,9 +10,10 @@
 
 	$(document).ready(function(){
 		
-		$(".btn_addCart").click(function(){
-			var prodNo = $('#prodNo').val();
-			var prodCnt = $('#prodCnt').val();
+		 $(".btn_addCart").click(function(){
+			alert('?');
+			var prodNo = $('.prodNo').val();
+			var prodCnt = $('.prodCnt').val();
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
@@ -29,6 +30,7 @@
 						if(confirm('회원만 사용할 수 있습니다. 로그인하시겠습니까?')){
 							location.href="${contextPath}/users/login/form";
 							$('#prodCnt').val("1");
+							return;
 						}
 					}
 				},
@@ -36,11 +38,12 @@
 					alert('카트 담기 실패');
 				}
 			});
-		});
+		}); 
 		
 		
 	
 	});
+	
 	
 </script>
 <style>
@@ -104,27 +107,27 @@
 		</ul>
 	</div>
 	<div>
-		<form id="frm_product">
-		<ul>
-			<c:forEach items="${productList}" var="list">
-				<li class="product">
-					<img src="${list.prodThumbnail}"><br>
-					<input type="hidden" value="${list.prodNo}">
-					<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-					<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
-					<span>재고 : ${list.stock} 개</span><br>
-					<span>구매할 수량 : 
-					<select name="prodCnt" id="prodCnt">
-					<%for(int i=1; i<100; i++){%>
-						<option value="<%=i%>"><%=i%></option>
-					<%}%>
-					</select>개</span>
-					<button class="btn_buy">구매하기</button>
-					<button class="btn_addCart">장바구니 담기</button>
-				</li>
-			</c:forEach>
-		</ul>
-		</form>
+		<c:forEach items="${productList}" var="list">
+			<form id="frm_product">
+				<ul>
+					<li class="product">
+						<img src="${list.prodThumbnail}"><br>
+						<input type="hidden" class="prodNo" value="${list.prodNo}">
+						<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
+						<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
+						<span>재고 : ${list.stock} 개</span><br>
+						<span>구매할 수량 : 
+						<select name="prodCnt" class="prodCnt">
+						<%for(int i=1; i<100; i++){%>
+							<option value="<%=i%>"><%=i%></option>
+						<%}%>
+						</select>개</span>
+						<button class="btn_buy">구매하기</button>
+						<button class="btn_addCart" >장바구니 담기</button>
+					</li>
+				</ul>
+			</form>
+		</c:forEach>
 	</div>
 	<div id="paging">
 		${paging}
