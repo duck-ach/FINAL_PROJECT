@@ -5,6 +5,11 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
+<style>
+table, th {
+	text-align: center;
+}
+</style>
 <script type="text/javascript">
 	$(document).ready(function(){
 		fn_getUserList();
@@ -46,7 +51,7 @@
 			if(user.id != 'admin'){
 				tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+ user.userNo +'"></td>';
 					}else{
-							tr += '<td></td>';	
+							tr += '<td></td>';
 				}
 			tr += '<td>' + user.userNo + '</td>';
 			tr += '<td>' + user.id + '</td>';
@@ -157,15 +162,15 @@
 			<table border="1" width="70%" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
-						<td><input type="checkbox" id="check_all"></td>
-						<td>회원번호</td>
-						<td>아이디</td>
-						<td>닉네임</td>
-						<td>이름</td>
-						<td>성별</td>
-						<td>이메일</td>
-						<td>연락처</td>
-						<td>가입일</td>
+						<th><input type="checkbox" id="check_all"></th>
+						<th>회원번호</th>
+						<th>아이디</th>
+						<th>닉네임</th>
+						<th>이름</th>
+						<th>성별</th>
+						<th>이메일</th>
+						<th>연락처</th>
+						<th>가입일</th>
 					</tr>
 				</thead>
 				<tbody id="list">

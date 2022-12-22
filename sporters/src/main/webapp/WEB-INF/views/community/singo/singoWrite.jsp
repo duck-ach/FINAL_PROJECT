@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<jsp:include page="../layout/adminHeader.jsp">
+<jsp:include page="../../layout/adminHeader.jsp">
 	<jsp:param value="자유게시판_상세" name="title" />
 </jsp:include>
 <body>
