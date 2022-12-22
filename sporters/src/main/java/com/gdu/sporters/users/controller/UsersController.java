@@ -198,10 +198,11 @@ public class UsersController {
 	public Map<String, Object> memberSendEmailTemporaryPassword(UsersDTO user){
 		return usersService.sendTemporaryPassword(user);
 	}
-	
-	
-	
-	
-	
+
+	// 유저정보팝업
+	@GetMapping("/users/userInfo")
+	public String userInfo() {
+		return "/users/userInfo";
+	}
 	
 }

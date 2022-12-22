@@ -9,7 +9,10 @@
 	$(function(){
 		fn_login();
 		fn_showRememberId();
+		fn_openUserInfo();
 	});
+	
+	var infoWindow;
 	
 	function fn_login(){
 		$('#frm_login').submit(function(event){
@@ -25,6 +28,7 @@
 			}
 		});
 	}
+	
 	function fn_showRememberId(){
 		let rememberId = $.cookie('rememberId');
 		if(rememberId == ''){
@@ -35,6 +39,15 @@
 			$('#rememberId').prop('checked', true);
 		}
 	}
+
+	function fn_openUserInfo(){
+		$('#to_userInfo').click(function(){
+			infoWindow = window.open('/users/userInfo', 'userInformation', 'width=500,height=300,top=100,left=500,menubar=no,history=no');
+		});
+	}
+	
+	
+	
 </script>
 <body>
 
@@ -93,7 +106,7 @@
 		      <br>
 		      
 		      <div id="mypage_footer">
-		         <a href="/users/mypage" id="mypage_footer_name">${loginUser.name}</a> 님 반갑습니다.<br>
+		         <button id="to_userInfo">${loginUser.name}</button> 님 반갑습니다.<br>
 		         <a href="/users/mypage">마이페이지로 이동</a><br>
 		         <a href="/users/logout">로그아웃</a>
 		      </div>
