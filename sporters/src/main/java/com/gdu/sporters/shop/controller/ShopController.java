@@ -82,7 +82,6 @@ public class ShopController {
 				}   
 			result = 1;
 			}
-		System.out.println(result);
 		return result;  
 	}
 }
