@@ -1,10 +1,8 @@
 package com.gdu.sporters.admin.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,8 +45,8 @@ public class AdminController {
 	
 	@ResponseBody
 	@PostMapping(value="/retireUser", produces="application/json; charset=UTF-8")
-	public void retire(HttpServletRequest request, HttpServletResponse response) {
-		adminService.removeUsers(response, request);
+	public Map<String, Object> retire(HttpServletRequest request, Map<String, Object> map) {
+		return adminService.removeUsers(request, map);
 	}
 	
 

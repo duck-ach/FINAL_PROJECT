@@ -47,7 +47,7 @@
 				tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+ user.userNo +'"></td>';
 					}else{
 							tr += '<td></td>';	
-			}
+				}
 			tr += '<td>' + user.userNo + '</td>';
 			tr += '<td>' + user.id + '</td>';
 			tr += '<td>' + user.nickname + '</td>';
@@ -113,31 +113,31 @@
 // 			event.preventDefault();
 // 			return;
 // 		}
-		var userArray = [];
-		$('input:checkbox[name="userCheck"]:checked').each(function(i){
-			userArray.push($(this).val());
-			console.log($(this).val());
-			
-		});
-		
-			console.log(userArray);
-		$.ajax({
-			type:'post',
-			url: '/retireUser',
-			data:{"userNo" : userArray},
-			dataType:'json',
-			success:function(resData){
-				/* $('#list').empty(); */
-				alert(resData);
+			var userArray = [];
+			$('input:checkbox[name="userCheck"]:checked').each(function(i){
+				userArray.push($(this).val());
+				console.log($(this).val());
 				
-			}
-			/* error: function(jqXHR){
-				alert('에러코드(' + jqXHR.status + ') ' + jqXHR.responseText);
-			} */
-		})
-		});
+			});
+			
+			console.log(userArray);
+			alert(userArray);
+			
+			$.ajax({
+				type:'post',
+				url: '/retireUser',
+				data:{"userNo" : userArray},
+				dataType:'json',
+				success:function(){
+	 				alert('선택된 회원이 탈퇴 되었습니다.');
+	 				fn_getUserList();
+				}
+			})
 		
-	}	});
+		});
+	}	
+	
+	});
 	
 </script>
 <body>
@@ -154,7 +154,6 @@
 				<input type="button" id="btn_search" value="검색"> 
 				<input type="button" id="btn_init" value="초기화">
 				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
-
 			<table border="1" width="70%" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>

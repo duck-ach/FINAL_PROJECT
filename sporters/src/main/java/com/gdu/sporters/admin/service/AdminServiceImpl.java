@@ -1,14 +1,13 @@
 package com.gdu.sporters.admin.service;
 
 
-import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,14 +59,14 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Transactional
 	@Override
-	public void removeUsers(HttpServletResponse response, HttpServletRequest request) {
+	public Map<String, Object> removeUsers(HttpServletRequest request, Map<String, Object> parameterMap) {
 		// 파라미터 userNo, title, content
 		String[] userNo = request.getParameterValues("userNo[]");
 		int userNoInt = 0;
 		UsersDTO user = new UsersDTO();
 		List<UsersDTO> users = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		Map<String, Object> map2 = new HashMap<>();
+		Map<String, Object> retireMap = new HashMap<>();
 		RetireUsersDTO retireUser = new RetireUsersDTO();
 		
 		for (int i = 0; i < userNo.length; i++) {
@@ -79,25 +78,19 @@ public class AdminServiceImpl implements AdminService {
 			
 			int result = adminMapper.deleteUser(map);
 			
-			if(result > 0) {
+			if(result > 0){
 				
-				map2.put("retireUserNo", userNoInt);
-				map2.put("retireUserId", user.getId());
-				map2.put("retireJoinDate", user.getJoinDate());
+				retireMap.put("retireUserNo", userNoInt);
+				retireMap.put("retireUserId", user.getId());
+				retireMap.put("retireJoinDate", user.getJoinDate());
 				
-				int result2 = adminMapper.insertRetireUser(map2);
+				int result2 = adminMapper.insertRetireUser(retireMap);
 				System.out.println(result2);
 			}
         }
+		map.put("userList", adminMapper.selectAllUsers());
+		return map;
 		
-		
-		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("userNo", userNo);
-//		map.put("id", users.getId());
-//		map.put("joinDate", users.getJoinDate());
-//		result = adminMapper.deleteUser(map);
-//		System.out.println(map);
 //
 //		try {
 //			response.setContentType("text/html; charset=UTF-8");
