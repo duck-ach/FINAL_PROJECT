@@ -94,19 +94,19 @@
 	</select>
 	
 	<!-- 회원가입 -->
-	<insert id="insertUser" parameterType="UsersDTO">
+	<insert id="insertUser" parameterType="UsersDTO" useGeneratedKeys="true" keyProperty="userNo">
 		INSERT INTO USERS
 			(ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
 		VALUES
-			(#{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, #{postcode}, #{roadAddress}, #{jibunAddress}, #{detailAddress}, #{agreeCode}, '0', now(), now(), now(), NULL, NULL, '0')
+			(#{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, #{postcode}, #{roadAddress}, #{jibunAddress}, #{detailAddress}, #{agreeCode}, '0', now(), now(), now(), #{sessionId}, #{sessionLimitDate}, '0')
 	</insert>
 	
 	<!-- 네아로가입 -->
-	<insert id="insertNaverUser" parameterType="UsersDTO">
+	<insert id="insertNaverUser" parameterType="UsersDTO" useGeneratedKeys="true" keyProperty="userNo">
 		INSERT INTO USERS
-			(NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
+			(ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE)
 		VALUES
-			(#{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, NULL, NULL, NULL, NULL, #{agreeCode}, #{snsType}, now(), now(), now(), NULL, NULL, #{BannedState})
+			(#{id}, #{nickname}, #{pw}, #{name}, #{gender}, #{email}, #{mobile}, #{birthyear}, #{birthmonth}, #{birthday}, #{postcode}, #{roadAddress}, #{jibunAddress}, #{detailAddress}, #{agreeCode}, #{snsType}, now(), NULL, NULL, NULL, NULL, '0')
 	</insert>
 		
 	<!-- 휴면처리 : 휴면테이블에 휴면유저 저장 -->

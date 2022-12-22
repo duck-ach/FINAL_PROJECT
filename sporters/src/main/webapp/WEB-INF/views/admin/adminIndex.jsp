@@ -7,5 +7,7 @@
 </jsp:include>
 <body>
 
+	<a href="${contextPath}/admin/userAdmin">유저관리</a>
+
 </body>
 </html>

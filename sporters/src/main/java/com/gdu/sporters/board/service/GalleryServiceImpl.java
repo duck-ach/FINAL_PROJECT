@@ -146,6 +146,7 @@ public class GalleryServiceImpl implements GalleryService {
 
 		// 저장 경로 (separator : 경로 구분자) 윈도우만 쓰려고할 때는 C:\\upload
 		String path = "C:" + File.separator + "summernoteImage";
+//		String path = "file:"+ File.separator +"///summernoteImage";
 
 		// 저장할 파일 이름
 		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());
@@ -197,6 +198,7 @@ public class GalleryServiceImpl implements GalleryService {
 			for (FreeImageDTO summernoteImage : summernoteImageList) {
 				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
 					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
+			//		File file = new File("file:"+ File.separator + "///summernoteImage", summernoteImage.getFilesystem());
 					if (file.exists()) {
 						file.delete();
 					}
