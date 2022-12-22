@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class FaqDTO {
-	private int FaqNo;
-	private String FaqTitle;
-	private String FaqContent;
+	private int faqNo;
+	private String faqTitle;
+	private String faqContent;
 }

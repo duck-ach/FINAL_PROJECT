@@ -6,7 +6,35 @@
 
 <mapper namespace="com.gdu.sporters.userSupport.mapper.FaqMapper">
 
-	<select id="findAllFaqList" parameterType="Map" resultType="FaqDTO">
-	
+	<select id="selectAllFaqCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM FAQ
 	</select>
+
+	<select id="selectAllFaqList" parameterType="Map" resultType="FaqDTO">
+		SELECT FAQ_TITLE, FAQ_CONTENT
+		  FROM FAQ
+		 WHERE #{begin} AND #{end}		
+	</select>
+	
+	<insert id="insertFaq" parameterType="FaqDTO">
+		INSERT INTO FAQ
+			(FAQ_TITLE, FAQ_CONTENT)
+		VALUES
+			(#{faqTitle}, #{faqContent})
+	</insert>
+	
+	<update id="updateFaq" parameterType="FaqDTO">
+		UPDATE FAQ
+		   SET FAQ_TITLE = #{faqTitle}
+		     , FAQ_CONTENT = #{faqContent]
+		 WHERE FAQ_NO = {faqNo}
+	</update>
+	
+	<delete id="deleteFaq" parameterType="int">
+		DELETE FAQ
+		 WHERE FAQ_NO = #{faqNo}
+	</delete>
+	
+	
 </mapper>
