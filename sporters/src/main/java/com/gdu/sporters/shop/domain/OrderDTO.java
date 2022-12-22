@@ -17,7 +17,7 @@ public class OrderDTO {
 	private int cartNo;
 	private int payment;
 	private String name;
-	private String contact;
+	private String mobile;
 	private String postcode;
 	private String loadAddress;
 	private String jibunAddress;

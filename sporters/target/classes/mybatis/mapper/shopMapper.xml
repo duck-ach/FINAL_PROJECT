@@ -74,4 +74,9 @@
 		   AND USER_NO = #{userNo}
 	</delete>
 	
+	<insert id="orderInfo">
+		INSERT INTO ORDERS(ORDER_NO, USER_NO, CART_NO, NAME, MOBILE, POSTCODE, LOAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, ORDER_DATE)
+		VALUES (#{orderNo}, #{userNo}, #{cartNo}, #{name}, #{mobile}, #{postcode}, #{loadAddress}, #{jibunAddress}, #{detailAddress}, #{orderDate})
+	</insert>
+	
 </mapper>
