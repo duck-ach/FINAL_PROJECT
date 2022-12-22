@@ -14,6 +14,5 @@ import lombok.NoArgsConstructor;
 public class ChatUserDTO {
 	private int chatRoomId;
 	private int userNo;
-	private ChatRoomDTO chatRoom;
 	private UsersDTO user;
 }

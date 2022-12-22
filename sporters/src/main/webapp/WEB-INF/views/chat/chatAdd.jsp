@@ -151,10 +151,9 @@
         </select><br>
 		<label for="isPw">비밀번호</label>
 		<input type="checkbox" name="isPw" id="isPw" value="1"><br>
-		<input type="text" maxlength="4" id="roomPw" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" disabled><br>
+		<input type="text" maxlength="4" id="roomPw" name="roomPw" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" disabled><br>
 		<button>생성하기</button>
 	</form>
-	
 	
 </div>
 

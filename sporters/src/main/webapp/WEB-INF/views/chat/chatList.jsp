@@ -21,10 +21,10 @@
 			
 				function fn_openChat(){
 					$('#add_chat_room').click(function(){
-						chatAddWindow = window.open('/chat/add', '실시간채팅', 'width=670,height=670,top=100,left=500,menubar=no,history=no');							
+						chatAddWindow = window.open('/chat/write', '실시간채팅', 'width=670,height=670,top=100,left=500,menubar=no,history=no');							
 					});
 				}
-			
+				
 			
 			</script>
 		
@@ -37,14 +37,18 @@
 				<table border="1">
 					<thead>
 						<tr>
+							<td>채팅방 번호</td>
 							<td>채팅방 이름</td>
 							<td>인원 수</td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${chatRoomList}" var="chatRoom">
-							<td>${chatRoom.chatRoomTitle}</td>
-							<td>${currUserCnt} / ${chatRoom.maxUsersCnt}</td>
+							<tr>
+								<td>${chatRoom.chatRoomId}</td>
+								<td class="chat_room_name"><a onclick="window.open('/chat/chatRoom?chatRoomId=${chatRoom.chatRoomId}', '실시간채팅', 'width=670,height=670,top=100,left=500,menubar=no,history=no')">${chatRoom.chatRoomTitle}</a></td>
+								<td>${currUserCnt} / ${chatRoom.maxUsersCnt}</td>
+							</tr>						
 						</c:forEach>
 					</tbody>
 					<tfoot>

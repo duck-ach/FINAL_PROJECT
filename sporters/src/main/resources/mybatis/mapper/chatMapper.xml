@@ -22,8 +22,23 @@
 	<resultMap type="ChatUserDTO" id="ChatUserMap">
 		<result property="chatRoomId" column="CHAT_ROOM_ID"/>
 		<result property="userNo" column="CHAT_ROOM_ID"/>
-		<collection property="ChatRoomDTO" resultMap="ChatRoomMap"></collection>
 	</resultMap>
+	
+	<!-- 현재 채팅에 접속한 유저목록 -->
+	<select id="selectUserListByChat" resultMap="ChatUserMap">
+		SELECT U.USER_NO, U.ID, U.NICKNAME, U.GENDER
+		  FROM USERS U INNER JOIN CHAT_USERS C
+		    ON U.USER_NO = C.USER_NO
+	</select>
+	
+	<!-- 현재 접속한 본인 -->
+	<select id="selectUserByChat" resultMap="UserMap" parameterType="int">
+		SELECT U.USER_NO, U.ID, U.NICKNAME, U.GENDER
+		  FROM USERS U INNER JOIN CHAT_USERS C
+		    ON U.USER_NO = C.USER_NO
+		 WHERE C.USER_NO = #{userNo}
+	</select>
+	
 	
 	<!-- Chat Room Count -->
 	<select id="selectChatRoomCnt" resultType="int">
@@ -39,16 +54,45 @@
 	
 	<!-- Chat Room List -->
 	<select id="selectChatRoomListByMap" resultType="ChatRoomDTO" parameterType="Map">
-		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, CREATE_DATE
+		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT
 		  FROM CHAT_ROOM
 		 LIMIT #{begin}, #{recordPerPage}
 	</select>
 	
-	<insert id="insertChatRoom" parameterType="ChatRoomDTO">
+	<!-- Create Chat Room -->
+	<insert id="insertChatRoom" parameterType="ChatRoomDTO" >
+		INSERT INTO CHAT_ROOM (CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW)
+		VALUES (${chatRoomTitle}, #{maxUsersCnt}, 0)
+	</insert>
+	<insert id="insertChatRoomInPw" parameterType="ChatRoomDTO" useGeneratedKeys="true" keyProperty="chatRoomId">
 		INSERT INTO CHAT_ROOM (CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW)
 		VALUES (#{chatRoomTitle}, #{maxUsersCnt}, #{isPw}, #{roomPw})
 	</insert>
 	
+	<!-- Select Chat By No -->
+	<select id="selectChatRoomByDTO" parameterType="ChatRoomDTO" resultType="ChatRoomDTO">
+		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW
+		  FROM CHAT_ROOM
+		 WHERE CHAT_ROOM_ID = #{chatRoomId}
+	</select>
 	
+	<select id="selectChatRoomByNo" parameterType="int" resultType="ChatRoomDTO">
+		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW
+		  FROM CHAT_ROOM
+		 WHERE CHAT_ROOM_ID = #{chatRoomId}
+	</select>
+	
+	<!-- insert users -->
+	<insert id="insertChatUser" parameterType="Map">
+		INSERT INTO CHAT_USERS(CHAT_ROOM_ID, USER_NO)
+		VALUES (#{chatRoomId}, #{userNo})
+	</insert>
+	
+	<!-- 유저가 채팅방을 나갔을 때 -->
+	<delete id="deleteUserByChat" parameterType="int">
+		DELETE
+		  FROM CHAT_USERS
+		 WHERE USER_NO = #{userNo}
+	</delete>
 	
 </mapper>

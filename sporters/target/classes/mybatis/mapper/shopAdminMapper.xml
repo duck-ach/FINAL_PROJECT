@@ -44,7 +44,6 @@
 		  	   	  FROM PROD_CATEGORY C INNER JOIN PRODUCT P
 		    		ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO LEFT OUTER JOIN PROD_THUMBNAIL TN
 		    		ON P.PROD_NO = TN.PROD_NO) A
-		 LIMIT #{begin}, #{recordPerPage}
 	</select>
 	
 	<!-- 상품 상세보기 (상세보기 정보용)-->

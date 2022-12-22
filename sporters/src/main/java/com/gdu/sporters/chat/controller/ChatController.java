@@ -1,6 +1,7 @@
 package com.gdu.sporters.chat.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +23,20 @@ public class ChatController {
 		return "chat/chatList";
 	}
 	
-	@GetMapping("/chat/add")
+	@GetMapping("/chat/write")
 	public String chatWrite() {
 		return "chat/chatAdd";
+	}
+	
+	@PostMapping("/chat/chatAdd")
+	public void requiredLogin_chatAdd(HttpServletRequest request, HttpServletResponse response) {
+		chatService.addChatRoom(request, response);
+	}
+	
+	@GetMapping("/chat/chatRoom")
+	public String requiredLogin_chatRoom(HttpServletRequest request, Model model) {
+		chatService.chatRoomByNo(request, model);
+		return "chat/chatRoom";
 	}
 	
 
