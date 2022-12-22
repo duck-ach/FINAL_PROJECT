@@ -79,4 +79,6 @@
 		VALUES (#{orderNo}, #{userNo}, #{cartNo}, #{name}, #{mobile}, #{postcode}, #{loadAddress}, #{jibunAddress}, #{detailAddress}, #{orderDate})
 	</insert>
 	
+	
+	
 </mapper>
