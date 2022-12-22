@@ -6,5 +6,7 @@
 
 <mapper namespace="com.gdu.sporters.userSupport.mapper.FaqMapper">
 
+	<select id="findAllFaqList" parameterType="Map" resultType="FaqDTO">
 	
+	</select>
 </mapper>
