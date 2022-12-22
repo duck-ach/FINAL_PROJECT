@@ -36,8 +36,8 @@
 	</resultMap>
 	
 	<select id="selectProductListByMap" parameterType="Map" resultType="ProductDTO">
-		SELECT A.ROW_NUM, A.PROD_NO, A.PROD_CATEGORY_NO, A.PROD_NAME, A.PRICE, A.DISCOUNT, A.PROD_CONTENT, A.ORIGIN, A.STOCK, A.FILESYSTEM, A.PROD_THUMBNAIL
-		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY PROD_NO DESC) AS ROW_NUM, PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, FILESYSTEM, PROD_THUMBNAIL
+		SELECT A.ROW_NUM, A.PROD_NO, A.PROD_CATEGORY_NO, A.PROD_NAME, A.PRICE, A.DISCOUNT, A.PROD_CONTENT, A.ORIGIN, A.STOCK
+		  FROM (SELECT ROW_NUMBER() OVER (ORDER BY PROD_NO DESC) AS ROW_NUM, PROD_NO, PROD_CATEGORY_NO, PROD_NAME, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK
 		  		  FROM PRODUCT) A
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
 	</select>
@@ -56,9 +56,9 @@
 	
 	<insert id="addCart" parameterType="CartDTO">
 		INSERT INTO CART
-			(CART_NO, USER_NO, PROD_NO, PROD_CNT)
+			(<!-- CART_NO, --> USER_NO, PROD_NO, PROD_CNT)
 		VALUES
-			(CART_SEQ.NEXTVAL, #{userNo}, #{prodNo}, #{prodCnt})
+			(<!-- #{cartNo}, --> #{userNo}, #{prodNo}, #{prodCnt})
 	</insert>
 	
 	<select id="selectCartListByMap" parameterType="map" resultMap="cartMap">
