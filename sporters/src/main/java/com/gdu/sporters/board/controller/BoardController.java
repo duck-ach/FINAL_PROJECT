@@ -43,11 +43,16 @@ public class BoardController {
 		return "community/free/list";
 	}
 	
-	
 	@GetMapping("/free/write")
 	public String freeWrite() {
 		return "community/free/write";
 	}
+	@GetMapping("/local/write")
+	public String localWrite() {
+		return "community/local/write";
+	}
+	
+	
 	
 	@PostMapping("/free/add")
 	public void add(HttpServletRequest request, HttpServletResponse response) {

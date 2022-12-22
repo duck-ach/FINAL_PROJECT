@@ -1,4 +1,4 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
@@ -114,12 +114,21 @@
 			</script>
 		</div>
 		
+		
+		
+		
+		
 		<div class="right_side_board_list">
 			<ul>
-				<li>right_side_board_list</li>
-				<li>right_side_board_list</li>
-				<li>right_side_board_list</li>
-				<li>right_side_board_list</li>
+				<c:forEach items="${galleryList}" var="gallery" varStatus="vs">									
+					<li>
+						<a id="moveDetail"
+						href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a>
+					</li>									
+					
+				
+				</c:forEach>	
+				<li> 로컬게시판 최신글	</li>		
 			</ul>
 		</div>
 		

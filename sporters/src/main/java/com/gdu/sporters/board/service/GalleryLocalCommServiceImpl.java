@@ -17,7 +17,7 @@ import com.gdu.sporters.util.GalleryPageUtil;
 
 
 @Service
-public class GalleryFreeCommServiceImpl implements GalleryFreeCommService{
+public class GalleryLocalCommServiceImpl implements GalleryFreeCommService{
 
 	@Autowired
 	private GalleryCommMapper commentMapper;
