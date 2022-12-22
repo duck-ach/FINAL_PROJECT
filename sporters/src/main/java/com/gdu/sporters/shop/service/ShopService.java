@@ -12,4 +12,5 @@ public interface ShopService {
 	public ProductDTO getProductByNo(int prodNo);
 	public void addCart(CartDTO cart);
 	public void getCartList(HttpServletRequest request, Model model);
+	public void deleteCart(CartDTO cart);
 }

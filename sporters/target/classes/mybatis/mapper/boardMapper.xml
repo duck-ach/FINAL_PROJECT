@@ -21,8 +21,8 @@
 			<result property="nickname"  column="NICKNAME" />	
 			<result property="name"  column="NAME" />
 			<result property="joinDate"  column="JOINDATE" />
-			<result property="gender"  column="GENDER" />		
-		</association>		
+			<result property="gender"  column="GENDER" />
+		</association>
 	</resultMap>
 	
 

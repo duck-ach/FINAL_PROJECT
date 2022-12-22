@@ -532,6 +532,7 @@ public class UsersServiceImpl implements UsersService {
 				.birthday(birthday)
 				.agreeCode(agreeCode)
 				.snsType("naver")  // 네이버로그인으로 가입하면 naver를 저장해 두기로 함
+				.bannedState(0)
 				.build();
 				
 		// 회원가입처리
@@ -556,23 +557,21 @@ public class UsersServiceImpl implements UsersService {
 				int updateResult = usersMapper.updateAccessLog(user.getUserNo());
 				if(updateResult == 0) {
 					usersMapper.insertAccessLog(user.getUserNo());
-				}
-				
+				}				
 				out.println("<script>");
 				out.println("alert('회원 가입되었습니다.');");
-				out.println("location.href='" + request.getContextPath() + "';");
-				out.println("</script>");
-				
-			} else {
-				
+				out.println("location.href='/';");
+				out.println("</script>");				
+			} else {				
 				out.println("<script>");
 				out.println("alert('회원 가입에 실패했습니다.');");
 				out.println("history.go(-2);");
 				out.println("</script>");
-				
 			}
 			
 			out.close();
+			//언니 자판 넉김이 너무  좋아요 어쩔거야 이거 춤추는 고구마말랭이 롯데리아 일력받으러 갈라햇는데 서스윗가이~
+			//서스윗뽀이~
 			
 		} catch(Exception e) {
 			e.printStackTrace();

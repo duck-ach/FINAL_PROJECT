@@ -464,7 +464,7 @@
 				
 				<div>
 					<button>가입하기</button>
-					<input type="button" value="가입취소" onclick="location.href='/'">
+					<input type="button" value="가입취소" onclick="history.back();">
 				</div>
 			</form>
 		</div>

@@ -118,7 +118,8 @@ $(function(){
 	 	<li><a href="/free/list">자유게시판</a> </li>
 	 	<li><a href="/shop/list">쇼핑몰</a> </li>
 	 	<li><a href="/supp/singo">신고게시판</a> </li>
-	 	<li><a href="/supp/qnaList">고객문의게시판</a> </li>
+	 	<li><a href="/qna/list">고객문의게시판</a> </li>
+	 	<li><a href="/faq/list">자주하는질문</a> </li>
 	 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
 	 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
       </ul>

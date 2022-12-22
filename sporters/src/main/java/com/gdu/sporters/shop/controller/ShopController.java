@@ -1,5 +1,7 @@
 package com.gdu.sporters.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -28,9 +30,15 @@ public class ShopController {
 		return "shop/list";
 	}
 	
+	@GetMapping("/shop/detail")
+	public String detail(@RequestParam(value="prodNo", required=false) int prodNo, Model model) {
+		model.addAttribute("product", shopService.getProductByNo(prodNo));
+		return "shop/detail";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/shop/addCart", method=RequestMethod.POST)
-	public int addCart(CartDTO cart, HttpServletRequest request, HttpSession session) {
+	public int addCart(CartDTO cart, HttpSession session) {
 		int result = 0;
 		
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
@@ -43,21 +51,37 @@ public class ShopController {
 		return result;
 	}
 	
-	@GetMapping("/shop/detail")
-	public String detail(@RequestParam(value="prodNo", required=false) int prodNo, Model model) {
-		model.addAttribute("product", shopService.getProductByNo(prodNo));
-		System.out.println(model);
-		return "shop/detail";
-	}
-	
 	@GetMapping(value="/shop/cartList", produces="application/json")
 	public String requiredLogin_getCartList(HttpServletRequest request, HttpSession session, Model model) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		model.addAttribute("userNo", userNo);
-		model.addAttribute("prodCnt", request.getParameter("prodCnt"));
 		shopService.getCartList(request, model);
 		return "shop/cartList";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/cartList/sumAll", method = RequestMethod.POST)	
+	public int sumAll(@RequestParam("sum") int sum) {
+		return sum;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/shop/deleteCart", method = RequestMethod.POST)
+	public int deleteCart(HttpSession session, @RequestParam(value = "checkOne[]", required=false) List<String> checkOne, CartDTO cart) throws Exception {
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		int result = 0;
+		int cartNo = 0;
+		if(loginUser != null) {
+			cart.setUserNo(userNo);
+			for(String i : checkOne) {  
+				cartNo = Integer.parseInt(i);
+				cart.setCartNo(cartNo);
+				shopService.deleteCart(cart);
+				}   
+			result = 1;
+			}
+		return result;  
+	}
 }

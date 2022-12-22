@@ -55,21 +55,15 @@ public class ShopServiceImpl implements ShopService {
 	
 	@Override
 	public void getCartList(HttpServletRequest request, Model model) {
-		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
-		int page = Integer.parseInt(opt.orElse("1"));
-		
-		int cartListCount = shopMapper.selectCartListCount();
-		shopPageUtil.setPageUtil(page, cartListCount);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", shopPageUtil.getBegin());
-		map.put("end", shopPageUtil.getEnd());
 		map.put("userNo", model.getAttribute("userNo"));
 		
-		model.addAttribute("prodCount", cartListCount);
 		model.addAttribute("cartList", shopMapper.selectCartListByMap(map));
-		model.addAttribute("beginNo", cartListCount - (page - 1) * shopPageUtil.getRecordPerPage());
-		model.addAttribute("paging", shopPageUtil.getPaging(request.getContextPath() + "/shop/cartList"));
+	}
+	
+	@Override
+	public void deleteCart(CartDTO cart) {
+		shopMapper.deleteCart(cart);
 	}
 	
 }
