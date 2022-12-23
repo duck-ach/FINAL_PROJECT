@@ -39,20 +39,22 @@
 							<td>채팅방 번호</td>
 							<td>채팅방 이름</td>
 							<td>인원 수</td>
+							<td>입장하기</td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${chatRoomList}" var="chatRoom">
 							<tr>
 								<td>${chatRoom.chatRoomId}</td>
-								<td class="chat_room_name"><a onclick="window.open('/chat/chatRoom?chatRoomId=${chatRoom.chatRoomId}', '실시간채팅', 'width=670,height=670,top=100,left=500,menubar=no,history=no')">${chatRoom.chatRoomTitle}</a></td>
+								<td class="chat_room_name">${chatRoom.chatRoomTitle}</td>
 								<td>${currUserCnt} / ${chatRoom.maxUsersCnt}</td>
+								<td><input type="button" value="입장" onclick="window.open('/chat/chatRoom?chatRoomId=${chatRoom.chatRoomId}', '실시간채팅', 'width=670,height=670,top=100,left=500,menubar=no,history=no')"></td>
 							</tr>						
 						</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="2" style="text-align: center;">
+							<td colspan="4" style="text-align: center;">
 								${paging}
 							</td>
 						</tr>
