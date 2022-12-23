@@ -30,11 +30,7 @@ public class BoardController {
 	 * "community/free/list"; }
 	 */
 	
-	@GetMapping(value="/local/list")
-	public String localList(HttpServletRequest request, Model model) {
-	//	galleryService.getGalleryList(request, model);
-		return "community/local/list";
-	}
+
 	
 	
 	@GetMapping(value="/free/list")
@@ -47,10 +43,7 @@ public class BoardController {
 	public String freeWrite() {
 		return "community/free/write";
 	}
-	@GetMapping("/local/write")
-	public String localWrite() {
-		return "community/local/write";
-	}
+
 	
 	
 	

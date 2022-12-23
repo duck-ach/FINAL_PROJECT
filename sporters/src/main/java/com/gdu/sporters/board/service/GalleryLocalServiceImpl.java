@@ -18,18 +18,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.gdu.sporters.board.domain.FreeDTO;
-import com.gdu.sporters.board.domain.FreeImageDTO;
-import com.gdu.sporters.board.mapper.BoardMapper;
+import com.gdu.sporters.board.domain.LocalDTO;
+import com.gdu.sporters.board.domain.LocalImageDTO;
+import com.gdu.sporters.board.mapper.LocalBoardMapper;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.GalleryPageUtil;
 import com.gdu.sporters.util.MyFileUtil;
 
 @Service
-public class GalleryLocalServiceImpl implements GalleryService {
+public class GalleryLocalServiceImpl implements GalleryLocalService {
 
 	@Autowired
-	private BoardMapper boardMapper;
+	private LocalBoardMapper localBoardMapper;
 	
 	@Autowired
 	private MyFileUtil myFileUtil;
@@ -41,12 +41,12 @@ public class GalleryLocalServiceImpl implements GalleryService {
 	
 	
 	@Override
-	public void getGalleryList(HttpServletRequest request, Model model) {
+	public void getLocalGalleryList(HttpServletRequest request, Model model) {
 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 
-		int totalRecord = boardMapper.selectFreeListCnt();
+		int totalRecord = localBoardMapper.selectLocalListCnt();
 		
 		
 		
@@ -56,12 +56,12 @@ public class GalleryLocalServiceImpl implements GalleryService {
 		map.put("begin", galleryPageUtil.getBegin());
 		map.put("end", galleryPageUtil.getEnd());
 
-		List<FreeDTO> galleryList = boardMapper.selectFreeList(map);
+		List<LocalDTO> galleryList = localBoardMapper.selectLocalList(map);
 
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
 		model.addAttribute("galleryList", galleryList);
-		model.addAttribute("paging", galleryPageUtil.getPaging("/free/list"));
+		model.addAttribute("paging", galleryPageUtil.getPaging("/local/list"));
 
 	}
 	
@@ -71,7 +71,7 @@ public class GalleryLocalServiceImpl implements GalleryService {
 	
 	@Transactional
 	@Override
-	public void saveGallery(HttpServletRequest request, HttpServletResponse response) {
+	public void saveLocalGallery(HttpServletRequest request, HttpServletResponse response) {
 		String filesystem = request.getParameter("filesystem");
 		System.out.println(filesystem);
 		
@@ -83,7 +83,7 @@ public class GalleryLocalServiceImpl implements GalleryService {
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
 		
-		FreeDTO freeBbs = FreeDTO.builder()
+		LocalDTO freeBbs = LocalDTO.builder()
 						.title(title)
 						.content(content)						
 						.ip(Ip)
@@ -94,7 +94,7 @@ public class GalleryLocalServiceImpl implements GalleryService {
 	
 
 		// DB에 Gallery 저장
-		int result = boardMapper.insertFree(freeBbs);
+		int result = localBoardMapper.insertLocal(freeBbs);
 		
 		
 		// 응답
@@ -113,11 +113,11 @@ public class GalleryLocalServiceImpl implements GalleryService {
 				if (summernoteImageNames != null) {
 					System.out.println("summernoteImageNames="+summernoteImageNames);
 					for (String summernoteImage : summernoteImageNames) {
-						FreeImageDTO summernote = FreeImageDTO.builder()
+						LocalImageDTO summernote = LocalImageDTO.builder()
 								.filesystem(summernoteImage)
-								.freeNo(freeBbs.getFreeNo())												
+								.localBoardNo(freeBbs.getLocalBoardNo())												
 								.build();
-						boardMapper.insertSummernoteImage(summernote);
+						localBoardMapper.insertSummernoteImage(summernote);
 						System.out.println("summernote="+summernote);
 					}
 				}
@@ -125,7 +125,7 @@ public class GalleryLocalServiceImpl implements GalleryService {
 				
 			
 				out.println("alert('게시글을 등록했습니다.');");
-				out.println("location.href='/free/list';");
+				out.println("location.href='/local/list';");
 			} else {
 				out.println("alert('게시글을 등록할 수 없습니다.');");
 				out.println("history.back();");
@@ -185,17 +185,17 @@ public class GalleryLocalServiceImpl implements GalleryService {
 	}
 	
 	@Override
-	public FreeDTO getGalleryByNo(int freeNo) {
+	public LocalDTO getLocalGalleryByNo(int localBoardNo) {
 
 		// DB에서 갤러리 정보 가져오기
-		FreeDTO gallery = boardMapper.selectFreeByNo(freeNo);
+		LocalDTO gallery = localBoardMapper.selectLocalByNo(localBoardNo);
 		
 		// 갤러리에서 사용한 것으로 되어 있는 써머노트 이미지(저장된 파일명이 DB에 저장되어 있고, 실제로 HDD에도 저장되어 있음)
-		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(freeNo);
+		List<LocalImageDTO> summernoteImageList = localBoardMapper.selectSummernoteImageListInGallery(localBoardNo);
 
 		// 갤러리에서 사용한 것으로 저장되어 있으나 갤러리 내용(content)에는 없는 써머노트 이미지를 찾아서 제거
 		if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
-			for (FreeImageDTO summernoteImage : summernoteImageList) {
+			for (LocalImageDTO summernoteImage : summernoteImageList) {
 				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
 					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
 			//		File file = new File("file:"+ File.separator + "///summernoteImage", summernoteImage.getFilesystem());
@@ -211,26 +211,26 @@ public class GalleryLocalServiceImpl implements GalleryService {
 	}
 
 	@Override
-	public int increaseFreeHit(int freeNo) {
-		return boardMapper.updateHit(freeNo);
+	public int increaseLocalHit(int localBoardNo) {
+		return localBoardMapper.updateHit(localBoardNo);
 	}
 	
 	@Override
-	public void modifyGallery(HttpServletRequest request, HttpServletResponse response) {
+	public void modifyLocalGallery(HttpServletRequest request, HttpServletResponse response) {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		int freeNo = Integer.parseInt(request.getParameter("freeNo"));		
+		int localBoardNo = Integer.parseInt(request.getParameter("localBoardNo"));		
 
 		// DB에서 갤러리 정보 가져오기
-		// FreeDTO gallery = boardMapper.selectFreeByNo(freeNo);
+		// FreeDTO gallery = localBoardMapper.selectFreeByNo(freeNo);
 		// db로 보낼 freeDTO
-		FreeDTO freeBbs = FreeDTO.builder()
+		LocalDTO freeBbs = LocalDTO.builder()
 				.title(title)
 				.content(content)
-				.freeNo(freeNo)
+				.localBoardNo(localBoardNo)
 				.build();
 		
-		int result = boardMapper.updateFree(freeBbs);
+		int result = localBoardMapper.updateLocal(freeBbs);
 		
 		// 응답 
 		try {
@@ -245,16 +245,16 @@ public class GalleryLocalServiceImpl implements GalleryService {
 				// db에 서머노트 저장
 				if( summernoteImageNames != null ) {
 					for( String filesystem : summernoteImageNames  ) {
-						FreeImageDTO summernoteImage = FreeImageDTO.builder()
+						LocalImageDTO summernoteImage = LocalImageDTO.builder()
 								.filesystem(filesystem)
-								.freeNo(freeBbs.getFreeNo())												
+								.localBoardNo(freeBbs.getLocalBoardNo())												
 								.build();		
-						boardMapper.insertSummernoteImage(summernoteImage);
+						localBoardMapper.insertSummernoteImage(summernoteImage);
 					}					
 				}
 				out.println("alert('게시글을 수정하였습니다.');");
 				out.println(
-						"location.href='/free/detail?freeNo=" + freeNo + "';");
+						"location.href='/local/detail?localBoardNo=" + localBoardNo + "';");
 				}else {
 					out.println("alert('게시글을 수정할 수 없습니다');");
 					out.println("history.back();");
@@ -271,15 +271,15 @@ public class GalleryLocalServiceImpl implements GalleryService {
 		
 
 	@Override
-	public void removeGallery(HttpServletRequest request, HttpServletResponse response) {
+	public void removeLocalGallery(HttpServletRequest request, HttpServletResponse response) {
 		// 파라미터
-		int freeNo = Integer.parseInt(request.getParameter("freeNo"));
+		int localBoardNo = Integer.parseInt(request.getParameter("localBoardNo"));
 
 		// HDD에서 삭제해야 하는 SummernoteImage 리스트
-		List<FreeImageDTO> summernoteImageList = boardMapper.selectSummernoteImageListInGallery(freeNo);
+		List<LocalImageDTO> summernoteImageList = localBoardMapper.selectSummernoteImageListInGallery(localBoardNo);
 
 		// DB에서 삭제
-		int result = boardMapper.deleteFreeGallery(freeNo);
+		int result = localBoardMapper.deleteLocalGallery(localBoardNo);
 
 		// 응답
 		try {
@@ -292,7 +292,7 @@ public class GalleryLocalServiceImpl implements GalleryService {
 
 				// HDD에서 SummernoteImage 리스트 삭제
 				if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
-					for (FreeImageDTO summernoteImage : summernoteImageList) {
+					for (LocalImageDTO summernoteImage : summernoteImageList) {
 						File file = new File("C:" + File.separator + "summernoteImage",
 								summernoteImage.getFilesystem());
 						if (file.exists()) {
@@ -305,13 +305,13 @@ public class GalleryLocalServiceImpl implements GalleryService {
 
 				HttpSession session = request.getSession();
 				UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
-			//	boardMapper.cancelUserPoint(loginUser.getUserNo());
+			//	localBoardMapper.cancelUserPoint(loginUser.getUserNo());
 			//	loginUser.setPoint(loginUser.getPoint() - 5);
 				
 				if(loginUser.getId().equals("admin")) {
 					out.println("location.href='/admin/galleryAdmin';");
 				} else {
-					out.println("location.href='/free/list';");
+					out.println("location.href='/local/list';");
 				}
 			} else {
 				out.println("alert('게시글을 삭제할 수 없습니다.');");
@@ -332,7 +332,7 @@ public class GalleryLocalServiceImpl implements GalleryService {
 	/*
 	@Override
 	public ResponseEntity<byte[]> display(int freeNo) {
-		FreeImageDTO product = boardMapper.selectSThumbNail(freeNo);
+		FreeImageDTO product = localBoardMapper.selectSThumbNail(freeNo);
 		File file = new File(product.getPath(), product.getFilesystem());
 
 		ResponseEntity<byte[]> result = null;
