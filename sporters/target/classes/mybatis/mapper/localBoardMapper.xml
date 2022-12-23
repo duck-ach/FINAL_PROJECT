@@ -44,7 +44,7 @@
 	</select>
 	
 <!-- 게시판 삽입(첨부파일 추가) -->
-	<insert id="insertlocal" parameterType="localDTO"  useGeneratedKeys="true" keyProperty="localBoardNo">
+	<insert id="insertLocal" parameterType="localDTO"  useGeneratedKeys="true" keyProperty="localBoardNo">
 		INSERT INTO LOCALS
 			(TITLE, CONTENT,CREATE_DATE, HIT,USER_NO,STATE ,COMMENT_ID,MAX_USER, LOCAL_NO,IP,MODIFY_DATE)
 		VALUES
