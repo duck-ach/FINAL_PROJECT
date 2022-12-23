@@ -24,12 +24,13 @@
 		height: 360px;
 		overflow-y: scroll;
 		border : 1px solid gray;
-		background-color: skyblue;
+		background-color: #fff;
 	}
 	.message {
 		width: 574px;
 		height: 100px;
 		display: inline-block;
+		resize: none;
 	}
 	.message_area > * {
 		vertical-align: top;
@@ -60,17 +61,48 @@
 	}
 	.my_message_content {
 		text-align: right;
-		background-color: yellow;
+		color:#fff;
+		background-color: #8282FF;
 	}
 	.other_message_content {
 		text-align: left;
-		background-color: white;
+		background-color: rgb(241,241,251);
 	}
 </style>
+<script>
+	
+	// 새로고침 막기
+	window.onload = function(){
+		NotReload();
+	}
+	function NotReload(){
+	    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+	        event.keyCode = 0;
+	        event.cancelBubble = true;
+	        event.returnValue = false;
+	    } 
+	}
+	document.onkeydown = NotReload;
+
+	// 채팅창 close할때 유저 DB에서 삭제
+	$(window).on('unload', function() {
+		$.ajax({
+			type : 'POST',
+			url : '/chat/close',
+			data : $("#frm").serialize(),
+			dataType : 'json'
+		});
+
+	});
+	
+	
+</script>
 </head>
 <body>
-	
-	<input type="text" id="id" value="${user.nickname}">
+	<form id="frm">
+		<input type="text" name="userNo" value="${user.userNo}">
+		<input type="text" id="id" name="nickname" value="${user.nickname}">
+	</form>
 
 	<div class="wrap">
 		<div>
@@ -79,7 +111,7 @@
 		</div>
 		
 		<div id="after_come_in">
-			<strong id="login_id"></strong>님이 입장했습니다.
+			<strong id="login_id"></strong>
 		</div>
 		
 		<hr>
@@ -99,6 +131,8 @@
 
 		// socket on
 		fn_socketOn();
+		
+
 		
 		var ws;  // ChatServer
 		var sendData = {};  // CharServer로 전송할 데이터는 JSON 형식
@@ -156,6 +190,7 @@
 		$('#btn_send').click(function(){
 			fn_send();
 		});
+		
 
 	</script>
 	

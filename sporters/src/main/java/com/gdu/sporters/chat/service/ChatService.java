@@ -9,4 +9,5 @@ public interface ChatService {
 	public void chatRoomList(HttpServletRequest request, Model model);
 	public void addChatRoom(HttpServletRequest request, HttpServletResponse response);
 	public void chatRoomByNo(HttpServletRequest request, Model model);
+	public void chatClose(HttpServletRequest request, Model model);
 }

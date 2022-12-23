@@ -28,6 +28,7 @@ import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
 import com.gdu.sporters.shopAdmin.mapper.ShopAdminMapper;
 import com.gdu.sporters.shopAdmin.util.ShopAdminPageUtil;
+import com.gdu.sporters.shopAdmin.util.ShopAdminSearchPageUtil;
 import com.gdu.sporters.util.MyFileUtil;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -40,6 +41,9 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 	
 	@Autowired
 	private ShopAdminPageUtil pageUtil;
+	
+	@Autowired
+	private ShopAdminSearchPageUtil searchPageUtil;
 	
 	@Autowired
 	private MyFileUtil myFileUtil;
@@ -60,6 +64,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		// Map 생성
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", pageUtil.getBegin());
+		map.put("end", pageUtil.getEnd());
 		map.put("recordPerPage", pageUtil.getRecordPerPage()); // begin부터 몇개 로 동작함.
 		
 		// view로 전달할 데이터 model에 저장
@@ -67,7 +72,6 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		model.addAttribute("prodList", shopAdminMapper.selectProdListAllByPage(map));
 		model.addAttribute("beginNo", totalProdRecord - (page - 1) * pageUtil.getRecordPerPage());
 		model.addAttribute("paging", pageUtil.getPaging("/shopAdmin/prodManage"));
-	//	model.addAttribute("prodThumbnail", shopAdminMapper.selectProdThumbnailListByNo(prodNo));
 		
 	}
 	
@@ -122,9 +126,6 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 		// 썸네일 받아오기
 		List<MultipartFile> thumbnail = multipartRequest.getFiles("thumbnail");
-		
-		System.out.println(thumbnail);
-		
 		
 		String filesystem = null;
 		String path = null;
@@ -600,5 +601,77 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public Map<String, Object> getAutoCompleteList(HttpServletRequest request) {
+		
+		String column = request.getParameter("column");
+		String query = request.getParameter("query");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("column", column);
+		map.put("query", query);
+		
+		List<ProductDTO> list = shopAdminMapper.selectAutoCompleteList(map);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		if(list.size() == 0) {
+			result.put("status", 400);
+			result.put("list", null);
+		} else {
+			result.put("status", 200);
+			result.put("list", list);
+		}
+		
+		switch(column) {
+		case "PROD_NAME": result.put("column", "prodName"); break;
+		case "PROD_CONTENT": result.put("column", "prodContent"); break;
+		case "ORIGIN": result.put("column", "origin"); break;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public void searchProducts(HttpServletRequest request, Model model) {
+		
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		
+		// 검색 대상
+		String column = request.getParameter("column");
+		// 검색어
+		String query = request.getParameter("query");
+		
+		// 조회와 검색된 사원수를 알아낼 때 사용하는 Map
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("column", column);
+		map.put("query", query);
+		
+		// 검색된 사원수
+		int totalRecord = shopAdminMapper.selectSearchCount(map);
+		
+		// 네이버 웹툰 방식으로 페이징 계산
+		searchPageUtil.setNaverPageUtil(page, totalRecord);
+		
+		// 조회에서 사용하는 Map
+		map.put("begin", searchPageUtil.getBegin());
+		map.put("recordPerPage", searchPageUtil.getRecordPerPage());
+		
+		// 검색된 사원목록
+		List<ProductDTO> productList = shopAdminMapper.selectSearchProductList(map);
+		
+		// search.jsp로 보낼 데이터
+		model.addAttribute("prodList", productList);
+		model.addAttribute("beginNo", totalRecord - (page - 1) * searchPageUtil.getRecordPerPage());
+		
+		String path = "/shopAdmin/prodSearch?column=" + column + "&query=" + query;
+	
+		model.addAttribute("paging", searchPageUtil.getNaverPaging(path));
+
+		// 검색된 상품 개수
+		int totalProdRecord = shopAdminMapper.selectSearchCount(map);
+		model.addAttribute("totalRecord", totalProdRecord); // 상품전체갯수
 	}
  }

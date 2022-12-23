@@ -24,7 +24,6 @@
 						chatAddWindow = window.open('/chat/write', '실시간채팅', 'width=670,height=670,top=100,left=500,menubar=no,history=no');							
 					});
 				}
-				
 			
 			</script>
 		

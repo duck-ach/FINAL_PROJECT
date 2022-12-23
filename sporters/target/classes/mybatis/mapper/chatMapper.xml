@@ -76,7 +76,8 @@
 		 WHERE CHAT_ROOM_ID = #{chatRoomId}
 	</select>
 	
-	<select id="selectChatRoomByNo" parameterType="int" resultType="ChatRoomDTO">
+	<!-- 채팅방에 있는 유저 목록 --> 
+	<select id="selectChatRoomByNo" parameterType="map" resultType="ChatRoomDTO">
 		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW
 		  FROM CHAT_ROOM
 		 WHERE CHAT_ROOM_ID = #{chatRoomId}

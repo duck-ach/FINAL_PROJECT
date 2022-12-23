@@ -123,14 +123,20 @@ public class ChatServiceImpl implements ChatService {
 		
 		chatMapper.insertChatUser(map);
 		
-		
 		// mapper에 접속한 user 정보 전송
 		model.addAttribute("user", chatMapper.selectUserByChat(loginUser.getUserNo())); // 현재유저
-		System.out.println(loginUser.getUserNo());
-		System.out.println(chatMapper.selectUserByChat(loginUser.getUserNo()));
 		model.addAttribute("userList", chatMapper.selectUserListByChat()); // 채팅방 유저 목록
-		model.addAttribute("chatRoom", chatMapper.selectChatRoomByNo(chatRoomId)); // 채팅방 정보
+		model.addAttribute("chatRoom", chatMapper.selectChatRoomByNo(map)); // 채팅방 정보
 		model.addAttribute("currUserCnt", chatMapper.selectChatUserCnt()); // 현재유저 수
+	}
+	
+	@Override
+	public void chatClose(HttpServletRequest request, Model model) {
+		
+		// 파라미터
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		chatMapper.deleteUserByChat(userNo);
+		
 	}
 	
 }

@@ -39,6 +39,11 @@ public class ChatController {
 		return "chat/chatRoom";
 	}
 	
+	@PostMapping("/chat/close")
+	public void chatClose(HttpServletRequest request, Model model) {
+		chatService.chatClose(request, model);
+	}
+	
 
 	
 	

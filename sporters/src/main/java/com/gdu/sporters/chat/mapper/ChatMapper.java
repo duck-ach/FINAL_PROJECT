@@ -18,9 +18,9 @@ public interface ChatMapper {
 	
 	// chat List
 	public List<ChatRoomDTO> selectChatRoomListByMap(Map<String, Object> map);
-	// chat List By No
 	
-	public ChatRoomDTO selectChatRoomByNo(int chatRoomId);
+	// chat List By No
+	public ChatRoomDTO selectChatRoomByNo(Map<String, Object> map);
 	public ChatRoomDTO selectChatRoomByDTO(ChatRoomDTO chatRoom);
 	
 	// insert chat List
