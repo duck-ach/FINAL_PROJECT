@@ -10,32 +10,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gdu.sporters.board.domain.FreeCommDTO;
-import com.gdu.sporters.board.mapper.GalleryCommMapper;
+import com.gdu.sporters.board.domain.LocalCommDTO;
+import com.gdu.sporters.board.mapper.GalleryLocalCommMapper;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.GalleryPageUtil;
 
 
 @Service
-public class GalleryFreeCommServiceImpl implements GalleryFreeCommService{
+public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 
 	@Autowired
-	private GalleryCommMapper commentMapper;
+	private GalleryLocalCommMapper commentMapper;
 	
 	@Autowired
 	private GalleryPageUtil galleryPageUtil;
 	
 	@Override
-	public Map<String, Object> getCommentCnt(int freeNo) {
+	public Map<String, Object> getLocalCommentCnt(int localBoardNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("commentCnt", commentMapper.selectFreeCommentCnt(freeNo));
-		System.out.println("service : " + commentMapper.selectFreeCommentCnt(freeNo));
+		result.put("commentCnt", commentMapper.selectFreeCommentCnt(localBoardNo));
+		System.out.println("service : " + commentMapper.selectFreeCommentCnt(localBoardNo));
 		return result;
 	} 
 	
 	@Transactional
 	@Override
-	public Map<String, Object> addComment(FreeCommDTO commContent, HttpServletRequest request) {
+	public Map<String, Object> addLocalComment(LocalCommDTO commContent, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		HttpSession session = request.getSession();
@@ -54,14 +54,14 @@ public class GalleryFreeCommServiceImpl implements GalleryFreeCommService{
 	}
 	
 	@Override
-	public Map<String, Object> getCommentList(HttpServletRequest request) {
+	public Map<String, Object> getLocalCommentList(HttpServletRequest request) {
 		
-		int freeNo = Integer.parseInt(request.getParameter("freeNo"));
+		int localBoardNo = Integer.parseInt(request.getParameter("localBoardNo"));
 		int page = Integer.parseInt(request.getParameter("page"));		
-		int commentCnt = commentMapper.selectFreeCommentCnt(freeNo);
+		int commentCnt = commentMapper.selectFreeCommentCnt(localBoardNo);
 		galleryPageUtil.setPageUtil(page, commentCnt);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("freeNo", freeNo);
+		map.put("localBoardNo", localBoardNo);
 		
 		System.out.println(commentCnt);
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -73,14 +73,14 @@ public class GalleryFreeCommServiceImpl implements GalleryFreeCommService{
 	}
 	
 	@Override
-	public Map<String, Object> removeComment(int freeCoNo) {
+	public Map<String, Object> removeLocalComment(int localCoNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isRemove", commentMapper.deleteFreeComment(freeCoNo) == 1);
+		result.put("isRemove", commentMapper.deleteFreeComment(localCoNo) == 1);
 		return result;
 	}
 	
 	@Override
-	public Map<String, Object> addReply(FreeCommDTO reply, HttpServletRequest request) {
+	public Map<String, Object> addLocalReply(LocalCommDTO reply, HttpServletRequest request) {
 		// Session의 User 정보
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");

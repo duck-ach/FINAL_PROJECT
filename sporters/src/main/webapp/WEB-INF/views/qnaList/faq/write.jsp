@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../../layout/header.jsp">
-	<jsp:param value="자유게시판" name="title" />
+	<jsp:param value="자주묻는질문" name="title" />
 </jsp:include>
-
 <style>
 	
 	 .title-class{
@@ -18,13 +17,10 @@
 
 
 
-$(document).ready(function() { 
-	
-	alert('확인용');
-	
+$(document).ready(function(){
 	
 	// summernote
-	$('.summernote').summernote({
+	$('#content').summernote({
 		width: 800,
 		height: 400,
 		lang: 'ko-KR',
@@ -69,7 +65,7 @@ $(document).ready(function() {
 	
 	// 목록
 	$('#btn_list').click(function(){
-		location.href =  '/free/list';// taglib 사용이 어려울수도 있으니까
+		location.href =  '/faq/list';// taglib 사용이 어려울수도 있으니까
 	})
 	
 	// 서브밋
@@ -80,12 +76,6 @@ $(document).ready(function() {
 			return; // 더 이상 코드 실행할 필요 없음
 		}
 	});
-	
-	
-	$('.hihi').click(function(){
-		
-		alert('hi');
-	})
 	
 });
 
@@ -98,7 +88,7 @@ $(document).ready(function() {
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<form id="frm_write" action="/free/add" method="post" >
+			<form id="frm_write" action="/faq/add" method="post" >
 				<div style="margin-top: 50px; margin-bottom: 15px">
 					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
 				</div>
@@ -106,7 +96,7 @@ $(document).ready(function() {
 				<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
 				
 				<div style="margin-top: 20px">
-					<textarea name="content" id="content"  class="summernote"></textarea>
+					<textarea name="content" id="content"></textarea>
 				</div>
 				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 				<div id="summernote_image_list"></div>
@@ -118,7 +108,7 @@ $(document).ready(function() {
 					<input class="btn" type="button" value="목록" id="btn_list"> 
 				</div>
 			</form>
-			<button class="hihi">hihi</button>
+		
 			
 			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->

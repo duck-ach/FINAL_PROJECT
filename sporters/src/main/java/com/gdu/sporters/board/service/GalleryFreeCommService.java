@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.gdu.sporters.board.domain.FreeCommDTO;
 
+
 public interface GalleryFreeCommService {
 
 	public Map<String, Object> getCommentCnt(int freeNo); 

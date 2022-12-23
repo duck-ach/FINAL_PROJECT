@@ -10,7 +10,7 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="/free/write">글쓰러가기</a>  </div>
+		<div><a href="/local/write">글쓰러가기</a>  </div>
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<form id="frm_search" method="post">										
@@ -36,7 +36,7 @@
 							<tr>
 								<td>${beginNo - vs.index}</td>						
 								<td><a id="moveDetail"
-									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
+									href="/local/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
 								<td>${gallery.users.id}</td>
 								<td>${gallery.users.nickname}</td>
 								<td>${gallery.users.gender}</td>

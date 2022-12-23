@@ -6,6 +6,7 @@
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 
 	$(document).ready(function(){
@@ -27,6 +28,43 @@
                 }
                 checkAll.checked = (checkCount == checkOne.length);
             }
+        }
+        
+        function fn_paymentCoupon(){
+        	$(document).on('click', '.btn_payment', function(){
+        			
+        		var IMP = window.IMP; 
+        		IMP.init('imp30603183');
+        		alert("123");
+        		var merchant_uid = 'TagMusic_' + new Date().getTime();
+        		IMP.request_pay({ 
+        			pg: "html5_inicis",
+        			pay_method: 'card',
+        			merchant_uid: merchant_uid,
+        			//name: '노래제목:'+firstCartMusicName+' 외'+ (muprice-1) +'곡',
+        			name: '상품이름', 
+        			amount: 10,
+        			buyer_email: 'asd123@asd.com',
+        			buyer_name: '구매자명',
+        			buyer_tel: '010-1234-5678',
+        			buyer_addr: '서울시',
+        			buyer_postcode: '123-111',
+        			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+        			}, function (rsp) {
+        				if (rsp.success) {
+        					
+        					alert('성공');
+        					 
+        				} else {
+        				var msg = '';
+        				msg += rsp.error_msg;
+        				alert(msg)
+        			}
+        				
+        		});
+        		
+        		
+        	});
         }
 	
 	});
@@ -100,7 +138,7 @@
 										$("input[class='checkOne']:checked").each(function(){
 											checkArr.push($(this).attr("data-cartNo"));
 										});
-								   		console.log(checkArr);
+										
 										$.ajax({
 											url: "/shop/deleteCart",
 											type: "post",
@@ -143,7 +181,7 @@
 										var checkArr = new Array();
 								  
 										checkArr.push($(this).attr("data-cartNo"));
-								   		console.log(checkArr);
+
 										$.ajax({
 											url : "/shop/deleteCart",
 											type : "post",
@@ -154,10 +192,6 @@
 												} else {
 													alert("삭제 실패");
 												}
-											},
-											error: function(checkArr){
-												console.log(checkArr);
-												alert("에러남!!");
 											}
 										});
 									} 
@@ -175,12 +209,47 @@
 					<tr>
 						<td colspan="2">
 							<br><div class="listResult">
-								<div id="sumAll">
-									
-								</div>
-								<div class="orderOpen"><br>
+								<div class="orderOpen">
 									<button type="button" id="btn_orderOpen">주문 정보 입력</button>
 									<button type="button" id="btn_orderOpen_cancel">주문 정보 입력 취소</button>
+								</div><br>
+								<div id="sumAll"></div>
+								<div class="orderInfo">
+									<form role="form" method="post" autocomplete="off">
+								    
+										<input type="hidden" name="amount" value="${sum}" />
+								    
+										<div class="inputArea">
+											<label for="">수령인</label>
+											<input type="text" name="orderRec" id="orderRec"/>
+										</div>
+																	  
+										<div class="inputArea">
+											<label for="orderPhon">수령인 연락처</label>
+											<input type="text" name="orderPhon" id="orderPhon"/>
+										</div>
+																	  
+										<div class="inputArea">
+											<label for="userAddr1">우편번호</label>
+											<input type="text" name="userAddr1" id="userAddr1"/>
+										</div>
+									  
+										<div class="inputArea">
+											<label for="userAddr2">1차 주소</label>
+											<input type="text" name="userAddr2" id="userAddr2"/>
+										</div>
+									  
+										<div class="inputArea">
+											<label for="userAddr3">2차 주소</label>
+											<input type="text" name="userAddr3" id="userAddr3"/>
+										</div>
+									  
+										<div class="inputArea">
+											<button type="submit" class="btn_payment">주문</button>
+											<button type="button" class="cancel_btn">취소</button> 
+										</div>
+								  
+									</form> 
 								</div>
 							</div><br>
 						</td>
@@ -198,14 +267,15 @@
 				
 				function fn_showHide(){
 					$('#sumAll').hide();
+					$('#orderDetail').hide();
 					$('#btn_orderOpen').click(function(){
 						var priceArray = [];
 						$('input:checkbox[name=checkOne]:checked').each(function (index){
 							priceArray.push($(this).data('price'));
 						});
 						var sum = priceArray.reduce((a,b) => (a+b));
-						console.log('합계 : ', sum);
 						$('#sumAll').show();
+						$('#orderDetail').show();
 						$.ajax({
 							url : "/cartList/sumAll",
 							type : 'post',
@@ -217,11 +287,11 @@
 							error : function(sum) {
 							}
 						});
-
 						
 					});
 					$('#btn_orderOpen_cancel').click(function(){
 						$('#sumAll').hide();
+						$('#orderDetail').hide();
 					});
 				}
 			</script>	

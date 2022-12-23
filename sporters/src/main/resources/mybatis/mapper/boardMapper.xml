@@ -24,7 +24,7 @@
 			<result property="gender"  column="GENDER" />
 		</association>
 	</resultMap>
-
+	
 
 	<select id="selectFreeListCnt" resultType="int">
 		SELECT COUNT(*)
