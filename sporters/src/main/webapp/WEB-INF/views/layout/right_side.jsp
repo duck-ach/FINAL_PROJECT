@@ -57,8 +57,7 @@
 				<li class="wind">풍속 :</li>
 			</ul>
 		</div>
-		<!-- 날씨 api 주소 -->
-		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		
 		<!-- 날씨 api 구현 -->
 		<script>
 	$(document).ready(function(position) {
