@@ -6,8 +6,26 @@
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
 <style>
+* {
+		box-sizing: border-box;
+	}
 table, th {
 	text-align: center;
+}
+.tbl {
+	border-collapse: collapse;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+.wrap{
+	border-collapse: collapse;
+ 	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+.blind {
+	display: none;
 }
 </style>
 <script type="text/javascript">
@@ -35,10 +53,16 @@ table, th {
                 }
                 checkall.checked = (checkcount == checkone.length);
             }
-        }    
+        }  
+        
+    	// 전역변수
+    	var page = 1;
+    	var totalPage = 0;
+    	var timer;
 
 	// 유저리스트 불러오기
 	function fn_getUserList() {
+		$('#list').addClass('blind');    // 목록 숨기기
 		$.ajax({
 			type : 'get',
 			url : '/searchAllUsers',
@@ -70,6 +94,9 @@ table, th {
 				alert('실패');
 			}
 		})
+		
+		$('#list').removeClass('blind'); // 목록 보여주기
+
 
 	}
 	
@@ -142,6 +169,26 @@ table, th {
 		});
 	}	
 	
+	// 스크롤 이벤트
+	$(window).scroll(function(){
+		// 동일한 setTimeout이 다시 요청되었다면 setTimeout 동작 취소
+		if(timer) {
+			clearTimeout(timer);
+		}
+		// 마지막 스크롤 후 0.2초 후에 동작하는 setTimeout
+		timer = setTimeout(function(){
+			var scrollTop = $(this).scrollTop();        // 스크롤 된 길이
+			var windowHeight = $(this).height();        // 웹 브라우저(화면) 높이
+			var documentHeight = $(document).height();  // 문서 전체 높이
+			if((scrollTop + windowHeight) >= documentHeight){  // 스크롤이 화면 끝까지 내려갔음
+				if(page > totalPage){  // 마지막 페이지를 넘어가면 동작 안함
+					return;
+				}
+				fn_getUserList();
+			}
+		}, 200);  // 200밀리초 = 0.2초(시간은 알아서 조절할 것)
+	});
+	
 	});
 	
 </script>
@@ -159,7 +206,7 @@ table, th {
 				<input type="button" id="btn_search" value="검색"> 
 				<input type="button" id="btn_init" value="초기화">
 				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
-			<table border="1" width="70%" style="border-collapse:collapse; border:1px gray solid;">
+			<table class="tbl" width="70%" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="check_all"></th>
@@ -183,7 +230,7 @@ table, th {
 			
 		</form>
 	</div>
-
+	
 
 </body>
 </html>

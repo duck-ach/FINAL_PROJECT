@@ -6,16 +6,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.gdu.sporters.admin.mapper.AdminMapper;
 import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
+import com.gdu.sporters.util.ScrollPageUtil;
 import com.gdu.sporters.util.SecurityUtil;
 
 @Service
@@ -23,6 +26,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminMapper adminMapper;
+	
+	@Autowired
+	private ScrollPageUtil scrollPageUtil;
 	
 	@Autowired
 	private SecurityUtil securityUtil;
@@ -56,6 +62,8 @@ public class AdminServiceImpl implements AdminService {
 		return map;
 		
 	}
+	
+	
 	
 	@Transactional
 	@Override
@@ -91,6 +99,9 @@ public class AdminServiceImpl implements AdminService {
 		map.put("userList", adminMapper.selectAllUsers());
 		return map;
 		
+	}
+	
+
 //
 //		try {
 //			response.setContentType("text/html; charset=UTF-8");
@@ -119,7 +130,6 @@ public class AdminServiceImpl implements AdminService {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-	}
 
 //	 @Transactional
 //	 @Override
@@ -152,5 +162,6 @@ public class AdminServiceImpl implements AdminService {
 //		model.addAttribute("usersList", adminMapper.selectAllUsers());
 //		return adminMapper.selectAllUsers();
 //	}
-
+	
+	
 }
