@@ -4,108 +4,66 @@
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자주묻는질문" name="title" />
 </jsp:include>
-<style>
-	
-	 .title-class{
-	 	width:100%;
-	 }
-
-</style>
-<body>
- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 
-
-
-$(document).ready(function(){
-	
-	// summernote
-	$('#content').summernote({
-		width: 800,
-		height: 400,
-		lang: 'ko-KR',
-		toolbar:[
-			['style', ['style']],
-			['font', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			['fontname', ['fontname']],
-		 	['color', ['color']],
-			['para', ['ul', 'ol', 'paragraph']],
-			['table', ['table']],
-			['insert', ['link', 'picture', 'video']],
-			['view', ['fullscreen', 'codeview', 'help']],
-		],
-		callbacks: {
-			spellCheck: true,
-			// summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨 
-			onImageUpload: function(files){
-				// 동시에 여러 이미지를 올릴 수 있음
-				for(let i = 0; i < files.length; i++) {
-					// 이미지를 ajax를 이용해서 서버로 보낼 때 가상 form 데이터 사용 
-					var formData = new FormData();
-					formData.append('file', files[i]);  // 파라미터 file, summernote 편집기에 추가된 이미지가 files[i]임
-					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
-					$.ajax({
-						type: 'post',
-						url: '/free/uploadImage',
-						data: formData,
-						contentType: false,  // ajax 이미지 첨부용
-						processData: false,  // ajax 이미지 첨부용
-						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
-						success: function(resData){
-							console.log(resData);
-							$('#content').summernote('insertImage', resData.src);
-							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
-						}
-					});  // ajax
-				}  // for
-			}  // onImageUpload
-		}  // callbacks
-	});
+	$(document).ready(function(){
+		
+		// 서머노트
+		$('#content').summernote({
+			width: 800,
+			height: 400,
+			lang: 'ko-KR',
+			toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			]
+			
+	     });
+		
+		// 목록
+		$('#btn_list').click(function(){
+			location.href = '/faq/list';
+		});
 		
 	
-	// 목록
-	$('#btn_list').click(function(){
-		location.href =  '/faq/list';// taglib 사용이 어려울수도 있으니까
-	})
+		// 서브밋
+		$('#frm_write').submit(function(event){
+			if($('#faqTitle').val() == ''){
+				alert('제목은 필수입니다.');
+				event.preventDefault();
+				return;
+			}
+		})
 	
-	// 서브밋
-	$('#frm_write').submit(function(event){
-		if($('#title').val() == ''){
-			alert('제목은 필수입니다.');
-			event.preventDefault(); // 서브밋 취소
-			return; // 더 이상 코드 실행할 필요 없음
-		}
 	});
-	
-});
 
-
-	
 </script>
-
+<body>
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<form id="frm_write" action="/faq/add" method="post" >
-				<div style="margin-top: 50px; margin-bottom: 15px">
-					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
+				<div style="margin-top: 50px; margin-bottom: 15px;">
+					<input class="title-class" type="text" name="faqTitle" id="faqTitle" placeholder="제목">
 				</div>
-				
-				<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
-				
-				<div style="margin-top: 20px">
-					<textarea name="content" id="content"></textarea>
+				<hr>		
+				<div style="margin-top: 20px;">
+					<textarea name="faqContent" id="faqContent"></textarea>
 				</div>
-				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
-				<div id="summernote_image_list"></div>
-
-
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>
-					<input class="btn" type="reset" value="제목초기화">
-					<input class="btn" type="button" value="목록" id="btn_list"> 
+					<input type="hidden" name="groupNo" value="6">
+					<input type="hidden" name="depth" value="5">
+					<input type="reset" value="초기화">
+					<input type="button" value="목록" id="btn_list"> 
 				</div>
 			</form>
 		
