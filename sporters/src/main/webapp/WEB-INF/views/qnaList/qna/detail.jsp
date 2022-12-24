@@ -6,7 +6,39 @@
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+	$(function(){
+		fn_addReply();
+		fn_replyList();
+	});
 
+	function fn_addReply(){
+		$('#btn_add_reply').click(function){
+			if($('#replyContent').val() == ''){
+				alert('답변 내용을 입력하세요!');
+				return;
+			}
+			$.ajax({
+				type: 'post',
+				url: '/qnaComm/add',
+				data: $('#frm_add_reply').serialize(),
+				dataType: 'json',
+				success: function(resData){
+					if(resData.isAdd){
+						alert('답변이 등록되었습니다!');
+						$('#replyContent').val('');
+						fn_replyList();
+					}
+				}
+			});
+		}
+	}
+	
+	
+	function fn_replyList(){
+		
+	}
+	
+	
 </script>
 <body>
 	<section class="wrap"><!-- 기본틀 1 -->
@@ -15,12 +47,50 @@
 				<input type="hidden" name="qnaNo" value="${qna.qnaNo}">
 				<div>${qna.qnaTitle}</div>
 				<div>
-					▷ 작성자 
+					▷ 작성자  ${qna.qnaId}
 					▷ 작성일  ${qna.qnaCreateDate}
 				</div>
+				
 				<hr>
+				
 				<div>${qna.qnaContent}</div>
+				
+				<hr>
+				
+				<div id="reply_area">
+					<div style="font-size: 20px; font-weight: bold;">답변</div>
+					<br>
+					<div id="qna_reply">
+						답변 답변 다답변 답변답변 
+					</div>
+				</div>
+				
+				<c:if test="${loginUser.id == 'admin'}">
+					<div>
+						<form id="frm_add_reply">
+							<div>
+								<input type="text" name="replyContent" id="replyContent">
+								<input type="button" value="답변하기" id="btn_add_reply">
+								<input type="button" value="답변수정" id="btn_edit_reply">								
+								<input type="button" value="답변삭제" id="btn_remove_reply">								
+							</div>
+						</form>
+					</div>
+				</c:if>
+				
+				<hr>
+				
+				<div>
+					<c:if test="${loginUser.id == qna.qnaId}">
+						<input type="button" value="수정" id="btn_edit_qna">
+						<input type="button" value="삭제" id="btn_remove_qna">
+					</c:if>
+					<c:if test="${loginUser.id == 'admin'}">
+						<input type="button" value="관리자삭제" id="btn_remove_qna">
 
+					</c:if>
+					<input type="button" value="목록" onclick="location.href='/qna/list'">
+				</div>
 			</div>
 		</section><!-- 기본틀 2 -->
 	</section><!-- 기본틀 1 -->
