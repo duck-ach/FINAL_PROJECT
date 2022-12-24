@@ -40,6 +40,7 @@ public class FaqServiceImpl implements FaqService {
 		map.put("end", pageUtil.getEnd());
 		
 		List<FaqDTO> faqList = faqMapper.selectAllFaqList(map);
+		
 				
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("faqList", faqList);
@@ -52,20 +53,15 @@ public class FaqServiceImpl implements FaqService {
 	public void saveFaq(HttpServletRequest request, HttpServletResponse response) {
 		String faqTitle = request.getParameter("faqTitle");
 		String faqContent = request.getParameter("faqContent");
-		System.out.println("faqTitle : " + faqTitle);
-		System.out.println("faqContent : " + faqContent);
 		int depth = Integer.parseInt(request.getParameter("depth"));
-		System.out.println(depth);
 		int groupNo = Integer.parseInt(request.getParameter("groupNo"));
-		System.out.println(groupNo);
-
 		FaqDTO faq = new FaqDTO();
 		faq.setFaqTitle(faqTitle);
 		faq.setFaqContent(faqContent);
 		faq.setDepth(depth);
 		faq.setGroupNo(groupNo);
 		int result = faqMapper.insertFaq(faq);
-		System.out.println(result);
+		
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -141,21 +137,7 @@ public class FaqServiceImpl implements FaqService {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

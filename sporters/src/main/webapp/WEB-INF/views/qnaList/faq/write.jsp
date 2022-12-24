@@ -4,13 +4,12 @@
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자주묻는질문" name="title" />
 </jsp:include>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 
 	$(document).ready(function(){
 		
 		// 서머노트
-		$('#content').summernote({
+		$('#faqContent').summernote({
 			width: 800,
 			height: 400,
 			lang: 'ko-KR',
@@ -60,8 +59,8 @@
 				</div>
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>
-					<input type="hidden" name="groupNo" value="6">
-					<input type="hidden" name="depth" value="5">
+					<input type="hidden" name="groupNo" value="0">
+					<input type="hidden" name="depth" value="1">
 					<input type="reset" value="초기화">
 					<input type="button" value="목록" id="btn_list"> 
 				</div>

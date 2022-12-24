@@ -21,5 +21,4 @@ public class QnaDTO {
 	private int state;
 	private int depth;
 	private int groupNo;
-	private int faqState;
 }

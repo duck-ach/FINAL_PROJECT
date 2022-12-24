@@ -13,6 +13,11 @@
 	});
 	
 </script>
+<style>
+	.blind{
+		display: none;
+	}
+</style>
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
@@ -20,9 +25,11 @@
 		<div>
 			<div style="font-size: 32px;"> FAQ </div>
 			<div>
-				<div>
-					<input type="button" id="btn_write" value="작성">
-				</div>
+				<c:if test="${loginUser.id == 'admin'}">
+					<div>
+						<input type="button" id="btn_write" value="작성">
+					</div>
+				</c:if>
 				<table border="1">
 					<thead>				
 						<tr>
@@ -35,10 +42,21 @@
 							<c:if test="${faq.state == 1}">
 								<tr>
 									<td>${beginNo - vs.index}</td>
-									<td>${faq.faqTitle}</td>
-									<c:if test="${faq.depth > 0}">
-										${faq.faqContent}
-									</c:if>
+									<td class="title_td">${faq.faqTitle}
+										<script>
+											$('.title_td').click(function(){
+												$('.reply_tr').addClass('blind');
+												$(this).parent().next().removeClass("blind");
+											});
+										</script>
+									</td>
+								</tr>
+								<tr class="reply_tr blind">
+									<td colspan="2">
+										<c:if test="${faq.depth > 0}">
+											${faq.faqContent}
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 						</c:forEach>

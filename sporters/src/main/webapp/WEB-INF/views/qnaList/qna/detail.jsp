@@ -2,59 +2,53 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../../layout/header.jsp">
-	<jsp:param value="Spoters홈페이지" name="title" />
+	<jsp:param value="${qna.qnaTitle}" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-	$(function(){
-		
-	});
-	
+
 </script>
 <body>
-
-<section class="wrap"><!-- 기본틀 1 -->
-	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div>
-			<div style="font-size: 32px;"> QnA </div>
+	<section class="wrap"><!-- 기본틀 1 -->
+		<section class="content_leyout_section"><!-- 기본틀 2 -->
 			<div>
-				<input type="button" value="질문하기" onclick="location.href='/qna/write'">
-			</div>
-			<div>
-				<table border="1">
-					<thead>				
-						<tr>
-							<td>번호</td>
-							<td>제목</td>
-							<td>작성일</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${qnaList}" var="faq" varStatus="vs">
-							<tr>
-								<td>${beginNo - vs.index}</td>
-								<td><a href="/qna/detail">${qna.qnaTitle}</a></td>
-								<td>${qna.qnaCreateDate}</td>
-								<td></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="4">
-								${paging}
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">검색</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-		</div>
-	</section><!-- 기본틀 2 -->
-</section><!-- 기본틀 1 -->
+				<input type="hidden" name="qnaNo" value="${qna.qnaNo}">
+				<div>${qna.qnaTitle}</div>
+				<div>
+					▷ 작성자 
+					▷ 작성일  ${qna.qnaCreateDate}
+				</div>
+				<hr>
+				<div>${qna.qnaContent}</div>
 
+			</div>
+		</section><!-- 기본틀 2 -->
+	</section><!-- 기본틀 1 -->
+	
+	
+<script type="text/javascript">
+$(function(){
+	 var right_side =  $('.content_leyout_section').offset().top;
+	var my_right_side = $('.right_side_menu_area').width();
+	var right_side_marginLeft = $('.content_leyout_section').width() + my_right_side*2 ;
+
+
+	 $('.right_side_menu_area').offset({top:right_side});
+	 $('.right_side_menu_area').css({marginLeft:right_side_marginLeft  });
+	 
+	 // content_leyout 현재 높이값을 구함. 
+	 var left_side_top =  $('.content_leyout_section').offset().top;
+	 var right_side_marginLeft = $('.content_leyout_section').offset().left;
+
+	// 왼쪽 사이드 메뉴의 넓이값을 구함
+	var my_left_side =right_side_marginLeft -  $('.left_side_gnd_area').width() - my_right_side;
+	var left_side_marginLeft = $('.content_leyout_section').width();
+
+
+	 $('.left_side_gnd_area').offset({top:left_side_top});	 
+	 
+	
+}); 
+</script>
 </body>
 </html>
