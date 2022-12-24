@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gdu.sporters.userSupport.domain.QnaDTO;
 import com.gdu.sporters.userSupport.domain.QnaReplyDTO;
 
 @Mapper

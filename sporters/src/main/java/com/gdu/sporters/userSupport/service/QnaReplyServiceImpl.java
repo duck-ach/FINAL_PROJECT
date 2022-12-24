@@ -35,6 +35,7 @@ public class QnaReplyServiceImpl implements QnaReplyService {
 	public Map<String, Object> addQnaReply(QnaReplyDTO reply, HttpServletRequest request) {
 		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 		reply.setQnaNo(qnaNo);
+		System.out.println(qnaNo);
 		
 		String qnaReplyContent = request.getParameter("qnaReplyContent");
 		reply.setQnaReplyContent(qnaReplyContent);

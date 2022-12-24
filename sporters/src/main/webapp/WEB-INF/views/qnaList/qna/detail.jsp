@@ -40,7 +40,7 @@
 			type: 'get',
 			url: '/qnaReply/list',
 			data: 'qnaNo=${qna.qnaNo}',
-			dateType: 'json',
+			dataType: 'json',
 			success: function(resData){
 				$('#qna_reply_list').empty();
 				$.each(reaData.replyList, fucntion(i, reply){
