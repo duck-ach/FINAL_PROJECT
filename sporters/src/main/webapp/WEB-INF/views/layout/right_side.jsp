@@ -57,7 +57,6 @@
 				<li class="wind">풍속 :</li>
 			</ul>
 		</div>
-		
 		<!-- 날씨 api 구현 -->
 		<script>
 	$(document).ready(function(position) {
