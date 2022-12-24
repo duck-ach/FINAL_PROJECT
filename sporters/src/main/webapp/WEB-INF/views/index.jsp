@@ -33,7 +33,7 @@
 			<h1>WELCOME TO SPOTERS</h1>
 			<h1>WELCOME TO SPOTERS</h1>
 			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
+			<h1><a href="/chat/chatList">채팅하러가기</a></h1>
 			<h1>WELCOME TO SPOTERS</h1>
 			<h1>WELCOME TO SPOTERS</h1>
 			<h1>WELCOME TO SPOTERS</h1>
