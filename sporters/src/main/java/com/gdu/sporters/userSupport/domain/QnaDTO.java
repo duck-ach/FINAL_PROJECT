@@ -15,7 +15,6 @@ public class QnaDTO {
 	private int qnaNo;
 	private int userNo;
 	private String qnaTitle;
-	private String qnaId;
 	private String qnaPw;
 	private String qnaContent;
 	private Date qnaCreateDate;

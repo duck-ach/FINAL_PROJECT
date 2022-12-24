@@ -11,10 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class QnaReplyDTO {
-	private int qnaReplyNo;
+public class QnaCommDTO {
 	private int qnaNo;
-	private String qnaReplyContent;
-	private Date qnaReplyCreateDate;
-
+	private int userNo;
+	private String qnaTitle;
+	private String qnaPw;
+	private String qnaContent;
+	private Date qnaCreateDate;
+	private int state;
+	private int depth;
+	private int groupNo;
+	private int faqState;
 }
