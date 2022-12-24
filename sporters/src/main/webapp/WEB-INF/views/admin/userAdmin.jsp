@@ -29,9 +29,19 @@ table, th {
 }
 </style>
 <script type="text/javascript">
+
+
 	$(document).ready(function(){
 		fn_getUserList();
 		fn_retireUser();
+		
+		// 검색키 엔터키에 연결
+	    $("#searchText").keydown(function (key) {
+	        if (key.keyCode == 13) {
+	        	$('#btn_search').click();
+	        	key.preventDefault();
+	        }
+	    });
 		
 		// 문서객체
         var checkall = document.getElementById('check_all');
@@ -169,25 +179,25 @@ table, th {
 		});
 	}	
 	
-	// 스크롤 이벤트
-	$(window).scroll(function(){
-		// 동일한 setTimeout이 다시 요청되었다면 setTimeout 동작 취소
-		if(timer) {
-			clearTimeout(timer);
-		}
-		// 마지막 스크롤 후 0.2초 후에 동작하는 setTimeout
-		timer = setTimeout(function(){
-			var scrollTop = $(this).scrollTop();        // 스크롤 된 길이
-			var windowHeight = $(this).height();        // 웹 브라우저(화면) 높이
-			var documentHeight = $(document).height();  // 문서 전체 높이
-			if((scrollTop + windowHeight) >= documentHeight){  // 스크롤이 화면 끝까지 내려갔음
-				if(page > totalPage){  // 마지막 페이지를 넘어가면 동작 안함
-					return;
-				}
-				fn_getUserList();
-			}
-		}, 200);  // 200밀리초 = 0.2초(시간은 알아서 조절할 것)
-	});
+// 	// 스크롤 이벤트
+// 	$(window).scroll(function(){
+// 		// 동일한 setTimeout이 다시 요청되었다면 setTimeout 동작 취소
+// 		if(timer) {
+// 			clearTimeout(timer);
+// 		}
+// 		// 마지막 스크롤 후 0.2초 후에 동작하는 setTimeout
+// 		timer = setTimeout(function(){
+// 			var scrollTop = $(this).scrollTop();        // 스크롤 된 길이
+// 			var windowHeight = $(this).height();        // 웹 브라우저(화면) 높이
+// 			var documentHeight = $(document).height();  // 문서 전체 높이
+// 			if((scrollTop + windowHeight) >= documentHeight){  // 스크롤이 화면 끝까지 내려갔음
+// 				if(page > totalPage){  // 마지막 페이지를 넘어가면 동작 안함
+// 					return;
+// 				}
+// 				fn_getUserList();
+// 			}
+// 		}, 200);  // 200밀리초 = 0.2초(시간은 알아서 조절할 것)
+// 	});
 	
 	});
 	
@@ -202,7 +212,8 @@ table, th {
 				<option value="ID">아이디</option>
 				<option value="NAME">이름</option>
 				<option value="USER_NO">회원번호</option>
-			</select> <input type="text" id="searchText" name="searchText">
+			</select>
+			<input type="text" id="searchText" name="searchText">
 				<input type="button" id="btn_search" value="검색"> 
 				<input type="button" id="btn_init" value="초기화">
 				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>

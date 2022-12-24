@@ -45,6 +45,7 @@ public class AdminController {
 		return adminService.searchUsersbyQuery(request);
 	}
 	
+	// 유저 탈퇴
 	@ResponseBody
 	@PostMapping(value="/retireUser", produces="application/json; charset=UTF-8")
 	public Map<String, Object> retire(HttpServletRequest request, Map<String, Object> map) {
