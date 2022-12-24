@@ -34,6 +34,7 @@
 		  FROM FREE_COMMENT
 		 WHERE FREE_NO = #{freeNo}
 	</select>
+	
 	<insert id="insertFreeComment" parameterType="FreeCommDTO" useGeneratedKeys="true" keyProperty="freeCoNo">
 		INSERT INTO FREE_COMMENT
 			( FREE_NO, COMM_CONTENT,COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)

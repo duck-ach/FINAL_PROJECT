@@ -11,5 +11,4 @@ public class SingoDTO {
 	int singoHit;
 	int userNo;
 	int freeNo;
-			
 }
