@@ -6,5 +6,21 @@
 
 <mapper namespace="com.gdu.sporters.userSupport.mapper.QnaReplyMapper">
 
+	<select id="selectReplyList" parameterType="Map" resultType="QnaReplyDTO">
+		SELECT QNA_REPLY_NO, QNA_NO, QNA_REPLY_CONTENT, QNA_REPLY_CREATE_DATE
+		FROM QNA_REPLY
+	</select>
+	
+	<insert id="insertReply" parameterType="QnaReplyDTO">
+		INSERT INTO QNA_REPLY
+			(QNA_NO, QNA_REPLY_CONTENT, QNA_REPLY_CREATE_DATE)
+		VALUES
+			(#{qnaNo}, #{qnaReplyContent}, NOW())
+	</insert>
+	
+	<delete id="deleteReply" parameterType="int">
+		DELETE QNA_REPLY
+		 WHERE QNA_REPLY_NO = #{qnaReplyNo}
+	</delete>
 	
 </mapper>

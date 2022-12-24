@@ -9,33 +9,66 @@
 	$(function(){
 		fn_addReply();
 		fn_replyList();
+		fn_removeReply();
 	});
 
 	function fn_addReply(){
-		$('#btn_add_reply').click(function){
-			if($('#replyContent').val() == ''){
+		$('#btn_add_reply').click(function(){
+			if($('#qnaReplyContent').val() == ''){
 				alert('답변 내용을 입력하세요!');
 				return;
 			}
 			$.ajax({
 				type: 'post',
-				url: '/qnaComm/add',
+				url: '/qnaReply/add',
 				data: $('#frm_add_reply').serialize(),
 				dataType: 'json',
 				success: function(resData){
 					if(resData.isAdd){
 						alert('답변이 등록되었습니다!');
-						$('#replyContent').val('');
+						$('#qnaReplyContent').val('');
 						fn_replyList();
 					}
 				}
 			});
-		}
+		});
 	}
 	
 	
 	function fn_replyList(){
-		
+		$.ajax({
+			type: 'get',
+			url: '/qnaReply/list',
+			data: 'qnaNo=${qna.qnaNo}',
+			dateType: 'json',
+			success: function(resData){
+				$('#qna_reply_list').empty();
+				$.each(reaData.replyList, fucntion(i, reply){
+					var div='';
+					div += '<div>';
+					div += reply.qnaReplyContent;
+					div += '</div>';
+					$('#qna_reply_list').append(div);
+				});
+			}
+		});
+	}
+	
+	
+	function fn_removeReply(){
+		$(document).on('click', '.btn_remove_reply', function(){
+			if(confirm('삭제된 답변은 복구할 수 없습니다. 답변을 삭제할까요?')){
+				$.ajax({
+					type: 'post',
+					url: '/qnaReply/remove',
+					data: 'qnaReplyNo=' + $(this).data('qna_reply_no'),
+					success: function(resData){
+						alert('답변이 삭제되었습니다.');
+						fn_replyList();
+					}
+				});
+			}
+		});
 	}
 	
 	
@@ -61,7 +94,7 @@
 					<div style="font-size: 20px; font-weight: bold;">답변</div>
 					<br>
 					<div id="qna_reply">
-						답변 답변 다답변 답변답변 
+						<div id="qna_reply_list"></div>
 					</div>
 				</div>
 				
@@ -69,11 +102,12 @@
 					<div>
 						<form id="frm_add_reply">
 							<div>
-								<input type="text" name="replyContent" id="replyContent">
+								<input type="text" name="qnaReplyContent" id="qnaReplyContent">
 								<input type="button" value="답변하기" id="btn_add_reply">
 								<input type="button" value="답변수정" id="btn_edit_reply">								
 								<input type="button" value="답변삭제" id="btn_remove_reply">								
 							</div>
+							<input type="hidden" name="qnaNo" value="${qna.qnaNo}">
 						</form>
 					</div>
 				</c:if>
