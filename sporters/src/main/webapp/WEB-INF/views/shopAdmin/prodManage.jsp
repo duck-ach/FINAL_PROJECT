@@ -11,12 +11,74 @@
 <script>
 	$(function(){
 		$('.attach_img').tooltip();
+		
+		// 검색 submit 확인
+		$('#frm_search').submit(function(event){
+			if($('#column').val() == '' || $('#query').val() == ''){
+				alert('검색 조건을 확인하세요.');
+				event.preventDefault();
+				return;
+			}
+		});
+		
+		// 자동 완성
+		$('#query').keyup(function(){
+			if($('#column').val() == 'PROD_NAME' || $('#column').val() == 'PROD_CONTENT' || $('#column').val() == 'ORIGIN'){
+				return;
+			}
+			if($(this).val() == ''){
+				return;
+			}
+			$('#auto_complete').empty();
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '/shopAdmin/prod/autoComplete',
+				data: $('#frm_search').serialize(),
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){
+					if(resData.status == 200){
+						$.each(resData.list, function(i, prod){
+							$('#auto_complete')
+							.append($('<option>').val(prod[resData.column]));
+						});
+					}
+				}
+			});
+		});
 	});
 </script>
-	<h1>상품관리</h1>
+<div>
+	<a href="/shopAdmin/prodManage">상품관리</a>
 	<div>
 		<span>상품목록 (전체 ${totalRecord}개)</span>
 		<a href="/shopAdmin/prod/write">상품등록</a>
+	</div>
+	<div>
+		<form id="frm_search" action="/shopAdmin/prodSearch">
+			<select name="column" id="column">
+				<option value="">===선택===</option>
+				<option value="PROD_NO">상품번호</option>
+				<option value="PROD_NAME">상품이름</option>
+				<option value="PROD_CONTENT">상품설명</option>
+				<option value="ORIGIN">원산지</option>
+			</select>
+			<input type="text" name="query" id="query" list="auto_complete">
+			<datalist id="auto_complete"></datalist>
+			<input type="submit" value="상품검색">
+		</form>
+		<form>
+			<select name="orderCol" id="orderCol">
+				<option value="PROD_NO">상품번호순</option>
+				<option value="PRICE">가격순</option>
+				<option value="STOCK">재고순</option>
+				<option value="PROD_CREATE_DATE">상품등록일순</option>
+			</select>
+			<span>
+				<input type="submit" value="조회">
+			</span>
+		</form>
 	</div>
 	<hr>
 	<table>
@@ -53,13 +115,7 @@
 				</tr>
 			</c:forEach>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="7" style="text-align: center;">
-					${paging}
-				</td>
-			</tr>
-		</tfoot>
 	</table>
+</div>
 </body>
 </html>

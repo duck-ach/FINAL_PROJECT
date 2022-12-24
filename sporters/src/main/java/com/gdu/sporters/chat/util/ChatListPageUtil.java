@@ -1,4 +1,4 @@
-package com.gdu.sporters.shopAdmin.util;
+package com.gdu.sporters.chat.util;
 
 import org.springframework.stereotype.Component;
 
@@ -6,11 +6,11 @@ import lombok.Getter;
 
 @Component
 @Getter
-public class ShopAdminPageUtil {
+public class ChatListPageUtil {
 
 	private int page;                // 현재 페이지(파라미터로 받아온다)
 	private int totalRecord;         // 전체 레코드 개수(DB에서 구해온다)
-	private int recordPerPage = 10;   // 스크롤 한번에 10개씩 가져가기
+	private int recordPerPage = 10;   // 페이지에 표시할 레코드 개수(임의로 정한다)
 	private int begin;               // 가져올 목록의 시작 번호(계산한다)
 	private int end;                 // 가져올 목록의 끝 번호(계산한다)
 	
