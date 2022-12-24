@@ -54,4 +54,11 @@ public interface ShopAdminMapper {
 	
 	// 상품 카테고리 삭제
 	public int deleteCategory(int prodCategoryNo);
+	
+	// 상품 검색(자동완성)
+	public List<ProductDTO> selectAutoCompleteList(Map<String, Object> map);
+	
+	// 상품 검색
+	public int selectSearchCount(Map<String, Object> map);
+	public List<ProductDTO> selectSearchProductList(Map<String, Object> map);
 }

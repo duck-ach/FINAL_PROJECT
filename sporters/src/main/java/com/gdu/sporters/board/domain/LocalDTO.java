@@ -2,6 +2,8 @@ package com.gdu.sporters.board.domain;
 
 import java.sql.Date;
 
+import com.gdu.sporters.users.domain.UsersDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +21,10 @@ public class LocalDTO {
 	private int hit;
 	private int userNo;
 	private int state;
+	private String commentId;
 	private int maxUser;
 	private int localNo;
 	private String ip;
 	private Date modifyDate;
+	private UsersDTO users;
 }

@@ -4,6 +4,7 @@
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자유게시판" name="title" />
 </jsp:include>
+
 <style>
 	
 	 .title-class{
@@ -17,10 +18,13 @@
 
 
 
-$(document).ready(function(){
+$(document).ready(function() { 
+	
+	alert('확인용');
+	
 	
 	// summernote
-	$('#content').summernote({
+	$('.summernote').summernote({
 		width: 800,
 		height: 400,
 		lang: 'ko-KR',
@@ -77,6 +81,12 @@ $(document).ready(function(){
 		}
 	});
 	
+	
+	$('.hihi').click(function(){
+		
+		alert('hi');
+	})
+	
 });
 
 
@@ -96,7 +106,7 @@ $(document).ready(function(){
 				<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
 				
 				<div style="margin-top: 20px">
-					<textarea name="content" id="content"></textarea>
+					<textarea name="content" id="content"  class="summernote"></textarea>
 				</div>
 				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 				<div id="summernote_image_list"></div>
@@ -108,7 +118,7 @@ $(document).ready(function(){
 					<input class="btn" type="button" value="목록" id="btn_list"> 
 				</div>
 			</form>
-		
+			<button class="hihi">hihi</button>
 			
 			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->

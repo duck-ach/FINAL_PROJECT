@@ -37,12 +37,14 @@ public class shopAdmProdController {
 		return "shopAdmin/prodManage";
 	}
 	
+	
 	// 상품등록 페이지로 이동
 	@GetMapping("/shopAdmin/prod/write")
 	public String writeProd(Model model) {
 		model.addAttribute("prodCategoryList", shopAdminService.getCategoryList());
 		return "shopAdmin/prodWrite";
 	}
+	
 	
 	// 상품등록
 	@PostMapping("/shopAdmin/prod/add")
@@ -126,4 +128,16 @@ public class shopAdmProdController {
 		shopAdminService.deleteCategory(request, response);
 	}
 	
+	// 상품검색 자동완성
+	@ResponseBody
+	@GetMapping(value="/shopAdmin/prod/autoComplete", produces="application/json")
+	public Map<String, Object> autoComplete(HttpServletRequest request) {
+		return shopAdminService.getAutoCompleteList(request);
+	}
+
+	@GetMapping("/shopAdmin/prodSearch")
+	public String search(HttpServletRequest request, Model model) {
+		shopAdminService.searchProducts(request, model);
+		return "shopAdmin/prodManage";
+	}
 }

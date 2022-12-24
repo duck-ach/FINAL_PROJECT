@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gdu.sporters.board.domain.FreeCommDTO;
 import com.gdu.sporters.board.service.GalleryFreeCommService;
 
+@Controller
 public class FreeCommController {
 
 	@Autowired
@@ -26,8 +28,10 @@ public class FreeCommController {
 	
 	@ResponseBody
 	@PostMapping(value="/galleryFreeComm/add", produces="application/json")
-	public Map<String, Object> add(FreeCommDTO comment, HttpServletRequest request) {
-		return galleryCommService.addComment(comment, request);
+	public Map<String, Object> add(FreeCommDTO commContent, HttpServletRequest request) {
+		System.out.println("ㅎㅇ");
+		System.out.println(commContent);
+		return galleryCommService.addComment(commContent, request);
 	}
 	
 	@ResponseBody

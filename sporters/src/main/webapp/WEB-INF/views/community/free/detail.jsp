@@ -94,7 +94,7 @@
 			<div class="add_comment">
 				<div class="add_comment_input">
 					<span>${loginUser.id}</span>
-					<input type="text" name="commContent" id="content">
+					<input type="text" name="commContent" id="comment">
 				</div>
 				<div class="add_comment_btn">
 					<input type="button" value="작성완료" id="btn_add_comment">
@@ -107,9 +107,9 @@
 		<c:if test="${loginUser.id == null}">
 		<div>
 			<div class="unlogin_comment">
-					<span></span>
-					<input type="text" name="commContent" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요" readonly="readonly">
-				</div>
+				<span></span>
+				<input type="text" name="commContent" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요" readonly="readonly">
+			</div>
 		</div>
 	</c:if>
 	
@@ -119,7 +119,7 @@
 	   
 		// 함수 호출
 		fn_commentCount();
-		fn_switchCommentList();
+		// fn_switchCommentList();
 		fn_addComment();
 		fn_commentList();
 		fn_changePage();
@@ -146,13 +146,13 @@
 	         });
 	      }
 	      
-			function fn_addComment(){
-				$('#btn_add_comment').click(function(){
-					alert('test');
-					if($('#comment').val() == ''){
-						alert('댓글 내용을 입력하세요');
-	               return; // ajax 실행 막음
-	            }
+		function fn_addComment(){
+			$('#btn_add_comment').click(function(){
+				alert('test');
+				if($('#comment').val() == ''){
+					alert('댓글 내용을 입력하세요');
+               		return; // ajax 실행 막음
+            	}
 				$.ajax({
 					type: 'post',
 					url: '/galleryFreeComm/add',
@@ -161,7 +161,7 @@
 					success: function(resData){  // resData = {"isAdd", true}
 						if(resData.isAdd){
 							alert('댓글이 등록되었습니다.');
-							$('#content').val('');
+							$('#comment').val('');
 							fn_commentList();   // 댓글 목록 가져와서 뿌리는 함수
 							fn_commentCount();  // 댓글 목록 개수 갱신하는 함수
 						}
@@ -194,26 +194,30 @@
 	               $('#comment_list').empty();   // 목록 초기화 필수
 	               $.each(resData.commentList, function(i, comment){
 	                  // 댓글 depth: 0 이면 들어갈 필요 없고, 대댓 depth: 1 이면 한칸 들어가야 함, 1단이면 그룹오더 필요x
+	                  console.log(comment.commContent);
+	                  console.log(comment);
 						var div = '';
-						if(comment.commDepth == 0){
+						if(comment.depth == 0){
 							div += '<div>';
 						} else {
 							div += '<div style="margin-left: 40px;">';
 						}
-	                  if(comment.commState == 1) {   // state:1 정상, state:-1은 삭제라서 보여주면 x
+	                  if(comment.state == 1) {   // state:1 정상, state:-1은 삭제라서 보여주면 x
 	                     div += '<div>'
-	                     div += comment.id + '<br>';
+	                     div += comment.users.id + '<br>';
 	                     div += comment.commContent;   // 정상일 때 내용 보여줌
 	                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
 	                     if(${loginUser.id == 'admin'}) {
 								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.freeCoNo + '">';
-							} else if ('${loginUser.id}' == comment.id){
+							} else if ('${loginUser.id}' == comment.users.id){
 								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.freeCoNo + '">';
 							}
+	                     /*
 							if(comment.commDepth == 0) {
-							}if ('${loginUser.id}' == comment.id){
+							}if ('${loginUser.id}' == comment.users.id){
 								div += '<input type="button" value="답글" class="btn_reply_area">';
 							}
+							*/
 							div += '</div>';
 						} else {
 							if(comment.commDepth == 0) {
@@ -224,8 +228,8 @@
 						}
 	                  // 날짜 형식 지정하는 자바스크립트 (moment-with-locales.js)
 						div += '<div>';
-						moment.locale('ko-KR');
-						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.commDate).format('YYYY. MM. DD hh:mm') + '</span>';
+						// moment.locale('ko-KR');
+						// div += '<span style="font-size: 12px; color: silver;">' + moment(comment.commDate).format('YYYY. MM. DD hh:mm') + '</span>';
 						div += '</div>';
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
