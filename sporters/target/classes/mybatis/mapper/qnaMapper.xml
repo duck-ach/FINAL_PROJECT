@@ -19,16 +19,16 @@
 	</select>
 	
 	<select id="selectQnaByNo" parameterType="int" resultType="QnaDTO">
-		SELECT USER_NO, QNA_TITLE, QNA_ID, QNA_PW, QNA_CONTENT, QNA_CREATE_DATE, STATE, DEPTH, GROUP_NO
+		SELECT QNA_NO, USER_NO, QNA_TITLE, QNA_ID, QNA_PW, QNA_CONTENT, QNA_CREATE_DATE, STATE, DEPTH, GROUP_NO
 		  FROM QNA
 		 WHERE QNA_NO = #{qnaNo}
 	</select>
 
-	<insert id="insertQna" parameterType="QnaDTO">
+	<insert id="insertQna" useGeneratedKeys="true" keyProperty="qnaNo" parameterType="QnaDTO">
 		INSERT INTO QNA
 			(USER_NO, QNA_TITLE, QNA_ID, QNA_PW, QNA_CONTENT, QNA_CREATE_DATE, STATE, DEPTH, GROUP_NO)
 		VALUES
-			(#{userNo}, #{qnaTitle},#{qnaId}, 0, #{qnaContent}, NOW(), 1, 0, #{qnaNo})
+			( #{userNo}, #{qnaTitle}, #{qnaId}, 0, #{qnaContent}, NOW(), 1, 0, #{qnaNo})
 	</insert>
 	
 	<update id="updateQna" parameterType="QnaDTO">
@@ -43,11 +43,5 @@
 		 WHERE QNA_NO = #{qnaNo}
 	</delete>
 	
-	<insert id="insertReply" parameterType="QnaDTO">
-		INSERT INTO QNA
-			(USER_NO, QNA_TITLE, QNA_PW, QNA_CONTENT, QNA_CREATE_DATE, STATE, DEPTH, GROUP_NO)
-		VALUES
-			({userNo}, {qnaTitle}, {qnaPw}, {qnaContent}, {qnaCreateDate}, 1, {depth}, {qnaNo})
-	</insert>
 	
 </mapper>
