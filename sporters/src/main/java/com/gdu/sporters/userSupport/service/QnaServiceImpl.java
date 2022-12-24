@@ -56,11 +56,13 @@ public class QnaServiceImpl implements QnaService {
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
+		String qnaId = loginUser.getId();
 		//int userNo = loginUser.getUserNo();
 	
 		System.out.println(qnaTitle);
 		QnaDTO qna = QnaDTO.builder()
 				.qnaTitle(qnaTitle)
+				.qnaId(qnaId)
 				.qnaContent(qnaContent)
 				.userNo(userNo)
 				.build();
