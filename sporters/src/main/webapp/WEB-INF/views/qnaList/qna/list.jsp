@@ -31,10 +31,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${qnaList}" var="faq" varStatus="vs">
+						<c:forEach items="${qnaList}" var="qna" varStatus="vs">
 							<tr>
 								<td>${beginNo - vs.index}</td>
-								<td><a href="/qna/detail">${qna.qnaTitle}</a></td>
+								<td><a href="/qna/detail?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
 								<td>${qna.qnaCreateDate}</td>
 								<td></td>
 							</tr>

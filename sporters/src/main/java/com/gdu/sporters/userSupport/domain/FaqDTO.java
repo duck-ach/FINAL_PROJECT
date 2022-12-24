@@ -13,4 +13,7 @@ public class FaqDTO {
 	private int faqNo;
 	private String faqTitle;
 	private String faqContent;
+	private int state;
+	private int depth;
+	private int groupNo;
 }

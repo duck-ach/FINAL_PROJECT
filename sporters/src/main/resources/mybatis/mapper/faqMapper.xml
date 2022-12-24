@@ -12,16 +12,16 @@
 	</select>
 
 	<select id="selectAllFaqList" parameterType="Map" resultType="FaqDTO">
-		SELECT FAQ_TITLE, FAQ_CONTENT
+		SELECT FAQ_NO, FAQ_TITLE, FAQ_CONTENT, STATE, DEPTH, GROUP_NO
 		  FROM FAQ
-		 WHERE #{begin} AND #{end}		
+		  ORDER BY FAQ_NO DESC
 	</select>
 	
-	<insert id="insertFaq" parameterType="FaqDTO">
+	<insert id="insertFaq" parameterType="FaqDTO" >
 		INSERT INTO FAQ
-			(FAQ_TITLE, FAQ_CONTENT)
+			(FAQ_TITLE, FAQ_CONTENT, STATE, DEPTH, GROUP_NO)
 		VALUES
-			(#{faqTitle}, #{faqContent})
+			(#{faqTitle}, #{faqContent}, 1, #{depth}, #{faqNo})
 	</insert>
 	
 	<update id="updateFaq" parameterType="FaqDTO">

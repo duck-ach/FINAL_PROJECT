@@ -19,58 +19,31 @@
 
 $(document).ready(function(){
 	
-	// summernote
-	$('#content').summernote({
+	$('#qnaContent').summernote({
 		width: 800,
 		height: 400,
 		lang: 'ko-KR',
-		toolbar:[
-			['style', ['style']],
-			['font', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-			['fontname', ['fontname']],
-		 	['color', ['color']],
-			['para', ['ul', 'ol', 'paragraph']],
-			['table', ['table']],
-			['insert', ['link', 'picture', 'video']],
-			['view', ['fullscreen', 'codeview', 'help']],
-		],
-		callbacks: {
-			spellCheck: true,
-			// summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨 
-			onImageUpload: function(files){
-				// 동시에 여러 이미지를 올릴 수 있음
-				for(let i = 0; i < files.length; i++) {
-					// 이미지를 ajax를 이용해서 서버로 보낼 때 가상 form 데이터 사용 
-					var formData = new FormData();
-					formData.append('file', files[i]);  // 파라미터 file, summernote 편집기에 추가된 이미지가 files[i]임
-					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
-					$.ajax({
-						type: 'post',
-						url: '/free/uploadImage',
-						data: formData,
-						contentType: false,  // ajax 이미지 첨부용
-						processData: false,  // ajax 이미지 첨부용
-						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
-						success: function(resData){
-							console.log(resData);
-							$('#content').summernote('insertImage', resData.src);
-							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
-						}
-					});  // ajax
-				}  // for
-			}  // onImageUpload
-		}  // callbacks
-	});
+		toolbar: [
+		    // [groupName, [list of button]]
+		    ['style', ['bold', 'italic', 'underline', 'clear']],
+		    ['font', ['strikethrough', 'superscript', 'subscript']],
+		    ['fontsize', ['fontsize']],
+		    ['color', ['color']],
+		    ['para', ['ul', 'ol', 'paragraph']],
+		    ['height', ['height']],
+		]
+		
+     });
 		
 	
 	// 목록
 	$('#btn_list').click(function(){
-		location.href =  '/qna/list';// taglib 사용이 어려울수도 있으니까
+		location.href = '/qna/list';
 	})
 	
 	// 서브밋
 	$('#frm_write').submit(function(event){
-		if($('#title').val() == ''){
+		if($('#qnaTitle').val() == ''){
 			alert('제목은 필수입니다.');
 			event.preventDefault(); // 서브밋 취소
 			return; // 더 이상 코드 실행할 필요 없음
@@ -90,13 +63,13 @@ $(document).ready(function(){
 			
 			<form id="frm_write" action="/qna/add" method="post" >
 				<div style="margin-top: 50px; margin-bottom: 15px">
-					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
+					<input class="title-class" type="text" name="qnaTitle" id="qnaTitle" placeholder="제목">
 				</div>
 				
-				<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
+				<hr>
 				
 				<div style="margin-top: 20px">
-					<textarea name="content" id="content"></textarea>
+					<textarea name="qnaContent" id="qnaContent"></textarea>
 				</div>
 				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 				<div id="summernote_image_list"></div>
