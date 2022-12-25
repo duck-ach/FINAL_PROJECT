@@ -4,6 +4,14 @@
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="로컬게시판" name="title" />
 </jsp:include>
+
+
+
+<script src="/resources/js/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+<link rel="stylesheet" href="/resources/js/datetimepicker-master/jquery.datetimepicker.css">
+
+
+
 <style>
 	
 	 .title-class{
@@ -77,10 +85,42 @@ $(document).ready(function(){
 		}
 	});
 	
-});
+});	
 
 
-	
+
+$('#datetimepicker').datetimepicker();
+jQuery.datetimepicker.setLocale('en');
+
+
+jQuery(function(){
+	 jQuery('#date_timepicker_start').datetimepicker({
+	  format:'Y/m/d',
+	  onShow:function( ct ){
+	   this.setOptions({
+	    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+	 jQuery('#date_timepicker_end').datetimepicker({
+	  format:'Y/m/d',
+	  onShow:function( ct ){
+	   this.setOptions({
+	    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+	});
+
+</script>
+
+<script type="text/javascript">
+
+
+
+
 </script>
 
 <section class="wrap"><!-- 기본틀 1 -->
@@ -91,17 +131,29 @@ $(document).ready(function(){
 			<form id="frm_write" action="/local/add" method="post" >
 				<div style="margin-top: 50px; margin-bottom: 15px">
 					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
+					<div>
+						<select name="localNo">
+						    <option value="1" selected>서울</option>
+						    <option value="2">경기도</option>
+						    <option value="3" >그외 시골</option>					   
+						</select>
+						모집일 <input id="date_timepicker_start" type="text" name="joinStart">
+						종료일 <input id="date_timepicker_end" type="text" name="joinEnd"  >
+					</div>
+					
 				</div>
 				
 				<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
 				
 				<div style="margin-top: 20px">
+			
 					<textarea name="content" id="content"></textarea>
 				</div>
+				
 				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 				<div id="summernote_image_list"></div>
 
-
+				
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>
 					<input class="btn" type="reset" value="제목초기화">

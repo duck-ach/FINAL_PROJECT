@@ -77,9 +77,14 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
+		String joinStart = request.getParameter("joinStart");
+		String joinEnd = request.getParameter("joinEnd");
+		int localNo = Integer.parseInt(request.getParameter("localNo"));
 		Optional<String> opt = Optional.ofNullable(request.getHeader("X-Forwarded-For"));
 		String Ip = opt.orElse(request.getRemoteAddr());		
-	
+		
+		
+		
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
 		
@@ -88,6 +93,9 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 						.content(content)						
 						.ip(Ip)
 						.userNo(loginUser.getUserNo())
+						.localNo(localNo)
+						.joinStart(joinStart)
+						.joinEnd(joinEnd)
 						.build();
 					System.out.println(freeBbs);
 		
