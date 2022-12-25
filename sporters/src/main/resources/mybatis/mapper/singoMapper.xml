@@ -4,8 +4,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.gdu.sporters.board.mapper.SingoMapper">
+<mapper namespace="com.gdu.sporters.admin.mapper.SingoMapper">
 
+<!-- 상품 카테고리 목록 -->
+	<select id="selectSingoCategoryList" resultType="SingoCategoryDTO">
+		SELECT SINGO_CATEGORY_NO, SINGO_CATEGORY_NAME
+		  FROM SINGO_CATEGORY
+	</select>
+
+<!-- 상품 카테고리 개수 -->
+	<select id="selectSingoCategoryCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM SINGO_CATEGORY
+	</select>
 	
+	<!-- 상품 카테고리 추가 -->
+	<insert id="insertSingoCategory" parameterType="SingoCategoryDTO">
+		INSERT INTO SINGO_CATEGORY (SINGO_CATEGORY_NAME)
+		VALUES (#{singoCategoryName})
+	</insert>
+	
+	<delete id="deleteSingoCategory" parameterType="int">
+		DELETE
+		  FROM SINGO_CATEGORY
+		 WHERE SINGO_CATEGORY_NO = #{singoCategoryNo}
+	</delete>
 	
 </mapper>

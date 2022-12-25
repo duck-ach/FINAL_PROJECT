@@ -5,10 +5,13 @@ import java.sql.Date;
 public class SingoDTO {
 	
 	int singoNo;
+	String singoCategoryNo;
 	String singoTitle;
-	String singoContent;
+	String singoUserReason;
+	String singoLink;
 	Date singoCreateDate;
-	int singoHit;
+	Date singoRemoveDate;
+	String singoReason;
 	int userNo;
 	int freeNo;
 }

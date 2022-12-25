@@ -6,6 +6,7 @@
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
 <style>
+
 * {
 		box-sizing: border-box;
 	}
