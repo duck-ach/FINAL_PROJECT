@@ -25,11 +25,6 @@ public class BoardLocalController {
 	
 	
 	
-	/*
-	 * @GetMapping("/free/list") public String freeList() { return
-	 * "community/free/list"; }
-	 */
-	
 	@GetMapping(value="/local/list")
 	public String localList(HttpServletRequest request, Model model) {
 	//	galleryService.getGalleryList(request, model);

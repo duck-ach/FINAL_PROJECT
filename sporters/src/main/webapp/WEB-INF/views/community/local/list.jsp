@@ -36,10 +36,12 @@
 							<tr>
 								<td>${beginNo - vs.index}</td>						
 								<td><a id="moveDetail"
-									href="/local/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
+									href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">${gallery.title}</a></td>									
+								<!--  
 								<td>${gallery.users.id}</td>
 								<td>${gallery.users.nickname}</td>
 								<td>${gallery.users.gender}</td>
+								-->
 								<td>${gallery.createDate}</td>
 								<td>${gallery.hit}</td>
 							</tr>
