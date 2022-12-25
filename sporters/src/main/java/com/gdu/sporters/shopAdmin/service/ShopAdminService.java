@@ -27,4 +27,6 @@ public interface ShopAdminService {
 	public List<ProdCategoryDTO> getCategoryList();
 	public void addCategory(HttpServletRequest request);
 	public void deleteCategory(HttpServletRequest request, HttpServletResponse response);
+	public Map<String, Object> getAutoCompleteList(HttpServletRequest request);
+	public void searchProducts(HttpServletRequest request, Model model);
 }

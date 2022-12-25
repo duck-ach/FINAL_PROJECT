@@ -1,6 +1,8 @@
 package com.gdu.sporters.chat.domain;
 
-import java.sql.Date;
+import java.util.Set;
+
+import javax.websocket.Session;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,5 +17,8 @@ public class ChatRoomDTO {
 	private int chatRoomId;
 	private String chatRoomTitle;
 	private int maxUsersCnt;
-	private Date createDate;
+	private int isPw;
+	private int roomPw;
+	private ChatUserDTO chatUser;
+	private Set<Session> clientList;
 }

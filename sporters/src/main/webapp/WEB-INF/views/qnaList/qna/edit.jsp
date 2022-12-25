@@ -19,7 +19,7 @@
 
 $(document).ready(function(){
 	
-	$('#qnaContent').summernote({
+	$('#content').summernote({
 		width: 800,
 		height: 400,
 		lang: 'ko-KR',
@@ -43,7 +43,7 @@ $(document).ready(function(){
 	
 	// 서브밋
 	$('#frm_write').submit(function(event){
-		if($('#qnaTitle').val() == ''){
+		if($('#title').val() == ''){
 			alert('제목은 필수입니다.');
 			event.preventDefault(); // 서브밋 취소
 			return; // 더 이상 코드 실행할 필요 없음
@@ -63,13 +63,13 @@ $(document).ready(function(){
 			
 			<form id="frm_write" action="/qna/add" method="post" >
 				<div style="margin-top: 50px; margin-bottom: 15px">
-					<input class="title-class" type="text" name="qnaTitle" id="qnaTitle" placeholder="제목">
+					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
 				</div>
 				
 				<hr>
 				
 				<div style="margin-top: 20px">
-					<textarea name="qnaContent" id="qnaContent"></textarea>
+					<textarea name="content" id="content"></textarea>
 				</div>
 				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 				<div id="summernote_image_list"></div>
