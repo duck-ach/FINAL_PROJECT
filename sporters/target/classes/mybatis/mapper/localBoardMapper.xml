@@ -12,12 +12,14 @@
 		<result property="createDate"  column="CREATE_DATE" />
 		<result property="hit"  column="HIT" />
 		<result property="userNo"  column="USER_NO" />
-		<result property="state"  column="STATE" />
-		<result property="commentId"  column="COMMENT_ID" />
+		<result property="state"  column="STATE" />		
 		<result property="maxUser"  column="MAX_USER" />
 		<result property="localNo"  column="LOCAL_NO" />
 		<result property="ip"  column="IP" />
 		<result property="modifyDate"  column="MODIFY_DATE" />	
+		<result property="joinStart"  column="JOIN_START" />	
+		<result property="joinEnd"  column="JOIN_END" />	
+	
 		<association property="users"  javaType="UsersDTO" >
 			<id  property="userNo"  column="USER_NO"  />
 			<result property="id"  column="ID" />	
@@ -29,26 +31,26 @@
 	</resultMap>
 	
 
-	<select id="selectlocalListCnt" resultType="int">
+	<select id="selectLocalListCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM LOCALS
 	</select>
 
 	<!-- 게시판목록 -->
-	<select id="selectlocalList" parameterType="Map" resultMap="LocalDtoMap">
-		SELECT A.ROW_NUM, A.LOCAL_BOARD_NO, A.TITLE, A.CONTENT, A.CREATE_DATE,  A.HIT,A.USER_NO, A.STATE, A.COMMENT_ID,A.MAX_USER, A.LOCAL_NO, A.IP, A.MODIFY_DATE, A.ID, A.NICKNAME, A.GENDER
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY LOCAL_BOARD_NO DESC) AS ROW_NUM, F.LOCAL_BOARD_NO, F.TITLE, F.CONTENT, F.CREATE_DATE,  F.HIT, F.USER_NO , F.STATE,  F.COMMENT_ID, F.MAX_USER, F.LOCAL_NO, F.IP, F.MODIFY_DATE, U.ID, U.NICKNAME, U.GENDER
+	<select id="selectLocalList" parameterType="Map" resultMap="LocalDtoMap">
+		SELECT A.ROW_NUM, A.LOCAL_BOARD_NO, A.TITLE, A.CONTENT, A.CREATE_DATE,  A.HIT,A.USER_NO, A.STATE, A.MAX_USER, A.LOCAL_NO, A.IP, A.MODIFY_DATE, A.JOIN_START, A.JOIN_END,    A.ID, A.NICKNAME, A.GENDER
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY LOCAL_BOARD_NO DESC) AS ROW_NUM, F.LOCAL_BOARD_NO, F.TITLE, F.CONTENT, F.CREATE_DATE,  F.HIT, F.USER_NO , F.STATE, F.MAX_USER, F.LOCAL_NO, F.IP, F.MODIFY_DATE, F.JOIN_START, F.JOIN_END,     U.ID, U.NICKNAME, U.GENDER    
 		  		  FROM LOCALS F INNER JOIN USERS U
 		     	    ON F.USER_NO = U.USER_NO) A
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
 	</select>
 	
-<!-- 게시판 삽입(첨부파일 추가) -->
-	<insert id="insertlocal" parameterType="localDTO"  useGeneratedKeys="true" keyProperty="localBoardNo">
+	<!-- 게시판 삽입(첨부파일 추가) -->
+	<insert id="insertLocal" parameterType="localDTO"  useGeneratedKeys="true" keyProperty="localBoardNo">
 		INSERT INTO LOCALS
-			(TITLE, CONTENT,CREATE_DATE, HIT,USER_NO,STATE ,COMMENT_ID,MAX_USER, LOCAL_NO,IP,MODIFY_DATE)
+			(TITLE, CONTENT, CREATE_DATE, HIT, USER_NO, STATE , MAX_USER, LOCAL_NO, IP, MODIFY_DATE , JOIN_START, JOIN_END    )
 		VALUES
-			(#{title}, #{content}, NOW(), 0,#{userNo}, 0, #{commentId},#{maxUser}, #{localNo} #{ip}, NOW())
+			(#{title}, #{content}, NOW(), 0, #{userNo}, 0, #{maxUser}, #{localNo}, #{ip}, NOW(), #{joinStart}, #{joinEnd}  )
 	</insert>
 	
 	
@@ -70,12 +72,20 @@
 	  WHERE FREE_NO = #{freeNo}
 	</select>
 	 -->
-	 <select id="selectlocalByNo" parameterType="int" resultMap="LocalDtoMap">
-	 SELECT  F.LOCAL_BOARD_NO, F.TITLE, F.CONTENT, F.CREATE_DATE,  F.HIT, F.USER_NO , F.STATE, ,F.COMMENT_ID, F.MAX_USER, F.LOCAL_NO, F.IP, F.MODIFY_DATE, U.ID, U.NICKNAME, U.GENDER
-		  		  FROM LOCALS F INNER JOIN USERS U
-		     	    ON F.USER_NO = U.USER_NO
-		 WHERE F.LOCAL_BOARD_NO = ${localBoardNo}
+	 <select id="selectLocalByNo" parameterType="int" resultMap="LocalDtoMap">
+	 SELECT  F.LOCAL_BOARD_NO, F.TITLE, F.CONTENT, F.CREATE_DATE,  F.HIT, F.USER_NO , F.STATE,F.MAX_USER, F.LOCAL_NO, F.IP, F.MODIFY_DATE,F.JOIN_START, F.JOIN_END,  U.ID, U.NICKNAME, U.GENDER
+	  		  FROM LOCALS F INNER JOIN USERS U
+	     	    ON F.USER_NO = U.USER_NO
+	 WHERE F.LOCAL_BOARD_NO = ${localBoardNo}
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 	 
 	 
 		<!-- 상세보기(조회수) -->
