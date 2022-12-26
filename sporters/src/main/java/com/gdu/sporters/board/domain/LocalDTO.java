@@ -29,4 +29,5 @@ public class LocalDTO {
 	private UsersDTO users;
 	private String joinStart;
 	private String joinEnd;
+	private LocalImageDTO localImagess;
 }
