@@ -1,17 +1,21 @@
 package com.gdu.sporters.admin.service;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.sporters.admin.mapper.AdminMapper;
+import com.gdu.sporters.board.mapper.BoardMapper;
 import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.ScrollPageUtil;
@@ -22,6 +26,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminMapper adminMapper;
+	private BoardMapper boardMapper;
 	
 	@Autowired
 	private ScrollPageUtil scrollPageUtil;
@@ -94,9 +99,67 @@ public class AdminServiceImpl implements AdminService {
         }
 		map.put("userList", adminMapper.selectAllUsers());
 		return map;
+	}
+	@Override
+	public void removeBoard(HttpServletRequest request, HttpServletResponse response) {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo")); 
+		
+		int result = boardMapper.deleteFreeGallery(boardNo);
+		
+		try {
+			
+			// 자바스크립트로 응답으로 만들어서 처리하는 방식
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			if(result > 0) {
+				out.println("alert('삭제 성공');");
+				out.println("location.href='" + request.getContextPath() + "/brd/list';");  //  /brd/list로 redirect
+			} else {
+				out.println("alert('삭제 실패');");
+				out.println("history.back();");  // 이전 화면으로 이동
+			}
+			out.println("</script>");
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
-	
+	@Override
+	public void removeBoardList(HttpServletRequest request, HttpServletResponse response) {
+		// 파라미터
+		String[] freeNoList = request.getParameterValues("freeNoList");
+		
+		// 삭제
+		int result = boardMapper.deleteFreeList(Arrays.asList(freeNoList));  // String 배열을 List<String>으로 변경해서 전달
+		
+		try {
+			
+			// 자바스크립트로 응답으로 만들어서 처리하는 방식
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			if(result > 0) {
+				out.println("alert('모두 삭제 성공');");
+				out.println("location.href='" + request.getContextPath() + "/admin/adminFreeList';");  //  /brd/list로 redirect
+			} else {
+				out.println("alert('모두 삭제 실패');");
+				out.println("history.back();");  // 이전 화면으로 이동
+			}
+			out.println("</script>");
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+		
+	}
 
 //
 //		try {
@@ -160,4 +223,4 @@ public class AdminServiceImpl implements AdminService {
 //	}
 	
 	
-}
+

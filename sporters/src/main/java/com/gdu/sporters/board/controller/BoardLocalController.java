@@ -27,7 +27,7 @@ public class BoardLocalController {
 	
 	@GetMapping(value="/local/list")
 	public String localList(HttpServletRequest request, Model model) {
-	//	galleryService.getGalleryList(request, model);
+		galleryLocalService.getLocalGalleryList(request, model);
 		return "community/local/list";
 	}
 	

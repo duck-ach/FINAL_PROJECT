@@ -45,9 +45,6 @@ public class GalleryFreeCommServiceImpl implements GalleryFreeCommService{
 		commContent.setUserNo(userNo);
 		
 		result.put("isAdd", commentMapper.insertFreeComment(commContent) == 1);
-		
-	
-		
 		commentMapper.updateCommGroupOrder(commContent);
 		
 		return result;

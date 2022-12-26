@@ -32,5 +32,9 @@ public interface BoardMapper {
 	public int updateHit(int userNo);
 	public int deleteFreeGallery(int freeNo);
 	
+	// 게시판 관리
+	public int deleteFreeList(List<String> freeNoList);
+
+	
 	
 }
