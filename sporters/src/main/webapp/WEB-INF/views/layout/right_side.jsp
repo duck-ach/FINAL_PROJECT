@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+	<style> @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); </style>
 <style>
 .right_side_menu_area {
 	position: fixed;
@@ -34,6 +37,10 @@
 #map {
 	width: 100%;
 	height: 100%;
+}
+
+.weather{
+font-family: 'Poppins', sans-serif;
 }
 </style>
 
@@ -97,6 +104,7 @@
             url : 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat+ '&lon=' + lon + '&appid=' + wAPI + '&units=metric',
             dataType : 'json',
             type : 'POST',
+            
             success : function(result) {
             // 보여질 정보
             $('.city').append(result.name);

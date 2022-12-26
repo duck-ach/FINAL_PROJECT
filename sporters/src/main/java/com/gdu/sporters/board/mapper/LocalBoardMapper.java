@@ -12,6 +12,8 @@ import com.gdu.sporters.board.domain.LocalImageDTO;
 public interface LocalBoardMapper {
 	public int selectLocalListCnt();
 	public List<LocalDTO> selectLocalList(Map<String, Object> map);
+	public List<LocalDTO> selectindexThumbNail(Map<String, Object> map);
+	
 	public List<LocalImageDTO> selectSummernoteImageListInGallery(int localBoardNo);
 	public List<LocalImageDTO> selectAllSummernoteImageList();
 	public int insertLocal(LocalDTO gallery);

@@ -4,6 +4,22 @@
 <jsp:include page="layout/header.jsp">
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
+
+<style>
+	.local_board_image_Area{
+		width:100%;
+		display: flex;
+	
+	}
+	.local_board_image_Area li{
+		width:30%;
+	
+	}
+	.local_board_image_Area li img{
+	width:100%;
+	}
+
+</style>
 <body>
 
 
@@ -14,58 +30,32 @@
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
+			
 			<h1><a href="/chat/chatList">채팅하러가기</a></h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>	
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
-			<h1>WELCOME TO SPOTERS</h1>
+			
+			
+			<ul class="local_board_image_Area">
+				<c:forEach items="${selectindexThumbNail}"  var="gallery" varStatus="vs">
+					<!-- 	
+					<li>
+						${beginNo - vs.index}	
+					</li>	
+					 -->			
+					<li>
+						<a id="moveDetail" href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">
+						${gallery.title}
+						<br>
+						<img alt="" src="/load/image/${gallery.localImagess.filesystem}">
+						</a>	
+					</li>									
+						
+						
+				</c:forEach>
+			
+			
+			</ul>
+			
+			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
 		
 	</section><!-- 기본틀 2 -->
