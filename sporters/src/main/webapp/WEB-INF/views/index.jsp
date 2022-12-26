@@ -4,25 +4,79 @@
 <jsp:include page="layout/header.jsp">
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 <style>
 	.local_board_image_Area{
 		width:100%;
 		display: flex;
-	
+		justify-content: space-between;	
 	}
+	
+	
+	
+	
 	.local_board_image_Area li{
-		width:30%;
+	background-size: cover;
+    width: 30%;
+    height: 300px;
+    background-position: top;
+		
 	
 	}
 	.local_board_image_Area li img{
 	width:100%;
 	}
+	
+	#preview{
+		position: absolute;
+	}
+ .swiper {
+        width: 100%;
+        height: 100%;
+      }
 
+      .swiper-slide {
+        background-position: center;
+        background-size: cover;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+      }
 </style>
+
+<script>
+
+$(function(){
+         
+        var xOffset = 10;
+        var yOffset = 10;
+		var yyOffset = -10;
+
+
+        $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버시
+			
+			$("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='500px' /></p>"); //보여줄 이미지를 선언						 
+			$("#preview").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX - yOffset) + "px").fadeIn("fast"); //미리보기 화면 설정 셋팅
+		});
+		
+		$(document).on("mousemove",".thumbnail",function(e){ //마우스 이동시
+			$("#preview").css("top",(e.pageY - xOffset) + "px").css("left",(e.pageX + yOffset) + "px");
+		});
+		
+		$(document).on("mouseout",".thumbnail",function(){ //마우스 아웃시
+			$("#preview").remove();
+		});
+         
+    });
+</script>
 <body>
 
-
+<jsp:include page="layout/right_side.jsp">
+	<jsp:param value="right_side" name="right_side" />
+</jsp:include>
 
 
 
@@ -34,6 +88,34 @@
 			<h1><a href="/chat/chatList">채팅하러가기</a></h1>
 			
 			
+				<div class="team_area">    
+	    <div class="swiper mySwiper">
+	      <div class="swiper-wrapper">
+	        <div class="swiper-slide">
+	         	<p>이미지1</p>
+	         	     
+	        </div>
+	        <div class="swiper-slide">
+	                <p>이미지2</p>
+	        </div>
+	        <div class="swiper-slide">
+	           <p>이미지3</p>
+	        </div>
+	        <div class="swiper-slide">
+	              <p>이미지4</p>
+	        </div>
+	        <div class="swiper-slide">
+	              <p>이미지5</p>
+	        </div>
+	      </div>
+	      <div class="swiper-pagination"></div>   
+	    </div>    
+		
+		</div>
+			
+			
+			
+			
 			<ul class="local_board_image_Area">
 				<c:forEach items="${selectindexThumbNail}"  var="gallery" varStatus="vs">
 					<!-- 	
@@ -41,19 +123,16 @@
 						${beginNo - vs.index}	
 					</li>	
 					 -->			
-					<li>
+					<li style="background-image: url(/load/image/${gallery.localImagess.filesystem})" >
 						<a id="moveDetail" href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">
 						${gallery.title}
-						<br>
-						<img alt="" src="/load/image/${gallery.localImagess.filesystem}">
+						<br>						
+							<img  style="width:100%;height:100%;" src="/load/image/${gallery.localImagess.filesystem}"  class="thumbnail">								
 						</a>	
-					</li>									
-						
-						
-				</c:forEach>
-			
-			
+					</li>								
+				</c:forEach>		
 			</ul>
+			
 			
 			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
@@ -62,11 +141,58 @@
 	
 </section><!-- 기본틀 1 -->
 
-<jsp:include page="layout/right_side.jsp">
-	<jsp:param value="right_side" name="right_side" />
-</jsp:include>
+
+
+
+
+
+<script>
+var swiper = new Swiper(".mySwiper", {
+  effect: "cube",
+  grabCursor: true,
+  autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+  cubeEffect: {
+    shadow: true,
+    slideShadows: true,
+    shadowOffset: 20,
+    shadowScale: 0.94,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+  },
+});
+
+
+
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
 <script type="text/javascript">
+
+var swiper = new Swiper(".mySwiper", {
+  spaceBetween: 30,
+  effect: "fade",
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+});
+
+</script>
+<!-- 
+
+<script type="text/javascript">
+
 $(function(){
 	 var right_side =  $('.content_leyout_section').offset().top;
 	var my_right_side = $('.right_side_menu_area').width();
@@ -90,6 +216,8 @@ $(function(){
 	
 }); 
 </script>
+
+ -->
 
 </body>
 </html>

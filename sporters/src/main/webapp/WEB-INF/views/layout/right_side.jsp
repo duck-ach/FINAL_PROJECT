@@ -7,10 +7,10 @@
 <style>
 .right_side_menu_area {
 	position: fixed;
-	/*
+	
 		right:0px;
 		top:164px;
-		*/
+		
 	border: 1px solid #000;
 }
 
