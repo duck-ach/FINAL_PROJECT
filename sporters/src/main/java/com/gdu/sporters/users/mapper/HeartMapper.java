@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gdu.sporters.users.domain.HeartDTO;
+
 @Mapper
 public interface HeartMapper {
 	public int selectUserHeartCount(Map<String, Object> map);
@@ -12,6 +14,6 @@ public interface HeartMapper {
 	public int insertLove(Map<String, Object> map);
 	public int deleteLove(Map<String, Object> map);
 	public int insertHate(Map<String, Object> map);
-	public int deleteHate(Map<String, Object> map);
-
+	public HeartDTO selectLoveOrHate(Map<String, Object> map);
+	
 }

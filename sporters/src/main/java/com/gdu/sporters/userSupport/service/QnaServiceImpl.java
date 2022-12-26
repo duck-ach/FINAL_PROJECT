@@ -38,9 +38,9 @@ public class QnaServiceImpl implements QnaService {
 		pageUtil.setPageUtil(page, totalRecord);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", pageUtil.getBegin());
-		map.put("end", pageUtil.getEnd());
-
+		map.put("begin", pageUtil.getBegin() -1);
+		map.put("recordPerPage", pageUtil.getRecordPerPage());
+		
 		List<QnaDTO> qnaList = qnaMapper.selectAllQnaList(map);
 		
 		model.addAttribute("totalRecord", totalRecord);

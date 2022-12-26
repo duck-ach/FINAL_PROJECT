@@ -26,9 +26,9 @@ public class HeartController {
 		return heartService.getHeartCount(userNo);
 	}
 	
-	@GetMapping(value="/heart/mark", produces="application/json")
+	@GetMapping(value="/heart/markLike", produces="application/json")
 	public Map<String, Object> mark(HttpServletRequest request){
-		return heartService.mark(request);
+		return heartService.markLike(request);
 	}
 	
 	// 싫어요

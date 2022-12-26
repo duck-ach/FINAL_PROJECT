@@ -7,104 +7,12 @@
 	
 	$(function(){
 		fn_goodCheck();
+		fn_hateCheck();
 		fn_goodCount();
 		fn_hateCount();
 		fn_pressGood();
 		fn_pressHate();
 	});
-	
-	/* 
-	function fn_preferCheck(){
-		$.ajax({
-			type: 'get',
-			url: '/heart/getHeartCheck',
-			data: 'userNo=${loginUser.userNo}',
-			dataType: 'json',
-			success: function(resData){
-				if(resData.count == 0){
-					$('#heart')
-					$('#good').removeClass("good_checked");
-				} else {
-					$('#heart')
-					$('#good').addClass("good_checked");
-				}
-			}
-		});
-	}
-	
-	function fn_goodCount(){
-		$.ajax({
-			type: 'get',
-			url: '/heart/getHeartCount',
-			data: 'userNo=${loginUser.userNo}',
-			dataType: 'json',
-			success: function(resData){
-				$('#good_count').empty();
-				$('#good_count').text(resData.count + '개');
-			}
-		});
-	}
-	
-	function fn_badCount(){
-		$.ajax({
-			type: 'get',
-			url: '/hate/getHateCheck',
-			data: 'userNo=${loginUser.userNo}',
-			dataType: 'json',
-			success: function(resData){
-				$('#bad_count').empty();
-				$('#bad_count').text(resData.count + '개');
-			}
-		});
-	}
-	
-	function fn_pressHeart(){
-		$('#lnk_good').click(function(){
-			if('${loginUser.userNo}' == ''){
-				alert('해당 기능은 로그인이 필요합니다!');
-				return;	
-			} 
-			if('${loginUser.userNo}' == ''){
-				alert('주작은 안돼요!');
-				return;
-			}
-			$.ajax({
-				type: 'get',
-				url: '/heart/pickLove',
-				data: 'userNo=${loginUser.userNo}',
-				dataType: 'json',
-				success: function(resData){
-					if(resData.isSuccess){
-						fn_goodCount();
-					}
-				}
-			});
-		});
-	}
-	
-	function fn_pressHate(){
-		$('#lnk_bad').click(function(){
-			if('${loginUser.userNo}' == ''){
-					alert('해당 기능은 로그인이 필요합니다!');
-					return;	
-				} 
-				if('${loginUser.userNo}' == '${loginUser.userNo}'){
-					alert('주작은 안돼요!');
-					return;
-				}
-				$.ajax({
-					type: 'get',
-					url: '/hate/pickHate',
-					data: 'userNo=${loginUser.userNo}',
-					dataType: 'json',
-					success: function(resData){
-						if(resData.isSuccess){
-							fn_badCount();
-						}
-					}
-				});
-			});
-		} */
 		
 		function fn_goodCheck(){
 			$.ajax({
@@ -119,6 +27,24 @@
 					} else {
 						$('#heart').text('LIKE ♡');
 						$('#good').addClass("good_checked");
+					}
+				}
+			});
+		}
+		
+		function fn_hateCheck(){
+			$.ajax({
+				url: '/heart/getHeartCheck',
+				type: 'get',
+				data: 'userNo=${loginUser.userNo}',
+				dataType: 'json',
+				success: function(resData){
+					if (resData.count == 0) {
+						$('#hater').text('♥');
+						$('#hate').removeClass("good_checked");
+					} else {
+						$('#hater').text('LIKE ♡');
+						$('#hate').addClass("good_checked");
 					}
 				}
 			});
@@ -158,7 +84,7 @@
 				}
 				// "좋아요" 처리
 				$.ajax({
-					url: '/heart/mark',
+					url: '/heart/markLike',
 					type: 'get',
 					data: 'userNo=${loginUser.userNo}',
 					dataType: 'json',
@@ -170,6 +96,7 @@
 				});
 			});
 		}
+		
 		
 		function fn_hateCount(){
 			$.ajax({
@@ -203,7 +130,7 @@
 				} else {
 					$('#hater').text('HATE ♡');
 				}
-				// "좋아요" 처리
+				// "싫어요" 처리
 				$.ajax({
 					url: '/heart/markhate',
 					type: 'get',

@@ -25,9 +25,10 @@
 	<select id="selectReplyList" parameterType="Map" resultType="QnaReplyDTO">
 		SELECT QNA_REPLY_NO, QNA_NO, QNA_REPLY_CONTENT, QNA_REPLY_CREATE_DATE, STATE, DEPTH, GROUP_NO
 		FROM QNA_REPLY
+		WHERE QNA_NO = #{qnaNo}
 	</select>
 	
-	<insert id="insertReply" useGeneratedKeys="true" keyProperty="qnaNo" parameterType="qnaDTO">
+	<insert id="insertReply" parameterType="qnaDTO">
 		INSERT INTO QNA_REPLY
 			(QNA_NO, QNA_REPLY_CONTENT, QNA_REPLY_CREATE_DATE, STATE, DEPTH, GROUP_NO)
 		VALUES
@@ -40,9 +41,10 @@
 		WHERE QNA_REPLY_NO = #{qnaReplyNo}
 	</update>
 	
-	<delete id="deleteReply" parameterType="int">
-		DELETE QNA_REPLY
+	<update id="deleteReply" parameterType="int">
+		UPDATE QNA_REPLY
+		   SET STATE = -1
 		 WHERE QNA_REPLY_NO = #{qnaReplyNo}
-	</delete>
+	</update>
 	
 </mapper>

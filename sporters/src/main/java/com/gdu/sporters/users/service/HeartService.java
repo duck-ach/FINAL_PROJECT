@@ -8,7 +8,7 @@ public interface HeartService {
 	public Map<String, Object> getHeartCheck(HttpServletRequest request);
 	public Map<String, Object> getHeartCount(int userNo);
 	public Map<String, Object> getHateCount(int userNo);
-	public Map<String, Object> mark(HttpServletRequest request);
+	public Map<String, Object> markLike(HttpServletRequest request);
 	public Map<String, Object> markhate(HttpServletRequest request);
 	
 	
