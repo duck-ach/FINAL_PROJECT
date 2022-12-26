@@ -6,7 +6,28 @@
 </jsp:include>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/sniper.css">
 <style>
+
+	.team_area{
+		width:100%;
+		height:400px;
+	}
+	
+	.team_area .swiper{
+		width:100%;
+		
+	}
+	.team_area .swiper-slide{
+		background-size: cover;
+		background-position: top;
+		background-repeat: no-repeat;
+	}
+	.team_area img{
+		width:100%; 
+		opacity: 0;
+	}
+
 	.local_board_image_Area{
 		width:100%;
 		display: flex;
@@ -30,21 +51,10 @@
 	
 	#preview{
 		position: absolute;
+		
 	}
- .swiper {
-        width: 100%;
-        height: 100%;
-      }
 
-      .swiper-slide {
-        background-position: center;
-        background-size: cover;
-      }
-
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-      }
+    
 </style>
 
 <script>
@@ -74,9 +84,19 @@ $(function(){
 </script>
 <body>
 
+
+<div id="left_side_gnd_area"  class="left_side_gnd_area">
+	
+	<jsp:include page="layout/left_side.jsp">
+		<jsp:param value="left_side" name="left_side" />
+	</jsp:include>
+</div>
+
+
 <jsp:include page="layout/right_side.jsp">
 	<jsp:param value="right_side" name="right_side" />
 </jsp:include>
+
 
 
 
@@ -85,28 +105,25 @@ $(function(){
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<h1><a href="/chat/chatList">채팅하러가기</a></h1>
+			<h1 style="height:50px;line-height:40px;"><span class="spinner-double-section-out"></span><a href="/chat/chatList">채팅하러가기</a></h1>
 			
 			
 				<div class="team_area">    
 	    <div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
-	        <div class="swiper-slide">
-	         	<p>이미지1</p>
-	         	     
+	        <div class="swiper-slide" style="background-image: url(https://cdn.barnimages.com/wp-content/uploads/2022/01/20210118-barnimages-4-740x490.jpg);">      
+	         	<p><img src="https://cdn.barnimages.com/wp-content/uploads/2021/01/20210104-barnimages-4-740x493.jpg"> </p>
+	         	      
 	        </div>
 	        <div class="swiper-slide">
-	                <p>이미지2</p>
+	                <p><img src="https://swiperjs.com/demos/images/nature-2.jpg"></p>
 	        </div>
 	        <div class="swiper-slide">
-	           <p>이미지3</p>
+	           <p><img src="https://swiperjs.com/demos/images/nature-3.jpg"></p>
 	        </div>
 	        <div class="swiper-slide">
-	              <p>이미지4</p>
-	        </div>
-	        <div class="swiper-slide">
-	              <p>이미지5</p>
-	        </div>
+	              <p><img src="https://swiperjs.com/demos/images/nature-4.jpg"></p>
+	        </div>	      
 	      </div>
 	      <div class="swiper-pagination"></div>   
 	    </div>    
@@ -149,7 +166,7 @@ $(function(){
 <script>
 var swiper = new Swiper(".mySwiper", {
   effect: "cube",
-  grabCursor: true,
+ // grabCursor: true,
   autoplay: {
       delay: 2500,
       disableOnInteraction: false,
@@ -162,7 +179,7 @@ var swiper = new Swiper(".mySwiper", {
   },
   pagination: {
     el: ".swiper-pagination",
-  },
+  }
 });
 
 
@@ -176,6 +193,7 @@ var swiper = new Swiper(".mySwiper", {
 <script type="text/javascript">
 
 var swiper = new Swiper(".mySwiper", {
+	loop: true,
   spaceBetween: 30,
   effect: "fade",
   navigation: {

@@ -43,6 +43,7 @@
 		top: 0;
 	    left: 0;
 	    background-color: #EDEBFE;
+	    z-index: 11;
 	}
 	.main_header_area_fix{
 /*	position: fixed;*
@@ -61,12 +62,14 @@
 	.spoters_logo img{
 		width:100%;
 	}
+	
+	/*
 		.left_side_gnd_area{
 		position: fixed;
-		/*
+		
 		left:0px;
 		
-		*/
+		
 		left:0%;
 		top:164px;
 		border:1px solid #000;
@@ -74,16 +77,16 @@
 	}
 	
 	
-	
+	*/
 
 	.wrap{
 		position:relative;
-		top:164px;
-		margin: 00px auto;
+		top:0px;
+		margin: 50px auto;
 	   
 	    width: 70%;
 	    overflow: hidden;
-	    border: 2px solid #000;
+	/*    border: 2px solid #000;*/
 	}
 	
 	.wrap .content_leyout_section{
@@ -117,7 +120,7 @@ $(function(){
 
 
 
-
+<!--
 <div id="left_side_gnd_area"  class="left_side_gnd_area">
           
       <ul>
@@ -132,12 +135,8 @@ $(function(){
 	 	<li><a href="/faq/list">자주하는질문</a> </li>
 	 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
 	 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
-      </ul>
-   
-  
-  
-    
+      </ul>    
   </div>
-
+  -->
 
 </header>
