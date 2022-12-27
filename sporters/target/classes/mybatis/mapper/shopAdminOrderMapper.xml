@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.sporters.shopAdmin.mapper.ShopAdminOrderMapper">
+
+	<!-- 주문 + 유저 resultMap -->
+	<resultMap type="OrderDTO" id="OrderMap">
+		<id property="orderNo" column="ORDER_NO" />
+		<result property="userNo" column="USER_NO"/>
+		<result property="cartNo" column="CART_NO"/>
+		<result property="payment" column="PAYMENT"/>
+		<result property="name" column="NAME"/>
+		<result property="mobile" column="MOBILE"/>
+		<result property="stock" column="STOCK"/>
+		<result property="postCode" column="POST_CODE"/>
+		<result property="loadAddress" column="LOAD_ADDRESS"/>
+		<result property="jibunAddress" column="JIBUN_ADDRESS"/>
+		<result property="detailAddress" column="DETAIL_ADDRESS"/>
+		<result property="orderDate" column="ORDER_DATE"/>
+		<result property="orderState" column="ORDER_STATE"/>
+		<result property="priceAll" column="PRICE_ALL"/>
+		<association property="users" javaType="UsersDTO">
+			<id property="userNo" column="USER_NO"/>
+			<result property="id" column="ID"/>
+			<result property="name" column="NAME"/>
+			<result property="gender" column="GENDER"/>
+			<result property="email" column="EMAIL"/>
+			<result property="mobile" column="MOBILE"/>
+			<result property="postcode" column="POSTCODE"/>
+			<result property="roadAddress" column="ROAD_ADDRESS"/>
+			<result property="jibunAddress" column="JIBUN_ADDRESS"/>
+			<result property="detailAddress" column="DETAIL_ADDRESS"/>
+		</association>
+	</resultMap>
+	
+<!-- 		<resultMap type="cartDTO" id="CartMap">
+			<id property="cartNo" column="CART_NO" />
+			<result property="userNo" column="USER_NO"/>
+			<result property="prodNo" column="PROD_NO"/>
+			<result property="prodCnt" column="PROD_CNT"/>
+			<association property="product" javaType="ProductDTO">
+				<id property="prodNo" column="PROD_NO" />
+				<result property="prodName" column="PROD_NAME"/>
+				<result property="price" column="PRICE"/>
+				<result property="stock" column="STOCK"/>
+			</association>
+		</resultMap>	 -->
+	
+	
+	<!-- 주문목록 -->
+	<select id="selectOrderList" resultMap="OrderMap">
+		SELECT O.ORDER_NO, U.NAME, O.NAME, O.MOBILE, O.ORDER_DATE, O.ORDER_STATE, O.PRICE_ALL
+		  FROM ORDERS O LEFT OUTER JOIN USERS U
+		    ON O.USER_NO = U.USER_NO
+		 ORDER BY O.ORDER_NO
+	</select>
+	
+	<!-- 주문상세보기 -->
+	<select id="selectOrderDetailByUserNo" parameterType="map" resultMap="OrderMap">
+		SELECT O.ORDER_NO, U.NAME, O.NAME, O.MOBILE, O.PRICEALL, O.ORDER_STATE, O.POSTCODE, O.ROAD_ADDRESS, O.JIBUN_ADDRESS, O.DETAIL_ADDRESS, O.ORDER_DATE
+		  FROM ORDERS O INNER JOIN USERS U
+		    ON O.USER_NO = U.USER_NO
+		 WHERE O.ORDER_NO = #{orderNo}
+	</select>
+	
+
+</mapper>

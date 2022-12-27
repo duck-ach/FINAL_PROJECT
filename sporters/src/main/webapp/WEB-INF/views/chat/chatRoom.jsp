@@ -14,7 +14,13 @@
 	}
 	.wrap {
 		width: 640px;
-		margin: 20px auto;
+		display: inline-block;
+	}
+	.user_wrap {
+		width: 200px;
+	    display: inline-block;
+	    vertical-align: top;
+	    margin-top: 20px;
 	}
 	.btn {
 		width: 60px;
@@ -71,68 +77,96 @@
 </style>
 <script>
 	
+	$(function(){
+/* 		fn_notReload(); */
+		fn_getUserList();	
+	});
+	
 	// 새로고침 막기
-	window.onload = function(){
-		NotReload();
+/* 	window.onload = function(){
+		fn_notReload();
 	}
-	function NotReload(){
+	function fn_notReload(){
 	    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
 	        event.keyCode = 0;
 	        event.cancelBubble = true;
 	        event.returnValue = false;
 	    } 
 	}
-	document.onkeydown = NotReload;
+	document.onkeydown = fn_notReload; */
 
 	// 채팅창 close할때 유저 DB에서 삭제
 	$(window).on('unload', function() {
 		$.ajax({
 			type : 'POST',
 			url : '/chat/close',
-			data : $("#frm").serialize(),
-			dataType : 'json'
+			data : $("#frm").serialize()
 		});
 
 	});
+	
+	function fn_getUserList() {
+		$.ajax({
+			type: 'get',
+			url : '/chat/userList',
+			dataType : 'json',
+			success : function(resData) {
+				console.log(resData);
+				$('#userList').empty();
+				$.each(resData, function(i, data){
+					$('<li><a href="/users/userInfo">').text(data.user.nickname)
+					 	.appendTo('#userList');
+				});
+			}
+		});
+	}
 	
 	
 </script>
 </head>
 <body>
 	<form id="frm">
-		<input type="text" name="userNo" value="${user.userNo}">
-		<input type="text" id="id" name="nickname" value="${user.nickname}">
+		<input type="hidden" name="userNo" value="${user.userNo}">
+		<input type="hidden" id="id" name="nickname" value="${user.nickname}">
 	</form>
-
-	<div class="wrap">
-		<div>
-			<span>${chatRoom.chatRoomId}</span> | <span>${chatRoom.chatRoomTitle}</span>
-			<span class="currUserCnt">${currUserCnt}</span> / <span>${chatRoom.maxUsersCnt}</span>
-		</div>
-		
-		<div id="after_come_in">
-			<strong id="login_id"></strong>
-		</div>
-		
-		<hr>
-		
-		<div>대화창</div>
-		<div id="talking_content" class="talking_content">
-		</div>
-		
-		<div class="message_area">
-			<textarea class="message" id="message" wrap="hard"></textarea>
-			<input type="button" value="전송" class="btn" id="btn_send">
-		</div>
-		
+	<div>
+		<span>${chatRoom.chatRoomId}</span> | <span>${chatRoom.chatRoomTitle}</span>
+		<span class="currUserCnt">${currUserCnt}</span> / <span>${chatRoom.maxUsersCnt}</span>
 	</div>
+<hr>
+	<div id="after_come_in">
+		<strong id="login_id">${user.nickname}</strong><span> 님</span>
+	</div>
+	
+	
+	<div>
+		<div class="wrap">
+			
+			
+			<div>대화창</div>
+			<div id="talking_content" class="talking_content">
+			</div>
+			
+			<div class="message_area">
+				<textarea class="message" id="message" wrap="hard"></textarea>
+				<input type="button" value="전송" class="btn" id="btn_send">
+			</div>
+		</div>
+		<div class="user_wrap">
+			<div>접속한 유저 목록</div>
+			<ul id="userList">
+			</ul>
+		</div>
+	</div>
+
 	
 		<script>
 
+		$(function(){
+			fn_send();
+			fn_socketOn();
+		});
 		// socket on
-		fn_socketOn();
-		
-
 		
 		var ws;  // ChatServer
 		var sendData = {};  // CharServer로 전송할 데이터는 JSON 형식
@@ -178,6 +212,10 @@
 				$('#talking_content').scrollTop($('#talking_content').prop('scrollHeight'));  // 대화가 쌓이면 스크롤 내려주기
 				
 			};
+			ws.onerror = function(error) {
+				console.log("ERROR:", error);
+			};
+			
 		}
 		
 		

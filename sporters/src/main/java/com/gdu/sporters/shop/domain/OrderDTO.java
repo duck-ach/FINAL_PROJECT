@@ -2,6 +2,8 @@ package com.gdu.sporters.shop.domain;
 
 import java.sql.Date;
 
+import com.gdu.sporters.users.domain.UsersDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +18,8 @@ public class OrderDTO {
 	private int userNo;
 	private int cartNo;
 	private int payment;
+	private int priceAll; // 전체가격
+	private String orderState; // 주문상태
 	private String name;
 	private String mobile;
 	private String postcode;
@@ -23,4 +27,6 @@ public class OrderDTO {
 	private String jibunAddress;
 	private String detailAddress;
 	private Date orderDate;
+	private UsersDTO users;
+	private CartDTO cart;
 }

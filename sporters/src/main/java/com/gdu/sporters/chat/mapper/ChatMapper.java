@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.sporters.chat.domain.ChatRoomDTO;
+import com.gdu.sporters.chat.domain.ChatUserDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 
 @Mapper
@@ -37,8 +38,10 @@ public interface ChatMapper {
 	public UsersDTO selectUserByChat(int userNo);
 	
 	// select chat UserList (리스트)
-	public List<UsersDTO> selectUserListByChat();
+	public List<ChatUserDTO> selectUserListByChat();
 	
+	// 채팅방 비밀번호 매치
+	public ChatRoomDTO selectMatchChatRoomByPw(Map<String, Object> map);
 	
 	
 }
