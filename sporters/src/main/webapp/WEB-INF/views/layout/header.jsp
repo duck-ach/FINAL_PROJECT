@@ -90,10 +90,7 @@
 	}
 	
 	.wrap .content_leyout_section{
-		width:100%;
-		
-		
-		
+		width:100%;		
 	}
 	
 

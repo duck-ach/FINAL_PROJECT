@@ -15,19 +15,19 @@ body, html {
 		#menu {
 			height: 100%;
 			position: fixed;
-			background-color: #FED057;
+			background-color: #5b59d9;
 			width: 300px;
 			transition: 1000ms all cubic-bezier(0.19, 1, 0.22, 1);
 			transform: translateX(-100%);
 			left: 60px;
 			top:0;
-			z-index: 10;
+			z-index: 10;opacity: 0.7;
 						
 		}
 
 		#menu.expanded {
 			transform: translateX(0%);
-			left: 0px;
+			left: 0px;opacity: 1;
 		}
 
 		.menu-inner {
@@ -48,7 +48,9 @@ body, html {
 
 		#blob-path {
 			height: 100%;
-			fill:  #FED057;
+		/*	fill:  #FED057;*/
+			fill:#5b59d9;
+			
 		}
 
 		.hamburger {
@@ -95,7 +97,11 @@ body, html {
 			font-family: sans-serif;
 			padding: 20px 0;
 		}
-
+	
+		.menu-inner ul li a{
+			color:#fff;
+		}
+	
 		.action_mouse {
 			position: absolute;
 		   left: 50%;
@@ -136,7 +142,7 @@ body, html {
   
 		
 		<svg version="1.1" id="blob"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-			<path id="blob-path" d="M60,500H0V0h60c0,0,20,172,20,250S60,900,60,500z"/>
+			<path   id="blob-path" d="M60,500H0V0h60c0,0,20,172,20,250S60,900,60,500z"/>
 		</svg>
 	</div>
 	
