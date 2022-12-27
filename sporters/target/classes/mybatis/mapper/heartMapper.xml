@@ -5,80 +5,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gdu.sporters.users.mapper.HeartMapper">
-	<!-- 
-	<select id="selectUserLoveCount" parameterType="int" resultType="int">
-		SELECT COUNT(*)
+
+
+	<select id="heartCheck" parameterType="map" resultType="int">
+		SELECT IS_HEART
 		  FROM HEART
-		 WHERE LOVE = #{love}
+		 WHERE USER_NO = #{userNo}
+		   AND CLICK_USER_NO = #{clickUserNo}
 	</select>
 	
-	<select id="selectUserHateCount" parameterType="int" resultType="int">
-		SELECT COUNT(*)
-		  FROM HEART
-		 WHERE HATE = #{hate}
-	</select>
 
-	
-	<insert id="insertHate" parameterType="map">
-		INSERT INTO HEART
-			(USER_NO, HATE)
-		VALUES
-			(#{userNo}, #{hate})
-	</insert>
-
-	<delete id="deleteHate" parameterType="map">
-		DELETE
-		  FROM HEART
-		 WHERE USER_NO = #{userNo}
-		 AND HATE = #{hate}
-	</delete> -->
-	
-	
-	<!--
- 	 회원 좋아요
-	<update id="plusHeart">
-		UPDATE HEART 
-		   SET LOVE = LOVE + 1
-		 WHERE USER_NO = #{userNo}
-	</update>
-	
-	회원 좋아요 취소
-	<update id="cancelHeart">
-		UPDATE HEART
-		   SET LOVE = LOVE - 1
-		 WHERE USER_NO = #{userNo}
-	</update>
-	
-	회원 좋아요
-	<update id="plusHate">
-		UPDATE HEART 
-		   SET HATE = HATE + 1
-		 WHERE USER_NO = #{userNo}
-	</update>
-	
-	회원 좋아요 취소
-	<update id="cancelHate">
-		UPDATE HEART
-		   SET HATE = HATE - 1
-		 WHERE USER_NO = #{userNo}
-	</update>	
-	
-	좋아요 시 중복방지
-	<update id="isHeartClick">
-		UPDATE IS_HEART
-		   SET IS_HEART = 1
-		 WHERE USER_NO = {userNo}
-	</update>
-	
-	좋아요 취소시 복구
-	<update id="isHeartCancel">
-		UPDATE IS_HEART
-		   SET IS_HEART = 0
-		 WHERE USER_NO = {userNo}
-	</update> 
-	
-	-->
-	
 	<select id="selectUserHeartCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		  FROM HEART
@@ -86,11 +22,18 @@
 		   AND LOVE = 1
 	</select>
 	
+	<select id="selectUserHateCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		  FROM HEART
+		 WHERE USER_NO = #{userNo}
+ 		   AND HATE = -1 	
+	</select>
+	
 	<insert id="insertLove" parameterType="map">
 		INSERT INTO HEART
-			(USER_NO, IS_HEART, LOVE, HATE)
+			(USER_NO, CLICK_USER_NO, IS_HEART, LOVE, HATE)
 		VALUES
-			(#{userNo}, 1, 1, 0)
+			(#{userNo}, #{clickUserNo}, 1, 1, 0)
 	</insert>
 	
 	<delete id="deleteLove" parameterType="map">
@@ -102,23 +45,20 @@
 	
 	<insert id="insertHate" parameterType="map">
 		INSERT INTO HEART
-			(USER_NO, IS_HEART, LOVE, HATE)
+			(USER_NO, CLICK_USER_NO, IS_HEART, LOVE, HATE)
 		VALUES
-			(#{userNo}, 1, 0, -1)
+			(#{userNo}, #{clickUserNo}, 1, 0, -1)
 	</insert>
 	
-	<delete id="deleteHate" parameterType="map">
-		DELETE
-		  FROM HEART
-		 WHERE USER_NO = #{userNo}
-		  <!-- AND LOVE = #{love} -->
-	</delete>
 	
-	<select id="selectUserHateCount" parameterType="int" resultType="int">
-		SELECT COUNT(*)
+	<select id="selectLoveOrHate" parameterType="map" resultType="HeartDTO">
+		SELECT *
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
- 		   AND HATE = -1		 	
+		   AND CLICK_USER_NO = #{clickUserNo}
 	</select>
+	
+	
+	
 		
 </mapper>

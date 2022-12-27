@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.userSupport.domain.QnaDTO;
@@ -37,9 +38,9 @@ public class QnaServiceImpl implements QnaService {
 		pageUtil.setPageUtil(page, totalRecord);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", pageUtil.getBegin());
-		map.put("end", pageUtil.getEnd());
-
+		map.put("begin", pageUtil.getBegin() -1);
+		map.put("recordPerPage", pageUtil.getRecordPerPage());
+		
 		List<QnaDTO> qnaList = qnaMapper.selectAllQnaList(map);
 		
 		model.addAttribute("totalRecord", totalRecord);
@@ -48,17 +49,15 @@ public class QnaServiceImpl implements QnaService {
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/qna/list"));
 	}
 	
+	@Transactional
 	@Override
 	public void saveQna(HttpServletRequest request, HttpServletResponse response) {
 		String qnaTitle = request.getParameter("qnaTitle");
 		String qnaContent = request.getParameter("qnaContent");
-		
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		String qnaId = loginUser.getId();
-		//int userNo = loginUser.getUserNo();
-	
 		System.out.println(qnaTitle);
 		QnaDTO qna = QnaDTO.builder()
 				.qnaTitle(qnaTitle)
@@ -66,10 +65,10 @@ public class QnaServiceImpl implements QnaService {
 				.qnaContent(qnaContent)
 				.userNo(userNo)
 				.build();
-		
-		System.out.println(loginUser.getUserNo());
-		System.out.println(qna);
+
 		int result = qnaMapper.insertQna(qna);
+		
+		System.out.println(qna);
 		
 		try {
 			response.setContentType("text/html; charset=UTF-8");

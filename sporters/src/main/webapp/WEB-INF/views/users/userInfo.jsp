@@ -6,6 +6,7 @@
 <script>
 	
 	$(function(){
+		fn_isheartCheck();
 		fn_goodCheck();
 		fn_goodCount();
 		fn_hateCount();
@@ -13,130 +14,56 @@
 		fn_pressHate();
 	});
 	
-	/* 
-	function fn_preferCheck(){
-		$.ajax({
-			type: 'get',
-			url: '/heart/getHeartCheck',
-			data: 'userNo=${loginUser.userNo}',
-			dataType: 'json',
-			success: function(resData){
-				if(resData.count == 0){
-					$('#heart')
-					$('#good').removeClass("good_checked");
-				} else {
-					$('#heart')
-					$('#good').addClass("good_checked");
-				}
-			}
-		});
-	}
-	
-	function fn_goodCount(){
-		$.ajax({
-			type: 'get',
-			url: '/heart/getHeartCount',
-			data: 'userNo=${loginUser.userNo}',
-			dataType: 'json',
-			success: function(resData){
-				$('#good_count').empty();
-				$('#good_count').text(resData.count + '개');
-			}
-		});
-	}
-	
-	function fn_badCount(){
-		$.ajax({
-			type: 'get',
-			url: '/hate/getHateCheck',
-			data: 'userNo=${loginUser.userNo}',
-			dataType: 'json',
-			success: function(resData){
-				$('#bad_count').empty();
-				$('#bad_count').text(resData.count + '개');
-			}
-		});
-	}
-	
-	function fn_pressHeart(){
-		$('#lnk_good').click(function(){
-			if('${loginUser.userNo}' == ''){
-				alert('해당 기능은 로그인이 필요합니다!');
-				return;	
-			} 
-			if('${loginUser.userNo}' == ''){
-				alert('주작은 안돼요!');
-				return;
-			}
+		function fn_isheartCheck(){
 			$.ajax({
 				type: 'get',
-				url: '/heart/pickLove',
-				data: 'userNo=${loginUser.userNo}',
+				url: '/heart/isHeartCheck',
+				data: '&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
-					if(resData.isSuccess){
-						fn_goodCount();
+					if(resData.isHeart == 0){
+						alert('좋아요 싫어요 중 하나만 눌러주세요!');
 					}
 				}
 			});
-		});
-	}
+		}
 	
-	function fn_pressHate(){
-		$('#lnk_bad').click(function(){
-			if('${loginUser.userNo}' == ''){
-					alert('해당 기능은 로그인이 필요합니다!');
-					return;	
-				} 
-				if('${loginUser.userNo}' == '${loginUser.userNo}'){
-					alert('주작은 안돼요!');
-					return;
-				}
-				$.ajax({
-					type: 'get',
-					url: '/hate/pickHate',
-					data: 'userNo=${loginUser.userNo}',
-					dataType: 'json',
-					success: function(resData){
-						if(resData.isSuccess){
-							fn_badCount();
-						}
-					}
-				});
-			});
-		} */
 		
 		function fn_goodCheck(){
 			$.ajax({
 				url: '/heart/getHeartCheck',
 				type: 'get',
-				data: 'userNo=${loginUser.userNo}',
+				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					if (resData.count == 0) {
 						$('#heart').text('♥');
 						$('#good').removeClass("good_checked");
+						
 					} else {
-						$('#heart').text('LIKE ♡');
-						$('#good').addClass("good_checked");
+						$('#hater').text('♥');
+						$('#hate').removeClass("hate_checked");
 					}
 				}
 			});
 		}
 		
+
+		
 		function fn_goodCount(){
 			$.ajax({
 				url: '/heart/getHeartCount',
 				type: 'get',
-				data: 'userNo=${loginUser.userNo}',
+				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					$('#good_count').empty();
-					$('#good_count').text(resData.count + '점');
+					$('#good_count').text(resData.count);
 				}
 			});
 		}
 		
+		// 좋아요 누른 경우
 		function fn_pressGood(){
 			$('#lnk_good').click(function(){
 				// 로그인을 해야 "좋아요"를 누를 수 있다.
@@ -151,16 +78,19 @@
 				}
 				// "좋아요" 선택/해제 상태에 따른 하트 변경
 				$('#good').toggleClass("good_checked");
+				$('#hate').toggleClass('blind');
+				/*
 				if ($('#good').hasClass("good_checked")) {
 					$('#heart').text('LIKE ♥');
 				} else {
 					$('#heart').text('LIKE ♡');
 				}
+				*/
 				// "좋아요" 처리
 				$.ajax({
-					url: '/heart/mark',
+					url: '/heart/markLike',
 					type: 'get',
-					data: 'userNo=${loginUser.userNo}',
+					data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 					dataType: 'json',
 					success: function(resData){
 						if(resData.isSuccess) {
@@ -171,19 +101,22 @@
 			});
 		}
 		
+		
 		function fn_hateCount(){
 			$.ajax({
 				url: '/heart/getHateCount',
 				type: 'get',
-				data: 'userNo=${loginUser.userNo}',
+				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					$('#hate_count').empty();
-					$('#hate_count').text(resData.count + '점');
+					$('#hate_count').text(resData.count);
 				}
 			});
 		}
 		
+		
+		// 싫어요 누른 경우
 		function fn_pressHate(){
 			$('#lnk_hate').click(function(){
 				// 로그인을 해야 "좋아요"를 누를 수 있다.
@@ -198,16 +131,19 @@
 				}
 				// "좋아요" 선택/해제 상태에 따른 하트 변경
 				$('#hate').toggleClass("hate_checked");
+				$('#good').toggleClass('blind');
+				/*
 				if ($('#hate').hasClass("hate_checked")) {
 					$('#hater').text('HATE ♥');
 				} else {
 					$('#hater').text('HATE ♡');
 				}
-				// "좋아요" 처리
+				*/
+				// "싫어요" 처리
 				$.ajax({
 					url: '/heart/markhate',
 					type: 'get',
-					data: 'userNo=${loginUser.userNo}',
+					data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 					dataType: 'json',
 					success: function(resData){
 						if(resData.isSuccess) {
@@ -220,43 +156,42 @@
 		
 	
 </script>
+<style>
+	.blind {
+		display: none;
+	}
+</style>
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div>
 			<div style="font-size: 24px; font-weight: bold;"> 회원 상세 정보 </div>
+				<input type="hidden"  id="userNo" name="userNo" value="${user.userNo}">
 				<div>
 					프로필사진
 				</div>
 				<div>
 					<div>
-						닉네임 : ${loginUser.nickname}
+						닉네임 : ${user.nickname}
 					</div>
 					<div>
- 						<!--<span>호감도 : </span><span id="prefer_count"></span> 
-						<div>
+						<span id="good">
 							<a id="lnk_good">
-								<span id="heart"></span><span id="good">LOVE    </span><span id="good_count"></span>
-							</a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<a id="lnk_bad">
-								<span id="hate"></span><span id="bad"> HATE    </span><span id="bad_count"></span>
+								<span>좋아요 : </span><span id="good_count"></span>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            
+								<!-- <span id="heart"></span> -->
 							</a>
-						</div> -->
-						
-						<a id="lnk_good">
-							<span id="good">좋아요 : </span><span id="good_count"></span><br>
-							<span id="heart"></span>
-						</a>
-						<hr>
-						<a id="lnk_hate">
-							<span id="hate">싫어요 : </span><span id="hate_count"></span><br>
-							<span id="hater"></span>
-						</a>
+						</span>
+						<span id="hate">
+							<a id="lnk_hate">
+								<span>싫어요 : </span><span id="hate_count"></span><br>
+								<!-- <span id="hater"></span> -->
+							</a>
+						</span>
 						
 					</div>
 					<div>
-						가입일 : ${loginUser.joinDate}
+						가입일 : ${user.joinDate}
 					</div>
 				</div>
 		</div>

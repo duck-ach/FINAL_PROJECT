@@ -12,6 +12,6 @@ public interface QnaReplyMapper {
 
 	public List<QnaReplyDTO> selectReplyList(Map<String, Object> map);
 	public int insertReply(QnaReplyDTO reply);
+	public int updateGroupNo(QnaReplyDTO reply);
 	public int deleteReply(int qnaReplyNo);
-
 }

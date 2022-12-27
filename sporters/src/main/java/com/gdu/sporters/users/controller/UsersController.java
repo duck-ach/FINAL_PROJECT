@@ -201,7 +201,8 @@ public class UsersController {
 
 	// 유저정보팝업
 	@GetMapping("/users/userInfo")
-	public String userInfo() {
+	public String userInfo(HttpServletRequest request, Model model) {
+		usersService.userInformation(request, model);
 		return "/users/userInfo";
 	}
 	

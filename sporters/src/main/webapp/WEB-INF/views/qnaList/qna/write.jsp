@@ -77,8 +77,7 @@ $(document).ready(function(){
 
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>
-					<input class="btn" type="reset" value="제목초기화">
-					<input class="btn" type="button" value="목록" id="btn_list"> 
+					<input class="btn" type="button" value="작성취소" id="btn_list"> 
 				</div>
 			</form>
 		
