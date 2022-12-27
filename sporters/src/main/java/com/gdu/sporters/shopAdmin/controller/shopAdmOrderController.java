@@ -21,4 +21,9 @@ public class shopAdmOrderController {
 		return "shopAdmin/orderManage";
 	}
 	
+	@GetMapping("/shopAdmin/order/detail")
+	public String shopOrderDetail(HttpServletRequest request, Model model) {
+		return null;
+	}
+	
 }

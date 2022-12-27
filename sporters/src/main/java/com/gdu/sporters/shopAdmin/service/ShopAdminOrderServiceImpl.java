@@ -21,15 +21,6 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 	
 	@Override
 	public void getOrderList(HttpServletRequest request, Model model) {
-		
-		String cartNo = request.getParameter("cartNo");
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("cartNo", cartNo);
-		
-		List<CartDTO> carts = shopAdminOrderMapper.selectProdAllPrice(map);
-		
-		
 		model.addAttribute("orderList", shopAdminOrderMapper.selectOrderList());
 	}
 	
