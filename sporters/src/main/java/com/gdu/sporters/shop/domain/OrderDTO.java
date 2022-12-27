@@ -2,6 +2,8 @@ package com.gdu.sporters.shop.domain;
 
 import java.sql.Date;
 
+import com.gdu.sporters.users.domain.UsersDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +25,6 @@ public class OrderDTO {
 	private String jibunAddress;
 	private String detailAddress;
 	private Date orderDate;
+	private UsersDTO users;
+	private CartDTO cart;
 }

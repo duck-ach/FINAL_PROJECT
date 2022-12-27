@@ -44,6 +44,7 @@
 		  	   	  FROM PROD_CATEGORY C INNER JOIN PRODUCT P
 		    		ON P.PROD_CATEGORY_NO = C.PROD_CATEGORY_NO LEFT OUTER JOIN PROD_THUMBNAIL TN
 		    		ON P.PROD_NO = TN.PROD_NO) A
+		 LIMIT #{begin}, #{recordPerPage}
 	</select>
 	
 	<!-- 상품 상세보기 (상세보기 정보용)-->
@@ -130,31 +131,6 @@
 		DELETE
 		  FROM PRODUCT
 		 WHERE PROD_NO = #{prodNo}
-	</delete>
-	
-	<!-- 상품 카테고리 목록 -->
-	<select id="selectCategoryList" resultType="ProdCategoryDTO">
-		SELECT PROD_CATEGORY_NO, PROD_CATEGORY_NAME
-		  FROM PROD_CATEGORY
-	</select>
-	
-	<!-- 상품 카테고리 개수 -->
-	<select id="selectCategoryCnt" resultType="int">
-		SELECT COUNT(*)
-		  FROM PROD_CATEGORY
-	</select>
-	
-	<!-- 상품 카테고리 추가 -->
-	<insert id="insertCategory" parameterType="ProdCategoryDTO">
-		INSERT INTO PROD_CATEGORY (PROD_CATEGORY_NAME)
-		VALUES (#{prodCategoryName})
-	</insert>
-	
-	<!-- 상품 카테고리 삭제 -->
-	<delete id="deleteCategory" parameterType="int">
-		DELETE
-		  FROM PROD_CATEGORY
-		 WHERE PROD_CATEGORY_NO = #{prodCategoryNo}
 	</delete>
 	
 	<!-- 상품검색 자동완성 -->

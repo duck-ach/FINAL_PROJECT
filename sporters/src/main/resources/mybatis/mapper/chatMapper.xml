@@ -19,9 +19,17 @@
 		<result property="gender" column="GENDER"/>
 		<result property="joinDate" column="JOIN_DATE"/>
 	</resultMap>
+	
 	<resultMap type="ChatUserDTO" id="ChatUserMap">
 		<result property="chatRoomId" column="CHAT_ROOM_ID"/>
 		<result property="userNo" column="CHAT_ROOM_ID"/>
+		<association property="user" javaType="UsersDTO">
+			<id property="userNo" column="USER_NO"/>
+			<result property="id" column="ID"/>
+			<result property="nickname" column="NICKNAME"/>
+			<result property="gender" column="GENDER"/>
+			<result property="joinDate" column="JOIN_DATE"/>
+		</association>
 	</resultMap>
 	
 	<!-- 현재 채팅에 접속한 유저목록 -->
@@ -54,7 +62,7 @@
 	
 	<!-- Chat Room List -->
 	<select id="selectChatRoomListByMap" resultType="ChatRoomDTO" parameterType="Map">
-		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT
+		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW
 		  FROM CHAT_ROOM
 		 LIMIT #{begin}, #{recordPerPage}
 	</select>
@@ -76,11 +84,18 @@
 		 WHERE CHAT_ROOM_ID = #{chatRoomId}
 	</select>
 	
-	<!-- 채팅방에 있는 유저 목록 --> 
+	<!-- 채팅방 상세 --> 
 	<select id="selectChatRoomByNo" parameterType="map" resultType="ChatRoomDTO">
 		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW
 		  FROM CHAT_ROOM
 		 WHERE CHAT_ROOM_ID = #{chatRoomId}
+	</select>
+	
+	<!-- 비밀번호 채팅방 -->
+	<select id="selectMatchChatRoomByPw" parameterType="map" resultType="ChatRoomDTO">
+		SELECT CHAT_ROOM_ID, CHAT_ROOM_TITLE, MAX_USERS_CNT, IS_PW, ROOM_PW
+		  FROM CHAT_ROOM
+		 WHERE CHAT_ROOM_ID = #{chatRoomId} AND ROOM_PW = #{roomPw}
 	</select>
 	
 	<!-- insert users -->

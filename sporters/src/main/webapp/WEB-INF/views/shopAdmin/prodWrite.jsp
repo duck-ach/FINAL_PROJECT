@@ -49,7 +49,7 @@ $(function(){
 						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
 						success: function(resData){
 							$('#content').summernote('insertImage', resData.src);
-							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.filesystem + '">'))
+							$('#summernote_image_list').append($('<input type="hidden" name="summernoteImageNames" value="' + resData.tnFilesystem + '">'))
 						}
 					});  // ajax
 				}  // for
