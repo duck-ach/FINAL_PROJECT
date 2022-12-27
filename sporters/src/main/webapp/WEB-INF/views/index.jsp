@@ -12,7 +12,11 @@
 
 	.team_area{
 		width:100%;
+		/*
 		height:400px;
+		*/
+		overflow: hidden;
+		margin-bottom: 50px;
 	}
 	
 	.team_area .swiper{
@@ -33,6 +37,9 @@
 		width:100%;
 		display: flex;
 		justify-content: space-between;	
+		
+		margin-bottom: 70px;
+		
 	}
 	
 	
@@ -52,6 +59,7 @@
 	
 	#preview{
 		position: absolute;
+		z-index: 10;
 		
 	}
 
@@ -106,10 +114,33 @@ $(function(){
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<h1 style="height:50px;line-height:40px;"><span class="spinner-double-section-out"></span><a href="/chat/chatList">채팅하러가기</a></h1>
+			<h1 style="height:50px;line-height:40px;margin-bottom: 20px;"><span class="spinner-double-section-out"></span><a href="/chat/chatList">채팅하러가기</a></h1>
 			
 			
-				<div class="team_area">    
+			
+			<ul class="local_board_image_Area">
+				<c:forEach items="${selectindexThumbNail}"  var="gallery" varStatus="vs">
+					<!-- 	
+					<li>
+						${beginNo - vs.index}	
+					</li>	
+					 -->			
+					<li style="background-image: url(/load/image/${gallery.localImagess.filesystem})" >
+						<a id="moveDetail" href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">
+						${gallery.title}
+						<br>						
+							<img  style="width:100%;height:100%;" src="/load/image/${gallery.localImagess.filesystem}"  class="thumbnail">								
+						</a>	
+					</li>								
+				</c:forEach>		
+			</ul>
+			
+			
+			
+			
+			
+		<!-- 메인 슬라이드 시작 -->
+		<div class="team_area">    
 	    <div class="swiper mySwiper">
 	      <div class="swiper-wrapper">
 	      <!--  -->
@@ -134,22 +165,7 @@ $(function(){
 			
 			
 			
-			<ul class="local_board_image_Area">
-				<c:forEach items="${selectindexThumbNail}"  var="gallery" varStatus="vs">
-					<!-- 	
-					<li>
-						${beginNo - vs.index}	
-					</li>	
-					 -->			
-					<li style="background-image: url(/load/image/${gallery.localImagess.filesystem})" >
-						<a id="moveDetail" href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">
-						${gallery.title}
-						<br>						
-							<img  style="width:100%;height:100%;" src="/load/image/${gallery.localImagess.filesystem}"  class="thumbnail">								
-						</a>	
-					</li>								
-				</c:forEach>		
-			</ul>
+			
 			
 			
 			
