@@ -851,14 +851,12 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public void userInformation(HttpServletRequest request, Model model) {
 		String id = request.getParameter("id");
-		System.out.println(id);
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		
 		UsersDTO user  = usersMapper.selectUsersByMap(map);
 		model.addAttribute("user", user);
-		
-		System.out.println(user);
 	}
 	
 	

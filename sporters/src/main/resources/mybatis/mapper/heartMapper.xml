@@ -6,10 +6,12 @@
 
 <mapper namespace="com.gdu.sporters.users.mapper.HeartMapper">
 
+
 	<select id="heartCheck" parameterType="map" resultType="int">
 		SELECT IS_HEART
 		  FROM HEART
-		 WHERE CLICK_USER_NO = #{clickUserNo}
+		 WHERE USER_NO = #{userNo}
+		   AND CLICK_USER_NO = #{clickUserNo}
 	</select>
 	
 
@@ -53,6 +55,7 @@
 		SELECT *
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
+		   AND CLICK_USER_NO = #{clickUserNo}
 	</select>
 	
 	

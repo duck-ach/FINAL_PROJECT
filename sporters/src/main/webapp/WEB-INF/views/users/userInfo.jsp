@@ -18,7 +18,7 @@
 			$.ajax({
 				type: 'get',
 				url: '/heart/isHeartCheck',
-				data: 'userNo=${loginUser.userNo}',
+				data: '&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					if(resData.isHeart == 0){
@@ -33,7 +33,7 @@
 			$.ajax({
 				url: '/heart/getHeartCheck',
 				type: 'get',
-				data: 'userNo=${loginUser.userNo}',
+				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					if (resData.count == 0) {
@@ -54,7 +54,7 @@
 			$.ajax({
 				url: '/heart/getHeartCount',
 				type: 'get',
-				data: 'userNo=${loginUser.userNo}',
+				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					$('#good_count').empty();
@@ -63,6 +63,7 @@
 			});
 		}
 		
+		// 좋아요 누른 경우
 		function fn_pressGood(){
 			$('#lnk_good').click(function(){
 				// 로그인을 해야 "좋아요"를 누를 수 있다.
@@ -89,7 +90,7 @@
 				$.ajax({
 					url: '/heart/markLike',
 					type: 'get',
-					data: 'userNo=${loginUser.userNo}',
+					data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 					dataType: 'json',
 					success: function(resData){
 						if(resData.isSuccess) {
@@ -105,7 +106,7 @@
 			$.ajax({
 				url: '/heart/getHateCount',
 				type: 'get',
-				data: 'userNo=${loginUser.userNo}',
+				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					$('#hate_count').empty();
@@ -114,6 +115,8 @@
 			});
 		}
 		
+		
+		// 싫어요 누른 경우
 		function fn_pressHate(){
 			$('#lnk_hate').click(function(){
 				// 로그인을 해야 "좋아요"를 누를 수 있다.
@@ -140,7 +143,7 @@
 				$.ajax({
 					url: '/heart/markhate',
 					type: 'get',
-					data: 'userNo=${loginUser.userNo}',
+					data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 					dataType: 'json',
 					success: function(resData){
 						if(resData.isSuccess) {
@@ -164,7 +167,7 @@
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div>
 			<div style="font-size: 24px; font-weight: bold;"> 회원 상세 정보 </div>
-				<input type="hidden"  name="userNo" value="${userNo}">
+				<input type="hidden"  id="userNo" name="userNo" value="${user.userNo}">
 				<div>
 					프로필사진
 				</div>
@@ -173,15 +176,6 @@
 						닉네임 : ${user.nickname}
 					</div>
 					<div>
- 						<!--<span>호감도 : </span><span id="prefer_count"></span> 
-						<div>
-							<a id="lnk_good">
-								<span id="heart"></span><span id="good">LOVE    </span><span id="good_count"></span>
-							</a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<a id="lnk_bad">
-								<span id="hate"></span><span id="bad"> HATE    </span><span id="bad_count"></span>
-							</a>
-						</div> -->
 						<span id="good">
 							<a id="lnk_good">
 								<span>좋아요 : </span><span id="good_count"></span>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            

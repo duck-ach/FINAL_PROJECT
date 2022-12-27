@@ -75,6 +75,8 @@ public class HeartServiceImpl implements HeartService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
 		map.put("clickUserNo", clickUserNo);
+		
+		System.out.println("map : " + map);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		HeartDTO heart = heartMapper.selectLoveOrHate(map);
