@@ -19,7 +19,7 @@ public class OrderDTO {
 	private String name;
 	private String mobile;
 	private String postcode;
-	private String loadAddress;
+	private String roadAddress;
 	private String jibunAddress;
 	private String detailAddress;
 	private Date orderDate;
