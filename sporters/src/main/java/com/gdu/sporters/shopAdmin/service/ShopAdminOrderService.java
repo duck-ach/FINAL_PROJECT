@@ -6,4 +6,5 @@ import org.springframework.ui.Model;
 
 public interface ShopAdminOrderService {
 	public void getOrderList(HttpServletRequest request, Model model);
+	public void getOrderDetail(HttpServletRequest request, Model model);
 }

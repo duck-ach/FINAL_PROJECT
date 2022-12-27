@@ -32,7 +32,7 @@
 					<td>${order.priceAll}</td>
 					<td>${order.orderState}</td>
 					<td>${order.orderDate}</td>
-					<td><a href="/shopAdmin/order/detail?orderNo="${order.orderNo}>상세보기</a></td>
+					<td><a href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

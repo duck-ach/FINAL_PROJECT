@@ -23,7 +23,8 @@ public class shopAdmOrderController {
 	
 	@GetMapping("/shopAdmin/order/detail")
 	public String shopOrderDetail(HttpServletRequest request, Model model) {
-		return null;
+		shopAdminOrderService.getOrderDetail(request, model);
+		return "shopAdmin/orderDetail";
 	}
 	
 }
