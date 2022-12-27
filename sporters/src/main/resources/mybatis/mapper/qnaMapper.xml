@@ -35,7 +35,14 @@
 		INSERT INTO QNA
 			(USER_NO, QNA_TITLE, QNA_ID, QNA_PW, QNA_CONTENT, QNA_CREATE_DATE, STATE, DEPTH, GROUP_NO, IS_PW)
 		VALUES
-			( #{userNo}, #{qnaTitle}, #{qnaId}, 0, #{qnaContent}, NOW(), 1, 0, #{qnaNo})
+			( #{userNo}, #{qnaTitle}, #{qnaId}, 0, #{qnaContent}, NOW(), 1, 0, #{qnaNo}, 0)
+	</insert>
+	
+	<insert id="insertQnaPw" useGeneratedKeys="true" keyProperty="qnaNo" parameterType="QnaDTO">
+		INSERT INTO QNA
+			(USER_NO, QNA_TITLE, QNA_ID, QNA_PW, QNA_CONTENT, QNA_CREATE_DATE, STATE, DEPTH, GROUP_NO, IS_PW)
+		VALUES
+			( #{userNo}, #{qnaTitle}, #{qnaId}, #{qnaPw}, #{qnaContent}, NOW(), 1, 0, #{qnaNo}, #{isPw})
 	</insert>
 	
 	<update id="updateQna" parameterType="QnaDTO">

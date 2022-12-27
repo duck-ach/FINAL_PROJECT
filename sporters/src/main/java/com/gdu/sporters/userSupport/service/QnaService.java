@@ -13,6 +13,7 @@ public interface QnaService {
 	public void findAllQnaList(HttpServletRequest request, Model model);
 	public void saveQna(HttpServletRequest request, HttpServletResponse response);
 	public QnaDTO getQnaByNo(int qnaNo);
+	public void checkPwQna(HttpServletRequest request, HttpServletResponse response);
 	public void modifyQna(HttpServletRequest request, HttpServletResponse response);
 	public void removeQna(HttpServletRequest request, HttpServletResponse response);
 }

@@ -36,6 +36,15 @@ $(document).ready(function(){
      });
 		
 	
+	$('#isPw').click(function(){
+		if($('#isPw').is(':checked')){
+			$('#qnaPw').removeAttr("disabled");
+		} else {
+			$('#qnaPw').attr("disabled", true);
+		}
+	});
+	
+	
 	// 목록
 	$('#btn_list').click(function(){
 		location.href = '/qna/list';
@@ -49,6 +58,7 @@ $(document).ready(function(){
 			return; // 더 이상 코드 실행할 필요 없음
 		}
 	});
+	
 	
 });
 

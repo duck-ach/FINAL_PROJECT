@@ -5,12 +5,8 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-	$(function(){
-		
-	});
-	
-</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
@@ -26,27 +22,28 @@
 						<tr>
 							<td>번호</td>
 							<td>제목</td>
+							<td>작성자</td>
 							<td>작성일</td>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${qnaList}" var="qna" varStatus="vs">
+						<c:forEach items="${qna}" var="qna" varStatus="vs">
 							<tr>
 								<td>${beginNo - vs.index}</td>
-								<c:if test="${qnaList.isPw == '1'}">
-									<td><i class="fa-solid fa-lock"></i><a href="/qna/detail?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+								<c:if test="${qna.isPw == 1}">
+									<td><i class="fa-solid fa-lock"></i><a href="/qna/lock?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
 								</c:if>
-								<c:if test="${chatRoom.isPw == '0'}">
-									<td><a href="/qna/detail?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+								<c:if test="${qna.isPw == 0}">
+									<td><a href="/qna/lock?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
 								</c:if>
+								<td>${qna.qnaId}</td>
 								<td>${qna.qnaCreateDate}</td>
-								<td></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="4">
+							<td colspan="4" style="text-align: center;">
 								${paging}
 							</td>
 						</tr>

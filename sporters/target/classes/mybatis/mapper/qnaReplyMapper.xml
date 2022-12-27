@@ -24,8 +24,8 @@
 
 	<select id="selectReplyList" parameterType="Map" resultType="QnaReplyDTO">
 		SELECT QNA_REPLY_NO, QNA_NO, QNA_REPLY_CONTENT, QNA_REPLY_CREATE_DATE, STATE, DEPTH, GROUP_NO
-		FROM QNA_REPLY
-		WHERE QNA_NO = #{qnaNo}
+		  FROM QNA_REPLY
+		 WHERE QNA_NO = #{qnaNo}
 	</select>
 	
 	<insert id="insertReply" parameterType="qnaDTO">
