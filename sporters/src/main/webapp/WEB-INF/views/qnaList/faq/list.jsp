@@ -6,11 +6,18 @@
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-	$(function(){
-		
+	$(document).ready(function(){
+		$('#btn_write').click(function(){
+			location.href = '/faq/write';
+		});
 	});
 	
 </script>
+<style>
+	.blind{
+		display: none;
+	}
+</style>
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
@@ -18,6 +25,11 @@
 		<div>
 			<div style="font-size: 32px;"> FAQ </div>
 			<div>
+				<c:if test="${loginUser.id == 'admin'}">
+					<div>
+						<input type="button" id="btn_write" value="작성">
+					</div>
+				</c:if>
 				<table border="1">
 					<thead>				
 						<tr>
@@ -27,10 +39,26 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${faqList}" var="faq" varStatus="vs">
-							<tr>
-								<td>${beginNo - vs.index}</td>
-								<td>${faq.title}</td>
-							</tr>
+							<c:if test="${faq.state == 1}">
+								<tr>
+									<td>${beginNo - vs.index}</td>
+									<td class="title_td">${faq.faqTitle}
+										<script>
+											$('.title_td').click(function(){
+												$('.reply_tr').addClass('blind');
+												$(this).parent().next().removeClass("blind");
+											});
+										</script>
+									</td>
+								</tr>
+								<tr class="reply_tr blind">
+									<td colspan="2">
+										<c:if test="${faq.depth > 0}">
+											${faq.faqContent}
+										</c:if>
+									</td>
+								</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 					<tfoot>

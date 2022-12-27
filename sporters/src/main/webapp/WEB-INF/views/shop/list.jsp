@@ -11,7 +11,6 @@
 	$(document).ready(function(){
 		
 		 $(".btn_addCart").click(function(){
-			alert('?');
 			var prodNo = $('.prodNo').val();
 			var prodCnt = $('.prodCnt').val();
 			var data = {

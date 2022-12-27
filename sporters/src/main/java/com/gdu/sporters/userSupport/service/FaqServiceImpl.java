@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.userSupport.domain.FaqDTO;
@@ -39,6 +40,7 @@ public class FaqServiceImpl implements FaqService {
 		map.put("end", pageUtil.getEnd());
 		
 		List<FaqDTO> faqList = faqMapper.selectAllFaqList(map);
+		
 				
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("faqList", faqList);
@@ -46,15 +48,18 @@ public class FaqServiceImpl implements FaqService {
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/faq/list"));
 	}
 	
+	@Transactional
 	@Override
 	public void saveFaq(HttpServletRequest request, HttpServletResponse response) {
 		String faqTitle = request.getParameter("faqTitle");
 		String faqContent = request.getParameter("faqContent");
-		
-		FaqDTO faq = FaqDTO.builder()
-					.faqTitle(faqTitle)
-					.faqContent(faqContent)
-					.build();
+		int depth = Integer.parseInt(request.getParameter("depth"));
+		int groupNo = Integer.parseInt(request.getParameter("groupNo"));
+		FaqDTO faq = new FaqDTO();
+		faq.setFaqTitle(faqTitle);
+		faq.setFaqContent(faqContent);
+		faq.setDepth(depth);
+		faq.setGroupNo(groupNo);
 		int result = faqMapper.insertFaq(faq);
 		
 		try {
@@ -76,6 +81,7 @@ public class FaqServiceImpl implements FaqService {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 	
 	@Override
@@ -131,21 +137,7 @@ public class FaqServiceImpl implements FaqService {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

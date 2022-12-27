@@ -25,14 +25,9 @@ public class BoardLocalController {
 	
 	
 	
-	/*
-	 * @GetMapping("/free/list") public String freeList() { return
-	 * "community/free/list"; }
-	 */
-	
 	@GetMapping(value="/local/list")
 	public String localList(HttpServletRequest request, Model model) {
-	//	galleryService.getGalleryList(request, model);
+		galleryLocalService.getLocalGalleryList(request, model);
 		return "community/local/list";
 	}
 	
@@ -77,7 +72,7 @@ public class BoardLocalController {
 	
 	@GetMapping("/local/detail") // model에다 실어놓으면 수정하기 할때 재활용이 X
 	public String detail(@RequestParam(value="localBoardNo", required=false, defaultValue="0") int localBoardNo,HttpServletRequest request, Model model) {
-		model.addAttribute("gallery", galleryLocalService.getLocalGalleryByNo(localBoardNo));
+		model.addAttribute("LocalgalleryList", galleryLocalService.getLocalGalleryByNo(localBoardNo));
 	//	galleryService.getGalleryList(request, model);
 		return "community/local/detail";
 	}

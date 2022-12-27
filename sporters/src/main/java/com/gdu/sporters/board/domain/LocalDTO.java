@@ -27,4 +27,7 @@ public class LocalDTO {
 	private String ip;
 	private Date modifyDate;
 	private UsersDTO users;
+	private String joinStart;
+	private String joinEnd;
+	private LocalImageDTO localImagess;
 }

@@ -24,22 +24,29 @@
 <script src="/resources/js/left_menus.js"></script>
  -->
 <style type="text/css">
-	body{
-		
+	html,body{
+	height:100%;
+	position: relative; 
+	
+		/*
 			width:1280px;
 			margin:0 auto;
-		
+		*/
 	
 	}
 	.main_header_area{
+	position: relative;
+	/*
 	position: fixed;
+	*/
 		width:100%;
 		top: 0;
 	    left: 0;
 	    background-color: #EDEBFE;
+	    z-index: 11;
 	}
 	.main_header_area_fix{
-	/*	position:;*/
+/*	position: fixed;*
 	   width:1280px;
 	  margin: 0 auto;
 	}
@@ -55,38 +62,41 @@
 	.spoters_logo img{
 		width:100%;
 	}
+	
+	/*
 		.left_side_gnd_area{
 		position: fixed;
-		/*
+		
 		left:0px;
-		top:164px;
-		*/
+		
+		
 		left:0%;
+		top:164px;
 		border:1px solid #000;
 		width: 240px;
 	}
 	
 	
-	
+	*/
 
 	.wrap{
-		margin: 222px auto;
+		position:relative;
+		top:0px;
+		margin: 50px auto;
 	   
 	    width: 70%;
 	    overflow: hidden;
-	    border: 2px solid #000;
+	/*    border: 2px solid #000;*/
 	}
 	
 	.wrap .content_leyout_section{
-		width:100%;
-		
-		
-		
+		width:100%;		
 	}
 	
 
 </style>
 </head>
+<!--  
 <script type="text/javascript">
 $(function(){
 //	var header_height = $('.main_header_area').height()  +  50;
@@ -95,7 +105,7 @@ $(function(){
 
 
 </script>
-
+-->
 
 
 <header class="main_header_area">
@@ -107,7 +117,7 @@ $(function(){
 
 
 
-
+<!--
 <div id="left_side_gnd_area"  class="left_side_gnd_area">
           
       <ul>
@@ -122,12 +132,8 @@ $(function(){
 	 	<li><a href="/faq/list">자주하는질문</a> </li>
 	 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
 	 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
-      </ul>
-   
-  
-  
-    
+      </ul>    
   </div>
-
+  -->
 
 </header>

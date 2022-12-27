@@ -13,10 +13,12 @@ import com.gdu.sporters.board.domain.LocalDTO;
 public interface GalleryLocalService {
 	
 	public void getLocalGalleryList(HttpServletRequest request, Model model);
-
+	public void selectindexThumbNail(HttpServletRequest request, Model model);
+	
 	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest);
 	public void saveLocalGallery(HttpServletRequest request, HttpServletResponse response);
 	public LocalDTO getLocalGalleryByNo(int localBoardNo);
+	
 	
 	public int increaseLocalHit(int localBoardNo);
 //	public ImageDTO getGalleryByNo(int galleryNo);

@@ -53,17 +53,17 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 		galleryPageUtil.setPageUtil(page, totalRecord);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", galleryPageUtil.getBegin());
-		map.put("end", galleryPageUtil.getEnd());
+		map.put("begin", galleryPageUtil.getBegin() - 1);
+		map.put("recordPerPage", galleryPageUtil.getRecordPerPage());
 
-		List<LocalDTO> galleryList = localBoardMapper.selectLocalList(map);
+		List<LocalDTO> LocalgalleryList = localBoardMapper.selectLocalList(map);
 
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
-		model.addAttribute("galleryList", galleryList);
+		model.addAttribute("LocalgalleryList", LocalgalleryList);
 		model.addAttribute("paging", galleryPageUtil.getPaging("/local/list"));
 
-	}
+	} 
 	
 
 	
@@ -77,9 +77,14 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
+		String joinStart = request.getParameter("joinStart");
+		String joinEnd = request.getParameter("joinEnd");
+		int localNo = Integer.parseInt(request.getParameter("localNo"));
 		Optional<String> opt = Optional.ofNullable(request.getHeader("X-Forwarded-For"));
 		String Ip = opt.orElse(request.getRemoteAddr());		
-	
+		
+		
+		
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO) session.getAttribute("loginUser");
 		
@@ -88,6 +93,9 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 						.content(content)						
 						.ip(Ip)
 						.userNo(loginUser.getUserNo())
+						.localNo(localNo)
+						.joinStart(joinStart)
+						.joinEnd(joinEnd)
 						.build();
 					System.out.println(freeBbs);
 		
@@ -191,11 +199,11 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 		LocalDTO gallery = localBoardMapper.selectLocalByNo(localBoardNo);
 		
 		// 갤러리에서 사용한 것으로 되어 있는 써머노트 이미지(저장된 파일명이 DB에 저장되어 있고, 실제로 HDD에도 저장되어 있음)
-		List<LocalImageDTO> summernoteImageList = localBoardMapper.selectSummernoteImageListInGallery(localBoardNo);
+		List<LocalImageDTO> LocalsummernoteImageList = localBoardMapper.selectSummernoteImageListInGallery(localBoardNo);
 
 		// 갤러리에서 사용한 것으로 저장되어 있으나 갤러리 내용(content)에는 없는 써머노트 이미지를 찾아서 제거
-		if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
-			for (LocalImageDTO summernoteImage : summernoteImageList) {
+		if (LocalsummernoteImageList != null && LocalsummernoteImageList.isEmpty() == false) {
+			for (LocalImageDTO summernoteImage : LocalsummernoteImageList) {
 				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
 					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
 			//		File file = new File("file:"+ File.separator + "///summernoteImage", summernoteImage.getFilesystem());
@@ -327,7 +335,16 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 	}
 
 	
-	
+	@Override
+	public void selectindexThumbNail(HttpServletRequest request, Model model) {	
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		List<LocalDTO> selectindexThumbNail = localBoardMapper.selectindexThumbNail(map);
+
+		model.addAttribute("selectindexThumbNail", selectindexThumbNail);
+		
+	}
 	
 	/*
 	@Override
