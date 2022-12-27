@@ -18,6 +18,8 @@ public class OrderDTO {
 	private int userNo;
 	private int cartNo;
 	private int payment;
+	private int priceAll; // 전체가격
+	private String orderState; // 주문상태
 	private String name;
 	private String mobile;
 	private String postcode;
