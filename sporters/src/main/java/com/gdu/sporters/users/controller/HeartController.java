@@ -16,6 +16,12 @@ public class HeartController {
 	@Autowired
 	private HeartService heartService;
 	
+	
+	@GetMapping(value="/heart/isHeartCheck", produces="application/json")
+	public Map<String, Object> isHeartCheck(HttpServletRequest request){
+		return heartService.isHeartCheck(request);
+	}
+	
 	@GetMapping(value="/heart/getHeartCheck", produces="application/json")
 	public Map<String, Object> getHeartCheck(HttpServletRequest request){
 		return heartService.getHeartCheck(request);

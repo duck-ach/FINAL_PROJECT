@@ -8,6 +8,7 @@ import com.gdu.sporters.users.domain.HeartDTO;
 
 @Mapper
 public interface HeartMapper {
+	public int heartCheck(Map<String, Object> map);
 	public int selectUserHeartCount(Map<String, Object> map);
 //	public int selectUserLoveCount(int love);
 	public int selectUserHateCount(Map<String, Object> map);

@@ -6,13 +6,28 @@
 <script>
 	
 	$(function(){
+		fn_isheartCheck();
 		fn_goodCheck();
-		fn_hateCheck();
 		fn_goodCount();
 		fn_hateCount();
 		fn_pressGood();
 		fn_pressHate();
 	});
+	
+		function fn_isheartCheck(){
+			$.ajax({
+				type: 'get',
+				url: '/heart/isHeartCheck',
+				data: 'userNo=${loginUser.userNo}',
+				dataType: 'json',
+				success: function(resData){
+					if(resData.isHeart == 1){
+						alert('좋아요 싫어요 중 하나만 눌러주세요!');
+					}
+				}
+			});
+		}
+	
 		
 		function fn_goodCheck(){
 			$.ajax({
@@ -24,31 +39,16 @@
 					if (resData.count == 0) {
 						$('#heart').text('♥');
 						$('#good').removeClass("good_checked");
+						
 					} else {
-						$('#heart').text('LIKE ♡');
-						$('#good').addClass("good_checked");
+						$('#hater').text('♥');
+						$('#hate').removeClass("hate_checked");
 					}
 				}
 			});
 		}
 		
-		function fn_hateCheck(){
-			$.ajax({
-				url: '/heart/getHeartCheck',
-				type: 'get',
-				data: 'userNo=${loginUser.userNo}',
-				dataType: 'json',
-				success: function(resData){
-					if (resData.count == 0) {
-						$('#hater').text('♥');
-						$('#hate').removeClass("good_checked");
-					} else {
-						$('#hater').text('LIKE ♡');
-						$('#hate').addClass("good_checked");
-					}
-				}
-			});
-		}
+
 		
 		function fn_goodCount(){
 			$.ajax({
@@ -58,7 +58,7 @@
 				dataType: 'json',
 				success: function(resData){
 					$('#good_count').empty();
-					$('#good_count').text(resData.count + '점');
+					$('#good_count').text(resData.count);
 				}
 			});
 		}
@@ -77,11 +77,14 @@
 				}
 				// "좋아요" 선택/해제 상태에 따른 하트 변경
 				$('#good').toggleClass("good_checked");
+				$('#hate').toggleClass('blind');
+				/*
 				if ($('#good').hasClass("good_checked")) {
 					$('#heart').text('LIKE ♥');
 				} else {
 					$('#heart').text('LIKE ♡');
 				}
+				*/
 				// "좋아요" 처리
 				$.ajax({
 					url: '/heart/markLike',
@@ -106,7 +109,7 @@
 				dataType: 'json',
 				success: function(resData){
 					$('#hate_count').empty();
-					$('#hate_count').text(resData.count + '점');
+					$('#hate_count').text(resData.count);
 				}
 			});
 		}
@@ -125,11 +128,14 @@
 				}
 				// "좋아요" 선택/해제 상태에 따른 하트 변경
 				$('#hate').toggleClass("hate_checked");
+				$('#good').toggleClass('blind');
+				/*
 				if ($('#hate').hasClass("hate_checked")) {
 					$('#hater').text('HATE ♥');
 				} else {
 					$('#hater').text('HATE ♡');
 				}
+				*/
 				// "싫어요" 처리
 				$.ajax({
 					url: '/heart/markhate',
@@ -147,6 +153,11 @@
 		
 	
 </script>
+<style>
+	.blind {
+		display: none;
+	}
+</style>
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
@@ -170,16 +181,18 @@
 								<span id="hate"></span><span id="bad"> HATE    </span><span id="bad_count"></span>
 							</a>
 						</div> -->
-						
-						<a id="lnk_good">
-							<span id="good">좋아요 : </span><span id="good_count"></span><br>
-							<span id="heart"></span>
-						</a>
-						<hr>
-						<a id="lnk_hate">
-							<span id="hate">싫어요 : </span><span id="hate_count"></span><br>
-							<span id="hater"></span>
-						</a>
+						<span id="good">
+							<a id="lnk_good">
+								<span>좋아요 : </span><span id="good_count"></span>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            
+								<!-- <span id="heart"></span> -->
+							</a>
+						</span>
+						<span id="hate">
+							<a id="lnk_hate">
+								<span>싫어요 : </span><span id="hate_count"></span><br>
+								<!-- <span id="hater"></span> -->
+							</a>
+						</span>
 						
 					</div>
 					<div>

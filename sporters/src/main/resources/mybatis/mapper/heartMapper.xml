@@ -6,6 +6,12 @@
 
 <mapper namespace="com.gdu.sporters.users.mapper.HeartMapper">
 
+	<select id="heartCheck" parameterType="map" resultType="int">
+		SELECT IS_HEART
+		  FROM HEART
+		 WHERE USER_NO = #{userNo}
+	</select>
+
 	<select id="selectUserHeartCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		  FROM HEART
@@ -13,7 +19,7 @@
 		   AND LOVE = 1
 	</select>
 	
-	<select id="selectUserHateCount" parameterType="int" resultType="int">
+	<select id="selectUserHateCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}

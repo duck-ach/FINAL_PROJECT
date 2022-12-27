@@ -17,6 +17,23 @@ public class HeartServiceImpl implements HeartService {
 	@Autowired
 	private HeartMapper heartMapper;
 
+	
+
+	@Override
+	public Map<String, Object> isHeartCheck(HttpServletRequest request) {
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNo", userNo);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isHeart", heartMapper.heartCheck(map));
+		
+		return result;
+	}
+
+	
+	
+	
 	@Override
 	public Map<String, Object> getHeartCheck(HttpServletRequest request) {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
