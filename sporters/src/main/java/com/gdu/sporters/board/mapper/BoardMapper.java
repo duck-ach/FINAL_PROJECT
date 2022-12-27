@@ -32,7 +32,7 @@ public interface BoardMapper {
 	public int updateHit(int userNo);
 	public int deleteFreeGallery(int freeNo);
 	
-	// 게시판 관리
+	// 게시판 관리용 다중삭제, (지원추가)
 	public int deleteFreeList(List<String> freeNoList);
 
 	

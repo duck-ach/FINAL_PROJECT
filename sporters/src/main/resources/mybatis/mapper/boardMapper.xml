@@ -115,6 +115,7 @@
 		 WHERE FREE_NO = #{freeNo}
 	</delete>
 	
+	<!-- 다중 삭제(지원추가) -->
 		<delete id="deleteFreeList" parameterType="List">
 		DELETE
 		  FROM FREE

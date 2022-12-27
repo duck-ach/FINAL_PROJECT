@@ -25,21 +25,15 @@ public class BoardAdminController {
 	@GetMapping(value="admin/adminFreeList")
 	public String freeList(HttpServletRequest request, Model model) {
 		galleryService.getGalleryList(request, model);
-		return "community/free/list";
+		return new String("admin/adminFreeList");
 	}
 	
-	// 개별삭제
-	@PostMapping("/admin/removeFree")
-	public void remove(HttpServletRequest request, HttpServletResponse response) {
-		// removeBoard() 메소드에 list.jsp로 redirect하는 코드가 있기 때문에 return 없이 void 처리합니다.
-		adminService.removeBoard(request, response);
-	}
 	
 	// 다중삭제
-	@PostMapping("/admin/removeFreeList")
+	@PostMapping(value="/admin/removeFreeList")
 	public void removeList(HttpServletRequest request, HttpServletResponse response) {
 		// removeBoardList() 메소드에 list.jsp로 redirect하는 코드가 있기 때문에 return 없이 void 처리합니다.
-		adminService.removeBoardList(request, response);
+		adminService.removeFreeBoardList(request, response);
 	}
 	
 		

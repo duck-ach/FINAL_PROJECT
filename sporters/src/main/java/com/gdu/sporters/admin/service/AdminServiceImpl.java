@@ -21,11 +21,14 @@ import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.ScrollPageUtil;
 import com.gdu.sporters.util.SecurityUtil;
 
+
 @Service
 public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminMapper adminMapper;
+	
+	@Autowired
 	private BoardMapper boardMapper;
 	
 	@Autowired
@@ -42,25 +45,25 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Map<String, Object> getAllUsers(HttpServletRequest request) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userList", adminMapper.selectAllUsers());
-		return map;
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("userList", adminMapper.selectAllUsers());
+	return map;
 	}
 	
 	@Override
 	public Map<String, Object> searchUsersbyQuery(HttpServletRequest request) {
 		
-		String column = request.getParameter("column");
-		String searchText = securityUtil.preventXSS(request.getParameter("searchText"));
-		System.out.println(column);
-		System.out.println(searchText);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("column", column);
-		map.put("searchText", searchText);
-		List<UsersDTO> users = adminMapper.selectAllUsersByQuery(map);
-		System.out.println(users);
-		map.put("users", users);
-		return map;
+	String column = request.getParameter("column");
+	String searchText = securityUtil.preventXSS(request.getParameter("searchText"));
+	System.out.println(column);
+	System.out.println(searchText);
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("column", column);
+	map.put("searchText", searchText);
+	List<UsersDTO> users = adminMapper.selectAllUsersByQuery(map);
+	System.out.println(users);
+	map.put("users", users);
+	return map;
 		
 	}
 	
@@ -69,14 +72,14 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional
 	@Override
 	public Map<String, Object> removeUsers(HttpServletRequest request, Map<String, Object> parameterMap) {
-		// 파라미터 userNo, title, content
-		String[] userNo = request.getParameterValues("userNo[]");
-		int userNoInt = 0;
-		UsersDTO user = new UsersDTO();
-		List<UsersDTO> users = new ArrayList<>();
-		Map<String, Object> map = new HashMap<>();
-		Map<String, Object> retireMap = new HashMap<>();
-		RetireUsersDTO retireUser = new RetireUsersDTO();
+	// 파라미터 userNo, title, content
+	String[] userNo = request.getParameterValues("userNo[]");
+	int userNoInt = 0;
+	UsersDTO user = new UsersDTO();
+	List<UsersDTO> users = new ArrayList<>();
+	Map<String, Object> map = new HashMap<>();
+	Map<String, Object> retireMap = new HashMap<>();
+	RetireUsersDTO retireUser = new RetireUsersDTO();
 		
 		for (int i = 0; i < userNo.length; i++) {
 			userNoInt = Integer.parseInt(userNo[i]);
@@ -100,41 +103,14 @@ public class AdminServiceImpl implements AdminService {
 		map.put("userList", adminMapper.selectAllUsers());
 		return map;
 	}
+	
 	@Override
-	public void removeBoard(HttpServletRequest request, HttpServletResponse response) {
-		int boardNo = Integer.parseInt(request.getParameter("boardNo")); 
-		
-		int result = boardMapper.deleteFreeGallery(boardNo);
-		
-		try {
-			
-			// 자바스크립트로 응답으로 만들어서 처리하는 방식
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			out.println("<script>");
-			if(result > 0) {
-				out.println("alert('삭제 성공');");
-				out.println("location.href='" + request.getContextPath() + "/brd/list';");  //  /brd/list로 redirect
-			} else {
-				out.println("alert('삭제 실패');");
-				out.println("history.back();");  // 이전 화면으로 이동
-			}
-			out.println("</script>");
-			out.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	@Override
-	public void removeBoardList(HttpServletRequest request, HttpServletResponse response) {
+	public void removeFreeBoardList(HttpServletRequest request, HttpServletResponse response) {
 		// 파라미터
-		String[] freeNoList = request.getParameterValues("freeNoList");
+		String[] galleryList = request.getParameterValues("galleryList");
 		
 		// 삭제
-		int result = boardMapper.deleteFreeList(Arrays.asList(freeNoList));  // String 배열을 List<String>으로 변경해서 전달
+		int result = boardMapper.deleteFreeList(Arrays.asList(galleryList)); // String 배열을 List<String>으로 변경해서 전달
 		
 		try {
 			
@@ -145,7 +121,7 @@ public class AdminServiceImpl implements AdminService {
 			out.println("<script>");
 			if(result > 0) {
 				out.println("alert('모두 삭제 성공');");
-				out.println("location.href='" + request.getContextPath() + "/admin/adminFreeList';");  //  /brd/list로 redirect
+				out.println("location.href='/admin/adminFreeList';");  //  /brd/list로 redirect
 			} else {
 				out.println("alert('모두 삭제 실패');");
 				out.println("history.back();");  // 이전 화면으로 이동
@@ -158,6 +134,8 @@ public class AdminServiceImpl implements AdminService {
 		}
 		
 	}
+	
+	
 		
 	}
 

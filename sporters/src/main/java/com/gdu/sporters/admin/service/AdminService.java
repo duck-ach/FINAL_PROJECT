@@ -12,7 +12,6 @@ public interface AdminService {
 	public Map<String, Object> searchUsersbyQuery(HttpServletRequest request);
 	public Map<String, Object> removeUsers(HttpServletRequest request, Map<String, Object> parameterMap);
 //	public void removeUsers(HttpServletResponse response, HttpServletRequest request ); 
-	public void removeBoard(HttpServletRequest request, HttpServletResponse response);
-	public void removeBoardList(HttpServletRequest request, HttpServletResponse response);
+	public void removeFreeBoardList(HttpServletRequest request, HttpServletResponse response);
 
 }

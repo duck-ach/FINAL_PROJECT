@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/adminHeader.jsp">
-	<jsp:param value="자유게시판_관리자" name="title" />
+	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
 <script>
 	
@@ -12,7 +13,7 @@
 		fn_checkAll();
 		fn_checkOne();
 		fn_removeList();
-		fn_iconNew();
+
 		
 		// 전체선택
 		function fn_checkAll(){
@@ -60,14 +61,14 @@
 		<div><a href="/free/write">글쓰러가기</a>  </div>
 		<div> 여기부터 각자 내용 넣기 시작
 			
-			<form id="frm_search" method="post">										
+			<form id="frm_search"  action="/admin/removeFreeList" method="post">										
 				<br><hr><br>
-				
+				<button>선택삭제</button>
 				<table border="1">
 					<thead>
 						<tr>	
 							<td>
-							<label for="check_all" id="lbl_check_all">전체선택</label>
+							<label for="check_all" id="lbl_check_all"></label>
 							<input type="checkbox" id="check_all" class="blind">
 							</td>
 							<td>글 제목</td>	
@@ -77,17 +78,15 @@
 							<td>회원 핸드폰번호</td>												
 							<td>회원 포인트</td>	 						 
 							<td>작성 글 수</td>
-							<td>삭제</td>
 								
 						</tr>
 					</thead>
 					<tbody id="list">						
 						<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
 							<tr>
-								<td><input type="checkbox" name="freeNoList" value="${gallery.freeNo}" class="check_one"></td>
+								<td><input type="checkbox" name="galleryList" value="${gallery.freeNo}" class="check_one"></td>
 								<td>${beginNo - vs.index}</td>						
-								<td><a id="moveDetail"
-									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
+								<td><a id="moveDetail" href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
 								<td>${gallery.users.id}</td>
 								<td>${gallery.users.nickname}</td>
 								<td>${gallery.users.gender}</td>
@@ -112,13 +111,13 @@
 	
 </section>기본틀 1
 	
- <jsp:include page="../layout/right_side.jsp"> --%>
- 	<jsp:param value="right_side" name="right_side" /> --%>
+ <jsp:include page="../layout/right_side.jsp">
+ 	<jsp:param value="right_side" name="right_side" />
 </jsp:include>
 
 <script type="text/javascript">
  $(function(){
- 	 var right_side =  $('.content_leyout_section').offset().top;
+ 	var right_side =  $('.content_leyout_section').offset().top;
  	var my_right_side = $('.right_side_menu_area').width();
  	var right_side_marginLeft = $('.content_leyout_section').width() + my_right_side*2 ;
 

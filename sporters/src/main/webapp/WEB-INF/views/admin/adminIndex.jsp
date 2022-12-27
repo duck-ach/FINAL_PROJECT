@@ -9,6 +9,7 @@
 
 	<a href="${contextPath}/admin/userAdmin">유저관리</a>
 	<a href="${contextPath}/admin/singoCategory">신고카테고리관리</a>
+	<a href="${contextPath}/admin/adminFreeList">게시판관리</a>
 
 </body>
 </html>
