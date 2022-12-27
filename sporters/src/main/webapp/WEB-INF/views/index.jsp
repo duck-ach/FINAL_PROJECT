@@ -6,12 +6,17 @@
 </jsp:include>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/sniper.css">
 <style>
 
 	.team_area{
 		width:100%;
+		/*
 		height:400px;
+		*/
+		overflow: hidden;
+		margin-bottom: 50px;
 	}
 	
 	.team_area .swiper{
@@ -32,6 +37,9 @@
 		width:100%;
 		display: flex;
 		justify-content: space-between;	
+		
+		margin-bottom: 70px;
+		
 	}
 	
 	
@@ -51,6 +59,7 @@
 	
 	#preview{
 		position: absolute;
+		z-index: 10;
 		
 	}
 
@@ -105,31 +114,7 @@ $(function(){
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<h1 style="height:50px;line-height:40px;"><span class="spinner-double-section-out"></span><a href="/chat/chatList">채팅하러가기</a></h1>
-			
-			
-				<div class="team_area">    
-	    <div class="swiper mySwiper">
-	      <div class="swiper-wrapper">
-	        <div class="swiper-slide" style="background-image: url(https://cdn.barnimages.com/wp-content/uploads/2022/01/20210118-barnimages-4-740x490.jpg);">      
-	         	<p><img src="https://cdn.barnimages.com/wp-content/uploads/2021/01/20210104-barnimages-4-740x493.jpg"> </p>
-	         	      
-	        </div>
-	        <div class="swiper-slide">
-	                <p><img src="https://swiperjs.com/demos/images/nature-2.jpg"></p>
-	        </div>
-	        <div class="swiper-slide">
-	           <p><img src="https://swiperjs.com/demos/images/nature-3.jpg"></p>
-	        </div>
-	        <div class="swiper-slide">
-	              <p><img src="https://swiperjs.com/demos/images/nature-4.jpg"></p>
-	        </div>	      
-	      </div>
-	      <div class="swiper-pagination"></div>   
-	    </div>    
-		
-		</div>
-			
+			<h1 style="height:50px;line-height:40px;margin-bottom: 20px;"><span class="spinner-double-section-out"></span><a href="/chat/chatList">채팅하러가기</a></h1>
 			
 			
 			
@@ -152,6 +137,38 @@ $(function(){
 			
 			
 			
+			
+			
+		<!-- 메인 슬라이드 시작 -->
+		<div class="team_area">    
+	    <div class="swiper mySwiper">
+	      <div class="swiper-wrapper">
+	      <!--  -->
+	        <div class="swiper-slide" style="background-image: url('https://cdn.barnimages.com/wp-content/uploads/2022/01/20210118-barnimages-4-740x490.jpg');">      
+	         	<p><img src="https://cdn.barnimages.com/wp-content/uploads/2021/01/20210104-barnimages-4-740x493.jpg"> </p>	         	      
+	        </div>
+	        <div class="swiper-slide" style="background-image: url('https://cdn.barnimages.com/wp-content/uploads/2018/04/2017-03-27-roman-drits-barnimages-015-740x493.jpg');"> 
+	                <p><img src="https://cdn.barnimages.com/wp-content/uploads/2018/04/2017-03-27-roman-drits-barnimages-015-740x493.jpg"></p>
+	        </div>
+	        <div class="swiper-slide" style="background-image: url('https://media.istockphoto.com/id/1162195279/photo/fit-happy-poeple-playing-tennis-together-sport-concept.jpg?b=1&s=170667a&w=0&k=20&c=gy8zXit5OesRkF5FW7I7WEK0aKT8XmmVYoXVv2EzgJs=');"> 
+	           <p><img src="https://media.istockphoto.com/id/1162195279/photo/fit-happy-poeple-playing-tennis-together-sport-concept.jpg?b=1&s=170667a&w=0&k=20&c=gy8zXit5OesRkF5FW7I7WEK0aKT8XmmVYoXVv2EzgJs="></p>
+	        </div>
+	        <div class="swiper-slide" style="background-image: url('https://media.istockphoto.com/id/514260952/photo/climbing.jpg?b=1&s=170667a&w=0&k=20&c=VeHeBniExMc8azxV7XghGx7hQMjVUCLo5aLw3kYGkG0=');"> 
+	              <p><img src="https://media.istockphoto.com/id/514260952/photo/climbing.jpg?b=1&s=170667a&w=0&k=20&c=VeHeBniExMc8azxV7XghGx7hQMjVUCLo5aLw3kYGkG0="></p>
+	        </div>	      
+	      </div>
+	      <div class="swiper-pagination"></div>   
+	    </div>    
+		
+		</div>
+			
+			
+			
+			
+			
+			
+			
+			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
 		
 	</section><!-- 기본틀 2 -->
@@ -159,43 +176,17 @@ $(function(){
 </section><!-- 기본틀 1 -->
 
 
-
-
-
-
-<script>
-var swiper = new Swiper(".mySwiper", {
-  effect: "cube",
- // grabCursor: true,
-  autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-    },
-  cubeEffect: {
-    shadow: true,
-    slideShadows: true,
-    shadowOffset: 20,
-    shadowScale: 0.94,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-  }
-});
-
-
-
-
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
 <script type="text/javascript">
 
+
 var swiper = new Swiper(".mySwiper", {
-	loop: true,
+	loop:true,
   spaceBetween: 30,
   effect: "fade",
+  autoplay: {
+      delay: 1500,
+      disableOnInteraction: false,
+    },
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
@@ -206,7 +197,14 @@ var swiper = new Swiper(".mySwiper", {
   },
 });
 
+
 </script>
+
+
+
+
+
+
 <!-- 
 
 <script type="text/javascript">
