@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.sporters.shop.domain.CartDTO;
+import com.gdu.sporters.shop.domain.OrderDTO;
 import com.gdu.sporters.shop.service.ShopService;
 import com.gdu.sporters.users.domain.UsersDTO;
 
@@ -68,7 +69,8 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/shop/deleteCart", method = RequestMethod.POST)
-	public int deleteCart(HttpSession session, @RequestParam(value = "checkOne[]", required=false) List<String> checkOne, CartDTO cart) throws Exception {
+	public int deleteCart(HttpSession session, @RequestParam("checkOne") List<String> checkOne, CartDTO cart) throws Exception {
+		System.out.println(checkOne);
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		int result = 0;
@@ -84,4 +86,25 @@ public class ShopController {
 			}
 		return result;  
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/cartList/sameAdd", method = RequestMethod.POST)	
+	public OrderDTO sameAdd(HttpSession session, Model model, OrderDTO order) {
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		System.out.println(loginUser);
+		String name = loginUser.getName();
+		String postcode = loginUser.getPostcode();
+		String roadAddress = loginUser.getRoadAddress();
+		String jibunAddress = loginUser.getJibunAddress();
+		String detailAddress = loginUser.getDetailAddress();
+		System.out.println(postcode);
+		order.setName(name);
+		order.setPostcode(postcode);
+		order.setRoadAddress(roadAddress);
+		order.setJibunAddress(jibunAddress);
+		order.setDetailAddress(detailAddress);
+		System.out.println(order);
+		return order;
+	}
+	
 }
