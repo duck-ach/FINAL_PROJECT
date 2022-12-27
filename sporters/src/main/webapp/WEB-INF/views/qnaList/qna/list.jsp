@@ -27,14 +27,18 @@
 							<td>번호</td>
 							<td>제목</td>
 							<td>작성일</td>
-							<td></td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${qnaList}" var="qna" varStatus="vs">
 							<tr>
 								<td>${beginNo - vs.index}</td>
-								<td><a href="/qna/detail?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+								<c:if test="${qnaList.isPw == '1'}">
+									<td><i class="fa-solid fa-lock"></i><a href="/qna/detail?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+								</c:if>
+								<c:if test="${chatRoom.isPw == '0'}">
+									<td><a href="/qna/detail?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+								</c:if>
 								<td>${qna.qnaCreateDate}</td>
 								<td></td>
 							</tr>
