@@ -52,7 +52,7 @@
 		
 		function fn_goodCount(){
 			$.ajax({
-				url: '/heart/getHeartCount',
+				url: '/heart/getHeartCheck',
 				type: 'get',
 				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
@@ -104,7 +104,7 @@
 		
 		function fn_hateCount(){
 			$.ajax({
-				url: '/heart/getHateCount',
+				url: '/heart/getHeartCount',
 				type: 'get',
 				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',

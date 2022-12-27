@@ -24,8 +24,14 @@ public class HeartServiceImpl implements HeartService {
 	@Override
 	public Map<String, Object> isHeartCheck(HttpServletRequest request) {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int clickUserNo = loginUser.getUserNo();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
+		map.put("clickUserNo", clickUserNo);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isHeart", heartMapper.heartCheck(map));
@@ -75,10 +81,11 @@ public class HeartServiceImpl implements HeartService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
 		map.put("clickUserNo", clickUserNo);
-		
-		System.out.println("map : " + map);
+
+		int loveResult = heartMapper.clickedUserHeartCount(map);
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+		result.put("loveResult", loveResult);
+		System.out.println("loveResult : " + result);
 		HeartDTO heart = heartMapper.selectLoveOrHate(map);
 		
 		if(heartMapper.selectUserHeartCount(map) == 0) {   // 좋아요/싫어요를  안누를상태
@@ -89,6 +96,8 @@ public class HeartServiceImpl implements HeartService {
 		} else {
 			result.put("isSuccess", heartMapper.deleteLove(map) == 1);
 		}
+		
+		
 		return result;
 	}
 	
@@ -105,7 +114,10 @@ public class HeartServiceImpl implements HeartService {
 		map.put("userNo", userNo);
 		map.put("clickUserNo", clickUserNo);
 
+		int hateResult = heartMapper.clickedUserHateCount(map);
 		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("hateResult", hateResult);
+		System.out.println("hateResult : " + result);
 		
 		HeartDTO heart = heartMapper.selectLoveOrHate(map);
 		
@@ -117,6 +129,7 @@ public class HeartServiceImpl implements HeartService {
 		} else {
 			result.put("isSuccess", heartMapper.deleteLove(map) == 1);
 		}
+		
 		return result;
 	}
 	

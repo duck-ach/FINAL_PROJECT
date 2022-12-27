@@ -71,8 +71,12 @@ $(document).ready(function(){
 				<div style="margin-top: 20px">
 					<textarea name="qnaContent" id="qnaContent"></textarea>
 				</div>
-				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
-				<div id="summernote_image_list"></div>
+
+				<div>
+					<label for="isPw">비밀번호</label>
+					<input type="checkbox" name="isPw" id="isPw" value="1">
+					<input type="text" maxlength="4" id="qnaPw" name="qnaPw" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" disabled>
+				</div>
 
 
 				<div style="margin-top: 20px; text-align: right;">
