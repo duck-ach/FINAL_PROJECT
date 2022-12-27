@@ -110,8 +110,6 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		map.put("src", "/load/image/" + filesystem);
 		map.put("tnFilesystem", filesystem);
 		
-		System.out.println(map);
-		
 		return map;
 	}
 	
@@ -195,6 +193,8 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 							.isThumbnail(0)
 							.build();
 					
+					System.out.println("썸네일 DTO : " + thumbnailDTO);
+					
 					// 첨부파일의 Content-Type 확인
 					String contentType = Files.probeContentType(file.toPath());  // 이미지의 Content-Type(image/jpeg, image/png, image/gif)
 
@@ -211,7 +211,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 					
 					// DB에 Thumbnail 저장
 					thumbnailResult += shopAdminMapper.insertThumbnail(thumbnailDTO);
-					
+					System.out.println("결과 : " +thumbnailResult);
 				}
 				
 			} catch(Exception e) {
