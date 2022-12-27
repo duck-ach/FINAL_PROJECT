@@ -48,37 +48,6 @@ public class HeartController {
 		return heartService.getHateCount(userNo);
 	}
 	
-//	// 좋아요
-//	@ResponseBody
-//	@GetMapping("/heart/pickLove")
-//	public String updateLove(int userNo) {
-//		heartService.updateLove(userNo);
-//		return "ok";
-//	}
-//	
-//	// 좋아요취소
-//	@ResponseBody
-//	@GetMapping("/heart/cancelLove")
-//	public String cancelLove(int userNo) {
-//		heartService.cancelLove(userNo);
-//		return "ok";
-//	}
-//	
-//	// 싫어요
-//	@ResponseBody
-//	@GetMapping("/heart/pickHate")
-//	public String updateHate(int userNo) {
-//		heartService.updateHate(userNo);
-//		return "ok";
-//	}
-//	
-//	// 싫어요 취소
-//	@ResponseBody
-//	@GetMapping("/heart/cancelHate")
-//	public String cancelHate(int userNo) {
-//		heartService.cancelHate(userNo);
-//		return "ok";
-//	}
 
 
 }

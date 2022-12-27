@@ -9,8 +9,9 @@
 	<select id="heartCheck" parameterType="map" resultType="int">
 		SELECT IS_HEART
 		  FROM HEART
-		 WHERE USER_NO = #{userNo}
+		 WHERE CLICK_USER_NO = #{clickUserNo}
 	</select>
+	
 
 	<select id="selectUserHeartCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
@@ -28,9 +29,9 @@
 	
 	<insert id="insertLove" parameterType="map">
 		INSERT INTO HEART
-			(USER_NO, IS_HEART, LOVE, HATE)
+			(USER_NO, CLICK_USER_NO, IS_HEART, LOVE, HATE)
 		VALUES
-			(#{userNo}, 1, 1, 0)
+			(#{userNo}, #{clickUserNo}, 1, 1, 0)
 	</insert>
 	
 	<delete id="deleteLove" parameterType="map">
@@ -42,9 +43,9 @@
 	
 	<insert id="insertHate" parameterType="map">
 		INSERT INTO HEART
-			(USER_NO, IS_HEART, LOVE, HATE)
+			(USER_NO, CLICK_USER_NO, IS_HEART, LOVE, HATE)
 		VALUES
-			(#{userNo}, 1, 0, -1)
+			(#{userNo}, #{clickUserNo}, 1, 0, -1)
 	</insert>
 	
 	
@@ -53,6 +54,8 @@
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
 	</select>
+	
+	
 	
 		
 </mapper>

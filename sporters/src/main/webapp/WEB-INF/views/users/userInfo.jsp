@@ -21,7 +21,7 @@
 				data: 'userNo=${loginUser.userNo}',
 				dataType: 'json',
 				success: function(resData){
-					if(resData.isHeart == 1){
+					if(resData.isHeart == 0){
 						alert('좋아요 싫어요 중 하나만 눌러주세요!');
 					}
 				}
@@ -164,12 +164,13 @@
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div>
 			<div style="font-size: 24px; font-weight: bold;"> 회원 상세 정보 </div>
+				<input type="hidden"  name="userNo" value="${userNo}">
 				<div>
 					프로필사진
 				</div>
 				<div>
 					<div>
-						닉네임 : ${loginUser.nickname}
+						닉네임 : ${user.nickname}
 					</div>
 					<div>
  						<!--<span>호감도 : </span><span id="prefer_count"></span> 
@@ -196,7 +197,7 @@
 						
 					</div>
 					<div>
-						가입일 : ${loginUser.joinDate}
+						가입일 : ${user.joinDate}
 					</div>
 				</div>
 		</div>

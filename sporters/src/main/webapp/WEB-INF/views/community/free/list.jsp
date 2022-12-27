@@ -6,6 +6,20 @@
 	<jsp:param value="자유게시판" name="title" />
 </jsp:include>
 
+<script>
+	$(function(){
+		fn_openUserInfo();
+	});
+	
+	var infoWindow;
+
+	function fn_openUserInfo(){
+		$('.to_userInfo').click(function(){
+			infoWindow = window.open('/users/userInfo?id=' + $(this).next().val(), 'userInformation', 'width=500,height=300,top=100,left=500,menubar=no,history=no');
+		});
+	}
+</script>
+
 <body>
 
 
@@ -38,7 +52,9 @@
 								<td>${beginNo - vs.index}</td>						
 								<td><a id="moveDetail"
 									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
-								<td>${gallery.users.id}</td>
+								<td>
+									<a class="to_userInfo">${gallery.users.id}</a><input type="hidden" class="userId" name="id" value="${gallery.users.id}">
+								</td>
 								<td>${gallery.users.nickname}</td>
 								<td>${gallery.users.gender}</td>
 								<td>${gallery.createDate}</td>

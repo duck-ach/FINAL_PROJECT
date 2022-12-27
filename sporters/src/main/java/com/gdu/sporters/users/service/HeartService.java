@@ -13,6 +13,7 @@ public interface HeartService {
 	public Map<String, Object> markhate(HttpServletRequest request);
 	
 	
+	
 //	public void updateLove(int userNo);
 //	public void cancelLove(int userNo);
 //	public void updateHate(int userNo);

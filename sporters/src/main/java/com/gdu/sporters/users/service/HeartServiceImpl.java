@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gdu.sporters.users.domain.HeartDTO;
+import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.users.mapper.HeartMapper;
 
 @Service
@@ -65,8 +67,14 @@ public class HeartServiceImpl implements HeartService {
 	@Override
 	public Map<String, Object> markLike(HttpServletRequest request) {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int clickUserNo = loginUser.getUserNo();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
+		map.put("clickUserNo", clickUserNo);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		HeartDTO heart = heartMapper.selectLoveOrHate(map);
@@ -84,9 +92,17 @@ public class HeartServiceImpl implements HeartService {
 	
 	@Override
 	public Map<String, Object> markhate(HttpServletRequest request) {
+		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int clickUserNo = loginUser.getUserNo();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
+		map.put("clickUserNo", clickUserNo);
+
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		HeartDTO heart = heartMapper.selectLoveOrHate(map);
@@ -101,6 +117,8 @@ public class HeartServiceImpl implements HeartService {
 		}
 		return result;
 	}
+	
+	
 
 	
 }

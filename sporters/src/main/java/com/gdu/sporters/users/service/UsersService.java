@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.ui.Model;
+
 import com.gdu.sporters.users.domain.SleepUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 
@@ -22,6 +24,7 @@ public interface UsersService {
 	public SleepUsersDTO getSleepUsersById(String id);
 	public void sleepUserHandle();
 	public void comebackUser(HttpServletRequest request, HttpServletResponse response);
+	public void userInformation(HttpServletRequest request, Model model);
 	
 	// 정보수정
 	public Map<String, Object> confirmPassword(HttpServletRequest request);
