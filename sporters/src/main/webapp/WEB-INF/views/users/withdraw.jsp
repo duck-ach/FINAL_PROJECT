@@ -13,10 +13,15 @@
 	
 	function fn_withdraw(){
 		$('#btn_withdraw').click(function(){
-			if(confirm('동일한 아이디로 재가입이 불가능합니다. 회원 탈퇴하시겠습니까?')){
-				$('#lnk_withdraw').submit();
+			if($('#pw').val() == ''){
+				alert('비밀번호를 입력해 주세요.');
+				event.preventDefault();
+			} else if ($('#pw') == ${loginUser.pw}){
+				if(confirm('동일한 아이디로 재가입이 불가능합니다. 회원 탈퇴하시겠습니까?')){
+					$('#lnk_withdraw').submit();
+				}				
 			}
-		});
+		});\
 	}
 	
 	

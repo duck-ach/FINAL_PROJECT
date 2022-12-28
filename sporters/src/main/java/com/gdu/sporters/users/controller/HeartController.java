@@ -33,13 +33,13 @@ public class HeartController {
 	}
 	
 	@GetMapping(value="/heart/markLike", produces="application/json")
-	public Map<String, Object> mark(HttpServletRequest request){
+	public Map<String, Object> requiredLogin_mark(HttpServletRequest request){
 		return heartService.markLike(request);
 	}
 	
 	// 싫어요
 	@GetMapping(value="/heart/markhate", produces="application/json")
-	public Map<String, Object> markhate(HttpServletRequest request){
+	public Map<String, Object> requiredLogin_markhate(HttpServletRequest request){
 		return heartService.markhate(request);
 	}
 	
