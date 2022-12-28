@@ -30,7 +30,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("/qna/add")
-	public void add(HttpServletRequest request, HttpServletResponse response) {
+	public void requiredLogin_add(HttpServletRequest request, HttpServletResponse response) {
 		qnaService.saveQna(request, response);
 	}
 	
@@ -40,8 +40,19 @@ public class QnaController {
 		return "qnaList/qna/detail";
 	}
 	
+	@GetMapping("/qna/lock")
+	public String lockQna(int qnaNo, Model model) {
+		model.addAttribute("qnaNo", qnaNo);
+		return "qnaList/qna/pwCheck";
+	}
+	
+	@PostMapping("/qna/lock/checkPW")
+	public void lockCheckPwQna(HttpServletRequest request, HttpServletResponse response) {
+		qnaService.checkPwQna(request, response);
+	}
+	
 	@PostMapping("/qna/edit")
-	public String edit(int qnaNo, Model model) {
+	public String requiredLogin_edit(int qnaNo, Model model) {
 		model.addAttribute("qna", qnaService.getQnaByNo(qnaNo));
 		return "qnaList/qna/edit";
 	}
@@ -52,7 +63,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("/qna/remove")
-	public void remove(HttpServletRequest request, HttpServletResponse response) {
+	public void requiredLogin_remove(HttpServletRequest request, HttpServletResponse response) {
 		qnaService.removeQna(request, response);
 	}
 	

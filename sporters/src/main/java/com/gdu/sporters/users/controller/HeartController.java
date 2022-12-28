@@ -47,7 +47,6 @@ public class HeartController {
 	public Map<String, Object> getHateCount(int userNo){
 		return heartService.getHateCount(userNo);
 	}
+
 	
-
-
 }

@@ -7,7 +7,7 @@
 <mapper namespace="com.gdu.sporters.users.mapper.HeartMapper">
 
 
-	<select id="heartCheck" parameterType="map" resultType="int">
+	<select id="heartCheck" parameterType="map" resultType="HeartDTO">
 		SELECT IS_HEART
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
@@ -19,13 +19,15 @@
 		SELECT COUNT(*)
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
+		   AND CLICK_USER_NO = #{clickUserNo}
 		   AND LOVE = 1
 	</select>
 	
 	<select id="selectUserHateCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		  FROM HEART
-		 WHERE USER_NO = #{userNo}
+		 WHERE CLICK_USER_NO = #{clickUserNo}
+		   AND USER_NO = #{userNo}
  		   AND HATE = -1 	
 	</select>
 	
@@ -40,6 +42,7 @@
 		DELETE
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
+		   AND CLICK_USER_NO = #{clickUserNo}
 		  <!-- AND LOVE = #{love} -->
 	</delete>
 	
@@ -58,6 +61,19 @@
 		   AND CLICK_USER_NO = #{clickUserNo}
 	</select>
 	
+	<select id="clickedUserHeartCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		  FROM HEART
+		 WHERE USER_NO = #{userNo}
+		   AND LOVE = 1
+	</select>
+	
+	<select id="clickedUserHateCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		  FROM HEART
+		 WHERE USER_NO = #{userNo}
+ 		   AND HATE = -1 	
+	</select>
 	
 	
 		
