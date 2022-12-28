@@ -8,41 +8,67 @@
 </jsp:include>
 <script>
 
-	$(document).ready(function(){
-		
-		 $(".btn_addCart").click(function(){
+	$(function(){
+		fn_addCart();
+		fn_buy();
+	});
+	
+	function fn_addCart(){
+		$('.btn_addCart').click(function(){
 			var prodNo = $('.prodNo').val();
 			var prodCnt = $('.prodCnt').val();
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
 					};
+			var prodNo = $('.prodNo').val();
+			alert(prodNo);
+			
+			$.ajax({
+				type: 'get',
+				url: '/cartList/sameProdNo',
+				data: 'prodNo=' + prodNo,
+				dataType: 'json',
+				success: function(resData){
+					if(resData.product){
+						alert('이미 장바구니에 담아둔 상품입니다..');
+					}
+				},
+				error: function(){
+					alert('ㅋㅋ 에러');
+					console.log(resData.product);
+				}
+			});
+			
 			$.ajax({
 				url: '/shop/addCart',
 				type: 'post',
 				data: data,
-				success: function(result){
-					if(result == 1){
-						alert('카트 담기 성공');
-						$('#prodCnt').val("1");
-					} else {
-						if(confirm('회원만 사용할 수 있습니다. 로그인하시겠습니까?')){
-							location.href="${contextPath}/users/login/form";
-							$('#prodCnt').val("1");
-							return;
-						}
-					}
+				success: function(){
+					alert('카트 담기 성공');
 				},
 				error: function(){
 					alert('카트 담기 실패');
 				}
 			});
 		}); 
-		
-		
+	}
 	
-	});
-	
+	function fn_buy(){
+		$('.btn_buy').click(function(){
+			var prodCnt = $('.prodCnt').val();
+			var stock = $('.stock').val();
+			var prodName = $('.prodName').val();
+			if(prodCnt > stock) {
+				alert('구매량이 재고량보다 많습니다.');
+				prodcnt == stock;
+			} else {
+				if(confirm(prodName + ' \'' + prodCnt + '\'개 구매하시겠습니까?')){
+					location.href = '/shop/cart';
+				}
+			}
+		});
+	}
 	
 </script>
 <style>
@@ -113,8 +139,10 @@
 						<img src="${list.prodThumbnail}"><br>
 						<input type="hidden" class="prodNo" value="${list.prodNo}">
 						<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
+						<input type="hidden" class="prodName" value="${list.prodName}">
 						<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
 						<span>재고 : ${list.stock} 개</span><br>
+						<input type="hidden" class="stock" value="${list.stock}">
 						<span>구매할 수량 : 
 						<select name="prodCnt" class="prodCnt">
 						<%for(int i=1; i<100; i++){%>

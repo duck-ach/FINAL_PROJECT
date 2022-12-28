@@ -72,29 +72,24 @@
 			var IMP = window.IMP; 
 			IMP.init('imp30603183');
 			var merchant_uid = 'product_' + new Date().getTime();
-			
 			var priceArray = [];
 			$('input:checkbox[name=checkOne]:checked').each(function (index){
 				priceArray.push($(this).data('price'));
 			});
 			var sum = priceArray.reduce((a,b) => (a+b));
-			
-			var nameArray = [];
-			$('input:checkbox[name=checkOne]:checked').each(function (index){
-				nameArray.push($(this).data('prodname'));
-			});
-			if(nameArray.length < 2) {
-				prodName = '' + nameArray;
-			} else {
-				prodName = nameArray[0] + ' 외 ' + (nameArray.length - 1) + '개';
-			};
+			var name = $('#productId').val();
+			alert($('#productId').val());
 			
 			IMP.request_pay({ 
 			pg: "html5_inicis",
 			pay_method: 'card',
 			merchant_uid: merchant_uid,
-			name: prodName, 
+			//name: '노래제목:'+firstCartMusicName+' 외'+ (muprice-1) +'곡',
+			name: '상품명 : ' + name, 
 			amount: sum,
+			buyer_name: '구매자명',
+			buyer_addr: '서울시',
+			buyer_postcode: '123-111',
 			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
 			}, function (rsp) {
 				if (rsp.success) {
@@ -216,7 +211,7 @@
 					<tr>
 						<td style="padding-right:10px;">
 							<div>
-								<input type="checkbox" name="checkOne" class="checkOne" data-cartNo="${cartList.cartNo}" data-price="${cartList.product.price * cartList.prodCnt}" data-prodName="${cartList.product.prodName}">
+								<input type="checkbox" name="checkOne" class="checkOne" data-cartNo="${cartList.cartNo}" data-price="${cartList.product.price * cartList.prodCnt}">
 							</div>
 						</td>
 						<td class="cartListDetail">
