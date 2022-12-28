@@ -16,6 +16,12 @@ public class HeartController {
 	@Autowired
 	private HeartService heartService;
 	
+	
+	@GetMapping(value="/heart/isHeartCheck", produces="application/json")
+	public Map<String, Object> isHeartCheck(HttpServletRequest request){
+		return heartService.isHeartCheck(request);
+	}
+	
 	@GetMapping(value="/heart/getHeartCheck", produces="application/json")
 	public Map<String, Object> getHeartCheck(HttpServletRequest request){
 		return heartService.getHeartCheck(request);
@@ -26,9 +32,9 @@ public class HeartController {
 		return heartService.getHeartCount(userNo);
 	}
 	
-	@GetMapping(value="/heart/mark", produces="application/json")
+	@GetMapping(value="/heart/markLike", produces="application/json")
 	public Map<String, Object> mark(HttpServletRequest request){
-		return heartService.mark(request);
+		return heartService.markLike(request);
 	}
 	
 	// 싫어요
@@ -41,38 +47,6 @@ public class HeartController {
 	public Map<String, Object> getHateCount(int userNo){
 		return heartService.getHateCount(userNo);
 	}
+
 	
-//	// 좋아요
-//	@ResponseBody
-//	@GetMapping("/heart/pickLove")
-//	public String updateLove(int userNo) {
-//		heartService.updateLove(userNo);
-//		return "ok";
-//	}
-//	
-//	// 좋아요취소
-//	@ResponseBody
-//	@GetMapping("/heart/cancelLove")
-//	public String cancelLove(int userNo) {
-//		heartService.cancelLove(userNo);
-//		return "ok";
-//	}
-//	
-//	// 싫어요
-//	@ResponseBody
-//	@GetMapping("/heart/pickHate")
-//	public String updateHate(int userNo) {
-//		heartService.updateHate(userNo);
-//		return "ok";
-//	}
-//	
-//	// 싫어요 취소
-//	@ResponseBody
-//	@GetMapping("/heart/cancelHate")
-//	public String cancelHate(int userNo) {
-//		heartService.cancelHate(userNo);
-//		return "ok";
-//	}
-
-
 }

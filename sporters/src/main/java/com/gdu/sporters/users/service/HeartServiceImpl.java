@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gdu.sporters.users.domain.HeartDTO;
+import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.users.mapper.HeartMapper;
 
 @Service
@@ -16,6 +19,29 @@ public class HeartServiceImpl implements HeartService {
 	@Autowired
 	private HeartMapper heartMapper;
 
+	
+
+	@Override
+	public Map<String, Object> isHeartCheck(HttpServletRequest request) {
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int clickUserNo = loginUser.getUserNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNo", userNo);
+		map.put("clickUserNo", clickUserNo);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isHeart", heartMapper.heartCheck(map));
+		
+		return result;
+	}
+
+	
+	
+	
 	@Override
 	public Map<String, Object> getHeartCheck(HttpServletRequest request) {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
@@ -31,7 +57,7 @@ public class HeartServiceImpl implements HeartService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("userNo", userNo);
 		int count = heartMapper.selectUserHeartCount(result);
-		result.put("count", heartMapper.selectUserHeartCount(result));
+		result.put("count", count);
 		return result;
 	}
 	
@@ -45,33 +71,69 @@ public class HeartServiceImpl implements HeartService {
 	}
 	
 	@Override
-	public Map<String, Object> mark(HttpServletRequest request) {
+	public Map<String, Object> markLike(HttpServletRequest request) {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int clickUserNo = loginUser.getUserNo();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
+		map.put("clickUserNo", clickUserNo);
+
+		int loveResult = heartMapper.clickedUserHeartCount(map);
 		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("loveResult", loveResult);
+		System.out.println("loveResult : " + result);
+		HeartDTO heart = heartMapper.selectLoveOrHate(map);
+		
 		if(heartMapper.selectUserHeartCount(map) == 0) {   // 좋아요/싫어요를  안누를상태
+			if(heart != null) { // 싫어요가 있을 경우(0이 아닐경우)
+				result.put("cancel", heartMapper.deleteLove(map));
+			}
 			result.put("isSuccess", heartMapper.insertLove(map) == 1);
 		} else {
 			result.put("isSuccess", heartMapper.deleteLove(map) == 1);
 		}
+		
+		
 		return result;
 	}
 	
 	@Override
 	public Map<String, Object> markhate(HttpServletRequest request) {
+		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		HttpSession session = request.getSession();
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int clickUserNo = loginUser.getUserNo();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
-		System.out.println(userNo);
+		map.put("clickUserNo", clickUserNo);
+
+		int hateResult = heartMapper.clickedUserHateCount(map);
 		Map<String, Object> result = new HashMap<String, Object>();
-		if(heartMapper.selectUserHeartCount(map) == 0) {   // 좋아요/싫어요를  안누를상태
+		result.put("hateResult", hateResult);
+		System.out.println("hateResult : " + result);
+		
+		HeartDTO heart = heartMapper.selectLoveOrHate(map);
+		
+		if(heartMapper.selectUserHateCount(map) == 0) {   // 좋아요/싫어요를  안누를상태
+			if(heart != null) {
+				heartMapper.deleteLove(map);
+			}
 			result.put("isSuccess", heartMapper.insertHate(map) == 1);
 		} else {
-			result.put("isSuccess", heartMapper.deleteHate(map) == 1);
+			result.put("isSuccess", heartMapper.deleteLove(map) == 1);
 		}
+		
 		return result;
 	}
+	
+	
 
 	
 }

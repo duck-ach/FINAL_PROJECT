@@ -16,4 +16,7 @@ public class QnaReplyDTO {
 	private int qnaNo;
 	private String qnaReplyContent;
 	private Date qnaReplyCreateDate;
+	private int state;
+	private int depth;
+	private int groupNo;
 }

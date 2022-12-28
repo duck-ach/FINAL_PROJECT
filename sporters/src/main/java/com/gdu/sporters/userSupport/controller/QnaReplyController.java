@@ -20,23 +20,29 @@ public class QnaReplyController {
 	@Autowired
 	private QnaReplyService qnaReplyService;
 	
+	@GetMapping("/qna/replyWrite")
+	public String replyWrite() {
+		return "/qnaList/qna/replyWrite";
+	}
+	
 	@ResponseBody
-	@GetMapping(value="/qnaReply/list", produces="application/json")
+	@PostMapping(value="/qna/addReply", produces="application/json")
+	public Map<String, Object> addQnaReply(QnaReplyDTO reply, HttpServletRequest request){
+		return qnaReplyService.addQnaReply(reply, request);
+	}
+	
+	
+	@ResponseBody
+	@GetMapping(value="/qna/replyList", produces="application/json")
 	public Map<String, Object> list(HttpServletRequest request){
 		return qnaReplyService.getQnaReplyList(request);
 	}
 	
-	
 	@ResponseBody
-	@PostMapping(value="/qnaReply/add", produces="application/json")
-	public Map<String, Object> add(QnaReplyDTO reply, HttpServletRequest request){
-		return qnaReplyService.addQnaReply(reply, request);
-	}
-	
-	@ResponseBody
-	@PostMapping(value="/qnaReply/remove", produces="application/json")
-	public Map<String, Object> remove(@RequestParam("qnaReplyNo")int qnaReplyNo){
+	@PostMapping(value="/qna/replyRemove", produces="application/json")
+	public Map<String, Object> remove(@RequestParam("qnaReplyNo") int qnaReplyNo){
 		return qnaReplyService.removeQnaReply(qnaReplyNo);
 	}
+	
 	
 }

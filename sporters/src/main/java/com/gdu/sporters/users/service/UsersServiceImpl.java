@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.SleepUsersDTO;
@@ -845,6 +846,18 @@ public class UsersServiceImpl implements UsersService {
 		return result;
 	}
 	
+	
+	// 유저 정보 저장
+	@Override
+	public void userInformation(HttpServletRequest request, Model model) {
+		String id = request.getParameter("id");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		
+		UsersDTO user  = usersMapper.selectUsersByMap(map);
+		model.addAttribute("user", user);
+	}
 	
 	
 }

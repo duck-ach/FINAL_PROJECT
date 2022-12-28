@@ -61,7 +61,6 @@
 					<button class="btn">작성완료</button>
 					<input type="hidden" name="groupNo" value="0">
 					<input type="hidden" name="depth" value="1">
-					<input type="reset" value="초기화">
 					<input type="button" value="목록" id="btn_list"> 
 				</div>
 			</form>

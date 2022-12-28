@@ -1,5 +1,6 @@
 package com.gdu.sporters.userSupport.service;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.userSupport.domain.QnaDTO;
@@ -37,39 +39,45 @@ public class QnaServiceImpl implements QnaService {
 		pageUtil.setPageUtil(page, totalRecord);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", pageUtil.getBegin());
-		map.put("end", pageUtil.getEnd());
-
-		List<QnaDTO> qnaList = qnaMapper.selectAllQnaList(map);
+		map.put("begin", pageUtil.getBegin() -1);
+		map.put("recordPerPage", pageUtil.getRecordPerPage());
+		
+		List<QnaDTO> qna = qnaMapper.selectAllQnaList(map);
 		
 		model.addAttribute("totalRecord", totalRecord);
-		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qna", qna);
 		model.addAttribute("beginNo", totalRecord - (page -1) * pageUtil.getRecordPerPage());
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/qna/list"));
 	}
 	
+	@Transactional
 	@Override
 	public void saveQna(HttpServletRequest request, HttpServletResponse response) {
 		String qnaTitle = request.getParameter("qnaTitle");
 		String qnaContent = request.getParameter("qnaContent");
+		Optional<String> opt = Optional.ofNullable(request.getParameter("isPw"));
+		int isPw = Integer.parseInt(opt.orElse("0"));
+		Optional<String> opt2 = Optional.ofNullable(request.getParameter("qnaPw"));
+		int qnaPw = Integer.parseInt(opt2.orElse("0000"));
 		
 		HttpSession session = request.getSession();
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		String qnaId = loginUser.getId();
-		//int userNo = loginUser.getUserNo();
-	
 		System.out.println(qnaTitle);
+		
 		QnaDTO qna = QnaDTO.builder()
 				.qnaTitle(qnaTitle)
 				.qnaId(qnaId)
 				.qnaContent(qnaContent)
 				.userNo(userNo)
+				.isPw(isPw)
+				.qnaPw(qnaPw)
 				.build();
+
+		int result = qnaMapper.insertQnaPw(qna);
 		
-		System.out.println(loginUser.getUserNo());
 		System.out.println(qna);
-		int result = qnaMapper.insertQna(qna);
 		
 		try {
 			response.setContentType("text/html; charset=UTF-8");
@@ -95,6 +103,44 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public QnaDTO getQnaByNo(int qnaNo) {
 		return qnaMapper.selectQnaByNo(qnaNo);
+	}
+
+	
+	@Override
+	public void checkPwQna(HttpServletRequest request, HttpServletResponse response) {
+		String qnaPw = request.getParameter("qnaPw");
+		int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("qnaPw", qnaPw);
+		map.put("qnaNo", qnaNo);
+		
+		QnaDTO qna = qnaMapper.selectQnaByPw(map);
+		
+		System.out.println("비번 확인 qna : " + qna);
+		
+		if(qna != null) {
+			try {
+				response.sendRedirect("/qna/detail?qnaNo=" + qna.getQnaNo());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				
+				out.println("<script>");
+				out.println("alert('비밀번호가 일치하지 않습니다.');");
+				out.println("event.preventDefult();");
+				response.sendRedirect("/qna/lock?qnaNo=" + qnaNo);
+				out.println("</script>");
+				out.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	@Override

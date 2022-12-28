@@ -36,6 +36,15 @@ $(document).ready(function(){
      });
 		
 	
+	$('#isPw').click(function(){
+		if($('#isPw').is(':checked')){
+			$('#qnaPw').removeAttr("disabled");
+		} else {
+			$('#qnaPw').attr("disabled", true);
+		}
+	});
+	
+	
 	// 목록
 	$('#btn_list').click(function(){
 		location.href = '/qna/list';
@@ -49,6 +58,7 @@ $(document).ready(function(){
 			return; // 더 이상 코드 실행할 필요 없음
 		}
 	});
+	
 	
 });
 
@@ -71,14 +81,17 @@ $(document).ready(function(){
 				<div style="margin-top: 20px">
 					<textarea name="qnaContent" id="qnaContent"></textarea>
 				</div>
-				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
-				<div id="summernote_image_list"></div>
+
+				<div>
+					<label for="isPw">비밀번호</label>
+					<input type="checkbox" name="isPw" id="isPw" value="1">
+					<input type="text" maxlength="4" id="qnaPw" name="qnaPw" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" disabled>
+				</div>
 
 
 				<div style="margin-top: 20px; text-align: right;">
 					<button class="btn">작성완료</button>
-					<input class="btn" type="reset" value="제목초기화">
-					<input class="btn" type="button" value="목록" id="btn_list"> 
+					<input class="btn" type="button" value="작성취소" id="btn_list"> 
 				</div>
 			</form>
 		

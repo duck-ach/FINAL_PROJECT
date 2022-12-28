@@ -16,10 +16,11 @@ public class QnaDTO {
 	private int userNo;
 	private String qnaTitle;
 	private String qnaId;
-	private String qnaPw;
+	private int qnaPw;
 	private String qnaContent;
 	private Date qnaCreateDate;
 	private int state;
 	private int depth;
 	private int groupNo;
+	private int isPw;
 }
