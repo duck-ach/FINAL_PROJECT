@@ -18,4 +18,5 @@ public class CartDTO {
 	private int prodCnt;
 	private ProductDTO product;
 	private UsersDTO users;
+	private OrderDTO order;
 }
