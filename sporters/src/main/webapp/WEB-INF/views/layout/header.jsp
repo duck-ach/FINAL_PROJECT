@@ -107,6 +107,12 @@ $(function(){
 </script>
 -->
 
+<div id="left_side_gnd_area"  class="left_side_gnd_area">
+	
+	<jsp:include page="../layout/left_side.jsp">
+		<jsp:param value="left_side" name="left_side" />
+	</jsp:include>
+</div>
 
 <header class="main_header_area">
 	<div class="main_header_area_fix">

@@ -14,13 +14,13 @@
 		<div><a href="/local/write">글쓰러가기</a>  </div>
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<h1>${LocalgalleryList.title}</h1>
+			<h1>${SpoReviewgalleryList.title}</h1>
 	
 			<div>
 				
-				<span>▷ 작성일 <fmt:formatDate value="${LocalgalleryList.createDate}" pattern="yyyy.M.d HH:mm"/></span>
+				<span>▷ 작성일 <fmt:formatDate value="${SpoReviewgalleryList.createDate}" pattern="yyyy.M.d HH:mm"/></span>
 				&nbsp;&nbsp;&nbsp;
-				<span>▷ 수정일 <fmt:formatDate value="${LocalgalleryList.modifyDate}" pattern="yyyy.M.d HH:mm"/></span>
+				<span>▷ 수정일 <fmt:formatDate value="${SpoReviewgalleryList.modifyDate}" pattern="yyyy.M.d HH:mm"/></span>
 				&nbsp;&nbsp;&nbsp;
 				
 			</div>
@@ -28,16 +28,16 @@
 			<hr>
 	
 			<div>
-				${LocalgalleryList.content}
+				${SpoReviewgalleryList.content}
 			</div>
-			<p>${LocalgalleryList.users.id}
+			<p>${SpoReviewgalleryList.users.id}
 				<span>작성자</span>
 			</p>
 			<div>
 				<form id="frm_btn" method="post">	
 					
-					<input type="hidden" name="localBoardNo" value="${LocalgalleryList.localBoardNo}">
-					<c:if test="${loginUser.id == LocalgalleryList.users.id}" >
+					<input type="hidden" name="localBoardNo" value="${SpoReviewgalleryList.spoReviewNo}">
+					<c:if test="${loginUser.id == SpoReviewgalleryList.users.id}" >
 						<input type="button" value="수정" id="btn_edit_gallery">
 						<input type="button" value="삭제" id="btn_remove_gallery">
 					</c:if>
@@ -132,10 +132,10 @@
 	         $.ajax({
 	            type: 'get',
 	            url: '/galleryLocalComm/getCount', 
-	            data: 'localBoardNo=${LocalgalleryList.localBoardNo}',   // 글번호 달아줌
+	            data: 'localBoardNo=${gallery.localBoardNo}',   // 글번호 달아줌
 	            dataType: 'json',
 	            success: function(resData){  // resData = {"commentCount": 개수}
-	               $('#comment_count').text(resData.LocalcommentCnt);
+	               $('#comment_count').text(resData.commentCnt);
 	            }
 	         });
 	      }
@@ -174,7 +174,7 @@
 	         $.ajax({
 	            type: 'get',
 	            url: '/galleryLocalComm/list',
-	            data: 'localBoardNo=${LocalgalleryList.localBoardNo}&page=' + $('#page').val(),   // 현재 page도 넘겨줘야 함
+	            data: 'localBoardNo=${gallery.localBoardNo}&page=' + $('#page').val(),   // 현재 page도 넘겨줘야 함
 	            dataType: 'json',
 	            success: function(resData){
 	               /*
@@ -233,7 +233,7 @@
 						div += '</div>';
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
-						div += '<input type="hidden" name="localCoNo" value="' + comment.localCoNo + '">';
+						div += '<input type="hidden" name="freeNo" value="' + comment.freeNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
 						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해주세요">';
 						// 로그인한 사용자만 볼 수 있도록 if 처리

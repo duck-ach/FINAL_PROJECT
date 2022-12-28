@@ -128,7 +128,7 @@ body, html {
 				<li><a href="/users/agree/form">회원가입</a> </li>
 			 	<li><a href="/users/login/form">로그인</a> </li>
 			 	<li><a href="/local/list">지역별게시판</a> </li>
-			 	<li><a href="/spoReview/list">운동후기게시판</a> </li>
+			 	<li><a href="/spo_review/list">운동후기게시판</a> </li>
 			 	<li><a href="/free/list">자유게시판</a> </li>
 			 	<li><a href="/shop/list">쇼핑몰</a> </li>
 			 	<li><a href="/supp/singo">신고게시판</a> </li>

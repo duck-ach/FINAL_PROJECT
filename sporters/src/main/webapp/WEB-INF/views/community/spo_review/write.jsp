@@ -54,7 +54,7 @@ $(document).ready(function(){
 					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
 					$.ajax({
 						type: 'post',
-						url: '/local/uploadImage',
+						url: '/spo_review/uploadImage',
 						data: formData,
 						contentType: false,  // ajax 이미지 첨부용
 						processData: false,  // ajax 이미지 첨부용
@@ -73,7 +73,7 @@ $(document).ready(function(){
 	
 	// 목록
 	$('#btn_list').click(function(){
-		location.href =  '/local/list';// taglib 사용이 어려울수도 있으니까
+		location.href =  '/spo_review/list';// taglib 사용이 어려울수도 있으니까
 	})
 	
 	// 서브밋
@@ -128,7 +128,7 @@ jQuery(function(){
 	
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
-			<form id="frm_write" action="/local/add" method="post" >
+			<form id="frm_write" action="/spo_review/add" method="post" >
 				<div style="margin-top: 50px; margin-bottom: 15px">
 					<input class="title-class" type="text" name="title" id="title" placeholder="제목">
 					<div>
@@ -137,8 +137,8 @@ jQuery(function(){
 						    <option value="2">경기도</option>
 						    <option value="3" >그외 시골</option>					   
 						</select>
-						모집일 <input id="date_timepicker_start" type="text" name="joinStart" autocomplete="off" >
-						종료일 <input id="date_timepicker_end" type="text" name="joinEnd" autocomplete="off"  >
+						모집일 <input id="date_timepicker_start" type="text" name="joinStart">
+						종료일 <input id="date_timepicker_end" type="text" name="joinEnd" >
 					</div>
 					
 				</div>

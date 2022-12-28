@@ -28,7 +28,7 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 	@Override
 	public Map<String, Object> getLocalCommentCnt(int localBoardNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("commentCnt", commentMapper.selectFreeCommentCnt(localBoardNo));
+		result.put("LocalcommentCnt", commentMapper.selectFreeCommentCnt(localBoardNo));
 		System.out.println("service : " + commentMapper.selectFreeCommentCnt(localBoardNo));
 		return result;
 	} 
@@ -58,12 +58,12 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		
 		int localBoardNo = Integer.parseInt(request.getParameter("localBoardNo"));
 		int page = Integer.parseInt(request.getParameter("page"));		
-		int commentCnt = commentMapper.selectFreeCommentCnt(localBoardNo);
-		galleryPageUtil.setPageUtil(page, commentCnt);
+		int LocalcommentCnt = commentMapper.selectFreeCommentCnt(localBoardNo);
+		galleryPageUtil.setPageUtil(page, LocalcommentCnt);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("localBoardNo", localBoardNo);
 		
-		System.out.println(commentCnt);
+		System.out.println(LocalcommentCnt);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("commentList", commentMapper.selectFreeCommentList(map));
 		result.put("galleryPageUtil", galleryPageUtil);
