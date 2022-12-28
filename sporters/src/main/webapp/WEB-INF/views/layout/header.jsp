@@ -19,6 +19,7 @@
 <script src="/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
 <script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
+
 <!-- 
 <link rel="stylesheet" type="text/css" href="/resources/css/left_menus.css">
 <script src="/resources/js/left_menus.js"></script>

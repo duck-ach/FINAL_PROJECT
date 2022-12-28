@@ -6,6 +6,68 @@
 
 <mapper namespace="com.gdu.sporters.admin.mapper.SingoMapper">
 
+<resultMap type="SingoDTO" id="SingoMap">
+<id property="singoNo" column="SINGO_NO"/>
+<result property="singoCategory" column="SINGO_CATEGORY"/>
+<result property="singoTitle" column="SINGO_TITLE"/>
+<result property="singoUserReason" column="SINGO_USER_REASON"/>
+<result property="singoLink" column="SINGO_LINK"/>
+<result property="singoCreateDate" column="SINGO_CREATE_DATE"/>
+<result property="singoRemoveDate" column="SINGO_REMOVE_DATE"/>
+<result property="singoReason" column="SINGO_REASON"/>
+<result property="userId" column="USER_ID"/>
+<result property="freeNo" column="FREE_NO"/>
+	<association property="users"  javaType="UsersDTO" >
+	<id  property="userNo"  column="USER_NO"  />
+	<result property="id"  column="ID" />	
+	<result property="nickname"  column="NICKNAME" />	
+	<result property="name"  column="NAME" />
+	<result property="joinDate"  column="JOINDATE" />
+	<result property="gender"  column="GENDER" />
+	</association>
+	<association property="free" javaType="FreeDTO">
+		<id property="freeNo"  column="FREE_NO" />
+		<result property="title"  column="TITLE" />
+		<result property="content"  column="CONTENT" />
+		<result property="createDate"  column="CREATE_DATE" />
+		<result property="hit"  column="HIT" />
+		<result property="userNo"  column="USER_NO" />
+		<result property="state"  column="STATE" />
+		<result property="ip"  column="IP" />
+	</association>	
+</resultMap>
+
+
+Select * From A left JOIN B
+ON A.name = B.name
+left JOIN C
+ON A.name = C.name
+
+select 과목.이름,
+과목.교수번호,
+교수.이름,
+교수.학과번호
+from 과목, 교수
+where 과목.교수번호 = 교수.번호
+
+
+<select id="selectSingoList" parameterType="Map" resultMap="SingoMap">
+	SELECT A.SINGO_NO, A.SINGO_CATEGORY_NO, A.SINGO_LINK, A.SINGO_USER_REASON, A.SINGO_CREATE_DATE, A.SINGO_REMOVE_DATE, A.SINGO_REASON, A.FREE_NO, A.USER_NO
+	FROM (SELECT S.SINGO_NO, S.SINGO_CATEGORY_NO, S.SINGO_LINK, S.SINGO_USER_REASON, S.SINGO_CREATE_DATE, S.SINGO_REMOVE_DATE, S.SINGO_REASON, F.FREE_NO,F.TITLE U.ID 
+	FROM SINGO S LEFT JOIN FREE F
+	ON S.FREE_NO = F.FREE_NO LEFT JOIN USERS U
+	ON F.USER_NO = U.USER_NO) A
+	ORDER BY SINGO_NO ASC
+</select>
+
+<!-- 게시판 삽입(첨부파일 추가) -->
+	<insert id="insertSingo" parameterType="SingoDTO"  useGeneratedKeys="true" keyProperty="singoNo">
+		INSERT INTO SINGO
+			(SINGO_CATEGORY, SINGO_TITLE, SINGO_LINK, SINGO_USER_REASON, SINGO_CREATE_DATE, SINGO_REMOVE_DATE, SINGO_REASON, ID, IP)
+		VALUES
+			(#{singoCategory},#{singoTitle}, #{singoLink}, #{singoUserReason}, #{createDate}, NULL, #{singoReason}, #{userId}, #{ip})
+	</insert>
+
 <!-- 상품 카테고리 목록 -->
 	<select id="selectSingoCategoryList" resultType="SingoCategoryDTO">
 		SELECT SINGO_CATEGORY_NO, SINGO_CATEGORY_NAME

@@ -3,10 +3,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<style>
+        #modal {
+          display: none;
+          position:relative;
+          width:100%;
+          height:100%;
+          z-index:1;
+        }
+        
+        #modal h2 {
+          margin:0;
+        }
+        #modal button {
+          width:400px;
+          height: 32px;
+        }
+        
+        #modal .modal_content {
+        display:flex;
+        flex-direction: column;
+        border-radius: 12px;
+          width:400px;
+          height: 260px;
+          margin:10px auto;
+          padding:20px 10px;
+          background:#fff;
+          border:2px solid #666;
+          
+        }
+        
+        #modal .modal_layer {
+          position:fixed;
+          top:0;
+          left:0;
+          width:100%;
+          height:100%;
+          background:rgba(0, 0, 0, 0.5);
+          z-index:-1;
+        }   
+</style>
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자유게시판_상세" name="title" />
 </jsp:include>
-
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
@@ -35,11 +74,12 @@
 			</p>
 			<div>
 				<form id="frm_btn" method="post">	
+					
 					<input type="hidden" name="freeNo" value="${gallery.freeNo}">
 					<c:if test="${loginUser.id == gallery.users.id}" >
 						<input type="button" value="수정" id="btn_edit_gallery">
 						<input type="button" value="삭제" id="btn_remove_gallery">
-						<a href="javascript:void(0)" class="btn btn-download">GML Download</a>
+						<div id="root"><button type="button" id="modal_opne_btn">신고쌔리기</button></div>
 					</c:if>
 				</form>
 			</div>
@@ -66,10 +106,7 @@
 							$('#frm_btn').submit();
 						}
 					});
-					
-					
-					
-		
+
 			</script>
 
    <!-- 댓글영역 -->
@@ -365,5 +402,39 @@ $(function(){
 	
 }); 
 </script>
+<div id="modal">
+   
+    <div class="modal_content">
+    <form action="">
+        <h2> 게시글 신고하기</h2>
+        <select>
+        <option>광고</option>
+        <option>도배</option>
+        <option>음란물</option>
+        <option>욕설</option>
+        <option>개인정보침해</option>
+        <option>저작권침해</option>
+        <option>기타</option>
+        </select>
+        <textarea name="singo_content" placeholder="신고 내용" maxlength="200" style="width: 400px; height: 191px;"></textarea>
+        <br>
+        <input type="submit" name="신고">
+        <button type="button" id="modal_close_btn">닫기</button>
+    </form>
+       
+    </div>
+   
+    <div class="modal_layer"></div>
+</div>
+<script>
+    document.getElementById("modal_opne_btn").onclick = function() {
+        document.getElementById("modal").style.display="block";
+    }
+   
+    document.getElementById("modal_close_btn").onclick = function() {
+        document.getElementById("modal").style.display="none";
+    }   
+</script>
+
 </body>
 </html>
