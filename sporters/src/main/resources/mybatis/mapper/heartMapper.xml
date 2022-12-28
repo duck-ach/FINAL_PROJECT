@@ -62,14 +62,14 @@
 	</select>
 	
 	<select id="clickedUserHeartCount" parameterType="map" resultType="int">
-		SELECT COUNT(*)
+		SELECT COUNT(LOVE)
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
 		   AND LOVE = 1
 	</select>
 	
 	<select id="clickedUserHateCount" parameterType="map" resultType="int">
-		SELECT COUNT(*)
+		SELECT COUNT(HATE)
 		  FROM HEART
 		 WHERE USER_NO = #{userNo}
  		   AND HATE = -1 	
