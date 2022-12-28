@@ -37,4 +37,19 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 		
 	}
 	
+	@Override
+	public void getOrderState(HttpServletRequest request) {
+		
+		// 파라미터 받기
+		int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+		String orderState = request.getParameter("orderState"); 
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orderNo", orderNo);
+		map.put("orderState", orderState);
+		
+		shopAdminOrderMapper.updateOrderState(map);
+		
+	}
+	
 }

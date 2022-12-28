@@ -37,9 +37,16 @@
 			<tbody>
 				<c:forEach items="${orderInfo}" var="oi">
 					<tr>
-						<td>상품명 : ${oi.product.prodName}</td>
-						<td>상품원가 : ${oi.product.price}</td>
-						<td>할인가 : ${oi.product.discount}</td>
+						<td>상품명 : </td>
+						<td>${oi.product.prodName}</td>
+					</tr>
+					<tr>
+						<td>상품원가 : </td>
+						<td>${oi.product.price}</td>
+					</tr>
+					<tr>
+						<td>할인가 : </td>
+						<td>${oi.product.discount}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

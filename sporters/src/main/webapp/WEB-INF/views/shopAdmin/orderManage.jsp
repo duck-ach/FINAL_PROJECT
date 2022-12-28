@@ -20,6 +20,7 @@
 				<td>배송상태</td>
 				<td>주문날짜</td>
 				<td>상세보기</td>
+				<td>주문상태</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,6 +34,20 @@
 					<td>${order.orderState}</td>
 					<td>${order.orderDate}</td>
 					<td><a href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
+					<td>
+						<form action="/shopAdmin/order/state" method="get">
+							<input type="hidden" name="orderNo" value="${order.orderNo}">
+							<select name="orderState">
+								<option value="">===선택===</option>
+								<option value="결제완료">결제완료</option>
+								<option value="상품준비중">상품준비중</option>
+								<option value="배송중">배송중</option>
+								<option value="배송완료">배송완료</option>
+								<option value="주문취소">주문취소</option>
+							</select>
+							<button>변경</button>
+						</form>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
