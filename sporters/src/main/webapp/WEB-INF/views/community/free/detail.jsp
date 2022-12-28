@@ -35,11 +35,11 @@
 			</p>
 			<div>
 				<form id="frm_btn" method="post">	
-					
 					<input type="hidden" name="freeNo" value="${gallery.freeNo}">
 					<c:if test="${loginUser.id == gallery.users.id}" >
 						<input type="button" value="수정" id="btn_edit_gallery">
 						<input type="button" value="삭제" id="btn_remove_gallery">
+						<a href="javascript:void(0)" class="btn btn-download">GML Download</a>
 					</c:if>
 				</form>
 			</div>
