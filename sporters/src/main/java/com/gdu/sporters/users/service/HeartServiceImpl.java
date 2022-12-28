@@ -52,12 +52,12 @@ public class HeartServiceImpl implements HeartService {
 		return result;
 	}
 
+	/*
 	@Override
 	public Map<String, Object> getHeartCount(int userNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("userNo", userNo);
-		int count = heartMapper.selectUserHeartCount(result);
-		result.put("count", count);
+		result.put("count", heartMapper.selectUserHeartCount(result));
 		return result;
 	}
 	
@@ -65,10 +65,37 @@ public class HeartServiceImpl implements HeartService {
 	public Map<String, Object> getHateCount(int userNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("userNo", userNo);
-		int count = heartMapper.selectUserHateCount(result);
-		result.put("count", count);
+		result.put("count", heartMapper.selectUserHateCount(result));
 		return result;
 	}
+	*/
+	
+	@Override
+	public Map<String, Object> getHeartCount(int userNo) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("userNo", userNo);
+		result.put("heartcount", heartMapper.clickedUserHeartCount(result));
+		return result;
+	}
+	
+	@Override
+	public Map<String, Object> getHateCount(int userNo) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("userNo", userNo);
+		result.put("hatecount", heartMapper.clickedUserHateCount(result));
+		return result;
+	}
+	
+	@Override
+	public Map<String, Object> likeNhate(int userNo) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("userNo", userNo);
+		int like = heartMapper.clickedUserHeartCount(result);
+		int hate = heartMapper.clickedUserHateCount(result);
+		result.put("result", (like - hate));
+		return result;
+	}
+	
 	
 	@Override
 	public Map<String, Object> markLike(HttpServletRequest request) {
@@ -129,7 +156,6 @@ public class HeartServiceImpl implements HeartService {
 		} else {
 			result.put("isSuccess", heartMapper.deleteLove(map) == 1);
 		}
-		
 		return result;
 	}
 	

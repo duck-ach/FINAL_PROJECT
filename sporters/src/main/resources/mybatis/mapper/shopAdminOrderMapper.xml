@@ -59,6 +59,9 @@
 				<result property="jibunAddress" column="JIBUN_ADDRESS"/>
 				<result property="detailAddress" column="DETAIL_ADDRESS"/>
 			</association>
+			<association property="order" javaType="OrderDTO">
+				<id property="orderNo" column="ORDER_NO"/>
+			</association>
 		</resultMap>
 	
 	
@@ -79,13 +82,18 @@
 	</select>
 	
 	<!-- 상품 상세보기 -->
-	<select id="selectOrderProdDetailByUserNo" parameterType="map" resultMap="OrderMap">
-		SELECT C.CART_NO, C.USER_NO, C.PROD_NO, C.PROD_CNT, P.PROD_NAME, P.PRICE, P.DISCOUNT, U.ID, U.NAME
+	<select id="selectOrderProdDetailByUserNo" parameterType="map" resultMap="CartMap">
+		SELECT C.CART_NO, C.USER_NO, C.PROD_NO, C.PROD_CNT, P.PROD_NAME, P.PRICE, P.DISCOUNT
 		  FROM CART C INNER JOIN PRODUCT P
 		    ON C.PROD_NO = P.PROD_NO INNER JOIN ORDERS O
-		    ON C.CART_NO = O.CART_NO INNER JOIN USERS U
-		    ON O.USER_NO = U.USER_NO
+		    ON C.CART_NO = O.CART_NO
 		 WHERE O.ORDER_NO = #{orderNo}
 	</select>
-
+	
+	<!-- 주문상태 업데이트 -->
+	<update id="updateOrderState" parameterType="map">
+		UPDATE ORDERS
+		   SET ORDER_STATE = #{orderState}
+		 WHERE ORDER_NO = #{orderNo}
+	</update>
 </mapper>

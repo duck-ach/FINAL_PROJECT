@@ -11,6 +11,7 @@ public interface HeartService {
 	public Map<String, Object> getHateCount(int userNo);
 	public Map<String, Object> markLike(HttpServletRequest request);
 	public Map<String, Object> markhate(HttpServletRequest request);
+	public Map<String, Object> likeNhate(int userNo);
 	
 	
 //	public void updateLove(int userNo);

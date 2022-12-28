@@ -8,12 +8,14 @@
 	$(function(){
 		fn_isheartCheck();
 		fn_goodCheck();
+		fn_goodAndHate();
 		fn_goodCount();
 		fn_hateCount();
 		fn_pressGood();
 		fn_pressHate();
 	});
 	
+	// 좋아요,싫어요 눌렀는지 확인
 		function fn_isheartCheck(){
 			$.ajax({
 				type: 'get',
@@ -28,7 +30,7 @@
 			});
 		}
 	
-		
+		// 좋아요 눌렀는지 확인
 		function fn_goodCheck(){
 			$.ajax({
 				url: '/heart/getHeartCheck',
@@ -48,17 +50,16 @@
 			});
 		}
 		
-
-		
+		// 좋아요 개수 카운트
 		function fn_goodCount(){
 			$.ajax({
-				url: '/heart/getHeartCheck',
+				url: '/heart/getHeartCount',
 				type: 'get',
 				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					$('#good_count').empty();
-					$('#good_count').text(resData.count);
+					$('#good_count').text(resData.heartcount);
 				}
 			});
 		}
@@ -72,20 +73,14 @@
 					return;
 				}
 				// 셀프 좋아요 방지
-				if('${loginUser.userNo}' == ''){
+				if('${loginUser.userNo}' == '${user.userNo}'){
 					alert('본인에게는 "좋아요"를 누를 수 없습니다.');
 					return;
 				}
 				// "좋아요" 선택/해제 상태에 따른 하트 변경
 				$('#good').toggleClass("good_checked");
 				$('#hate').toggleClass('blind');
-				/*
-				if ($('#good').hasClass("good_checked")) {
-					$('#heart').text('LIKE ♥');
-				} else {
-					$('#heart').text('LIKE ♡');
-				}
-				*/
+
 				// "좋아요" 처리
 				$.ajax({
 					url: '/heart/markLike',
@@ -101,16 +96,16 @@
 			});
 		}
 		
-		
+		// 싫어요 개수 카운트
 		function fn_hateCount(){
 			$.ajax({
-				url: '/heart/getHeartCount',
+				url: '/heart/getHateCount',
 				type: 'get',
 				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
 				dataType: 'json',
 				success: function(resData){
 					$('#hate_count').empty();
-					$('#hate_count').text(resData.count);
+					$('#hate_count').text(resData.hatecount);
 				}
 			});
 		}
@@ -125,20 +120,14 @@
 					return;
 				}
 				// 셀프 좋아요 방지
-				if('${loginUser.userNo}' == ''){
+				if('${loginUser.userNo}' == '${user.userNo}'){
 					alert('본인에게는 "싫어요"를 누를 수 없습니다.');
 					return;
 				}
 				// "좋아요" 선택/해제 상태에 따른 하트 변경
 				$('#hate').toggleClass("hate_checked");
 				$('#good').toggleClass('blind');
-				/*
-				if ($('#hate').hasClass("hate_checked")) {
-					$('#hater').text('HATE ♥');
-				} else {
-					$('#hater').text('HATE ♡');
-				}
-				*/
+
 				// "싫어요" 처리
 				$.ajax({
 					url: '/heart/markhate',
@@ -151,6 +140,20 @@
 						}
 					}
 				});
+			});
+		}
+		
+		// 조아요싫어요 개수 카운트
+		function fn_goodAndHate(){
+			$.ajax({
+				url: '/heart/likeNhate',
+				type: 'get',
+				data: 'clickUserNo=${loginUser.userNo}&userNo=' + $('#userNo').val(),
+				dataType: 'json',
+				success: function(resData){
+					$('#good_hate_count').empty();
+					$('#good_hate_count').text(resData.result);
+				}
 			});
 		}
 		
@@ -176,16 +179,17 @@
 						닉네임 : ${user.nickname}
 					</div>
 					<div>
+						호감도 : <span id="good_hate_count"></span>
+					</div>
+					<div>
 						<span id="good">
 							<a id="lnk_good">
 								<span>좋아요 : </span><span id="good_count"></span>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            
-								<!-- <span id="heart"></span> -->
 							</a>
 						</span>
 						<span id="hate">
 							<a id="lnk_hate">
 								<span>싫어요 : </span><span id="hate_count"></span><br>
-								<!-- <span id="hater"></span> -->
 							</a>
 						</span>
 						

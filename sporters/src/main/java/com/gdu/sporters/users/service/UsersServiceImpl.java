@@ -261,7 +261,7 @@ public class UsersServiceImpl implements UsersService {
 		// 로그인유지 체크 유무
 		if(keepLogin != null) {
 			String sessionId = request.getSession().getId();
-			Cookie cookie = new Cookie("keppLogin", sessionId);
+			Cookie cookie = new Cookie("sessionId", sessionId);
 			cookie.setMaxAge(60 * 60 * 24 * 14);	// 로그인 유지기간 14일
 			cookie.setPath("/");
 			//cookie.setPath(request.getContextPath());
@@ -276,9 +276,9 @@ public class UsersServiceImpl implements UsersService {
 		}
 		else {
 			// keppLogin 쿠키 제거
-			Cookie cookie =  new Cookie("keepLogin", "");
+			Cookie cookie =  new Cookie("sessionId", "");
 			cookie.setMaxAge(0);
-			cookie.setPath(request.getContextPath());
+			cookie.setPath("/");
 			response.addCookie(cookie);
 		}
 	}
