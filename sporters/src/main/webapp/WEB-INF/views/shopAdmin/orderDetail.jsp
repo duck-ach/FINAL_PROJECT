@@ -5,8 +5,14 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰주문상세" name="title" />
 </jsp:include>
+<jsp:include page="shopAdminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script>
+	$('.shopAdmin').addClass('checked');
+</script>
 <body>
 <div>
 	<div>

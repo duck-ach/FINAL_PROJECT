@@ -16,4 +16,5 @@ public interface ChatService {
 	public void chatClose(HttpServletRequest request, Model model);
 	public void chatCheckPw(HttpServletRequest request, HttpServletResponse response);
 	public List<ChatUserDTO> getChatUserList();
+	public void removeChatRoom(HttpServletRequest request, HttpServletResponse response);
 }

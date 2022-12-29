@@ -15,7 +15,7 @@ public interface ChatMapper {
 	// chat List Cnt
 	public int selectChatRoomCnt();
 	// chat User Cnt
-	public int selectChatUserCnt();
+	public int selectChatUserCnt(Map<String, Object> map);
 	
 	// chat List
 	public List<ChatRoomDTO> selectChatRoomListByMap(Map<String, Object> map);
@@ -43,5 +43,7 @@ public interface ChatMapper {
 	// 채팅방 비밀번호 매치
 	public ChatRoomDTO selectMatchChatRoomByPw(Map<String, Object> map);
 	
+	// 채팅방 삭제
+	public int deleteChatRoom(Map<String, Object> map);
 	
 }

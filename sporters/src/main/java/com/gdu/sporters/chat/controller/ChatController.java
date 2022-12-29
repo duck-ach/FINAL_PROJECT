@@ -28,7 +28,6 @@ public class ChatController {
 		return "chat/chatList";
 	}
 	
-	
 	@GetMapping("/chat/write")
 	public String chatWrite() {
 		return "chat/chatAdd";
@@ -67,7 +66,10 @@ public class ChatController {
 		return chatService.getChatUserList();
 	}
 	
-
+	@GetMapping("/chat/deleteChatRoom")
+	public void removeChatRoom(HttpServletRequest request, HttpServletResponse response) {
+		chatService.removeChatRoom(request, response);
+	}
 	
 	
 }
