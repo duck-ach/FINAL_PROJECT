@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class SingoDTO {
 	
 	private int singoNo;
-	private String singoCategoryNo;
+	private String singoCategory;
 	private String singoTitle;
 	private String singoUserReason;
 	private String singoLink;

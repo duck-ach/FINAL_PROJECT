@@ -22,10 +22,11 @@ public class SingoController {
 	@Autowired
 	private SingoService singoService;
 	
-	// 카테고리 관리 페이지 이동
-		@GetMapping("/admin/singoCategory")
-		public String singoCategory(HttpServletRequest request, Model model) {
-			return "admin/singoCategory";
+	
+		// 카테고리 관리 페이지 이동
+		@GetMapping("/admin/singoList")
+		public String singoList(HttpServletRequest request, Model model) {
+			return "admin/singoList";
 		}
 		
 		@ResponseBody

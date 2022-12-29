@@ -37,19 +37,10 @@
 	</association>	
 </resultMap>
 
-
-Select * From A left JOIN B
-ON A.name = B.name
-left JOIN C
-ON A.name = C.name
-
-select 과목.이름,
-과목.교수번호,
-교수.이름,
-교수.학과번호
-from 과목, 교수
-where 과목.교수번호 = 교수.번호
-
+<select id="selectSingoCount" resultType="int">
+	SELECT COUNT(*)
+		  FROM SINGO	
+</select>
 
 <select id="selectSingoList" parameterType="Map" resultMap="SingoMap">
 	SELECT A.SINGO_NO, A.SINGO_CATEGORY_NO, A.SINGO_LINK, A.SINGO_USER_REASON, A.SINGO_CREATE_DATE, A.SINGO_REMOVE_DATE, A.SINGO_REASON, A.FREE_NO, A.USER_NO
@@ -58,6 +49,7 @@ where 과목.교수번호 = 교수.번호
 	ON S.FREE_NO = F.FREE_NO LEFT JOIN USERS U
 	ON F.USER_NO = U.USER_NO) A
 	ORDER BY SINGO_NO ASC
+	LIMIT #{begin}, #{recordPerPage}
 </select>
 
 <!-- 게시판 삽입(첨부파일 추가) -->
@@ -65,8 +57,14 @@ where 과목.교수번호 = 교수.번호
 		INSERT INTO SINGO
 			(SINGO_CATEGORY, SINGO_TITLE, SINGO_LINK, SINGO_USER_REASON, SINGO_CREATE_DATE, SINGO_REMOVE_DATE, SINGO_REASON, ID, IP)
 		VALUES
-			(#{singoCategory},#{singoTitle}, #{singoLink}, #{singoUserReason}, #{createDate}, NULL, #{singoReason}, #{userId}, #{ip})
+			(#{singoCategory}, #{singoTitle}, #{singoLink}, #{singoUserReason}, #{createDate}, NULL, #{singoReason}, #{userId}, #{ip})
 	</insert>
+	
+	<update id="adminUpdateSingo" parameterType="SingoDTO">
+		UPDATE SINGO
+		SET SINGO_REMOVE_DATE = NOW(), SINGO_REASON = #{singoReason}
+		WHERE SINGO_NO = #{singoNo}
+	</update>
 
 <!-- 상품 카테고리 목록 -->
 	<select id="selectSingoCategoryList" resultType="SingoCategoryDTO">

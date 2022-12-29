@@ -44,7 +44,7 @@ $(document).ready(function(){
     $("a").click(function(){
         var submenu = $(this).next("#addCategory");
 
-        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        // submenu 펼치기
         if( submenu.is(":visible") ){
             submenu.slideUp();
         }else{
@@ -133,7 +133,43 @@ $(document).ready(function(){
 </section>
 <br>
 <section>
-
+	<table class="tbl" width="70%">
+		<thead>
+			<tr>
+				<th>신고글번호</th>
+				<th>신고카테고리</th>
+				<th>원글제목</th>
+				<th>신고링크</th>
+				<th>작성자ID</th>
+				<th>신고기타</th>
+				<th>원글작성일</th>
+				<th>삭제사유</th>
+				<th>삭제일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${singoList}" var="singo" varStatus="vs">
+				<tr>
+					<td>${beginNo - vs.index}</td>
+					<td>${singo.singoCategory}</td>
+					<td>${singo.singoTitle}</td>
+					<td><a>${singo.singoLink}</a></td>
+					<td>${singo.id}</td>
+					<td>${singo.singoUserReason}</td>
+					<td>${singo.singoCreateDate}</td>
+					<td>${singo.singoReason}</td>
+					<td>${singo.singoRemoveDate}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5" style="text-align: center;">
+						${paging}
+				</td>
+			</tr>
+		</tfoot>
+	</table>
 </section>
 </body>
 </html>
