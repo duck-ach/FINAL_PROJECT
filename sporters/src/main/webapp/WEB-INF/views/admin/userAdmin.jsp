@@ -5,10 +5,44 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
+<style>
+
+* {
+		box-sizing: border-box;
+	}
+table, th {
+	text-align: center;
+}
+.tbl {
+	border-collapse: collapse;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+.wrap{
+	border-collapse: collapse;
+ 	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+.blind {
+	display: none;
+}
+</style>
 <script type="text/javascript">
+
+
 	$(document).ready(function(){
 		fn_getUserList();
 		fn_retireUser();
+		
+		// 검색키 엔터키에 연결
+	    $("#searchText").keydown(function (key) {
+	        if (key.keyCode == 13) {
+	        	$('#btn_search').click();
+	        	key.preventDefault();
+	        }
+	    });
 		
 		// 문서객체
         var checkall = document.getElementById('check_all');
@@ -30,10 +64,16 @@
                 }
                 checkall.checked = (checkcount == checkone.length);
             }
-        }    
+        }  
+        
+    	// 전역변수
+    	var page = 1;
+    	var totalPage = 0;
+    	var timer;
 
 	// 유저리스트 불러오기
 	function fn_getUserList() {
+		$('#list').addClass('blind');    // 목록 숨기기
 		$.ajax({
 			type : 'get',
 			url : '/searchAllUsers',
@@ -46,8 +86,8 @@
 			if(user.id != 'admin'){
 				tr += '<td><input type="checkbox" name="userCheck" class="check_one" value="'+ user.userNo +'"></td>';
 					}else{
-							tr += '<td></td>';	
-			}
+							tr += '<td></td>';
+				}
 			tr += '<td>' + user.userNo + '</td>';
 			tr += '<td>' + user.id + '</td>';
 			tr += '<td>' + user.nickname + '</td>';
@@ -65,6 +105,9 @@
 				alert('실패');
 			}
 		})
+		
+		$('#list').removeClass('blind'); // 목록 보여주기
+
 
 	}
 	
@@ -113,31 +156,51 @@
 // 			event.preventDefault();
 // 			return;
 // 		}
-		var userArray = [];
-		$('input:checkbox[name="userCheck"]:checked').each(function(i){
-			userArray.push($(this).val());
-			console.log($(this).val());
-			
-		});
-		
-			console.log(userArray);
-		$.ajax({
-			type:'post',
-			url: '/retireUser',
-			data:{"userNo" : userArray},
-			dataType:'json',
-			success:function(resData){
-				/* $('#list').empty(); */
-				alert(resData);
+			var userArray = [];
+			$('input:checkbox[name="userCheck"]:checked').each(function(i){
+				userArray.push($(this).val());
+				console.log($(this).val());
 				
-			}
-			/* error: function(jqXHR){
-				alert('에러코드(' + jqXHR.status + ') ' + jqXHR.responseText);
-			} */
-		})
-		});
+			});
+			
+			console.log(userArray);
+			alert(userArray);
+			
+			$.ajax({
+				type:'post',
+				url: '/retireUser',
+				data:{"userNo" : userArray},
+				dataType:'json',
+				success:function(){
+	 				alert('선택된 회원이 탈퇴 되었습니다.');
+	 				fn_getUserList();
+				}
+			})
 		
-	}	});
+		});
+	}	
+	
+// 	// 스크롤 이벤트
+// 	$(window).scroll(function(){
+// 		// 동일한 setTimeout이 다시 요청되었다면 setTimeout 동작 취소
+// 		if(timer) {
+// 			clearTimeout(timer);
+// 		}
+// 		// 마지막 스크롤 후 0.2초 후에 동작하는 setTimeout
+// 		timer = setTimeout(function(){
+// 			var scrollTop = $(this).scrollTop();        // 스크롤 된 길이
+// 			var windowHeight = $(this).height();        // 웹 브라우저(화면) 높이
+// 			var documentHeight = $(document).height();  // 문서 전체 높이
+// 			if((scrollTop + windowHeight) >= documentHeight){  // 스크롤이 화면 끝까지 내려갔음
+// 				if(page > totalPage){  // 마지막 페이지를 넘어가면 동작 안함
+// 					return;
+// 				}
+// 				fn_getUserList();
+// 			}
+// 		}, 200);  // 200밀리초 = 0.2초(시간은 알아서 조절할 것)
+// 	});
+	
+	});
 	
 </script>
 <body>
@@ -150,23 +213,23 @@
 				<option value="ID">아이디</option>
 				<option value="NAME">이름</option>
 				<option value="USER_NO">회원번호</option>
-			</select> <input type="text" id="searchText" name="searchText">
+			</select>
+			<input type="text" id="searchText" name="searchText">
 				<input type="button" id="btn_search" value="검색"> 
 				<input type="button" id="btn_init" value="초기화">
 				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
-
-			<table border="1" width="70%" style="border-collapse:collapse; border:1px gray solid;">
+			<table class="tbl" width="70%" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
-						<td><input type="checkbox" id="check_all"></td>
-						<td>회원번호</td>
-						<td>아이디</td>
-						<td>닉네임</td>
-						<td>이름</td>
-						<td>성별</td>
-						<td>이메일</td>
-						<td>연락처</td>
-						<td>가입일</td>
+						<th><input type="checkbox" id="check_all"></th>
+						<th>회원번호</th>
+						<th>아이디</th>
+						<th>닉네임</th>
+						<th>이름</th>
+						<th>성별</th>
+						<th>이메일</th>
+						<th>연락처</th>
+						<th>가입일</th>
 					</tr>
 				</thead>
 				<tbody id="list">
@@ -179,7 +242,7 @@
 			
 		</form>
 	</div>
-
+	
 
 </body>
 </html>

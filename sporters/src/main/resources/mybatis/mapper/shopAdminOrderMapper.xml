@@ -66,11 +66,12 @@
 	
 	
 	<!-- 주문목록 -->
-	<select id="selectOrderList" resultMap="OrderMap">
+	<select id="selectOrderList" resultMap="OrderMap" parameterType="map">
 		SELECT O.ORDER_NO, U.NAME, O.NAME, O.MOBILE, O.ORDER_DATE, O.ORDER_STATE, O.PRICE_ALL
 		  FROM ORDERS O LEFT OUTER JOIN USERS U
 		    ON O.USER_NO = U.USER_NO
 		 ORDER BY O.ORDER_NO
+		 LIMIT #{begin}, #{recordPerPage}
 	</select>
 	
 	<!-- 주문상세보기 -->

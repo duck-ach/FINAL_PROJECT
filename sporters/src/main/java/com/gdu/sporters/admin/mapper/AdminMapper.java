@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
 
 @Mapper
@@ -19,5 +18,6 @@ public interface AdminMapper {
 	public int insertRetireUser(Map<String, Object> map2);
 //	public List<UsersDTO> selectUserByNo(Map<String, Object> userNo);
 	public UsersDTO selectUserByNo2(int userNo);
-
+	
+	
 }

@@ -48,6 +48,7 @@ public class LocalCommController {
 	@ResponseBody
 	@PostMapping(value="/galleryLocalComm/reply/add", produces="application/json")
 	public Map<String, Object> replyAdd(LocalCommDTO reply, HttpServletRequest request){
+		System.out.println(request.getParameter("localBoardNo"));
 		return galleryLocalCommService.addLocalReply(reply, request);
 	}
 	

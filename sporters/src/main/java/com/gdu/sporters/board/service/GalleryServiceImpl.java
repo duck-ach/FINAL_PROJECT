@@ -62,6 +62,7 @@ public class GalleryServiceImpl implements GalleryService {
 		model.addAttribute("beginNo", totalRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
 		model.addAttribute("galleryList", galleryList);
 		model.addAttribute("paging", galleryPageUtil.getPaging("/free/list"));
+		model.addAttribute("paging", galleryPageUtil.getPaging("/adminFreeList"));
 
 	}
 	

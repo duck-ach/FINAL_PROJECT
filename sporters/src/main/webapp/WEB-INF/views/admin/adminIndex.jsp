@@ -8,6 +8,8 @@
 <body>
 
 	<a href="${contextPath}/admin/userAdmin">유저관리</a>
+	<a href="${contextPath}/admin/singoList">신고관리</a>
+	<a href="${contextPath}/admin/adminFreeList">게시판관리</a>
 
 </body>
 </html>

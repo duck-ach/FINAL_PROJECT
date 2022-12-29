@@ -78,22 +78,9 @@
 <script>
 	
 	$(function(){
-/* 		fn_notReload(); */
 		fn_getUserList();	
 	});
 	
-	// 새로고침 막기
-/* 	window.onload = function(){
-		fn_notReload();
-	}
-	function fn_notReload(){
-	    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
-	        event.keyCode = 0;
-	        event.cancelBubble = true;
-	        event.returnValue = false;
-	    } 
-	}
-	document.onkeydown = fn_notReload; */
 
 	// 채팅창 close할때 유저 DB에서 삭제
 	$(window).on('unload', function() {
@@ -111,7 +98,6 @@
 			url : '/chat/userList',
 			dataType : 'json',
 			success : function(resData) {
-				console.log(resData);
 				$('#userList').empty();
 				$.each(resData, function(i, data){
 					$('<li><a href="/users/userInfo">').text(data.user.nickname)
@@ -121,13 +107,21 @@
 		});
 	}
 	
+	// 유저가 0명일 때 해당 채팅방 삭제
+	$('#currUserCnt').on('change', function() {
+		if($('#currUserCnt').val() == 0) {
+			location.href='/chat/deleteChatRoom?chatRoomId=${chatRoom.chatRoomId}';
+		}
+	});
 	
 </script>
 </head>
 <body>
 	<form id="frm">
 		<input type="hidden" name="userNo" value="${user.userNo}">
+		<input type="hidden" id="gender" value="${user.gender}">
 		<input type="hidden" id="id" name="nickname" value="${user.nickname}">
+		<input type="hidden" id="currUserCnt" value="${currUserCnt}">
 	</form>
 	<div>
 		<span>${chatRoom.chatRoomId}</span> | <span>${chatRoom.chatRoomTitle}</span>
@@ -160,7 +154,7 @@
 	</div>
 
 	
-		<script>
+	<script>
 
 		$(function(){
 			fn_send();
@@ -175,8 +169,9 @@
 		function fn_send() {
 			if($('#message').val().trim() != '') {
 				sendData.id = $('#id').val();  // 작성자
+				sendData.gender = $('#gender').val(); // 성별
 				sendData.message = $('#message').val();  // 메시지
-				sendData.date = new Date().toLocaleString();  // 날짜
+				sendData.date = new Date().toLocaleTimeString();  // 날짜
 				ws.send(JSON.stringify(sendData));  // CharServer로 전송
 			}
 			$('#message').val('');
@@ -184,6 +179,22 @@
 	
 		$('#after_login').hide();
 		
+		//채팅창에서 나갔을 때
+		function onClose(evt) {
+			
+			var user = $('#id').val();
+			var str = user + " 님이 퇴장하셨습니다.";
+			
+			$("#msgArea").append(str);
+		}
+		//채팅창에 들어왔을 때
+		function onOpen(evt) {
+			
+			var user = $('#id').val();
+			var str = user + "님이 입장하셨습니다.";
+			
+			$("#msgArea").append(str);
+		}
 		
 		function fn_socketOn() {
 			// ChatServer와 연결
@@ -201,7 +212,7 @@
 					text = '<div class="other_message"><div class="other_message_content">';
 				}
 				text += '<div class="small_text">'
-				text += '<strong>' + data.id + '</strong>';
+				text += '<strong>' + data.id + '</strong>&nbsp;<span>' + data.gender + '</span>';
 				text += '(' + data.date + ')';
 				text += '</div>';
 				text += '<pre style="white-space: pre-wrap;">' + data.message + '</pre>';
@@ -212,11 +223,16 @@
 				$('#talking_content').scrollTop($('#talking_content').prop('scrollHeight'));  // 대화가 쌓이면 스크롤 내려주기
 				
 			};
+			
 			ws.onerror = function(error) {
 				console.log("ERROR:", error);
 			};
 			
+			ws.onclose = onClose;
+			ws.onopen = onOpen;
+			
 		}
+		
 		
 		
 		$('#message').keyup(function(event){

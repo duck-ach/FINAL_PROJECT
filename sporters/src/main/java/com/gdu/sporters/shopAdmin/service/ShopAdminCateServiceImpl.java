@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shopAdmin.mapper.ShopAdminCategoryMapper;
+import com.gdu.sporters.shopAdmin.util.ShopAdminPageUtil;
 
 @Service
 public class ShopAdminCateServiceImpl implements ShopAdminCateService{
@@ -53,7 +54,6 @@ public class ShopAdminCateServiceImpl implements ShopAdminCateService{
 			if(result > 0) {
 				out.println("<script>");
 				out.println("alert('카테고리가 정상적으로 삭제 되었습니다.');");
-			//	out.println("location.href='/shopAdmin/getCategoryList';");
 				out.println("location.href='/shopAdmin/categoryManage';");
 				
 				out.println("</script>");

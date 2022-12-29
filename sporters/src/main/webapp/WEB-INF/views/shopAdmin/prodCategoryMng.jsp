@@ -5,20 +5,39 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="Sporters 쇼핑몰 관리자페이지" name="title" />
 </jsp:include>
+<jsp:include page="shopAdminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <style>
+h2 {
+	font-size: 30px;
+}
+
+input_cate {
+	width: 200px;
+}
 
 tr{
-border-bottom: 1px solid #000;
-padding-bottom:2px;
+	height:35px;
+	border-bottom: 1px solid #000;
+	padding-bottom:2px;
 }
 
 tr td{
-vertical-align: bottom;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.tbl_wrap {
+	width: 600px;
+	margin: 0 auto;
 }
 </style>
 <body>
 <script>
+	// shopAdmin css
+	$('.shopAdmin').addClass('checked');
 
 	$(window).on('load', function(){
 		fn_getCateList();
@@ -65,37 +84,38 @@ vertical-align: bottom;
 			
 		});
 		
-		
 	});
 </script>
-
-<h2>카테고리 추가</h2>
-<form id="addCategoryFrm" method="get" >
-	<label for="cateName">카테고리 이름</label>
-	<input type="text" id="cateName">
-	<button>Add</button>
-</form>
-<hr>
-
-<table>
-	<thead>
-		<tr>
-			<td>카테고리 번호</td>
-			<td>카테고리 이름</td>
-			<td>삭제</td>
-		</tr>
-	</thead>
-	<tbody id="categoryList">
+<div class="body_wrap">
+	<div class="code_wrap">
+		<h2>카테고리 추가</h2>
+		<form id="addCategoryFrm" method="get">
+			<label for="cateName">카테고리 이름을 입력하세요.</label><br>
+			<input type="text" id="cateName" class="input_cate">
+			<button>Add</button>
+		</form>
+		
+		<hr>
 	
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="5" style="text-align: center;">
-				${paging}
-			</td>
-		</tr>
-	</tfoot>
-</table>
+		<table class="tbl_wrap">
+			<colgroup>
+					<col style="width:15%">
+					<col style="width:70%">
+					<col style="width:15%">
+				</colgroup>
+			<thead>
+				<tr>
+					<td>카테고리 번호</td>
+					<td>카테고리 이름</td>
+					<td>삭제</td>
+				</tr>
+			</thead>
+			<tbody id="categoryList">
+			
+			</tbody>
+		</table>
+	</div>
 
+</div>
 </body>
 </html>

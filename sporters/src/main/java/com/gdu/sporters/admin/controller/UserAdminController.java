@@ -1,10 +1,8 @@
 package com.gdu.sporters.admin.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gdu.sporters.admin.service.AdminService;
 
 @Controller
-public class AdminController {
+public class UserAdminController {
 	
 	@Autowired
 	private AdminService adminService;
@@ -38,6 +36,7 @@ public class AdminController {
 	public Map<String, Object> userList(HttpServletRequest request){
 		return adminService.getAllUsers(request);
 	}	
+	
 	// 검색어로 유저 불러오기
 	@ResponseBody
 	@GetMapping(value="/searchUsers", produces="application/json; charset=UTF-8")
@@ -45,11 +44,13 @@ public class AdminController {
 		return adminService.searchUsersbyQuery(request);
 	}
 	
+	// 유저 탈퇴
 	@ResponseBody
 	@PostMapping(value="/retireUser", produces="application/json; charset=UTF-8")
-	public void retire(HttpServletRequest request, HttpServletResponse response) {
-		adminService.removeUsers(response, request);
+	public Map<String, Object> retire(HttpServletRequest request, Map<String, Object> map) {
+		return adminService.removeUsers(request, map);
 	}
 	
+
 
 }

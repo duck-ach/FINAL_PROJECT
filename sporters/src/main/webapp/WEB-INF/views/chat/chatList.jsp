@@ -19,34 +19,46 @@
 	
 				$(function(){
 					fn_openChat();
-					// fn_userLimit();
 				});
 				
-				var chatAddWindow;
-			
 				// 채팅방 입장
+				var chatAddWindow;
 				function fn_openChat(){
 					$('#add_chat_room').click(function(){
 						chatAddWindow = window.open('/chat/write', '실시간채팅', 'width=900,height=670,top=100,left=500,menubar=no,history=no');							
 					});
 				}
 				
-				// 채팅방 인원 제한
-/* 				function fn_userLimit() {
-					$('.btn_in_chat').click(function(){
-						$.ajax({
-							type: 'post',
-							url : '/chat/chatRoom',
-							data: 'chatRoomId=',
-							dataType : 'json',
-							success: function() 
-						});
-					});
-				} */
-			
+				/* 	function fn_chatList(){
+					$.ajax({
+						type: 'get',
+						url: '/chat/getChatList',
+						data: 'chatRoomId=' + $('.chatRoomId').val(),
+						dataType: 'json',
+						success: function(resData){
+							$('#chatList').empty();
+							$.each(resData.chatList, function(i, chatRoom){
+								var tr = '<tr>';
+								tr += '<td>' + chatRoom.chatRoomId + '</td><input type="hidden" class="chatRoomId" name="chatRoomId" value="' + chatRoom.chatRoomId + '">';
+								if(chatRoom.isPw == 1) {
+									tr += '<td class="chat_room_name">' + chatRoom.chatRoomTitle + '<i class="fa-solid fa-lock"></i></td>';
+								} else {
+									tr += '<td class="chat_room_name">' + chatRoom.chatRoomTitle + '</td>';
+								}
+								tr += '<span class="currUserCnt">' + ${currUserCnt} + '</span><span> / </span><span>' + chatRoom.maxUsersCnt + '</span><input type="hidden" value="' + chatRoom.maxUsersCnt + '" class="maxUserCnt">';
+								if(chatRoom.isPw == 1) {
+									tr += '<input type="button" class="btn_in_chat" value="입장" onclick="window.open("/chat/chatRoom/lock?chatRoomId="' + chatRoom.chatRoomId + '"", "실시간채팅", "width=900,height=670,top=100,left=500,menubar=no,history=no")">';
+								} else {
+									tr += '<input type="button" class="btn_in_chat" value="입장" onclick="window.open("/chat/chatRoom?chatRoomId="' + chatRoom.chatRoomId + '"",  "실시간채팅", "width=900,height=670,top=100,left=500,menubar=no,history=no")">';
+								}
+							})
+						}	
+					} */
+					
 			</script>
 		
 			<h1>채팅하기</h1>
+			<span>채팅방 총 ${chatRoomCnt}개</span>
 			<hr>
 			<div>
 				<input type="button" value="채팅방 생성" id="add_chat_room"/>
@@ -57,21 +69,19 @@
 						<tr>
 							<td>채팅방 번호</td>
 							<td>채팅방 이름</td>
-							<td>인원 수</td>
 							<td>입장하기</td>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="#chatList">
 						<c:forEach items="${chatRoomList}" var="chatRoom">
 							<tr>
-								<td>${chatRoom.chatRoomId}</td>
+								<td>${chatRoom.chatRoomId}<input type="hidden" class="chatRoomId" name="chatRoomId" value="${chatRoom.chatRoomId}"></td>
 								<c:if test="${chatRoom.isPw == '1'}">
-									<td class="chat_room_name">${chatRoom.chatRoomTitle}&nbsp;<i class="fa-solid fa-lock"></i></td>
+									<td class="chat_room_name">${chatRoom.chatRoomTitle}&nbsp;</td>
 								</c:if>
 								<c:if test="${chatRoom.isPw == '0'}">
 									<td class="chat_room_name">${chatRoom.chatRoomTitle}</td>
 								</c:if>
-								<td><span class="currUserCnt">${currUserCnt}</span><span> / </span><span>${chatRoom.maxUsersCnt}</span><input type="hidden" value="${chatRoom.maxUsersCnt}" class="maxUserCnt"></td>
 								<c:if test="${chatRoom.isPw == '1'}">
 									<td><input type="button" class="btn_in_chat" value="입장" onclick="window.open('/chat/chatRoom/lock?chatRoomId=${chatRoom.chatRoomId}', '실시간채팅', 'width=900,height=670,top=100,left=500,menubar=no,history=no')"></td>
 								</c:if>

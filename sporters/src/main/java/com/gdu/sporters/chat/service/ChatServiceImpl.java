@@ -46,8 +46,11 @@ public class ChatServiceImpl implements ChatService {
 		
 		// Map 생성
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", pageUtil.getBegin());
+		map.put("begin", pageUtil.getBegin() - 1);
 		map.put("recordPerPage", pageUtil.getRecordPerPage()); // begin부터 몇개 로 동작함.
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("chatList", chatMapper.selectChatRoomListByMap(map));
 		
 		
 		// view로 전달할 데이터 Model에 저장
@@ -55,7 +58,7 @@ public class ChatServiceImpl implements ChatService {
 		model.addAttribute("chatRoomList", chatMapper.selectChatRoomListByMap(map));
 		model.addAttribute("beginNo", totalChatRoomCnt - (page - 1) * pageUtil.getRecordPerPage());
 		model.addAttribute("paging", pageUtil.getPaging("/chat/chatList"));
-		model.addAttribute("currUserCnt", chatMapper.selectChatUserCnt());
+		
 	}
 	
 	@Transactional
@@ -130,7 +133,7 @@ public class ChatServiceImpl implements ChatService {
 		model.addAttribute("user", chatMapper.selectUserByChat(loginUser.getUserNo())); // 현재유저
 		model.addAttribute("userList", chatMapper.selectUserListByChat()); // 채팅방 유저 목록
 		model.addAttribute("chatRoom", chatMapper.selectChatRoomByNo(map)); // 채팅방 정보
-		model.addAttribute("currUserCnt", chatMapper.selectChatUserCnt()); // 현재유저 수
+		model.addAttribute("currUserCnt", chatMapper.selectChatUserCnt(map)); // 현재유저 수
 		
 	}
 	
@@ -190,6 +193,38 @@ public class ChatServiceImpl implements ChatService {
 		return chatMapper.selectUserListByChat();
 	}
 	
-	
-	
+	@Override
+	public void removeChatRoom(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		int chatRoomId = Integer.parseInt(request.getParameter("chatRoomId"));
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("chatRoomId", chatRoomId);
+		
+		int removeResult = chatMapper.deleteChatRoom(map);
+		
+		// 응답
+				try {
+					
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					
+					if(removeResult > 0) {
+						out.println("<script>");
+						out.println("location.href='/chat/chatList'");
+						out.println("</script>");
+					} else {
+						out.println("<script>");
+						out.println("alert('[오류] 채팅방 삭제를 완료하지 못했습니다. 다시 시도해 주세요.');");
+						out.println("history.back();");
+						out.println("</script>");
+					}
+					out.close();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		
+	}
 }
