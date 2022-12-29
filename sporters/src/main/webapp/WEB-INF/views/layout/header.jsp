@@ -55,14 +55,18 @@
 	
 	.spoters_logo_area{
 	    padding: 50px 100px 0 100px;
+	    
 	    display: flex;
+	    
 	    /* border: 1px solid #000; */
 	    /* background-color: #fff; */
+	    
 	    flex-direction: row;
 	    align-content: stretch;
 	    flex-wrap: nowrap;
 	    justify-content: space-between;
 	    align-items: baseline;
+	    
 	}
 	.spoters_logo{
 		width:300px; 

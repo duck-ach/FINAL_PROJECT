@@ -53,8 +53,8 @@ public class GalleryServiceImpl implements GalleryService {
 		galleryPageUtil.setPageUtil(page, totalRecord);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", galleryPageUtil.getBegin());
-		map.put("end", galleryPageUtil.getEnd());
+		map.put("begin", galleryPageUtil.getBegin() - 1);
+		map.put("recordPerPage", galleryPageUtil.getRecordPerPage());
 
 		List<FreeDTO> galleryList = boardMapper.selectFreeList(map);
 
