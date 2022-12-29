@@ -109,7 +109,7 @@
 		<br>
 		<h3>카테고리</h3>
 		<ul>
-			<li><a href="/shop/list">전체</a></li>
+			<li><a href="/shop/categoryList">전체</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=1">음식</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=2">의류</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=3">기타</a></li>

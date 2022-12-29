@@ -17,12 +17,13 @@
 		$('.btn_addCart').click(function(){
 			var prodNo = $('.prodNo').val();
 			var prodCnt = $('.prodCnt').val();
+			alert(prodNo);
+			alert(prodCnt);
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
 					};
 			var prodNo = $('.prodNo').val();
-			alert(prodNo);
 			
 			$.ajax({
 				url: '/shop/addCart',
@@ -43,6 +44,8 @@
 			var prodCnt = $('.prodCnt').val();
 			var stock = $('.stock').val();
 			var prodName = $('.prodName').val();
+			alert(prodCnt);
+			alert(stock);
 			if(prodCnt > stock) {
 				alert('구매량이 재고량보다 많습니다.');
 				prodcnt == stock;
