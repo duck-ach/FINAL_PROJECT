@@ -2,6 +2,8 @@ package com.gdu.sporters.board.domain;
 
 import java.sql.Date;
 
+import com.gdu.sporters.users.domain.UsersDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +24,8 @@ public class SpoReviewDTO {
 	private int localBoardNo;
 	private String ip;
 	private Date modifyDate;
+	private int localNo;
+	private UsersDTO users;
+	private SpoImageDTO SpoImageess;
+	private LocalDTO Localss;
 }

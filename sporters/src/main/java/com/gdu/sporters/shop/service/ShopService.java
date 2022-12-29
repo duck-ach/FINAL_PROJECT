@@ -1,5 +1,6 @@
 package com.gdu.sporters.shop.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,5 +16,7 @@ public interface ShopService {
 	public void addCart(CartDTO cart);
 	public void getCartList(Model model);
 	public void deleteCart(CartDTO cart);
+	public List<ProductDTO> getCategoryList(int prodCategoryNo);
+	
 	public Map<String, Object> isSameProdNo(Map<String, Object> map);
 }

@@ -118,7 +118,7 @@
 		</ul>
 	</div>
 	<div>
-		<c:forEach items="${productList}" var="list">
+		<c:forEach items="${list}" var="list">
 			<form id="frm_product">
 				<ul>
 					<li class="product">
