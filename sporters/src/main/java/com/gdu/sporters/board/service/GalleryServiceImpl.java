@@ -146,7 +146,7 @@ public class GalleryServiceImpl implements GalleryService {
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 
 		// 저장 경로 (separator : 경로 구분자) 윈도우만 쓰려고할 때는 C:\\upload
-		String path = "C:" + File.separator + "summernoteImage";
+		String path = myFileUtil.getSummernotePath();
 //		String path = "file:"+ File.separator +"///summernoteImage";
 
 		// 저장할 파일 이름

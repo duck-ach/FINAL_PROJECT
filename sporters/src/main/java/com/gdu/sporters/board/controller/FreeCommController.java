@@ -49,6 +49,7 @@ public class FreeCommController {
 	@ResponseBody
 	@PostMapping(value="/galleryFreeComm/reply/add", produces="application/json")
 	public Map<String, Object> replyAdd(FreeCommDTO reply, HttpServletRequest request){
+		System.out.println(reply);
 		return galleryCommService.addReply(reply, request);
 	}
 	

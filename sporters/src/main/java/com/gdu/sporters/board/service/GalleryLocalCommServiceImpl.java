@@ -45,8 +45,8 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		commContent.setUserNo(userNo);
 		
 		result.put("isAdd", commentMapper.insertFreeComment(commContent) == 1);
-		
-	
+		System.out.println("123");
+		System.out.println(commContent);
 		
 		commentMapper.updateCommGroupOrder(commContent);
 		
@@ -78,7 +78,7 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		result.put("isRemove", commentMapper.deleteFreeComment(localCoNo) == 1);
 		return result;
 	}
-	
+	 
 	@Override
 	public Map<String, Object> addLocalReply(LocalCommDTO reply, HttpServletRequest request) {
 		// Session의 User 정보
@@ -88,6 +88,7 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isAdd", commentMapper.insertFreeReply(reply) == 1);
+		System.out.println("결과값: " + result.get("isAdd"));
 		return result;
 	}
 	

@@ -124,7 +124,6 @@
 		fn_commentList();
 		fn_changePage();
 		fn_removeComment();
-		fn_switchReplyArea();
 		fn_addReply();
 	      
 	      // 함수 정의
@@ -194,8 +193,6 @@
 	               $('#comment_list').empty();   // 목록 초기화 필수
 	               $.each(resData.LocalcommentList, function(i, comment){
 	                  // 댓글 depth: 0 이면 들어갈 필요 없고, 대댓 depth: 1 이면 한칸 들어가야 함, 1단이면 그룹오더 필요x
-	                  console.log(comment.commContent);
-	                  console.log(comment);
 						var div = '';
 						if(comment.depth == 0){
 							div += '<div>';
@@ -235,6 +232,7 @@
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="localCoNo" value="' + comment.localCoNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
+						div += '<input type="hidden" name="localBoardNo" value="' + comment.localBoardNo + '">';
 						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해주세요">';
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
@@ -299,19 +297,18 @@
 				});
 			}
 	
-	      function fn_switchReplyArea(){
-				$(document).on('click', '.btn_reply_area', function(){
-					$(this).parent().next().next().toggleClass('blind');
-				});
-			}
+	    
 	      function fn_addReply(){
 				$(document).on('click', '.btn_reply_add', function(){
+					$(this).parent().next().next().toggleClass('blind');
+				
 					if($(this).prev().val() == ''){
 						alert('답글 내용을 입력하세요.');
 						return;
 					}
+					console.log("아:"+ $(this).closest('.frm_reply').serialize());
 					$.ajax({
-						type: 'post',
+						type: 'post', 
 						url: '/galleryLocalComm/reply/add',
 						data: $(this).closest('.frm_reply').serialize(),  // 이건 안 됩니다 $('.frm_reply').serialize(),
 						dataType: 'json',
