@@ -171,6 +171,7 @@
 						<td style='width:20px; padding-top:5px;'>
 							<div class="checkAll">
 								<input type="checkbox" name="checkAll" id="checkAll"/><label for="allCheck" ></label> 
+								<input type="hidden" id="prodCategoryNo" value="${prodCategoryNo}">
 							</div>
 						</td>
 						<td>
