@@ -184,12 +184,12 @@
 					<div>
 						<span id="good">
 							<a id="lnk_good">
-								<span>좋아요 : </span><span id="good_count"></span>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            
+								<span><img src="https://img.icons8.com/material-two-tone/24/null/thumb-up--v1.png"/></span><span id="good_count"></span>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            
 							</a>
 						</span>
 						<span id="hate">
 							<a id="lnk_hate">
-								<span>싫어요 : </span><span id="hate_count"></span><br>
+								<span><img src="https://img.icons8.com/material-two-tone/24/null/thumbs-down.png"/></span><span id="hate_count"></span><br>
 							</a>
 						</span>
 						

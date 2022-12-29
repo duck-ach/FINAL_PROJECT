@@ -6,7 +6,22 @@
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+	$(function(){
+		fn_goodAndHate();
+	});
 	
+	function fn_goodAndHate(){
+		$.ajax({
+			url: '/heart/likeNhate',
+			type: 'get',
+			data: '&userNo=' + $('#userNo').val(),
+			dataType: 'json',
+			success: function(resData){
+				$('#good_hate_count').empty();
+				$('#good_hate_count').text(resData.result);
+			}
+		});
+	}
 	
 </script>
 <body>
@@ -29,7 +44,7 @@
 						이메일 주소 : ${loginUser.email}
 					</div>
 					<div>
-						호감도 : ${heartCount} + ${hateCount}
+						호감도 : <span id="good_hate_count"></span>
 					</div>
 					<div>
 						가입일 : ${loginUser.joinDate}

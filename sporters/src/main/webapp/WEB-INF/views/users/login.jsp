@@ -5,10 +5,64 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+
+#background {
+    width: 200px;
+    margin: auto;
+    margin-top: 10%;
+    min-width: 40%;
+}
+
+#input_box {
+	width: 100%;
+    height: 52px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding-left: 20px;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+#id, #pw {
+	border: none;
+	height: 45px;
+	width: 98%;
+}
+
+
+#btn_login {
+	display: block;
+    text-align: end;
+    display: block;
+    color: #fff;
+    text-align: center;
+    background: #8c8cff;
+    line-height: 52px;
+    height: 52px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+#login {
+	border: none;
+	background: #8c8cff;
+	color: white;
+	width: 98%;
+	height: 45px;
+}
+
+</style>
 <script>
 	$(function(){
 		fn_login();
 		fn_showRememberId();
+		fn_btnLogin();
 		//fn_openUserInfo();
 	});
 	
@@ -39,6 +93,13 @@
 			$('#rememberId').prop('checked', true);
 		}
 	}
+	
+	function fn_btnLogin(){
+		$('#login').click(function(){
+			$('#frm_login').submit();
+		});
+	}
+	
 /*
 	function fn_openUserInfo(){
 		$('#to_userInfo').click(function(){
@@ -51,23 +112,19 @@
 </script>
 <body>
 
-<section class="wrap"><!-- 기본틀 1 -->
-	<section class="content_leyout_section"><!-- 기본틀 2 -->
-
+<div id="background">
 	<c:if test="${loginUser == null}">
-		<div>
+		<div id="div_login_form">
 			<form id="frm_login" action="/users/login" method="post">
 				<input type="hidden" name="url" value="${url}">
-				<div>
-					<label for="id">아이디</label>
-					<input type="text" name="id" id="id">
+				<div id="input_box">
+					<input type="text" name="id" id="id" placeholder="ID">
 				</div>
-				<div>
-					<label for="pw">비밀번호</label>
-					<input type="password" name="pw" id="pw">
+				<div id="input_box">
+					<input type="password" name="pw" id="pw" placeholder="PASSWORD">
 				</div>
-				<div>
-					<button>로그인</button>
+				<div id="btn_login">
+					<input type="button" id="login" value="로그인">
 				</div>
 				<div>
 					<label for="rememberId">
@@ -89,33 +146,17 @@
 				<a href="/users/agree/form">회원가입</a>
 			</div>
 			
-			<hr>
+			<div style="border-bottom: 1px solid lightgray; height: 5px;"></div>
 			
 			<div>
 				<a href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 			</div>
-
-			
-		
+	
 		</div>
 		
-		</c:if>
-		
-			<c:if test="${loginUser != null}">
-      
-		      <br>
-		      
-		      <div id="mypage_footer">
-		         ${loginUser.name}님 반갑습니다.<br>
-		         <a href="/users/mypage">마이페이지로 이동</a><br>
-		         <a href="/users/logout">로그아웃</a>
-		      </div>
-		      
-		   </c:if>
-		
-	</section><!-- 기본틀 2 -->
-	
-</section><!-- 기본틀 1 -->
+	</c:if>
+</div>		
+
 
 </body>
 </html>
