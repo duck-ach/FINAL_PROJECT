@@ -5,11 +5,14 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
+<jsp:include page="adminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
+<script>
+	$('.admin').addClass('checked');
+</script>
 <body>
 
-	<a href="${contextPath}/admin/userAdmin">유저관리</a>
-	<a href="${contextPath}/admin/singoList">신고관리</a>
-	<a href="${contextPath}/admin/adminFreeList">게시판관리</a>
 
 </body>
 </html>

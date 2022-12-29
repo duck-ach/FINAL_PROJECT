@@ -31,8 +31,8 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
-	@Autowired
-	private ScrollPageUtil scrollPageUtil;
+//	@Autowired
+//	private ScrollPageUtil scrollPageUtil;
 	
 	@Autowired
 	private SecurityUtil securityUtil;
