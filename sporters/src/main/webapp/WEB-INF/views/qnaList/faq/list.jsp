@@ -19,9 +19,9 @@
 	}
 	
 	#list_table {
-		width: 70%;
-		margin: auto;
-		font-size: 24px;
+		width: 60%;
+	    margin: auto;
+	    font-size: 20px;
 	}
 	
 	.table_class {
@@ -60,14 +60,20 @@
 	}
 	*/
 	
+	#div_btn_write {
+		width: 100%;
+   	 	text-align: right;
+   	 	margin-top: 10px;
+	}
+	
 </style>
 <body>
 	
 	<div id="div_back">
-		<div style="font-size: 32px;"> FAQ </div>
+		<div style="font-size: 32px; width: 60%; margin: auto; margin-top: 100px;"> FAQ </div>
 		<div id="list_table">
 			<c:if test="${loginUser.id == 'admin'}">
-				<div>
+				<div id="div_btn_write" >
 					<input type="button" id="btn_write" value="작성">
 				</div>
 			</c:if>
