@@ -7,14 +7,13 @@
 </jsp:include>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <style>
-* {
-		box-sizing: border-box;
-	}
+
 .tbl {
+	border-spacing: 2px;
 	border-collapse: collapse;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
+/* 	margin-left: auto; */
+/* 	margin-right: auto; */
 }
 
 tr{
@@ -36,7 +35,6 @@ vertical-align: bottom;
 	margin-right: auto;
 	}
 </style>
-<body>
 <script>
 
 $(document).ready(function(){
@@ -101,6 +99,9 @@ $(document).ready(function(){
 		
 	});
 </script>
+<body>
+<div class="body_wrap">
+	<div class="code_wrap">
 <a>▩▩▩카테고리 관리▩▩▩</a>
 <section id="addCategory">
 <form id="addCategoryFrm" method="get" >
@@ -111,7 +112,7 @@ $(document).ready(function(){
 </form>
 <br>
 
-<table class="tbl" width="70%">
+<table class="tbl">
 	<thead>
 		<tr>
 			<td>카테고리 번호</td>
@@ -133,7 +134,7 @@ $(document).ready(function(){
 </section>
 <br>
 <section>
-	<table class="tbl" width="70%">
+	<table class="tbl">
 		<thead>
 			<tr>
 				<th>신고글번호</th>
@@ -171,5 +172,7 @@ $(document).ready(function(){
 		</tfoot>
 	</table>
 </section>
+</div>
+</div>
 </body>
 </html>

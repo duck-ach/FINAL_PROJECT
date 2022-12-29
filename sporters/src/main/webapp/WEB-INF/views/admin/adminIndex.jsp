@@ -8,6 +8,9 @@
 <jsp:include page="adminLeftSide.jsp">
 	<jsp:param value="left_side" name="left_side" />
 </jsp:include>
+<script>
+	$('.shopAdmin').addClass('checked');
+</script>
 <body>
 
 	<a href="${contextPath}/admin/userAdmin">유저관리</a>

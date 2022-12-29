@@ -5,8 +5,13 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
+<jsp:include page="adminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
 <script>
-	
+
+$('.shopAdmin').addClass('checked');
+
 	$(document).ready(function(){
 		
 		// 함수 호출

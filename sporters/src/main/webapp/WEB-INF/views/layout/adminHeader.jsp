@@ -20,17 +20,7 @@
 <script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
 <script>
-/* 	// 현재 URL
-	var currURL = document.location.href;
-	var admin = '/admin/adminIndex';
-	var shopAdmin = '/admin/shopIndex';
-	
-	if(currURL == admin) {
-		$('.admin').addClass('checked');
-	}
-	if(currURL == shopAdmin) {
-		$('.shopAdmin').addClass('checked');
-	} */
+
 	
 </script>
 <style type="text/css">
