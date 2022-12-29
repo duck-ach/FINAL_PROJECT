@@ -101,6 +101,7 @@ $(function(){
 </div>
 
 
+
 <jsp:include page="layout/right_side.jsp">
 	<jsp:param value="right_side" name="right_side" />
 </jsp:include>

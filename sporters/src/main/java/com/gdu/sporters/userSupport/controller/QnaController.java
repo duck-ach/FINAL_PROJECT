@@ -25,7 +25,7 @@ public class QnaController {
 	}
 	
 	@GetMapping("/qna/write")
-	public String write(){
+	public String requiredLogin_write(){
 		return "qnaList/qna/write";
 	}
 	

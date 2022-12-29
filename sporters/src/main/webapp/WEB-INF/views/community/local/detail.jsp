@@ -132,10 +132,10 @@
 	         $.ajax({
 	            type: 'get',
 	            url: '/galleryLocalComm/getCount', 
-	            data: 'localBoardNo=${gallery.localBoardNo}',   // 글번호 달아줌
+	            data: 'localBoardNo=${LocalgalleryList.localBoardNo}',   // 글번호 달아줌
 	            dataType: 'json',
 	            success: function(resData){  // resData = {"commentCount": 개수}
-	               $('#comment_count').text(resData.commentCnt);
+	               $('#comment_count').text(resData.LocalcommentCnt);
 	            }
 	         });
 	      }
@@ -174,7 +174,7 @@
 	         $.ajax({
 	            type: 'get',
 	            url: '/galleryLocalComm/list',
-	            data: 'localBoardNo=${gallery.localBoardNo}&page=' + $('#page').val(),   // 현재 page도 넘겨줘야 함
+	            data: 'localBoardNo=${LocalgalleryList.localBoardNo}&page=' + $('#page').val(),   // 현재 page도 넘겨줘야 함
 	            dataType: 'json',
 	            success: function(resData){
 	               /*
@@ -192,7 +192,7 @@
 	               */
 	               // 화면에 댓글 목록 뿌리기
 	               $('#comment_list').empty();   // 목록 초기화 필수
-	               $.each(resData.commentList, function(i, comment){
+	               $.each(resData.LocalcommentList, function(i, comment){
 	                  // 댓글 depth: 0 이면 들어갈 필요 없고, 대댓 depth: 1 이면 한칸 들어가야 함, 1단이면 그룹오더 필요x
 	                  console.log(comment.commContent);
 	                  console.log(comment);
@@ -233,14 +233,14 @@
 						div += '</div>';
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
-						div += '<input type="hidden" name="freeNo" value="' + comment.freeNo + '">';
+						div += '<input type="hidden" name="localCoNo" value="' + comment.localCoNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
 						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해주세요">';
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
 						div += '</form>';
 						div += '</div>';
-						div += '</div>';
+					//	div += '</div>';
 						$('#comment_list').append(div);
 						$('#comment_list').append('<div style="border-bottom: 1px dotted gray;"></div>');
 					});

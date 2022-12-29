@@ -8,41 +8,51 @@
 </jsp:include>
 <script>
 
-	$(document).ready(function(){
-		
-		 $(".btn_addCart").click(function(){
+	$(function(){
+		fn_addCart();
+		fn_buy();
+	});
+	
+	function fn_addCart(){
+		$('.btn_addCart').click(function(){
 			var prodNo = $('.prodNo').val();
 			var prodCnt = $('.prodCnt').val();
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
 					};
+			var prodNo = $('.prodNo').val();
+			alert(prodNo);
+			
 			$.ajax({
 				url: '/shop/addCart',
 				type: 'post',
 				data: data,
-				success: function(result){
-					if(result == 1){
-						alert('카트 담기 성공');
-						$('#prodCnt').val("1");
-					} else {
-						if(confirm('회원만 사용할 수 있습니다. 로그인하시겠습니까?')){
-							location.href="${contextPath}/users/login/form";
-							$('#prodCnt').val("1");
-							return;
-						}
-					}
+				success: function(){
+					alert('카트 담기 성공');
 				},
 				error: function(){
 					alert('카트 담기 실패');
 				}
 			});
 		}); 
-		
-		
+	}
 	
-	});
-	
+	function fn_buy(){
+		$('.btn_buy').click(function(){
+			var prodCnt = $('.prodCnt').val();
+			var stock = $('.stock').val();
+			var prodName = $('.prodName').val();
+			if(prodCnt > stock) {
+				alert('구매량이 재고량보다 많습니다.');
+				prodcnt == stock;
+			} else {
+				if(confirm(prodName + ' \'' + prodCnt + '\'개 구매하시겠습니까?')){
+					location.href = '/shop/cart';
+				}
+			}
+		});
+	}
 	
 </script>
 <style>
@@ -99,10 +109,12 @@
 		<br>
 		<h3>카테고리</h3>
 		<ul>
-			<li><a href="/shop/list?c=1">음식</a></li>
-			<li><a href="/shop/list?c=2">의류</a></li>
-			<li><a href="/shop/list?c=3">기타</a></li>
+			<li><a href="/shop/list">전체</a></li>
+			<li><a href="/shop/categoryList?prodCategoryNo=1">음식</a></li>
+			<li><a href="/shop/categoryList?prodCategoryNo=2">의류</a></li>
+			<li><a href="/shop/categoryList?prodCategoryNo=3">기타</a></li>
 			<li><a href="/shop/cartList">장바구니로 이동</a></li>
+			<li><a href="/shop/orderList">주문내역 확인</a></li>
 		</ul>
 	</div>
 	<div>
@@ -113,8 +125,10 @@
 						<img src="${list.prodThumbnail}"><br>
 						<input type="hidden" class="prodNo" value="${list.prodNo}">
 						<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
+						<input type="hidden" class="prodName" value="${list.prodName}">
 						<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
 						<span>재고 : ${list.stock} 개</span><br>
+						<input type="hidden" class="stock" value="${list.stock}">
 						<span>구매할 수량 : 
 						<select name="prodCnt" class="prodCnt">
 						<%for(int i=1; i<100; i++){%>

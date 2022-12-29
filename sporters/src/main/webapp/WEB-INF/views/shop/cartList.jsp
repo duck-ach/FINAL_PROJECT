@@ -71,19 +71,30 @@
    			
 			var IMP = window.IMP; 
 			IMP.init('imp30603183');
-			var merchant_uid = 'TagMusic_' + new Date().getTime();
+			var merchant_uid = 'product_' + new Date().getTime();
+			
+			var priceArray = [];
+			$('input:checkbox[name=checkOne]:checked').each(function (index){
+				priceArray.push($(this).data('price'));
+			});
+			var sum = priceArray.reduce((a,b) => (a+b));
+			
+			var nameArray = [];
+			$('input:checkbox[name=checkOne]:checked').each(function (index){
+				nameArray.push($(this).data('prodname'));
+			});
+			if(nameArray.length < 2) {
+				prodName = '' + nameArray;
+			} else {
+				prodName = nameArray[0] + ' 외 ' + (nameArray.length - 1) + '개';
+			};
+			
 			IMP.request_pay({ 
 			pg: "html5_inicis",
 			pay_method: 'card',
 			merchant_uid: merchant_uid,
-			//name: '노래제목:'+firstCartMusicName+' 외'+ (muprice-1) +'곡',
-			name: '상품이름', 
-			amount: 100,
-			buyer_email: 'asd123@asd.com',
-			buyer_name: '구매자명',
-			buyer_tel: '010-1234-5678',
-			buyer_addr: '서울시',
-			buyer_postcode: '123-111',
+			name: prodName, 
+			amount: sum,
 			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
 			}, function (rsp) {
 				if (rsp.success) {
@@ -142,8 +153,11 @@
 		padding-bottom: 10px;
 	}
 	input[type='checkbox'] {
-	width:20px;
-	height:20px;
+		width:20px;
+		height:20px;
+	}
+	.blind {
+		display: none;
 	}
 </style>
 <body>
@@ -163,15 +177,46 @@
 							<div class="delBtn">
 								<button type="button" id="btn_removeCartChecked">선택 삭제</button> 
 							</div>
+							<script>
+								$("#btn_removeCartChecked").click(function(){
+									var confirm_val = confirm("정말 삭제하시겠습니까?");
+								 
+									if(confirm_val) {
+										var checkArr = new Array();
+								  
+										$("input[class='checkOne']:checked").each(function(){
+											checkArr.push($(this).attr("data-cartNo"));
+										});
+										
+										$.ajax({
+											url: "/shop/deleteCart",
+											type: "post",
+											data: { "checkOne" : checkArr },
+											success: function(result){
+												if(result == 1) {          
+													alert("삭제 성공");
+													location.href='/shop/cartList';
+												} else {
+													alert("삭제 실패");
+												}
+											},
+											error: function(){
+												alert("삭제할 상품을 1개 이상 선택해주세요.");
+											}
+										});
+									} 
+								});
+							</script>
 						</td>
 					</tr>
-
+					
+					
 					<c:set var="sum" value="0" /> 
 					<c:forEach items="${cartList}" var="cartList">
 					<tr>
 						<td style="padding-right:10px;">
 							<div>
-								<input type="checkbox" name="checkOne" class="checkOne" data-cartNo="${cartList.cartNo}" data-price="${cartList.product.price * cartList.prodCnt}">
+								<input type="checkbox" name="checkOne" class="checkOne" data-cartNo="${cartList.cartNo}" data-price="${cartList.product.price * cartList.prodCnt}" data-prodName="${cartList.product.prodName}">
 							</div>
 						</td>
 						<td class="cartListDetail">
@@ -191,10 +236,11 @@
 										$.ajax({
 											url : "/shop/deleteCart",
 											type : "post",
-											data : 'checkOne=' + checkArr,
+											data : { "checkOne" : checkArr },
 											success : function(result){
 												if(result == 1) {
 													alert("삭제 성공");
+													location.href='/shop/cartList';
 												} else {
 													alert("삭제 실패");
 												}
@@ -208,14 +254,16 @@
 								}); 
 							</script>
 							<input type="hidden" id="prodNo" value="${cartList.prodNo}">
-		 					<a href="${contextPath}/shop/detail?prodNo=${cartList.prodNo}">${cartList.product.prodName}</a><br>
+		 					<a href="${contextPath}/shop/detail?prodNo=${cartList.prodNo}"><span id="productId">${cartList.product.prodName}</span></a><br>
 							<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
 							<span>재고 : ${cartList.product.stock} 개</span><br>
 							<span>구매할 수량 : ${cartList.prodCnt} 개</span><br>
 							<span>합계 가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price * cartList.prodCnt}" /> 원</span><br>
 						</td>
+						
 					</tr>
-					</c:forEach>	
+					</c:forEach>
+					
 					<tr>
 						<td colspan="2">
 							<br><div class="listResult">
@@ -225,7 +273,7 @@
 								</div><br>
 								<div id="sumAll"></div>
 								<div id="orderDetail">
-								    <input type="button" id="sameAdd" value="기본 배송지">
+								    <br><input type="button" id="sameAdd" value="기본 배송지">
 									<script>
 										$(function(){
 											fn_sameAdd();
@@ -239,14 +287,16 @@
 													url : "/cartList/sameAdd",
 													type : 'post',
 													success : function(order) {
-														$('#sameAdd').empty();
-														$('#name').append(order.name);
-														$('#postcode').append(order.postcode);
-														$('#roadAddress').append(order.roadAddress);
-														$('#jibunAddress').append(order.jibunAddress);
-														$('#detailAddress').append(order.detailAddress);
+														alert("성공데스");
+														console.log(order);
+														$('#receiver').val(order.name);
+														$('#postcode').val(order.postcode);
+														$('#roadAddress').val(order.roadAddress);
+														$('#jibunAddress').val(order.jibunAddress);
+														$('#detailAddress').val(order.detailAddress);
 												     },
-													error : function(sum) {
+													error : function(order) {
+														alert("에러데스");
 													}
 												});
 												
@@ -255,7 +305,7 @@
 									</script>
 									<div class="inputArea">
 										<label for="">수령인</label>
-										<input type="text" name="receiver" id="receiver"/>
+										<input type="text" name="receiver" id="receiver">
 									</div>
 									<div>
 										<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly><br>

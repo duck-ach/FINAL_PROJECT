@@ -18,7 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 @EnableAspectJAutoProxy
 @Aspect
-public class RequiredLoginAspect {
+public class RequiredLoginAspectUsers {
 	
 	@Pointcut("execution(* com.gdu.sporters.users.controller.*Controller.requiredLogin_*(..))")
 	public void requiredLogin() {}
@@ -40,7 +40,7 @@ public class RequiredLoginAspect {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("if(confirm('로그인이 필요한 기능입니다. 로그인 하시겠습니까?')){");
-			out.println("location.href='" + request.getContextPath() + "/user/login/form';");
+			out.println("location.href='/users/login/form';");
 			out.println("} else {");
 			out.println("history.back();");
 			out.println("}");

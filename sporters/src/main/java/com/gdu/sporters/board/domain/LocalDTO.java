@@ -21,7 +21,6 @@ public class LocalDTO {
 	private int hit;
 	private int userNo;
 	private int state;
-	private String commentId;
 	private int maxUser;
 	private int localNo;
 	private String ip;

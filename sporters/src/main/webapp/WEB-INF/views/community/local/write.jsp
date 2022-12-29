@@ -137,8 +137,8 @@ jQuery(function(){
 						    <option value="2">경기도</option>
 						    <option value="3" >그외 시골</option>					   
 						</select>
-						모집일 <input id="date_timepicker_start" type="text" name="joinStart">
-						종료일 <input id="date_timepicker_end" type="text" name="joinEnd"  >
+						모집일 <input id="date_timepicker_start" type="text" name="joinStart" autocomplete="off" >
+						종료일 <input id="date_timepicker_end" type="text" name="joinEnd" autocomplete="off"  >
 					</div>
 					
 				</div>

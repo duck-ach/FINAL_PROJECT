@@ -34,7 +34,7 @@
 									<td><i class="fa-solid fa-lock"></i><a href="/qna/lock?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
 								</c:if>
 								<c:if test="${qna.isPw == 0}">
-									<td><a href="/qna/lock?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
+									<td><a href="/qna/detail?qnaNo=${qna.qnaNo}">${qna.qnaTitle}</a></td>
 								</c:if>
 								<td>${qna.qnaId}</td>
 								<td>${qna.qnaCreateDate}</td>

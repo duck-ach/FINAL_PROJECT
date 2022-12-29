@@ -1,6 +1,7 @@
 package com.gdu.sporters.shop.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -54,7 +55,7 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public void getCartList(HttpServletRequest request, Model model) {
+	public void getCartList(Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", model.getAttribute("userNo"));
 		
@@ -64,6 +65,21 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public void deleteCart(CartDTO cart) {
 		shopMapper.deleteCart(cart);
+	}
+	
+	@Override
+	public List<ProductDTO> getCategoryList(int prodCategoryNo) {
+		return shopMapper.categoryList(prodCategoryNo);
+	}
+	
+	
+	
+	@Override
+	public Map<String, Object> isSameProdNo(Map<String, Object> map) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("product", shopMapper.selectProdNo(map));
+		return result;
 	}
 	
 }
