@@ -2,7 +2,7 @@
 # web.xml
 
 server:
-#  port: 9090
+  port: 9090
   servlet:
     encoding:
       charset: UTF-8
@@ -27,8 +27,8 @@ spring:
   datasource:
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/sporters?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-#      jdbc-url: jdbc:mysql://203.245.44.105:3306/sporters?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#      jdbc-url: jdbc:mysql://localhost:3306/sporters?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      jdbc-url: jdbc:mysql://203.245.44.105:3306/sporters?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
       username: sporters
       password: sporters!!
 
@@ -44,8 +44,8 @@ spring:
           auth: true
           starttls:
             enable: true
-  main:
-    web-application-type: none
+#  main:
+#    web-application-type: none
       
 # mybatis
 mybatis:
