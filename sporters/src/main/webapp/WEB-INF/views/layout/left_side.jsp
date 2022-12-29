@@ -231,7 +231,7 @@ body, html {
 		window.requestAnimationFrame(svgCurve);
 
 	}
-		
+		 
 	window.requestAnimationFrame(svgCurve);
 	
 	/*
