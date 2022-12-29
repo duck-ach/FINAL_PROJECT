@@ -5,12 +5,18 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
+<jsp:include page="shopAdminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
 <script src="/resources/js/jquery-3.6.1.min.js"></script>
 <script src="/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
 <script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" href="/resources/summernote-0.8.18-dist/summernote-lite.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <script>
+
+// shopAdmin css
+$('.shopAdmin').addClass('checked');
 
 $(document).ready(function(){
 	

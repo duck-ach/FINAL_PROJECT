@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.shopAdmin.mapper.ShopAdminOrderMapper;
+import com.gdu.sporters.shopAdmin.util.ShopAdminPageUtil;
 
 @Service
 public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
@@ -17,9 +18,17 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 	@Autowired
 	private ShopAdminOrderMapper shopAdminOrderMapper;
 	
+	@Autowired
+	private ShopAdminPageUtil pageUtil;
+	
 	@Override
 	public void getOrderList(HttpServletRequest request, Model model) {
-		model.addAttribute("orderList", shopAdminOrderMapper.selectOrderList());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("begin", pageUtil.getBegin());
+		map.put("recordPerPage", pageUtil.getRecordPerPage());
+		
+		model.addAttribute("orderList", shopAdminOrderMapper.selectOrderList(map));
 	}
 	
 	@Override

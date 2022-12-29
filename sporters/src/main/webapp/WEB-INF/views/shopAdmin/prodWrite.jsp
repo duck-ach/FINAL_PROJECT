@@ -5,11 +5,17 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
+<jsp:include page="shopAdminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
 <script>
+
+// shopAdmin css
+$('.shopAdmin').addClass('checked');
 
 $(function(){
 	
@@ -151,53 +157,72 @@ $(function(){
 		
 	});
 </script>
+<style>
+h2 {
+	font-size: 30px;
+}
+.input_box {
+  width: 500px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+</style>
 <body>
-	<form id="frm_write" action="/shopAdmin/prod/add" method="post" enctype="multipart/form-data">
-		<div>
-			<h1>상품등록</h1>
+<div class="body_wrap">
+	<div class="code_wrap">
+		<form id="frm_write" action="/shopAdmin/prod/add" method="post" enctype="multipart/form-data">
 			<div>
-				<label for="prodName">상품명</label>
-				<input type="text" id="prodName" name="prodName">
+				<h2>상품등록</h2>
+				<div>
+					<label for="prodName">상품명</label>
+					<input type="text" id="prodName" name="prodName">
+				</div>
+				<div>
+					상품카테고리
+					<select name="prodCategoryNo" id="prodCategoryNo">
+						<option value="">===선택===</option>
+						<c:forEach items="${prodCategoryList}" var="category">
+							<option value="${category.prodCategoryNo}">${category.prodCategoryName}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div>
+					<label for="price">정가격</label>
+					<input type="number" id="price" name="price">
+					<label for="discount">할인가격</label>
+					<input type="number" id="discount" name="discount">
+				</div>
+				<div>
+					<label for="thumbnail">상품 썸네일(대표사진)<span>gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span></label>
+					<input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
+				</div>
+				<div>
+					<label for="origin">원산지</label>
+					<input type="text" id="origin" name="origin">
+				</div>
+				<div>
+					<label for="stock">재고</label>
+					<input type="number" id="stock" name="stock">
+				</div>
+				
+				<div>
+					<label for="content"></label>
+			        <textarea name="content" id="content" name="content"></textarea>   
+				</div>
+				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
+				<div id="summernote_image_list"></div>
+				<div>
+					<button>등록하기</button>
+					<input type="button" value="목록" id="btn_list">
+				</div>
 			</div>
-			<div>
-				상품카테고리
-				<select name="prodCategoryNo" id="prodCategoryNo">
-					<option value="">===선택===</option>
-					<c:forEach items="${prodCategoryList}" var="category">
-						<option value="${category.prodCategoryNo}">${category.prodCategoryName}</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div>
-				<label for="price">정가격</label>
-				<input type="number" id="price" name="price">
-				<label for="discount">할인가격</label>
-				<input type="number" id="discount" name="discount">
-			</div>
-			<div>
-				<label for="thumbnail">상품 썸네일(대표사진)<span>gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span></label>
-				<input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
-			</div>
-			<div>
-				<label for="origin">원산지</label>
-				<input type="text" id="origin" name="origin">
-			</div>
-			<div>
-				<label for="stock">재고</label>
-				<input type="number" id="stock" name="stock">
-			</div>
-			
-			<div>
-				<label for="content"></label>
-		        <textarea name="content" id="content" name="content"></textarea>   
-			</div>
-			<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
-			<div id="summernote_image_list"></div>
-			<div>
-				<button>등록하기</button>
-				<input type="button" value="목록" id="btn_list">
-			</div>
-		</div>
-	</form>
+		</form>
+	</div>
+</div>
 </body>
 </html>
