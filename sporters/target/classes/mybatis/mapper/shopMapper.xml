@@ -69,7 +69,8 @@
 	</select>
 	
 	<delete id="deleteCart" parameterType="CartDTO">
-		DELETE CART
+		DELETE
+		  FROM CART
 		 WHERE CART_NO = #{cartNo}
 		   AND USER_NO = #{userNo}
 	</delete>
@@ -79,6 +80,11 @@
 		VALUES (#{orderNo}, #{userNo}, #{cartNo}, #{name}, #{mobile}, #{postcode}, #{loadAddress}, #{jibunAddress}, #{detailAddress}, #{orderDate})
 	</insert>
 	
-	
+	<select id="selectProdNo" parameterType="Map" resultType="CartDTO">
+		SELECT PROD_NO
+		  FROM CART
+		 WHERE USER_NO = #{userNo}
+		   AND PROD_NO = #{prodNo}
+	</select>
 	
 </mapper>

@@ -29,7 +29,7 @@
 						이메일 주소 : ${loginUser.email}
 					</div>
 					<div>
-						호감도 : 
+						호감도 : ${heartCount} + ${hateCount}
 					</div>
 					<div>
 						가입일 : ${loginUser.joinDate}

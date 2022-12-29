@@ -89,6 +89,7 @@
 				<th>대표사진</th>
 				<th>카테고리</th>
 				<th>상품명</th>
+				<th>원산지</th>
 				<th>가격</th>
 				<th>할인가격</th>
 				<th>재고</th>
@@ -109,12 +110,20 @@
 					</td>
 					<td>${prod.prodCategory.prodCategoryName}</td>
 					<td><a href="/shopAdmin/prod/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>
+					<td>${prod.origin}</td>
 					<td>${prod.price}</td>
 					<td>${prod.discount}</td>
 					<td>${prod.stock}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5" style="text-align: center;">
+						${paging}
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 </body>

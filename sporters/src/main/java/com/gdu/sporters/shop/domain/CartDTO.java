@@ -1,5 +1,7 @@
 package com.gdu.sporters.shop.domain;
 
+import com.gdu.sporters.users.domain.UsersDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +17,6 @@ public class CartDTO {
 	private int prodNo;
 	private int prodCnt;
 	private ProductDTO product;
+	private UsersDTO users;
+	private OrderDTO order;
 }

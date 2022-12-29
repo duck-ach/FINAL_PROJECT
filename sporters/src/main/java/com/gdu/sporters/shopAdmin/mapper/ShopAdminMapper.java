@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shop.domain.ProdImageDTO;
 import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
@@ -42,18 +41,6 @@ public interface ShopAdminMapper {
 	
 	// 상품삭제하기
 	public int deleteProd(int prodNo);
-	
-	// 상품 카테고리 목록
-	public List<ProdCategoryDTO> selectCategoryList();
-	
-	// 상품 카테고리 개수
-	public int selectCategoryCnt();
-	
-	// 상품 카테고리 추가
-	public int insertCategory(ProdCategoryDTO category);
-	
-	// 상품 카테고리 삭제
-	public int deleteCategory(int prodCategoryNo);
 	
 	// 상품 검색(자동완성)
 	public List<ProductDTO> selectAutoCompleteList(Map<String, Object> map);

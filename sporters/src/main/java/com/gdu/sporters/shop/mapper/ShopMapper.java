@@ -16,4 +16,5 @@ public interface ShopMapper {
 	public int addCart(CartDTO cart);
 	public List<CartDTO> selectCartListByMap(Map<String, Object> map);
 	public int deleteCart(CartDTO cart);
+	public CartDTO selectProdNo(Map<String, Object> map);
 }

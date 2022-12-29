@@ -22,14 +22,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shop.domain.ProdImageDTO;
 import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
 import com.gdu.sporters.shopAdmin.mapper.ShopAdminMapper;
+import com.gdu.sporters.shopAdmin.util.ShopAdminFileUtil;
 import com.gdu.sporters.shopAdmin.util.ShopAdminPageUtil;
 import com.gdu.sporters.shopAdmin.util.ShopAdminSearchPageUtil;
-import com.gdu.sporters.util.MyFileUtil;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -46,7 +45,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 	private ShopAdminSearchPageUtil searchPageUtil;
 	
 	@Autowired
-	private MyFileUtil myFileUtil;
+	private ShopAdminFileUtil myFileUtil;
 	
 	@Override
 	public void getProdList(HttpServletRequest request, Model model) {
@@ -63,13 +62,16 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 		// Map 생성
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", pageUtil.getBegin());
+		map.put("begin", pageUtil.getBegin() - 1);
 		map.put("end", pageUtil.getEnd());
 		map.put("recordPerPage", pageUtil.getRecordPerPage()); // begin부터 몇개 로 동작함.
 		
+		// 상품 리스트
+		List<ProductDTO> prodList = shopAdminMapper.selectProdListAllByPage(map);
+		
 		// view로 전달할 데이터 model에 저장
 		model.addAttribute("totalRecord", totalProdRecord); // 상품전체갯수
-		model.addAttribute("prodList", shopAdminMapper.selectProdListAllByPage(map));
+		model.addAttribute("prodList", prodList);
 		model.addAttribute("beginNo", totalProdRecord - (page - 1) * pageUtil.getRecordPerPage());
 		model.addAttribute("paging", pageUtil.getPaging("/shopAdmin/prodManage"));
 		
@@ -82,7 +84,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 		
 		// 저장경로
-		String path =  "C:" + File.separator + "summernoteImage";
+		String path =  myFileUtil.getTodayPath();
 		
 		// 저장할 파일명
 		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());
@@ -105,7 +107,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		
 		// 저장된 파일을 확인할 수 있는 매핑을 반납
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("src", multipartRequest.getContextPath() + "/load/image/" + filesystem);
+		map.put("src", "/load/image/" + filesystem);
 		map.put("tnFilesystem", filesystem);
 		
 		return map;
@@ -207,7 +209,6 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 					
 					// DB에 Thumbnail 저장
 					thumbnailResult += shopAdminMapper.insertThumbnail(thumbnailDTO);
-					
 				}
 				
 			} catch(Exception e) {
@@ -540,59 +541,6 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 			} else {
 				out.println("<script>");
 				out.println("alert('상품 삭제가 실패했습니다.');");
-				out.println("history.back();");
-				out.println("</script>");
-			}
-			out.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public List<ProdCategoryDTO> getCategoryList() {
-		return shopAdminMapper.selectCategoryList();
-	}
-	
-	@Override
-	public void addCategory(HttpServletRequest request) {
-	
-		// 파라미터
-		String cateName = request.getParameter("cateName");
-		
-		ProdCategoryDTO category = ProdCategoryDTO.builder()
-				.prodCategoryName(cateName)
-				.build();
-		System.out.println(category);
-		
-		shopAdminMapper.insertCategory(category);
-	}
-	
-	@Override
-	public void deleteCategory(HttpServletRequest request, HttpServletResponse response) {
-		
-		int prodCategoryNo = Integer.parseInt(request.getParameter("prodCategoryNo"));
-		
-		// DB에서 카테고리 삭제
-		int result = shopAdminMapper.deleteCategory(prodCategoryNo);
-		
-		// 응답
-		try {
-			
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			if(result > 0) {
-				out.println("<script>");
-				out.println("alert('카테고리가 정상적으로 삭제 되었습니다.');");
-			//	out.println("location.href='/shopAdmin/getCategoryList';");
-				out.println("location.href='/shopAdmin/categoryManage';");
-				
-				out.println("</script>");
-			} else {
-				out.println("<script>");
-				out.println("alert('카테고리 삭제를 실패했습니다. 다시 시도해 주세요.');");
 				out.println("history.back();");
 				out.println("</script>");
 			}

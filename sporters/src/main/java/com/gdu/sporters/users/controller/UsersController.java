@@ -89,17 +89,14 @@ public class UsersController {
 	@GetMapping("/users/naver/login")
 	public String naverLogin(HttpServletRequest request, Model model) {
 		String access_token = usersService.getNaverLoginToken(request);
-		System.out.println("access_token : " + access_token);
 		UsersDTO profile = usersService.getNaverLoginProfile(access_token);
-		System.out.println("profile : " + profile);
 		UsersDTO naverUser = usersService.getNaverUserById(profile.getId());
-		System.out.println(naverUser);
 		
 		if(naverUser == null) {
 			model.addAttribute("profile", profile);
 			return "users/naver_join";
 		} else {
-			usersService.naverLogin(request, naverUser);
+			usersService.naverLogin(request, profile);
 			return "redirect:/";
 		}
 	}
@@ -151,7 +148,7 @@ public class UsersController {
 	}
 	
 	@PostMapping("/users/withdraw")
-	public void withdraw(HttpServletRequest request, HttpServletResponse response) {
+	public void requiredLogin_withdraw(HttpServletRequest request, HttpServletResponse response) {
 		usersService.withdraw(request, response);
 	}
 	
@@ -201,7 +198,8 @@ public class UsersController {
 
 	// 유저정보팝업
 	@GetMapping("/users/userInfo")
-	public String userInfo() {
+	public String requiredLogin_userInfo(HttpServletRequest request, Model model) {
+		usersService.userInformation(request, model);
 		return "/users/userInfo";
 	}
 	

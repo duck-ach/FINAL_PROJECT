@@ -1,6 +1,7 @@
 package com.gdu.sporters.shop.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -53,11 +54,11 @@ public class ShopController {
 	}
 	
 	@GetMapping(value="/shop/cartList", produces="application/json")
-	public String requiredLogin_getCartList(HttpServletRequest request, HttpSession session, Model model) {
+	public String requiredLogin_getCartList(HttpSession session, Model model) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		model.addAttribute("userNo", userNo);
-		shopService.getCartList(request, model);
+		shopService.getCartList(model);
 		return "shop/cartList";
 	}
 	
@@ -69,8 +70,7 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/shop/deleteCart", method = RequestMethod.POST)
-	public int deleteCart(HttpSession session, @RequestParam("checkOne") List<String> checkOne, CartDTO cart) throws Exception {
-		System.out.println(checkOne);
+	public int deleteCart(HttpSession session, @RequestParam("checkOne[]") List<String> checkOne, CartDTO cart) throws Exception {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		int result = 0;
@@ -89,22 +89,29 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/cartList/sameAdd", method = RequestMethod.POST)	
-	public OrderDTO sameAdd(HttpSession session, Model model, OrderDTO order) {
+	public OrderDTO sameAdd(HttpSession session, OrderDTO order) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
-		System.out.println(loginUser);
 		String name = loginUser.getName();
 		String postcode = loginUser.getPostcode();
 		String roadAddress = loginUser.getRoadAddress();
 		String jibunAddress = loginUser.getJibunAddress();
 		String detailAddress = loginUser.getDetailAddress();
-		System.out.println(postcode);
 		order.setName(name);
 		order.setPostcode(postcode);
 		order.setRoadAddress(roadAddress);
 		order.setJibunAddress(jibunAddress);
 		order.setDetailAddress(detailAddress);
-		System.out.println(order);
 		return order;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/cartList/sameProdNo", produces="application/json")
+	public Map<String, Object> checkSameProdNo(@RequestParam(value="prodNo", required=false) int prodNo, Map<String, Object> map, HttpSession session) {
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		map.put("userNo", userNo);
+		map.put("prodNo", prodNo);
+		return shopService.isSameProdNo(map);
 	}
 	
 }

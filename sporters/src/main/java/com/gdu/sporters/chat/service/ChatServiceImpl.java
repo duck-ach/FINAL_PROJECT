@@ -1,7 +1,9 @@
 package com.gdu.sporters.chat.service;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.chat.domain.ChatRoomDTO;
+import com.gdu.sporters.chat.domain.ChatUserDTO;
 import com.gdu.sporters.chat.mapper.ChatMapper;
 import com.gdu.sporters.chat.util.ChatListPageUtil;
 import com.gdu.sporters.users.domain.UsersDTO;
@@ -128,6 +131,7 @@ public class ChatServiceImpl implements ChatService {
 		model.addAttribute("userList", chatMapper.selectUserListByChat()); // 채팅방 유저 목록
 		model.addAttribute("chatRoom", chatMapper.selectChatRoomByNo(map)); // 채팅방 정보
 		model.addAttribute("currUserCnt", chatMapper.selectChatUserCnt()); // 현재유저 수
+		
 	}
 	
 	@Override
@@ -138,5 +142,54 @@ public class ChatServiceImpl implements ChatService {
 		chatMapper.deleteUserByChat(userNo);
 		
 	}
+	
+	@Override
+	public void chatCheckPw(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String roomPw = request.getParameter("roomPw");
+		String chatRoomId = request.getParameter("chatRoomId");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("chatRoomId", chatRoomId);
+		map.put("roomPw", roomPw);
+		
+		ChatRoomDTO chatRoom = chatMapper.selectMatchChatRoomByPw(map);
+		
+		// 채팅방 번호와 비밀번호가 맞다면 들어가기
+		if(chatRoom != null) {
+			try {
+				response.sendRedirect("/chat/chatRoom?chatRoomId=" + chatRoom.getChatRoomId());
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			// 비밀번호가 맞지않을때 응답
+			try {
+				
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				
+				out.println("<script>");
+				out.println("alert('비밀번호가 일치하지 않습니다.');");
+				out.println("event.preventDefult();");
+				response.sendRedirect("/chat/chatRoom/lock?chatRoomId=" + chatRoomId);
+				out.println("</script>");
+				out.close();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
+	@Override
+	public List<ChatUserDTO> getChatUserList() {
+		return chatMapper.selectUserListByChat();
+	}
+	
+	
 	
 }
