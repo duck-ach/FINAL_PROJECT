@@ -14,11 +14,11 @@
 <head>
 <meta charset="UTF-8">
 <title>${title}</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.min.css">
-<script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
-<script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/reset.css">
+<script src="/resources/js/jquery-3.6.1.min.js"></script>
+<link rel="stylesheet" href="/resources/summernote-0.8.18-dist/summernote-lite.min.css">
+<script src="/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
+<script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
 <script>
 /* 	// 현재 URL
 	var currURL = document.location.href;
@@ -67,7 +67,7 @@ html,body{
 <header class="main_header_area">
 	<div class="main_header_area_fix">
 		<nav class="spoters_logo_area">
-			<a href="/admin/shopIndex"><img alt="logoImage" src="${contextPath}/resources/images/shopAdmin/mainLogoImage.jpeg" width="200px"></a> 
+			<a href="/admin/shopIndex"><img alt="logoImage" src="/resources/images/shopAdmin/mainLogoImage.jpeg" width="200px"></a> 
 		</nav>
 		<nav class="adminIndex">
 				<a href="/admin/adminIndex" class="admin">SPORTERS ADMIN</a>&nbsp;&nbsp;
