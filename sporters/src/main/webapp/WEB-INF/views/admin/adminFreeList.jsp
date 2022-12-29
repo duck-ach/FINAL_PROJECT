@@ -8,9 +8,54 @@
 <jsp:include page="adminLeftSide.jsp">
 	<jsp:param value="left_side" name="left_side" />
 </jsp:include>
+<style>
+.parentsList{
+	width : 900px;
+	height : 1200px;
+	display : block;
+	margin: 0 auto;
+	padding-top: 30px;
+	margin-bottom: 50px;
+}
+body {
+	background: #fff;
+}
+.tbl {
+	border-collapse: collapse;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+.tbl thead {
+	padding: 10px;
+	background-color:rgba(213, 194, 238, 0.38);
+	border-bottom: 3px solid #D5C2EE;
+}
+.tbl td {
+	color: #669;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+.tbl tr:hover td {
+	color: #004;
+}
+.button{
+border: 0;
+width: 120px;
+padding: 7px;
+margin-top: 10px;
+margin-left:90%;
+background-color: #D5C2EE;
+border-radius: 2px;
+}
+.button:hover{
+background-color:  rgba(213, 194, 238, 0.69);
+border-radius: 2px;
+}
+</style>
 <script>
 
-$('.shopAdmin').addClass('checked');
+$('.admin').addClass('checked');
 
 	$(document).ready(function(){
 		
@@ -60,16 +105,13 @@ $('.shopAdmin').addClass('checked');
 
 <body>
 
-
-<section class="wrap">기본틀 1
-	<section class="content_leyout_section">기본틀 2
-		<div><a href="/free/write">글쓰러가기</a>  </div>
-		<div> 여기부터 각자 내용 넣기 시작
-			
+<div class="body_wrap">
+	<div class="code_wrap">
+		<div><a href="/free/write">글쓰러가기</a>  </div>		
 			<form id="frm_search"  action="/admin/removeFreeList" method="post">										
 				<br><hr><br>
 				<button>선택삭제</button>
-				<table border="1">
+				<table border="1" class="tbl">
 					<thead>
 						<tr>	
 							<td>
@@ -112,9 +154,9 @@ $('.shopAdmin').addClass('checked');
 			
 		</div>여기부터 각자 내용 넣기 끝
 		
-	</section>기본틀 2
-	
-</section>기본틀 1
+</div>
+
+
 	
  <jsp:include page="../layout/right_side.jsp">
  	<jsp:param value="right_side" name="right_side" />

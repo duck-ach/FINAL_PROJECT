@@ -5,13 +5,20 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
+<jsp:include page="adminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
 <style>
-
-* {
-		box-sizing: border-box;
-	}
-table, th {
-	text-align: center;
+.parentsList{
+	width : 900px;
+	height : 1200px;
+	display : block;
+	margin: 0 auto;
+	padding-top: 30px;
+	margin-bottom: 50px;
+}
+body {
+	background: #fff;
 }
 .tbl {
 	border-collapse: collapse;
@@ -19,18 +26,36 @@ table, th {
 	margin-left: auto;
 	margin-right: auto;
 }
-.wrap{
-	border-collapse: collapse;
- 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
+.tbl thead {
+	padding: 10px;
+	background-color:rgba(213, 194, 238, 0.38);
+	border-bottom: 3px solid #D5C2EE;
 }
-.blind {
-	display: none;
+.tbl td {
+	color: #669;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+.tbl tr:hover td {
+	color: #004;
+}
+.button{
+border: 0;
+width: 120px;
+padding: 7px;
+margin-top: 10px;
+margin-left:90%;
+background-color: #D5C2EE;
+border-radius: 2px;
+}
+.button:hover{
+background-color:  rgba(213, 194, 238, 0.69);
+border-radius: 2px;
 }
 </style>
 <script type="text/javascript">
 
+$('.admin').addClass('checked');
 
 	$(document).ready(function(){
 		fn_getUserList();
@@ -205,7 +230,8 @@ table, th {
 </script>
 <body>
 
-	<div class="wrap">
+<div class="body_wrap">
+	<div class="code_wrap">
 		<h1>회원 관리</h1>
 		<form id="frm_user_list" method="post">
 			<select name="column" id="column">
@@ -218,7 +244,7 @@ table, th {
 				<input type="button" id="btn_search" value="검색"> 
 				<input type="button" id="btn_init" value="초기화">
 				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
-			<table class="tbl" width="70%" style="border-collapse:collapse; border:1px gray solid;">
+			<table class="tbl" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="check_all"></th>
@@ -242,7 +268,7 @@ table, th {
 			
 		</form>
 	</div>
-	
+</div>
 
 </body>
 </html>

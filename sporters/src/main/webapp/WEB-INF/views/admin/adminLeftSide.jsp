@@ -5,23 +5,22 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
-<jsp:include page="adminLeftSide.jsp">
-	<jsp:param value="left_side" name="left_side" />
-</jsp:include>
+
 <style>
 body, html {
 	margin: 0;
 	padding: 0;
 	width: 100%;
 	height: 100%;
+
 }
 #menu_wrap {
 	position: absolute;
 	top : 80px;
-	background-color: #C8C8FF;
+	background-color: rgb(17, 24, 39);
 	padding-left:8px;
 	width: 250px;
-	height: 22%;
+	height: 100%;
 	border-right: 1px solid #FFF;
 	border-radius: 17px;
 	padding-top: 8px;
@@ -31,14 +30,21 @@ body, html {
 }
 ul li{
 	margin:10px 0;
+	padding: 20px;
+}
+
+ul li:hover{
+	margin:10px 0;
+	background-color: rgb(56,65,81);
 }
 ul li a{
 	font-size: 20px;
+	color: rgb(156, 163, 175);
 } 
 
 </style>
 <script>
-	$('.shopAdmin').addClass('checked');
+	$('.admin').addClass('checked');
 </script>
 <body>
 

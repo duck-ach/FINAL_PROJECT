@@ -60,7 +60,7 @@ html,body{
 			<a href="/admin/shopIndex"><img alt="logoImage" src="/resources/images/shopAdmin/mainLogoImage.jpeg" width="200px"></a> 
 		</nav>
 		<nav class="adminIndex">
-				<a href="/admin/adminIndex" class="admin">SPORTERS ADMIN</a>&nbsp;&nbsp;
+				<a href="/admin/userAdmin" class="admin">SPORTERS ADMIN</a>&nbsp;&nbsp;
 				<a href="/admin/shopIndex" class="shopAdmin">SHOP ADMIN</a>
 		</nav>
 	</div>

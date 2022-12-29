@@ -5,6 +5,9 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="Sporters 신고관리" name="title" />
 </jsp:include>
+<jsp:include page="adminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <style>
 
@@ -36,6 +39,7 @@ vertical-align: bottom;
 	}
 </style>
 <script>
+$('.admin').addClass('checked');
 
 $(document).ready(function(){
     // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
