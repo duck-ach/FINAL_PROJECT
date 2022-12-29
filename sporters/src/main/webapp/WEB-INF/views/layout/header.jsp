@@ -50,12 +50,19 @@
 /*	position: fixed;*
 	   width:1280px;
 	  margin: 0 auto;
+	  */
 	}
+	
 	.spoters_logo_area{
-		width:1280px;
-		padding:50px 0 0 100px;
-	/*	border:1px solid #000;*/
-	/*	background-color: #fff;*/
+	    padding: 50px 100px 0 100px;
+	    display: flex;
+	    /* border: 1px solid #000; */
+	    /* background-color: #fff; */
+	    flex-direction: row;
+	    align-content: stretch;
+	    flex-wrap: nowrap;
+	    justify-content: space-between;
+	    align-items: baseline;
 	}
 	.spoters_logo{
 		width:300px; 
@@ -108,11 +115,30 @@ $(function(){
 </script>
 -->
 
+<div id="left_side_gnd_area"  class="left_side_gnd_area">
+	
+	<jsp:include page="../layout/left_side.jsp">
+		<jsp:param value="left_side" name="left_side" />
+	</jsp:include>
+</div>
 
 <header class="main_header_area">
 	<div class="main_header_area_fix">
 	<nav class="spoters_logo_area">
 		<h1 class="spoters_logo"><a href="/"><img alt="we are best team!" src="/resources/images/spoters_logo_2.jpg"></a></h1>
+		<div style="font-size: 18px; ">
+			<c:if test="${loginUser != null}">
+			
+				${loginUser.nickname} 님 활동적인 하루되세요!🦾🦾	<br>
+				
+				<span><a href="/users/mypage">MYPAGE</a> ｜ <a href="/users/logout">LOGOUT</a></span>	
+			</c:if>	
+			
+			<c:if test="${loginUser == null}">
+				<span><a href="/users/login/form">로그인</a> ｜ <a href="/users/agree/form">회원가입</a></span>
+			</c:if>
+		</div>
+	
 	</nav>	
 	</div>
 

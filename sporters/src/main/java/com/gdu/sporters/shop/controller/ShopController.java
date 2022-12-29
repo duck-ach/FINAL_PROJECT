@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.sporters.shop.domain.CartDTO;
 import com.gdu.sporters.shop.domain.OrderDTO;
+import com.gdu.sporters.shop.domain.ProductDTO;
 import com.gdu.sporters.shop.service.ShopService;
 import com.gdu.sporters.users.domain.UsersDTO;
 
@@ -113,5 +114,13 @@ public class ShopController {
 		map.put("prodNo", prodNo);
 		return shopService.isSameProdNo(map);
 	}
+	
+	@RequestMapping(value = "/shop/categoryList", method = RequestMethod.GET)
+	public void getList(@RequestParam(value="prodCategoryNo", required=false) int prodCategoryNo, Model model) throws Exception {
+		List<ProductDTO> list = null;
+		list = shopService.getCategoryList(prodCategoryNo);
+ 
+		model.addAttribute("list", list);
+	 }
 	
 }

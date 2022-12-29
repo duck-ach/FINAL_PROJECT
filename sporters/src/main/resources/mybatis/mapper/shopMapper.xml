@@ -42,6 +42,12 @@
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<select id="categoryList" parameterType="int" resultType="ProductDTO">
+		SELECT PROD_NO, PROD_NAME, PROD_CATEGORY_NO, PRICE, DISCOUNT, PROD_CONTENT, ORIGIN, STOCK, PROD_CREATE_DATE
+		  FROM PRODUCT       
+		 WHERE PROD_CATEGORY_NO = #{prodCategoryNo}
+	</select>
+	
 	<select id="selectProductCount" resultType="int">
 		SELECT COUNT(*)
 		  FROM PRODUCT
@@ -86,5 +92,9 @@
 		 WHERE USER_NO = #{userNo}
 		   AND PROD_NO = #{prodNo}
 	</select>
+	
+	<!-- <insert id="insertOrder" parameterType="int">
+		INSERT INTO ORDER (ORDER_NO, USER_NO, CART_NO, PAYMENT, PRICE)
+	</insert> -->
 	
 </mapper>
