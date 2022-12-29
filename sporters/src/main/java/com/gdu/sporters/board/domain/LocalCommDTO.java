@@ -2,6 +2,8 @@ package com.gdu.sporters.board.domain;
 
 import java.sql.Date;
 
+import com.gdu.sporters.users.domain.UsersDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,4 +23,5 @@ public class LocalCommDTO {
 	private int groupNo;
 	private int groupOrder;
 	private int userNo;
+	private UsersDTO users;
 }

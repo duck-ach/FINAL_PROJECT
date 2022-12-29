@@ -65,7 +65,7 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		
 		System.out.println(LocalcommentCnt);
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("commentList", commentMapper.selectFreeCommentList(map));
+		result.put("LocalcommentList", commentMapper.selectFreeCommentList(map));
 		result.put("galleryPageUtil", galleryPageUtil);
 		System.out.println(commentMapper.selectFreeCommentList(map));
 		return result;
