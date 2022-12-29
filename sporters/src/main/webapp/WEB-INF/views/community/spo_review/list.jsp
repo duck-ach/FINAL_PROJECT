@@ -38,13 +38,20 @@
 								-->				
 								</tr>
 							</thead>
-							<tbody id="list">	
+							<tbody id="list">								
+							<c:if test="${loginUser.id == null}" >
+								<tr>
+									<td colspan="6" >로그인 후 이용가능합니다.</td>
+								</tr>
+							</c:if>	
+							
+							<c:if test="${loginUser.id != null}" >
 								<c:if test="${totalCount eq 0}">	
 									<tr>
 										<td colspan="6" >활동하신 내역이 없습니다. 주저말고 모임에 참여해보세요!</td>
 									</tr>
 								</c:if>	
-								
+							
 								<c:forEach items="${LocalgalleryList}" var="gallery" varStatus="vs">
 									<c:if test="${loginUser.userNo eq gallery.userNo}" >	
 										<tr>
@@ -61,7 +68,7 @@
 										</tr>	
 									</c:if>		
 								</c:forEach>
-								
+							</c:if>		
 								
 							</tbody>
 							

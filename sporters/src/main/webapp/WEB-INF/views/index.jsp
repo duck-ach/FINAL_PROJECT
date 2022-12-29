@@ -94,11 +94,6 @@ $(function(){
 <body>
 
 
-<div id="left_side_gnd_area"  class="left_side_gnd_area">
-	<jsp:include page="layout/left_side.jsp">
-		<jsp:param value="left_side" name="left_side" />
-	</jsp:include>
-</div>
 
 
 
