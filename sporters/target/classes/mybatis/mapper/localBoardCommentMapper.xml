@@ -70,6 +70,8 @@
 			( LOCAL_BOARD_NO, COMM_CONTENT,COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)
 		VALUES
 			( #{localBoardNo}, #{commContent}, NOW(), 1, 1, #{groupNo},#{groupOrder}, #{userNo})
+			
+		
 	<!-- 
 		INSERT INTO FREE_COMMENT
 			( FREE_NO, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE, ID)
