@@ -15,10 +15,10 @@ body, html {
 #menu_wrap {
 	position: absolute;
 	top : 80px;
-	background-color: #C8C8FF;
+	background-color: rgb(17, 24, 39);
 	padding-left:8px;
 	width: 250px;
-	height: 22%;
+	height: 100%;
 	border-right: 1px solid #FFF;
 	border-radius: 17px;
 	padding-top: 8px;
@@ -27,10 +27,18 @@ body, html {
 	border-bottom: 1px solid #FFF;
 }
 ul li{
-	margin:10px 0;
+	padding-bottom: 20px;
+}
+
+ul li:hover {
+	background-color: rgb(56, 65, 81);
+	width:100%;
+	height: 25px;
 }
 ul li a{
+	padding-left: 10px;
 	font-size: 20px;
+	color: rgb(156, 163, 175);
 } 
 
 </style>

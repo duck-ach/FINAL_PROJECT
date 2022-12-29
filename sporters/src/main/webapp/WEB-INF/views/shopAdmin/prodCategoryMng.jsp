@@ -14,8 +14,10 @@ h2 {
 	font-size: 30px;
 }
 
-input_cate {
-	width: 200px;
+.input_cate {
+	width: 400px;
+	height: 35px;
+	font-size: 20px;
 }
 
 tr{
@@ -32,6 +34,43 @@ tr td{
 .tbl_wrap {
 	width: 600px;
 	margin: 0 auto;
+}
+button{
+  	background:#8c8cff;
+  	color:#fff;
+  	border:none;
+  	position:relative;
+  	height:40px;
+  	font-size:20px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	transition:800ms ease all;
+  	outline:none;
+  	vertical-align: bottom;
+}
+button:hover{
+  	background:#fff;
+  	color:#8c8cff;
+}
+button:before,button:after{
+  	content:'';
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	height:2px;
+  	width:0;
+  	background: #c8c8ff;
+  	transition:400ms ease all;
+}
+button:after{
+  	right:inherit;
+  	top:inherit;
+  	left:0;
+  	bottom:0;
+}
+button:hover:before,button:hover:after{
+  	width:100%;
+  	transition:800ms ease all;
 }
 </style>
 <body>
@@ -92,7 +131,7 @@ tr td{
 		<form id="addCategoryFrm" method="get">
 			<label for="cateName">카테고리 이름을 입력하세요.</label><br>
 			<input type="text" id="cateName" class="input_cate">
-			<button>Add</button>
+			<button>ADD</button>
 		</form>
 		
 		<hr>
