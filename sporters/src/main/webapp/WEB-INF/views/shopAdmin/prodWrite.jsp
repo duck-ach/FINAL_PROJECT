@@ -5,7 +5,7 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
-<jsp:include page="shopAdminLeftSide.jsp">
+<jsp:include page="../admin/adminLeftSide.jsp">
 	<jsp:param value="left_side" name="left_side" />
 </jsp:include>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
