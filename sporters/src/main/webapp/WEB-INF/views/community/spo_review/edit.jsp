@@ -90,7 +90,7 @@ $('#frm_write').submit(function(event){
 		
 			<div>
 				<label for="title">제목</label>
-				<input type="text" name="title" id="title" value="${gallery.title}"  readonly="readonly">
+				<input type="text" name="title" id="title" value="&#91;후기글&#93; ${gallery.title}"  readonly="readonly">
 			</div>
 			<label for="content">내용</label>
 				<textarea name="content" id="content">${gallery.content}</textarea>		

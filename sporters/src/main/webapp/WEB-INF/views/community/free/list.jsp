@@ -35,12 +35,12 @@
 					<thead>
 						<tr>	
 										
-							<td>글 제목</td>	
-							<td>회원 아이디</td>						
-							<td>회원 이름</td>
-							<td>회원 성별</td>						
-							<td>회원 핸드폰번호</td>												
-							<td>회원 포인트</td>	
+							<td>글 제목</td>													
+							<td>닉네임</td>
+							<td>회원 성별</td>	
+							<td>조회수</td>						
+							<td>회원 작성일</td>												
+							<td>IP</td>	
 						<!--  
 							<td>작성 글 수</td>
 						-->				
@@ -49,16 +49,19 @@
 					<tbody id="list">						
 						<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
 							<tr>
-								<td>${beginNo - vs.index}</td>						
+							<!-- 
+								<td>${beginNo - vs.index}</td>	
+							 -->					
 								<td><a id="moveDetail"
 									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
 								<td>
 									<a class="to_userInfo">${gallery.users.id}</a><input type="hidden" class="userId" name="id" value="${gallery.users.id}">
 								</td>
-								<td>${gallery.users.nickname}</td>
-								<td>${gallery.users.gender}</td>
+								<td>${gallery.users.nickname}</td>							
+								<td>${gallery.users.gender}</td>	
+								<td>${gallery.hit}</td>						
 								<td>${gallery.createDate}</td>
-								<td>${gallery.hit}</td>
+								<td>${gallery.ip}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
