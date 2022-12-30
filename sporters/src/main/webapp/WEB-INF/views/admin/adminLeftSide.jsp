@@ -5,11 +5,10 @@
 
 <style>
 body, html {
-	margin: 0; 
+	margin: 0;
 	padding: 0;
 	width: 100%;
 	height: 100%;
-
 }
 #menu_wrap {
 	position: absolute;
@@ -17,39 +16,35 @@ body, html {
 	background-color: rgb(17, 24, 39);
 	padding-left:8px;
 	width: 235px;
-	height: 100%;
+	height: 200%;
 	border-right: 1px solid #FFF;
 	padding-top: 8px;
 }
-#com_menu {
-	padding-bottom:20px;
-	border-bottom: 1px solid #FFF;
-}
-#shop_menu {
+#com_menu, #shop_menu{
 	padding-bottom:20px;
 	border-bottom: 1px solid #FFF;
 }
 
 ul li{
-	vertical-align : bottom;
-	padding: 20px 20px 20px 27px;
+	vertical-align : bottom !important;
+	padding: 20px 20px 20px 27px !important;
 }
 
 ul li:hover{
-	background-color: rgb(56,65,81);
+	background-color: rgb(56,65,81) !important;
 }
 ul li a, a{
-	text-align:left;
-	font-size: 18px;
-	color: rgb(156, 163, 175);
+	text-align:left !important;
+	font-size: 18px !important;
+	color: rgb(156, 163, 175) !important;
 }
 div {
 	padding-left: 15px;
 }
-i	{
-	margin-top:10px !important;
-	color:rgb(156, 163, 175) !important;
-	font-size: 20px !important;
+#icon_shop, #icon_commu{
+	margin-top:10px;
+	color:rgb(156, 163, 175);
+	font-size: 20px;
 }
 p{
 margin-top:10px !important;
@@ -81,7 +76,7 @@ cursor:pointer;
 <div id="menu_wrap">
 	<div>
 		<p class="upper_menu">
-		<i class="fa-solid fa-users"></i>&nbsp;
+		<i class="fa-solid fa-users" id="icon_commu"></i>&nbsp;
 		<a>커뮤니티 관리</a>
 		</p>
 		<ul id="com_menu">
@@ -92,7 +87,7 @@ cursor:pointer;
 	</div>
 	<div>
 	<p class="upper_menu">
-	<i class="fa-solid fa-basket-shopping"></i>&nbsp;
+	<i class="fa-solid fa-basket-shopping" id="icon_shop"></i>&nbsp;
 	<a>쇼핑몰 관리</a>
 	</p>
 		<ul id="shop_menu">
