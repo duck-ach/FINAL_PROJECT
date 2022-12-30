@@ -15,8 +15,8 @@ h2 {
 }
 
 .input_cate {
-	width: 400px;
-	height: 35px;
+	width: 320px;
+	height: 25px;
 	font-size: 20px;
 }
 
@@ -33,15 +33,15 @@ tr td{
 
 .tbl_wrap {
 	width: 600px;
-	margin: 0 auto;
 }
+
 button{
   	background:#8c8cff;
   	color:#fff;
   	border:none;
   	position:relative;
-  	height:40px;
-  	font-size:20px;
+  	height:31px;
+  	font-size:18px;
   	padding:0 2em;
   	cursor:pointer;
   	transition:800ms ease all;
@@ -78,10 +78,16 @@ button:hover:before,button:hover:after{
 }
 
 .fa-trash {
-	text-align: center;
+	text-align: center!important;
 }
 
-.cate_info {
+#category_head {
+	margin: 0 auto;
+}
+.cate_add_frm {
+	margin: 0 auto;
+}
+.cate_list_frm {
 	
 }
 </style>
@@ -139,34 +145,39 @@ button:hover:before,button:hover:after{
 </script>
 <div class="body_wrap">
 	<div class="code_wrap">
-		<h2>카테고리 추가</h2>
-		<span>카테고리를 관리합니다.</span>
+		<div class="cate_head">
+			<h2>카테고리 추가</h2>
+			<span>카테고리를 관리합니다.</span>
+		</div>
 		<hr>
-		<form id="addCategoryFrm" method="get">
-			<label for="cateName"><i class="fa-solid fa-pen"></i><span class="cate_info">카테고리 이름을 입력하세요.</span></label><br>
-			<input type="text" id="cateName" class="input_cate">
-			<button>ADD</button>
-		</form>
-		
-		<hr>
-	
-		<table class="tbl_wrap">
-			<colgroup>
-					<col style="width:15%">
-					<col style="width:70%">
-					<col style="width:15%">
-				</colgroup>
-			<thead>
-				<tr>
-					<td>카테고리 번호</td>
-					<td>카테고리 이름</td>
-					<td>삭제</td>
-				</tr>
-			</thead>
-			<tbody id="categoryList">
-			
-			</tbody>
-		</table>
+		<div >
+			<div class="cate_add_frm">
+				<form id="addCategoryFrm" method="get">
+					<label for="cateName"><i class="fa-solid fa-pen"></i><span class="cate_info">카테고리 이름을 입력하세요.</span></label><br>
+					<input type="text" id="cateName" class="input_cate">
+					<button>ADD</button>
+				</form>
+			</div>
+			<div class="cate_list_frm">
+				<table class="tbl_wrap">
+					<colgroup>
+							<col style="width:15%">
+							<col style="width:70%">
+							<col style="width:15%">
+						</colgroup>
+					<thead>
+						<tr>
+							<td>카테고리 번호</td>
+							<td>카테고리 이름</td>
+							<td>삭제</td>
+						</tr>
+					</thead>
+					<tbody id="categoryList">
+					
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 
 </div>
