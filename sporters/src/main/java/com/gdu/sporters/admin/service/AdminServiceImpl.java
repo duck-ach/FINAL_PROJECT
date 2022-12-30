@@ -18,7 +18,6 @@ import com.gdu.sporters.admin.mapper.AdminMapper;
 import com.gdu.sporters.board.mapper.BoardMapper;
 import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
-import com.gdu.sporters.util.ScrollPageUtil;
 import com.gdu.sporters.util.SecurityUtil;
 
 

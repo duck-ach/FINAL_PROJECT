@@ -8,23 +8,18 @@
 <jsp:include page="adminLeftSide.jsp">
 	<jsp:param value="left_side" name="left_side" />
 </jsp:include>
+
 <style>
-.parentsList{
-	width : 900px;
-	height : 1200px;
-	display : block;
-	margin: 0 auto;
-	padding-top: 30px;
-	margin-bottom: 50px;
-}
+
 body {
 	background: #fff;
 }
 .tbl {
+	width:90%;
 	border-collapse: collapse;
 	text-align: center;
-	margin-left: auto;
 	margin-right: auto;
+	table-layout:fixed
 }
 .tbl thead {
 	padding: 10px;
@@ -35,27 +30,36 @@ body {
 	color: #669;
 	padding: 10px;
 	border-bottom: 1px solid #ddd;
+	word-break:break-all;
 }
 .tbl tr:hover td {
 	color: #004;
 }
-.button{
+
+button{
 border: 0;
-width: 120px;
+width: 70px;
+height: 40px;
 padding: 7px;
-margin-top: 10px;
-margin-left:90%;
+border: 1px solid #FFF;
 background-color: #D5C2EE;
-border-radius: 2px;
-}
-.button:hover{
+border-radius: 17px;
+	}
+button:hover{
 background-color:  rgba(213, 194, 238, 0.69);
-border-radius: 2px;
+border-radius: 17px;
+}
+
+#searchText{
+  width: 70px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+
 }
 </style>
 <script type="text/javascript">
-
-$('.admin').addClass('checked');
 
 	$(document).ready(function(){
 		fn_getUserList();
@@ -121,7 +125,6 @@ $('.admin').addClass('checked');
 			tr += '<td>' + user.email + '</td>';
 			tr += '<td>' + user.mobile + '</td>';
 			tr += '<td>' + user.joinDate + '</td>';
-			tr += '<td></td>';
 			tr += '</tr>';
 			$('#list').append(tr);
 			})
@@ -161,7 +164,6 @@ $('.admin').addClass('checked');
 					tr += '<td>' + user.email + '</td>';
 					tr += '<td>' + user.mobile + '</td>';
 					tr += '<td>' + user.joinDate + '</td>';
-					tr += '<td></td>';
 					tr += '</tr>';
 					$('#list').append(tr);
 				})
@@ -241,14 +243,18 @@ $('.admin').addClass('checked');
 				<option value="USER_NO">회원번호</option>
 			</select>
 			<input type="text" id="searchText" name="searchText">
-				<input type="button" id="btn_search" value="검색"> 
-				<input type="button" id="btn_init" value="초기화">
-				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
+			</form>
+				<button id="btn_search" value="검색" >검색</button>&nbsp;
+				<button id="btn_init" value="초기화">초기화</button>&nbsp;
+				<button id="btn_deleteUser" value="회원 탈퇴">탈퇴</button>
+			
+				<br>
+				<form>
 			<table class="tbl" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="check_all"></th>
-						<th>회원번호</th>
+						<th style="size: 10px">회원번호</th>
 						<th>아이디</th>
 						<th>닉네임</th>
 						<th>이름</th>
@@ -262,7 +268,6 @@ $('.admin').addClass('checked');
 
 				</tbody>
 				<tfoot>
-			
 				</tfoot>
 			</table>
 			

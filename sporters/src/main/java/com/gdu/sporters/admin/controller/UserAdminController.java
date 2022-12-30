@@ -18,12 +18,6 @@ public class UserAdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	//adminIndex로 가기
-	@GetMapping("/admin/adminIndex")
-	public String index() {
-		return "admin/adminIndex";
-	}
-	
 	// userAdmin(유저관리)로 가기
 	@GetMapping("/admin/userAdmin")
 	public String requiredAdmin_userAdmin() {

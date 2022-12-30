@@ -27,11 +27,6 @@ public class shopAdmProdController {
 	@Autowired
 	private ShopAdminCateService shopAdminCateService;
 	
-	@GetMapping("/admin/shopIndex")
-	public String index() {
-		return "shopAdmin/adminShopIndex";
-	}
-	
 	@GetMapping("/shopAdmin/prodManage")
 	public String prodManage(HttpServletRequest request, Model model) {
 		shopAdminService.getProdList(request, model);
