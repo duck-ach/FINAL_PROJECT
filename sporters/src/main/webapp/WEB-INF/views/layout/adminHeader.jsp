@@ -30,23 +30,25 @@ html,body{
 }
 .main_header_area{
 	position: relative;
-	width:100%;
+    /* position: fixed; */
+    width: 100%;
+    height: 80px;
+    top: 0;
+    left: 0;
+    background-color: rgb(17, 24, 39);
     z-index: 11;
+}
+.main_header_area_fix {
+	width:100%;
 }
 .spoters_logo_area {
 	position: absolute;
 	top:0;
 	width: 50px;
-}
-.adminIndex {
-	position: absolute;
-	right:0;
-}
-.checked {
-	color: #5b59d9;
+	margin-left: 20px;
 }
 .body_wrap { /* body태그 아래 바로 아래 div에 줄 부분 */
-	padding-top: 107px;
+	padding-top: 28px;
 	padding-left: 286px;
 }
 .code_wrap { /* 코드가 들어갈 부분 */
@@ -57,11 +59,7 @@ html,body{
 <header class="main_header_area">
 	<div class="main_header_area_fix">
 		<nav class="spoters_logo_area">
-			<a href="/admin/shopIndex"><img alt="logoImage" src="/resources/images/shopAdmin/mainLogoImage.jpeg" width="200px"></a> 
-		</nav>
-		<nav class="adminIndex">
-				<a href="/admin/userAdmin" class="admin">SPORTERS ADMIN</a>&nbsp;&nbsp;
-				<a href="/admin/shopIndex" class="shopAdmin">SHOP ADMIN</a>
+			<a href="/admin/adminIndex"><img alt="logoImage" src="/resources/images/shopAdmin/sporters_logo.png" width="200px"></a> 
 		</nav>
 	</div>
 </header>

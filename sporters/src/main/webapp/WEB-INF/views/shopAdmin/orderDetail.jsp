@@ -14,8 +14,8 @@
 	$('.shopAdmin').addClass('checked');
 </script>
 <body>
-<div>
-	<div>
+<div class="body_wrap">
+	<div class="code_wrap">
 		<table>
 			<tbody>
 				<tr>
