@@ -315,8 +315,12 @@ public class UsersServiceImpl implements UsersService {
 		
 		try {
 			
+			String requestURL = request.getRequestURL().toString();
+			String requestURI = request.getRequestURI();
+			String host = requestURL.substring(0, requestURL.indexOf(requestURI)); // http://localhost:9090, http://sporters.shop
+			
 			String clientId = "P3C81C5rIvVV7o7PVo3u";
-			String redirectURI = URLEncoder.encode("http://localhost:9090" + request.getContextPath() + "/users/naver/login", "UTF-8");  // 네이버 로그인 Callback URL에 작성한 주소 입력 
+			String redirectURI = URLEncoder.encode(host + "/users/naver/login", "UTF-8");  // 네이버 로그인 Callback URL에 작성한 주소 입력 
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
 			
@@ -347,7 +351,10 @@ public class UsersServiceImpl implements UsersService {
 		
 		String redirectURI = null;
 		try {
-			redirectURI = URLEncoder.encode("http://localhost:9090" + request.getContextPath(), "UTF-8");
+			String requestURL = request.getRequestURL().toString();
+			String requestURI = request.getRequestURI();
+			String host = requestURL.substring(0, requestURL.indexOf(requestURI));
+			redirectURI = URLEncoder.encode(host, "UTF-8");
 		} catch(UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -476,10 +483,12 @@ public class UsersServiceImpl implements UsersService {
 	public void naverLogin(HttpServletRequest request, UsersDTO naverUser) {
 		
 		// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
-		request.getSession().setAttribute("loginUser", naverUser);
-		
+		request.getSession().setAttribute("loginUser", naverUser);		
+		System.out.println(naverUser);
 		// 로그인 기록 남기기
+		
 		int userNo = naverUser.getUserNo();
+		System.out.println("userNo : " + userNo);
 		int updateResult = usersMapper.updateAccessLog(userNo);
 		if(updateResult == 0) {
 			usersMapper.insertAccessLog(userNo);
@@ -487,7 +496,7 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 	
-	
+	@Transactional
 	@Override
 	public void naverJoin(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -570,8 +579,7 @@ public class UsersServiceImpl implements UsersService {
 			}
 			
 			out.close();
-			//언니 자판 넉김이 너무  좋아요 어쩔거야 이거 춤추는 고구마말랭이 롯데리아 일력받으러 갈라햇는데 서스윗가이~
-			//서스윗뽀이~
+
 			
 		} catch(Exception e) {
 			e.printStackTrace();

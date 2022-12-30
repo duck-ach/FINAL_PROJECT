@@ -53,10 +53,10 @@
 	</select> -->
 	
 	<!-- 로그인 기록(ACCESS_LOG) 남기기 -->
-	<update id="updateAccessLog" parameterType="int">
+	<update id="updateAccessLog" parameterType="int" >
 		UPDATE ACCESS_LOG
 		   SET LAST_LOGIN_DATE = now()
-		 WHERE USER_NO = #{userNo}
+		 WHERE USER_NO = #{userNO}
 	</update>
 	<insert id="insertAccessLog" parameterType="int">
 	<!--  

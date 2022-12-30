@@ -89,14 +89,18 @@ public class UsersController {
 	@GetMapping("/users/naver/login")
 	public String naverLogin(HttpServletRequest request, Model model) {
 		String access_token = usersService.getNaverLoginToken(request);
+		// 네이버 회원가입 전 프로필 가져오기
 		UsersDTO profile = usersService.getNaverLoginProfile(access_token);
+		// 가져온 프로필을 naverUser에 저장
 		UsersDTO naverUser = usersService.getNaverUserById(profile.getId());
-		
+		System.out.println("profile : " + profile);
+		// 네이버 회원가입 전
 		if(naverUser == null) {
 			model.addAttribute("profile", profile);
 			return "users/naver_join";
+		// 네이버 회원가입 후
 		} else {
-			usersService.naverLogin(request, profile);
+			usersService.naverLogin(request, naverUser);
 			return "redirect:/";
 		}
 	}
