@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -15,22 +14,25 @@
 	
 	function fn_addCart(){
 		$('.btn_addCart').click(function(){
-			var prodNo = $('.prodNo').val();
-			var prodCnt = $('.prodCnt').val();
+			var prodNo = $(this).data('prodno');
+			var prodCnt =$(this).prev().prev().children().val();
 			alert(prodNo);
 			alert(prodCnt);
 			var data = {
 					prodNo: prodNo,
 					prodCnt: prodCnt
 					};
-			var prodNo = $('.prodNo').val();
 			
 			$.ajax({
 				url: '/shop/addCart',
 				type: 'post',
 				data: data,
-				success: function(){
-					alert('카트 담기 성공');
+				success: function(result){
+					if(result == 1){
+						alert('카트 담기 성공');
+					} else {
+						alert('로그인하세요!');
+					}
 				},
 				error: function(){
 					alert('카트 담기 실패');
@@ -41,7 +43,7 @@
 	
 	function fn_buy(){
 		$('.btn_buy').click(function(){
-			var prodCnt = $('.prodCnt').val();
+			var prodCnt = $(this).data('prodno');
 			var stock = $('.stock').val();
 			var prodName = $('.prodName').val();
 			alert(prodCnt);
@@ -99,10 +101,15 @@
 		text-align: center;
 	}
 	.product {
-		width: 169px;
-		height: 300px;
-		float: left;
-		padding-left: 10px;
+		display: block;
+	    width: 225px;
+	    text-align: center;
+	    text-decoration:none;
+	    color: black;
+	    float:left;	
+	    margin-left: 10px;
+	    margin-right: 10px;
+	    margin-bottom: 30px;
 	}
 </style>
 <body>
@@ -122,27 +129,25 @@
 	</div>
 	<div>
 		<c:forEach items="${productList}" var="list">
-			<form id="frm_product">
-				<ul>
-					<li class="product">
-						<img src="${list.prodThumbnail}"><br>
-						<input type="hidden" class="prodNo" value="${list.prodNo}">
-						<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-						<input type="hidden" class="prodName" value="${list.prodName}">
-						<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
-						<span>재고 : ${list.stock} 개</span><br>
-						<input type="hidden" class="stock" value="${list.stock}">
-						<span>구매할 수량 : 
-						<select name="prodCnt" class="prodCnt">
-						<%for(int i=1; i<100; i++){%>
-							<option value="<%=i%>"><%=i%></option>
-						<%}%>
-						</select>개</span>
-						<button class="btn_buy">구매하기</button>
-						<button class="btn_addCart" >장바구니 담기</button>
-					</li>
-				</ul>
-			</form>
+			<ul>
+				<li class="product">
+					<img src="/shopAdmin/prod/display?prodNo=${list.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${list.prodThumbnail.tnFilesystem}"><br>
+					<input type="hidden" class="prodNo" value="${list.prodNo}">
+					<a href="/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
+					<input type="hidden" class="prodName" value="${list.prodName}">
+					<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
+					<span>재고 : ${list.stock} 개</span><br>
+					<input type="hidden" class="stock" value="${list.stock}">
+					<span>구매할 수량 : 
+					<select name="prodCnt" class="prodCnt">
+					<%for(int i=1; i<100; i++){%>
+						<option value="<%=i%>"><%=i%></option>
+					<%}%>
+					</select>개</span>
+					<button class="btn_buy">구매하기</button>
+					<button class="btn_addCart" data-prodno="${list.prodNo}" data-prodcnt="">장바구니 담기</button>
+				</li>
+			</ul>
 		</c:forEach>
 	</div>
 	<div id="paging">

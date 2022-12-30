@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -249,7 +248,7 @@
 								}); 
 							</script>
 							<input type="hidden" id="prodNo" value="${cartList.prodNo}">
-		 					<a href="${contextPath}/shop/detail?prodNo=${cartList.prodNo}"><span id="productId">${cartList.product.prodName}</span></a><br>
+		 					<a href="/shop/detail?prodNo=${cartList.prodNo}"><span id="productId">${cartList.product.prodName}</span></a><br>
 							<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
 							<span>재고 : ${cartList.product.stock} 개</span><br>
 							<span>구매할 수량 : ${cartList.prodCnt} 개</span><br>
@@ -284,7 +283,7 @@
 													success : function(order) {
 														alert("성공데스");
 														console.log(order);
-														$('#receiver').val(order.name);
+														$('#name').val(order.name);
 														$('#postcode').val(order.postcode);
 														$('#roadAddress').val(order.roadAddress);
 														$('#jibunAddress').val(order.jibunAddress);
@@ -300,7 +299,7 @@
 									</script>
 									<div class="inputArea">
 										<label for="">수령인</label>
-										<input type="text" name="receiver" id="receiver">
+										<input type="text" name="name" id="name">
 									</div>
 									<div>
 										<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly><br>

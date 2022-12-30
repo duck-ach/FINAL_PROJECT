@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -29,7 +28,7 @@
 						$('#prodCnt').val("1");
 					} else {
 						if(confirm('회원만 사용할 수 있습니다. 로그인하시겠습니까?')){
-							location.href="${contextPath}/users/login/form";
+							location.href="/users/login/form";
 							$('#prodCnt').val("1");
 						}
 					}
@@ -47,7 +46,7 @@
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div class="product_detail_area" style="display: flex;justify-content: space-around;">
-			<div>이미지영역</div>
+			<div><img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${product.prodThumbnail.tnFilesystem}"></div>
 			<div>
 				<input type="hidden" id="prodNo" value="${product.prodNo}">
 				<h1>&#91;${product.prodCategory.prodCategoryName}&#93; ${product.prodName}</h1> 

@@ -5,9 +5,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
 import com.gdu.sporters.shop.domain.CartDTO;
+import com.gdu.sporters.shop.domain.OrderDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
 
 public interface ShopService {
@@ -17,6 +19,7 @@ public interface ShopService {
 	public void getCartList(Model model);
 	public void deleteCart(CartDTO cart);
 	public List<ProductDTO> getCategoryList(int prodCategoryNo);
-	
+	public ResponseEntity<byte[]> display(int prodNo);
 	public Map<String, Object> isSameProdNo(Map<String, Object> map);
+	public void addOrder(OrderDTO order);
 }
