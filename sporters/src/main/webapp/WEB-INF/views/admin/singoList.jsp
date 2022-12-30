@@ -25,7 +25,7 @@ padding-bottom:2px;
 }
 
 tr td{
-vertical-align: bottom;
+
 }
 
 .menu a{

@@ -9,22 +9,16 @@
 	<jsp:param value="left_side" name="left_side" />
 </jsp:include>
 <style>
-.parentsList{
-	width : 900px;
-	height : 1200px;
-	display : block;
-	margin: 0 auto;
-	padding-top: 30px;
-	margin-bottom: 50px;
-}
 body {
 	background: #fff;
 }
 .tbl {
+	width:100%;
 	border-collapse: collapse;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
+	table-layout:fixed
 }
 .tbl thead {
 	padding: 10px;
@@ -35,6 +29,7 @@ body {
 	color: #669;
 	padding: 10px;
 	border-bottom: 1px solid #ddd;
+	word-break:break-all;
 }
 .tbl tr:hover td {
 	color: #004;
@@ -54,8 +49,6 @@ border-radius: 2px;
 }
 </style>
 <script>
-
-$('.admin').addClass('checked');
 
 	$(document).ready(function(){
 		
@@ -156,35 +149,5 @@ $('.admin').addClass('checked');
 		
 </div>
 
-
-	
- <jsp:include page="../layout/right_side.jsp">
- 	<jsp:param value="right_side" name="right_side" />
-</jsp:include>
-
-<script type="text/javascript">
- $(function(){
- 	var right_side =  $('.content_leyout_section').offset().top;
- 	var my_right_side = $('.right_side_menu_area').width();
- 	var right_side_marginLeft = $('.content_leyout_section').width() + my_right_side*2 ;
-
-
- 	 $('.right_side_menu_area').offset({top:right_side});
- 	 $('.right_side_menu_area').css({marginLeft:right_side_marginLeft  });
-	 
- 	 // content_leyout 현재 높이값을 구함. 
- 	 var left_side_top =  $('.content_leyout_section').offset().top;
- 	 var right_side_marginLeft = $('.content_leyout_section').offset().left;
-
- 	// 왼쪽 사이드 메뉴의 넓이값을 구함
- 	var my_left_side =right_side_marginLeft -  $('.left_side_gnd_area').width() - my_right_side;
- 	var left_side_marginLeft = $('.content_leyout_section').width();
-
-
- 	 $('.left_side_gnd_area').offset({top:left_side_top});	 
-	 
-	
- }); 
-</script>
 </body>
 </html>
