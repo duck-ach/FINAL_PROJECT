@@ -3,16 +3,107 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/adminHeader.jsp">
-	<jsp:param value="관리자페이지" name="title" />
+	<jsp:param value="Sporters 쇼핑몰 관리자페이지" name="title" />
 </jsp:include>
 <jsp:include page="adminLeftSide.jsp">
 	<jsp:param value="left_side" name="left_side" />
 </jsp:include>
-<script>
-	$('.admin').addClass('checked');
-</script>
-<body>
-
-
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="${contextPath}/resources/boot/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+    	<div class="body_wrap">
+    		<div class="code_wrap">
+	            <div id="layoutSidenav_content">
+	                <main>
+	                    <div class="container-fluid px-4">
+	                        <h1 class="mt-4">Dashboard</h1>
+	                        <ol class="breadcrumb mb-4">
+	                            <li class="breadcrumb-item active">Dashboard</li>
+	                        </ol>
+	                        <div class="row">
+	                            <div class="col-xl-3 col-md-6">
+	                                <div class="card bg-primary text-white mb-4">
+	                                    <div class="card-body">회원관리</div>
+	                                    <div class="card-footer d-flex align-items-center justify-content-between">
+	                                        <a class="small text-white stretched-link" href="/admin/userAdmin">관리페이지로 이동</a>
+	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-xl-3 col-md-6">
+	                                <div class="card bg-warning text-white mb-4">
+	                                    <div class="card-body">게시판관리</div>
+	                                    <div class="card-footer d-flex align-items-center justify-content-between">
+	                                        <a class="small text-white stretched-link" href="/admin/adminFreeList">관리페이지로 이동</a>
+	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-xl-3 col-md-6">
+	                                <div class="card bg-success text-white mb-4">
+	                                    <div class="card-body">상품관리</div>
+	                                    <div class="card-footer d-flex align-items-center justify-content-between">
+	                                        <a class="small text-white stretched-link" href="/shopAdmin/prodManage">관리페이지로 이동</a>
+	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-xl-3 col-md-6">
+	                                <div class="card bg-danger text-white mb-4">
+	                                    <div class="card-body">주문관리</div>
+	                                    <div class="card-footer d-flex align-items-center justify-content-between">
+	                                        <a class="small text-white stretched-link" href="/shopAdmin/orderManage">관리페이지로 이동</a>
+	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="row">
+	                            <div class="col-xl-6">
+	                                <div class="card mb-4">
+	                                    <div class="card-header">
+	                                        <i class="fas fa-chart-area me-1"></i>
+	                                       	쇼핑몰 매출
+	                                    </div>
+	                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+	                                    <div>
+	                                    	<c:forEach items="${graghList}" var="list">
+		                                    	<input type="hidden" value="${list.priceAll}">
+	                                    	</c:forEach>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-xl-6">
+	                                <div class="card mb-4">
+	                                    <div class="card-header">
+	                                        <i class="fas fa-chart-bar me-1"></i>
+	                                        사용자 유입 분석
+	                                    </div>
+	                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </main>
+	            </div>
+	        </div>
+    	</div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="${contextPath}/resources/boot/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script src="${contextPath}/resources/boot/assets/demo/chart-area-demo.js"></script>
+        <script src="${contextPath}/resources/boot/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
+        <script src="${contextPath}/resources/boot/js/datatables-simple-demo.js"></script>
+        <jsp:include page="../layout/adminFooter.jsp">
+			<jsp:param value="footer" name="footer" />
+		</jsp:include>
+    </body>
 </html>

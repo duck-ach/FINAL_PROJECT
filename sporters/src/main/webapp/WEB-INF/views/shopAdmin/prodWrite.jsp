@@ -197,13 +197,13 @@ h2 {
 					<div class="label">
 						<label for="prodName">상품명</label>
 					</div>
-					<input type="text" id="prodName" name="prodName input_box">
+					<input type="text" id="prodName" name="prodName">
 				</div>
 				<div class="input_wrap">
 					<div class="label">
 						<label for="price">정가격</label>
 					</div>
-					<input type="number" id="price" name="price input_box">
+					<input type="number" id="price" name="price">
 				</div>
 				<div class="input_wrap">
 					<div class="label">
