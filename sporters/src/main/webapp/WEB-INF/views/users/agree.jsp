@@ -5,14 +5,113 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <style>
 	.label_one {
-	
+		text-align: left;
 	}
 	
 	.label_all {
-	
+		
 	}
+	
+	textarea {
+		height: 130px;
+	    border: 1px solid lightgray;
+	    width: 100%;
+	    text-align: justify;
+	    text-justify: auto ;
+	    overflow: auto;
+	}
+	
+	.div_agree {
+		margin: auto;
+		width: 100%;
+		padding-bottom: 15px;
+	}
+	
+	.first_div{
+		width: 80%;
+	    margin: auto;
+	}
+	
+	.div_span{
+		padding-bottom: 30px;
+	    font-size: 20px;
+	    font-weight: bold;
+	     text-align: center;
+	}
+	
+	h2 {
+	  position: relative;
+	  padding: 0;
+	  margin: 0;
+	  font-family: "Raleway", sans-serif;
+	  font-weight: 300;
+	  font-size: 20px;
+	  color: #080808;
+	  -webkit-transition: all 0.4s ease 0s;
+	  -o-transition: all 0.4s ease 0s;
+	  transition: all 0.4s ease 0s;
+	}
+	
+	.div_span h2 {
+	text-align: center;
+	    font-size:30px; font-weight:300; color:#222; letter-spacing:1px;
+	    text-transform: uppercase;
+	    display: grid;
+	    grid-template-columns: 1fr max-content 1fr;
+	    grid-template-rows: 27px 0;
+	    grid-gap: 20px;
+	    align-items: center;
+	}
+	
+	.div_span h2:after,.div_span h2:before {
+	    content: " ";
+	    display: block;
+	    border-bottom: 1px solid #8c8cff;
+	    border-top: 1px solid #8c8cff;
+	    height: 5px;
+	  background-color:#f8f8f8;
+	}
+	
+	.div_label_all {
+		padding-bottom: 30px;
+		text-align: right;
+	}
+	
+	.div_label_one {
+		padding-bottom: 10px;
+		text-align: right;
+	}
+	
+	.div_btns{
+		padding-top: 26px;
+	    padding-bottom: 100px;
+	    text-align: right;
+	}
+	
+	.buttons {
+	position: relative;
+	display: inline-block;
+	text-align: center;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    color: white;
+    background-color: #c8c8ff;
+    border-radius: 4px;
+    
+	}
+	.buttons:active {
+		  top: 4px; 
+		}
+		
+	.buttons.purple {box-shadow:0px 4px 0px #b6b6f3;}
+	.buttons.purple:active {box-shadow: 0 0 #c8c8ff; background-color: #c8c8ff;}
+	
+	.buttons.purple, .btn-two.purple {background-color: #c8c8ff;}
+	
 	
 </style>
 <script>
@@ -72,13 +171,21 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div>
-			<span>약관 동의</span>
+		<div class="first_div">
+			<div class="div_span">
+				<h2>약관 동의</h2>
+			</div>
 			
 			<form id="frm_agree" action="/users/join/write">
-				<div>
-					<input type="checkbox" id="service" class="check_one blind">
+				<div class="div_label_all">
+					<label for="check_all" class="label_all">전체 동의</label>
+					<input type="checkbox" id="check_all" class="blind">
+				</div>
+				<div class="div_agree">
+					<div class="div_label_one">
 					<label for="sevice" class="label_one">이용약관 동의(필수)</label>
+					<input type="checkbox" id="service" class="check_one blind">
+					</div>
 					<div>
 						<textarea>제 1 장 총칙
 
@@ -228,9 +335,11 @@
 					</div>
 				</div>
 				<div>
-					<input type="checkbox" id="privacy" class="check_one blind">
+					<div class="div_label_one">
 					<label for="privacy" class="label_one">개인정보수집 동의(필수)</label>
-					<div>
+					<input type="checkbox" id="privacy" class="check_one blind">
+					</div>
+					<div class="div_agree">
 						<textarea>1. 개인정보의 수집항목 및 수집방법 
 통계청 나라통계사이트에서는 기본적인 회원 서비스 제공을 위한 필수정보로 실명인증정보와 가입정보로 구분하여 다음의 정보를 수집하고 있습니다. 필수정보를 입력해주셔야 회원 서비스 이용이 가능합니다.
 
@@ -280,9 +389,11 @@
 					</div>
 				</div>
 				<div>
-					<input type="checkbox" id="location" name="location" class="check_one blind">
+					<div class="div_label_one">
 					<label for="location" class="label_one">위치정보수집 동의(필수)</label>
-					<div>
+					<input type="checkbox" id="location" name="location" class="check_one blind">
+					</div>
+					<div class="div_agree">
 						<textarea>제 3자 정보제공
 
 제1조 (위치기반서비스의 내용)
@@ -335,11 +446,14 @@
 ③ 보호의무자는 8세 이하의 아동 등의 개인위치정보 이용 또는 제공에 동의하는 경우 개인위치정보주체 권리의 전부를 행사할 수 있습니다.
 제9조 (위치정보관리책임자의 지정)
 ① 회사는 위치정보를 적절히 관리, 보호하고 개인위치정보주체의 불만을 원활히 처리할 수 있도록 실질적인 책임을 질 수 있는 지위에 있는 자를 위치정보관리 책임자로 지정해 운영합니다.
-② 위치정보관리책임자는 위치기반 서비스를 제공하는 부서의 부서장으로서 구체적인 사항은 본 약관의 부칙에 따릅니다.</textarea>
+② 위치정보관리책임자는 위치기반 서비스를 제공하는 부서의 부서장으로서 구체적인 사항은 본 약관의 부칙에 따릅니다.
+					</textarea>
 					</div>
-					<input type="checkbox" id="marketing" name="marketing" class="check_one blind">
+					<div class="div_label_one">
 					<label for="marketing" class="label_one">마케팅 동의(선택)</label>
-					<div>
+					<input type="checkbox" id="marketing" name="marketing" class="check_one blind">
+					</div>
+					<div class="div_agree">
 						<textarea>
 마케팅 정보 수신 동의
 SPORTERS는 개인정보보호법 및 정보통신망이용촉진 및 정보보호 등에 관한 법률 등 관계법령에 따라 광고성 정보를 전송하기 위해 이용자의 사전 수신 동의를 받고 있습니다. 본 내용은 SPORTERS 회원 서비스가 적용되는 개별서비스의 마케팅 수신동의를 포함하고 있으며, 마케팅 정보 수신 동의 시개별서비스의 마케팅 수신에 일괄 동의한 것으로 처리됩니다. 
@@ -359,16 +473,13 @@ SPORTERS 정보수정 페이지에서 개별서비스의 마케팅 수신동의�
 						</textarea>
 					</div>
 				</div>
-				<div>
-					<input type="checkbox" id="check_all" class="blind">
-					<label for="check_all" class="label_all">전체 동의</label>
-				</div>
 				
-				<hr>
 				
-				<div>
-					<input type="button" value="회원가입취소" onclick="history.back();">
-					<button>다음</button>
+				<div style="border-bottom: 1px solid #8c8cff; height: 20px;"></div>
+				
+				<div class="div_btns">
+					<input class="buttons purple" type="button" value="회원가입취소" onclick="history.back();">
+					<button class="buttons purple">다음</button>
 				</div>
 			</form>
 		</div>

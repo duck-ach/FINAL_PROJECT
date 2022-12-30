@@ -36,7 +36,7 @@ body {
 }
 .button{
 border: 0;
-width: 120px;
+width: 30px;
 padding: 7px;
 margin-top: 10px;
 margin-left:90%;
