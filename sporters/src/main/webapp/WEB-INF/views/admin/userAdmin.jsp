@@ -15,10 +15,9 @@ body {
 	background: #fff;
 }
 .tbl {
-	width:100%;
+	width:90%;
 	border-collapse: collapse;
 	text-align: center;
-	margin-left: auto;
 	margin-right: auto;
 	table-layout:fixed
 }
@@ -39,21 +38,20 @@ body {
 
 button{
 border: 0;
-width: 120px;
+width: 70px;
 height: 40px;
 padding: 7px;
-margin-top: 10px;
-margin-left:90%;
+border: 1px solid #FFF;
 background-color: #D5C2EE;
-border-radius: 2px;
+border-radius: 17px;
 	}
 button:hover{
 background-color:  rgba(213, 194, 238, 0.69);
-border-radius: 2px;
+border-radius: 17px;
 }
 
 #searchText{
-  width: 100%;
+  width: 70px;
   border: 1px solid #bbb;
   border-radius: 8px;
   padding: 10px 12px;
@@ -127,7 +125,6 @@ border-radius: 2px;
 			tr += '<td>' + user.email + '</td>';
 			tr += '<td>' + user.mobile + '</td>';
 			tr += '<td>' + user.joinDate + '</td>';
-			tr += '<td></td>';
 			tr += '</tr>';
 			$('#list').append(tr);
 			})
@@ -167,7 +164,6 @@ border-radius: 2px;
 					tr += '<td>' + user.email + '</td>';
 					tr += '<td>' + user.mobile + '</td>';
 					tr += '<td>' + user.joinDate + '</td>';
-					tr += '<td></td>';
 					tr += '</tr>';
 					$('#list').append(tr);
 				})
@@ -248,9 +244,9 @@ border-radius: 2px;
 			</select>
 			<input type="text" id="searchText" name="searchText">
 			</form>
-				<button id="btn_search" value="검색" >검색</button>
-				<button id="btn_init" value="초기화">초기화</button><br>
-				<button id="btn_deleteUser" value="회원 탈퇴">회원탈퇴</button>
+				<button id="btn_search" value="검색" >검색</button>&nbsp;
+				<button id="btn_init" value="초기화">초기화</button>&nbsp;
+				<button id="btn_deleteUser" value="회원 탈퇴">탈퇴</button>
 			
 				<br>
 				<form>
@@ -258,7 +254,7 @@ border-radius: 2px;
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="check_all"></th>
-						<th>회원번호</th>
+						<th style="size: 10px">회원번호</th>
 						<th>아이디</th>
 						<th>닉네임</th>
 						<th>이름</th>
