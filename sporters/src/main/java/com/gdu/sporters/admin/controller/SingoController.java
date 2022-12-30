@@ -40,7 +40,7 @@ public class SingoController {
 		public String addCategory(HttpServletRequest request) {
 			System.out.println(request.getParameter("categoryName"));
 			singoService.addCategory(request);
-			return "/admin/getCategoryList";
+			return "admin/getCategoryList";
 		}
 		
 		@ResponseBody
@@ -48,6 +48,13 @@ public class SingoController {
 		public void removeCategory(HttpServletRequest request, HttpServletResponse response) {
 			singoService.deleteCategory(request, response);
 		}
+		
+		@GetMapping(value="/admin/singoList", produces="application/json")
+		public String selectSingoList(HttpServletRequest request, Model model) {
+			singoService.getSingoList(request, model);
+			return "admin/singoList";
+		}
+		
 
 
 }

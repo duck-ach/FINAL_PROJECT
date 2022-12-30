@@ -18,7 +18,6 @@ import com.gdu.sporters.admin.mapper.AdminMapper;
 import com.gdu.sporters.board.mapper.BoardMapper;
 import com.gdu.sporters.users.domain.RetireUsersDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
-import com.gdu.sporters.util.ScrollPageUtil;
 import com.gdu.sporters.util.SecurityUtil;
 
 
@@ -31,8 +30,8 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
-	@Autowired
-	private ScrollPageUtil scrollPageUtil;
+//	@Autowired
+//	private ScrollPageUtil scrollPageUtil;
 	
 	@Autowired
 	private SecurityUtil securityUtil;

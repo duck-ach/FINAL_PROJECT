@@ -1,14 +1,10 @@
 package com.gdu.sporters.shopAdmin.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.sporters.shop.domain.ProdCategoryDTO;
-import com.gdu.sporters.shop.domain.ProdImageDTO;
-import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
-import com.gdu.sporters.shop.domain.ProductDTO;
 
 @Mapper
 public interface ShopAdminCategoryMapper {

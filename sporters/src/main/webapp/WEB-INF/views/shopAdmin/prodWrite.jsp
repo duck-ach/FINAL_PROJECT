@@ -161,15 +161,19 @@ $(function(){
 h2 {
 	font-size: 30px;
 }
-.input_box {
-  width: 500px;
-  height: 32px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
+.input_wrap {
+	margin-top: 3px;
+	font-size: 20px;
+}
+.label {
+	display: inline-block;
+	width:120px;
+}
+
+
+
+.file input[type="file"] {
+	
 }
 </style>
 <body>
@@ -178,12 +182,10 @@ h2 {
 		<form id="frm_write" action="/shopAdmin/prod/add" method="post" enctype="multipart/form-data">
 			<div>
 				<h2>상품등록</h2>
-				<div>
-					<label for="prodName">상품명</label>
-					<input type="text" id="prodName" name="prodName">
-				</div>
-				<div>
-					상품카테고리
+				<div class="input_wrap">
+					<div class="label">
+						상품카테고리
+					</div>
 					<select name="prodCategoryNo" id="prodCategoryNo">
 						<option value="">===선택===</option>
 						<c:forEach items="${prodCategoryList}" var="category">
@@ -191,23 +193,39 @@ h2 {
 						</c:forEach>
 					</select>
 				</div>
-				<div>
-					<label for="price">정가격</label>
+				<div class="input_wrap">
+					<div class="label">
+						<label for="prodName">상품명</label>
+					</div>
+					<input type="text" id="prodName" name="prodName">
+				</div>
+				<div class="input_wrap">
+					<div class="label">
+						<label for="price">정가격</label>
+					</div>
 					<input type="number" id="price" name="price">
-					<label for="discount">할인가격</label>
+				</div>
+				<div class="input_wrap">
+					<div class="label">
+						<label for="discount">할인가격</label>
+					</div>
 					<input type="number" id="discount" name="discount">
 				</div>
-				<div>
-					<label for="thumbnail">상품 썸네일(대표사진)<span>gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span></label>
-					<input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
-				</div>
-				<div>
-					<label for="origin">원산지</label>
+				<div class="input_wrap">
+					<div class="label">
+						<label for="origin">원산지</label>
+					</div>
 					<input type="text" id="origin" name="origin">
 				</div>
-				<div>
-					<label for="stock">재고</label>
+				<div class="input_wrap">
+					<div class="label">
+						<label for="stock">재고</label>
+					</div>
 					<input type="number" id="stock" name="stock">
+				</div>
+				<div class="file input_wrap">
+					<label for="thumbnail">상품 썸네일(대표사진)<span>gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span></label>
+					<input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
 				</div>
 				
 				<div>
