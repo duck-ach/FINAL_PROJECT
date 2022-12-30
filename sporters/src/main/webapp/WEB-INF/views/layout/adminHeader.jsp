@@ -50,7 +50,7 @@ html,body{
 	padding-left: 286px;
 }
 .code_wrap { /* 코드가 들어갈 부분 */
-	width : 885px;
+	width : 1000px;
 }
 </style>
 </head>
