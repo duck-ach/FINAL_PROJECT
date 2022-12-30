@@ -25,12 +25,12 @@
 	                    <div class="container-fluid px-4">
 	                        <h1 class="mt-4">Dashboard</h1>
 	                        <ol class="breadcrumb mb-4">
-	                            <li class="breadcrumb-item active">Dashboard</li>
+	                            <li class="breadcrumb-item active">관리자님 안녕하세요!</li>
 	                        </ol>
 	                        <div class="row">
 	                            <div class="col-xl-3 col-md-6">
 	                                <div class="card bg-primary text-white mb-4">
-	                                    <div class="card-body">회원관리</div>
+	                                    <div class="card-body"><i class="fa-solid fa-person-swimming" style="width:30px;"></i>회원관리</div>
 	                                    <div class="card-footer d-flex align-items-center justify-content-between">
 	                                        <a class="small text-white stretched-link" href="/admin/userAdmin">관리페이지로 이동</a>
 	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -39,7 +39,7 @@
 	                            </div>
 	                            <div class="col-xl-3 col-md-6">
 	                                <div class="card bg-warning text-white mb-4">
-	                                    <div class="card-body">게시판관리</div>
+	                                    <div class="card-body"><i class="fa-solid fa-file" style="width:30px;"></i>게시판관리</div>
 	                                    <div class="card-footer d-flex align-items-center justify-content-between">
 	                                        <a class="small text-white stretched-link" href="/admin/adminFreeList">관리페이지로 이동</a>
 	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -48,7 +48,7 @@
 	                            </div>
 	                            <div class="col-xl-3 col-md-6">
 	                                <div class="card bg-success text-white mb-4">
-	                                    <div class="card-body">상품관리</div>
+	                                    <div class="card-body"><i class="fa-solid fa-cart-shopping" style="width:30px;"></i>상품관리</div>
 	                                    <div class="card-footer d-flex align-items-center justify-content-between">
 	                                        <a class="small text-white stretched-link" href="/shopAdmin/prodManage">관리페이지로 이동</a>
 	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -57,7 +57,7 @@
 	                            </div>
 	                            <div class="col-xl-3 col-md-6">
 	                                <div class="card bg-danger text-white mb-4">
-	                                    <div class="card-body">주문관리</div>
+	                                    <div class="card-body"><i class="fa-solid fa-truck-fast" style="width:30px;"></i>주문관리</div>
 	                                    <div class="card-footer d-flex align-items-center justify-content-between">
 	                                        <a class="small text-white stretched-link" href="/shopAdmin/orderManage">관리페이지로 이동</a>
 	                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -102,8 +102,5 @@
         <script src="${contextPath}/resources/boot/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
         <script src="${contextPath}/resources/boot/js/datatables-simple-demo.js"></script>
-        <jsp:include page="../layout/adminFooter.jsp">
-			<jsp:param value="footer" name="footer" />
-		</jsp:include>
     </body>
 </html>

@@ -16,7 +16,7 @@
 		<result property="mobile" column="MOBILE"/>
 		<result property="stock" column="STOCK"/>
 		<result property="postCode" column="POST_CODE"/>
-		<result property="loadAddress" column="LOAD_ADDRESS"/>
+		<result property="roadAddress" column="ROAD_ADDRESS"/>
 		<result property="jibunAddress" column="JIBUN_ADDRESS"/>
 		<result property="detailAddress" column="DETAIL_ADDRESS"/>
 		<result property="orderDate" column="ORDER_DATE"/>

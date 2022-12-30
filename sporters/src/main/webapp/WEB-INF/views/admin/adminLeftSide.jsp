@@ -5,7 +5,7 @@
 
 <style>
 body, html {
-	margin: 0;
+	margin: 0; 
 	padding: 0;
 	width: 100%;
 	height: 100%;
@@ -16,7 +16,7 @@ body, html {
 	top : 80px;
 	background-color: rgb(17, 24, 39);
 	padding-left:8px;
-	width: 200px;
+	width: 235px;
 	height: 100%;
 	border-right: 1px solid #FFF;
 	padding-top: 8px;
@@ -47,18 +47,17 @@ div {
 	padding-left: 15px;
 }
 i	{
-	margin-top:10px;
-	color:rgb(156, 163, 175);
-	font-size: 20px;
+	margin-top:10px !important;
+	color:rgb(156, 163, 175) !important;
+	font-size: 20px !important;
 }
 p{
-margin-top:10px;
-height: 50px;
+margin-top:10px !important;
+height: 50px !important;
 }
 .upper_menu:hover{
 cursor:pointer;
 }
-
 
 </style>
 <script src="https://kit.fontawesome.com/02dc4a9c97.js" crossorigin="anonymous"></script>

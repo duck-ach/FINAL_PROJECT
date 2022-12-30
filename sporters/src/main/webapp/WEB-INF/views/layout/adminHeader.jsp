@@ -25,7 +25,7 @@
 </script>
 <style type="text/css">
 html,body{
-	height:100%;
+	height:100%; 
 	position: relative; 
 }
 .main_header_area{
@@ -48,8 +48,8 @@ html,body{
 	margin-left: 20px;
 }
 .body_wrap { /* body태그 아래 바로 아래 div에 줄 부분 */
-	padding-top: 28px;
-	padding-left: 286px;
+	padding-top:30px;
+	padding-left: 245px;
 }
 .code_wrap { /* 코드가 들어갈 부분 */
 	width : 100%;
