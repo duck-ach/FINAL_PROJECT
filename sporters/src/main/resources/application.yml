@@ -27,11 +27,9 @@ spring:
   datasource:
     hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
-#      jdbc-url: jdbc:mysql://localhost:3306/sporters?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-      jdbc-url: jdbc:mysql://203.245.44.105:3306/sporters?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-#      jdbc-url: jdbc:mysql://218.152.201.9:3306/sporters?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-      username: sporters
-      password: sporters!!
+      jdbc-url: jdbc:mysql://localhost:3306/team?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      username: root
+      password: 11111111
 
 # email
   mail:
@@ -45,8 +43,6 @@ spring:
           auth: true
           starttls:
             enable: true
-#  main:
-#    web-application-type: none
       
 # mybatis
 mybatis:
