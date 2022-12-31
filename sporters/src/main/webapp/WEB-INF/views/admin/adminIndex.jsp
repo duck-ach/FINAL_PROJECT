@@ -14,7 +14,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="${contextPath}/resources/boot/css/styles.css" rel="stylesheet" />
+        <link href="/resources/boot/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -96,11 +96,11 @@
 	        </div>
     	</div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="${contextPath}/resources/boot/js/scripts.js"></script>
+        <script src="/resources/boot/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-        <script src="${contextPath}/resources/boot/assets/demo/chart-area-demo.js"></script>
-        <script src="${contextPath}/resources/boot/assets/demo/chart-bar-demo.js"></script>
+        <script src="/resources/boot/assets/demo/chart-area-demo.js"></script>
+        <script src="/resources/boot/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
-        <script src="${contextPath}/resources/boot/js/datatables-simple-demo.js"></script>
+        <script src="/resources/boot/js/datatables-simple-demo.js"></script>
     </body>
 </html>

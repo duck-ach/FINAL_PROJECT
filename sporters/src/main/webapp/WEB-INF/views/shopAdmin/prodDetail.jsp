@@ -14,68 +14,72 @@
 	$('.shopAdmin').addClass('checked');
 </script>
 <body>
-	<h1>상품관리</h1>
-	<div>
-		<span>${product.prodName}</span>
-	</div>
-	<div>
-		<form id="frm_btn" method="post">
-			<input type="hidden" name="prodNo" value="${product.prodNo}">
-			<input type="button" value="상품수정" id="btn_edit_prod">
-			<input type="button" value="상품삭제" id="btn_remove_prod">
-			<input type="button" value="목록" onclick="location.href='/shopAdmin/prodManage'">
-		</form>
-		<script>
-			$('#btn_edit_prod').click(function(){
-				$('#frm_btn').attr('action', '/shopAdmin/prod/edit');
-				$('#frm_btn').submit();
-			});
-			$('#btn_remove_prod').click(function(){
-				if(confirm('상품을 삭제하게 되면 다시 되돌리거나 확인할 수 없습니다. 상품을 삭제하시겠습니까?')){
-					$('#frm_btn').attr('action', '/shopAdmin/prod/remove');
-					$('#frm_btn').submit();
-				}
-			});
-		</script>
-	</div>
-	<hr>
-	
-	<div>
-		<table>
-			<tbody>
-				<tr>
-					<td>상품번호</td>
-					<td>${product.prodNo}</td>
-				</tr>
-				<tr>
-					<td>상품명</td>
-					<td>${product.prodName}</td>
-				</tr>
-				<tr>
-					<td>대표사진(썸네일)</td>
-					<td><img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="500px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}"></td>
-				</tr>
-				<tr>
-					<td>카테고리</td>
-					<td>${product.prodCategory.prodCategoryName}</td>
-				</tr>
-				<tr>
-					<td>가격</td>
-					<td>${product.price}</td>
-				</tr>
-				<tr>
-					<td>할인가격</td>
-					<td>${product.discount}</td>
-				</tr>
-				<tr>
-					<td>재고</td>
-					<td>${product.stock}</td>
-				</tr>
-			</tbody>
-		</table>
+<div class="body_wrap">
+	<div class="code_wrap">
+		<h1>상품관리</h1>
 		<div>
-			${product.prodContent}
+			<span>${product.prodName}</span>
+		</div>
+		<div>
+			<form id="frm_btn" method="post">
+				<input type="hidden" name="prodNo" value="${product.prodNo}">
+				<input type="button" value="상품수정" id="btn_edit_prod">
+				<input type="button" value="상품삭제" id="btn_remove_prod">
+				<input type="button" value="목록" onclick="location.href='/shopAdmin/prodManage'">
+			</form>
+			<script>
+				$('#btn_edit_prod').click(function(){
+					$('#frm_btn').attr('action', '/shopAdmin/prod/edit');
+					$('#frm_btn').submit();
+				});
+				$('#btn_remove_prod').click(function(){
+					if(confirm('상품을 삭제하게 되면 다시 되돌리거나 확인할 수 없습니다. 상품을 삭제하시겠습니까?')){
+						$('#frm_btn').attr('action', '/shopAdmin/prod/remove');
+						$('#frm_btn').submit();
+					}
+				});
+			</script>
+		</div>
+		<hr>
+		
+		<div>
+			<table>
+				<tbody>
+					<tr>
+						<td>상품번호</td>
+						<td>${product.prodNo}</td>
+					</tr>
+					<tr>
+						<td>상품명</td>
+						<td>${product.prodName}</td>
+					</tr>
+					<tr>
+						<td>대표사진(썸네일)</td>
+						<td><img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="500px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}"></td>
+					</tr>
+					<tr>
+						<td>카테고리</td>
+						<td>${product.prodCategory.prodCategoryName}</td>
+					</tr>
+					<tr>
+						<td>가격</td>
+						<td>${product.price}</td>
+					</tr>
+					<tr>
+						<td>할인가격</td>
+						<td>${product.discount}</td>
+					</tr>
+					<tr>
+						<td>재고</td>
+						<td>${product.stock}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				${product.prodContent}
+			</div>
 		</div>
 	</div>
+</div>
 </body>
 </html>
