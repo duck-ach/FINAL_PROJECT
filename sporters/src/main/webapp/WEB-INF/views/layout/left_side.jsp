@@ -22,6 +22,8 @@ body, html {
 			left: 60px;
 			top:0;
 			z-index: 10;opacity: 0.7;
+			
+			text-indent: 20px;
 						
 		}
 
@@ -126,6 +128,31 @@ body, html {
 	.left_menu_show_span{
 	cursor: pointer;
 	}
+	
+	
+	
+	/* effect-shine */
+	
+menu-inner ul{
+position: relative;
+ -webkit-transform: translate(-50%,-50%);
+
+}
+menu-inner ul li:hover {
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
+  animation: shine 2s infinite;
+}
+
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+  }
+  
+  to {
+    -webkit-mask-position: -50%;
+  }
+}
 </style> 
 
 
@@ -143,11 +170,12 @@ body, html {
 						관리자센터
 					</a>			 		
 			 	</li>
-			 	<li class="left_menu_hide_span">
+			 	<li class="left_menu_hide_span ">
 			 		게시판
 			 		<ul  class="left_menu_hide">
-			 			<li><a href="/spo_review/list">운동후기게시판</a> </li>
-					 	<li><a href="/free/list">자유게시판</a> </li>
+			 			<li><a href="/free/list">자유게시판</a> </li>
+			 			<li><a href="/local/list">운동 게시판</a> </li>
+			 			<li><a href="/spo_review/list">운동후기게시판</a> </li>					 	
 					 	<li><a href="/shop/list">쇼핑몰</a> </li>
 					 	<li><a href="/supp/singo">신고게시판</a> </li>
 					 	<li><a href="/qna/list">고객문의게시판</a> </li>
