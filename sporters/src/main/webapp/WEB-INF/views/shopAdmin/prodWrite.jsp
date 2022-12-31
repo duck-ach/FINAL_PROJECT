@@ -20,10 +20,11 @@ $('.shopAdmin').addClass('checked');
 $(function(){
 	
 	fileCheck();
+	fn_file_change();
 	
 	// summernote
 	$('#content').summernote({
-		width: 800,
+		width: 830,
 		height: 400,
 		lang: 'ko-KR',
 		toolbar:[
@@ -156,22 +157,36 @@ $(function(){
 		
 		
 	});
+	function fn_file_change() {
+		$('#thumbnail').on('change',function(){
+			console.log($(this));
+		  	var fileName = $("#thumbnail").val();	
+		  	$('.upload-name').val(fileName);
+		});
+	}
+	
 </script>
 <style>
 h2 {
 	font-size: 30px;
 }
+#all_content_wrap {
+	margin-left: 60px;
+    margin-top: 30px;
+}
 /* input box */
 .input_wrap {
 	margin-top: 7px;
 	font-size: 20px;
+	margin-left: 70px;
+    margin-bottom: 20px;
 }
 .input_box {
 	width: 500px;
 	height: 35px;
 	border: none;
 	border-radius: 10px;
-	background-color: #c8c8c8;
+	background-color: #dcdcdc;
 }
 .label {
 	display: inline-block;
@@ -200,80 +215,240 @@ h2 {
     display: none;
 }
 /* 첨부파일 */
-.file input[type="file"] {
+.file_wrap {
+	margin-top: 7px;
+	font-size: 20px;
+	margin-left: 70px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.filebox {
+	position: absolute;
+    top: 1px;
+    margin-left: 300px;
+}
+.filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 240px;
+    color: #999999;
+    font-size: 15px;
+}
+.filebox label {
+    display: inline-block;
+    padding: 1px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+#thumbnail_add {
+	font-size: 16px;
+	line-height: 40px;
+}
+.file_info {
+	font-size: 13px;
+	color: #FF88A7;
+	position: absolute;
+	top: 29px;
 	
 }
 
-.file_info {
-	font-size: 14px;
+/* 상품 상세 내용 */
+#content {
+	margin-top: 5px;
+    width: 100%;
+    height: 6.25em;
+    border: none;
+    resize: none;
+}
+.content_wrap {
+	padding-top: 10px;
+}
+.lbl_content {
+	margin-bottom: 3px;
 }
 
+/* button */
+.button{
+  	background:#8c8cff;
+  	color:#fff;
+  	border:none;
+  	position:relative;
+  	height:31px;
+  	font-size:18px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	transition:800ms ease all;
+  	outline:none;
+  	vertical-align: bottom;
+}
+.button:hover{
+  	background:#fff;
+  	color:#8c8cff;
+}
+.button:before, .button:after{
+  	content:'';
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	height:2px;
+  	width:0;
+  	background: #c8c8ff;
+  	transition:400ms ease all;
+}
+.button:after{
+  	right:inherit;
+  	top:inherit;
+  	left:0;
+  	bottom:0;
+}
+.button:hover:before, .button:hover:after{
+  	width:100%;
+  	transition:800ms ease all;
+}
+/* pink button */
+.pink_button {
+  	background:#F09494;
+  	color:#fff;
+  	border:none;
+  	display: inline-block;
+    height: 30px;
+    line-height: 30px;
+  	font-size:18px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	transition:800ms ease all;
+  	outline:none;
+  	vertical-align: bottom;
+}
+.pink_button:hover{
+  	background:#fff;
+  	color:#F09494;
+}
+.pink_button:before, .pink_button:after{
+  	content:'';
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	height:2px;
+  	width:0;
+  	background: #FFC8C8;
+  	transition:400ms ease all;
+}
+.pink_button:after{
+  	right:inherit;
+  	top:inherit;
+  	left:0;
+  	bottom:0;
+}
+.pink_button:hover:before, .pink_button:hover:after{
+  	width:100%;
+  	transition:800ms ease all;
+}
+.button_wrap {
+	position: relative;
+	margin-left: 70px;
+}
+.loc_btn_submit {
+	position: absolute;
+    bottom: -35px;
+    margin-left:690px;
+}
+.loc_btn_list {
+	position: absolute;
+    bottom: -35px;
+    margin-left: 580px;
+}
 </style>
 <body>
 <div class="body_wrap">
 	<div class="code_wrap">
-		<form id="frm_write" action="/shopAdmin/prod/add" method="post" enctype="multipart/form-data">
-			<div>
-				<h2>상품등록</h2>
-				<div class="input_wrap">
-					<div class="label">
-						상품카테고리 <span class="star_point">*</span>
-					</div>
-					<select name="prodCategoryNo" id="prodCategoryNo">
-						<option value="">=====선택=====</option>
-						<c:forEach items="${prodCategoryList}" var="category">
-							<option value="${category.prodCategoryNo}">${category.prodCategoryName}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="input_wrap">
-					<div class="label">
-						<label for="prodName">상품명 <span class="star_point">*</span></label>
-					</div>
-					<input type="text" id="prodName" class="input_box" name="prodName">
-				</div>
-				<div class="input_wrap">
-					<div class="label">
-						<label for="price">정가격 <span class="star_point">*</span></label>
-					</div>
-					<input type="number" id="price" name="price" class="input_box">
-				</div>
-				<div class="input_wrap">
-					<div class="label">
-						<label for="discount">할인가격 <span class="star_point">*</span></label>
-					</div>
-					<input type="number" id="discount" name="discount" class="input_box">
-				</div>
-				<div class="input_wrap">
-					<div class="label">
-						<label for="origin">원산지 <span class="star_point">*</span></label>
-					</div>
-					<input type="text" id="origin" name="origin" class="input_box">
-				</div>
-				<div class="input_wrap">
-					<div class="label">
-						<label for="stock">재고 <span class="star_point">*</span></label>
-					</div>
-					<input type="number" id="stock" name="stock" class="input_box">
-				</div>
-				<div class="file input_wrap">
-					<label for="thumbnail">상품 썸네일(대표사진) <span class="star_point">*</span><span class="file_info">gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span></label><br>
-					<input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
-				</div>
-				
+		<div class="in_wrap">
+			<form id="frm_write" action="/shopAdmin/prod/add" method="post" enctype="multipart/form-data">
 				<div>
-					<label for="content">상품 상세설명<span class="star_point">*</span></label>
-			        <textarea name="content" id="content" name="content"></textarea>   
+					<h2>상품등록</h2>
+					<span>등록할 상품을 입력해주세요.</span>
+					<hr>
+					<div id="all_content_wrap">
+						<div class="input_wrap">
+							<div class="label">
+								카테고리 <span class="star_point">*</span>
+							</div>
+							<select name="prodCategoryNo" id="prodCategoryNo">
+								<option value="">=====선택=====</option>
+								<c:forEach items="${prodCategoryList}" var="category">
+									<option value="${category.prodCategoryNo}">${category.prodCategoryName}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="input_wrap">
+							<div class="label">
+								<label for="prodName">상품명 <span class="star_point">*</span></label>
+							</div>
+							<input type="text" id="prodName" class="input_box" name="prodName">
+						</div>
+						<div class="input_wrap">
+							<div class="label">
+								<label for="price">소비자가격 <span class="star_point">*</span></label>
+							</div>
+							<input type="number" id="price" name="price" class="input_box">
+						</div>
+						<div class="input_wrap">
+							<div class="label">
+								<label for="discount">할인가격 <span class="star_point">*</span></label>
+							</div>
+							<input type="number" id="discount" name="discount" class="input_box">
+						</div>
+						<div class="input_wrap">
+							<div class="label">
+								<label for="origin">원산지 <span class="star_point">*</span></label>
+							</div>
+							<input type="text" id="origin" name="origin" class="input_box">
+						</div>
+						<div class="input_wrap">
+							<div class="label">
+								<label for="stock">재고 <span class="star_point">*</span></label>
+							</div>
+							<input type="number" id="stock" name="stock" class="input_box">
+						</div>
+						<div class="file_wrap">
+							<span>썸네일 등록(대표 이미지) <span class="star_point">*</span></span><br>
+							<span class="file_info">gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span>
+							<div class="filebox">
+							    <input class="upload-name" value="대표이미지" placeholder="대표이미지" readonly>
+							    <label for="thumbnail"><span id="thumbnail_add">썸네일 등록</span></label> 
+							    <input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
+							</div>
+						</div>
+						<div class="input_wrap content_wrap">
+							<label for="content" class="lbl_content">상세설명 <span class="star_point">*</span></label>
+					        <textarea name="content" id="content" name="content"></textarea>   
+						</div>
+						<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
+						<div id="summernote_image_list"></div>
+						<div class="button_wrap">
+							<button class="pink_button loc_btn_submit">등록하기</button>
+							<input type="button" class="button loc_btn_list" value="목록" id="btn_list">
+						</div>
+					</div>
+					
 				</div>
-				<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
-				<div id="summernote_image_list"></div>
-				<div>
-					<button>등록하기</button>
-					<input type="button" value="목록" id="btn_list">
-				</div>
-				
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>
 </body>

@@ -15,7 +15,7 @@
 		<result property="name" column="NAME"/>
 		<result property="mobile" column="MOBILE"/>
 		<result property="stock" column="STOCK"/>
-		<result property="postCode" column="POST_CODE"/>
+		<result property="postcode" column="POSTCODE"/>
 		<result property="roadAddress" column="ROAD_ADDRESS"/>
 		<result property="jibunAddress" column="JIBUN_ADDRESS"/>
 		<result property="detailAddress" column="DETAIL_ADDRESS"/>
@@ -74,9 +74,14 @@
 		 LIMIT #{begin}, #{recordPerPage}
 	</select>
 	
+	<!-- 주문개수 -->
+	<select id="selectOrderCnt" resultType="int">
+		SELECT COUNT(ORDER_NO)
+		  FROM ORDERS
+	</select>
 	<!-- 주문상세보기 -->
 	<select id="selectOrderDetailByUserNo" parameterType="map" resultMap="OrderMap">
-		SELECT O.ORDER_NO, U.NAME, O.NAME, O.MOBILE, O.PRICE_ALL, O.ORDER_STATE, O.POSTCODE, O.ROAD_ADDRESS, O.JIBUN_ADDRESS, O.DETAIL_ADDRESS, O.ORDER_DATE
+		SELECT O.ORDER_NO, U.USER_NO, O.CART_NO, O.USER_NO, O.NAME, U.NAME, O.MOBILE, O.PRICE_ALL, O.ORDER_STATE, O.POSTCODE, O.ROAD_ADDRESS, O.JIBUN_ADDRESS, O.DETAIL_ADDRESS, O.ORDER_DATE
 		  FROM ORDERS O INNER JOIN USERS U
 		    ON O.USER_NO = U.USER_NO
 		 WHERE O.ORDER_NO = #{orderNo}
@@ -104,6 +109,37 @@
 		  FROM ORDERS
 		 WHERE ORDER_DATE BETWEEN DATE_ADD(NOW(), INTERVAL - 1 MONTH) AND NOW()
 		 GROUP BY ORDER_DATE
+	</select>
+	
+	
+	<!-- 상품 검색 개수 -->
+	<select id="selectSearchCount" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM ORDERS
+		<where>
+		    <if test="column=='PROD_NO'">
+		    	${column} = #{query}
+		    </if>
+		    <if test="column=='PROD_NAME' || column=='PROD_CONTENT' || column=='ORIGIN'">
+		    	${column} LIKE CONCAT('%', #{query}, '%')
+		    </if>
+		</where>
+	</select>
+	
+	<!-- 상품 검색 -->
+	<select id="selectSearchOrderList" parameterType="Map" resultMap="OrderMap">
+	SELECT O.ORDER_NO, U.NAME, O.NAME, O.MOBILE, O.ORDER_DATE, O.ORDER_STATE, O.PRICE_ALL
+	  FROM USERS U INNER JOIN (SELECT ORDER_NO, USER_NO, NAME, MOBILE, ORDER_DATE, ORDER_STATE, PRICE_ALL
+	                             FROM ORDERS
+                                <where>
+				                  	<if test="column=='ORDER_NO'">
+				                   		${column} = #{query}
+				                    </if>
+				                    <if test="column=='USER_NO' || column=='NAME' || column=='ORDER_STATE'">
+				                    	${column} LIKE CONCAT('%', #{query}, '%')
+				                    </if>
+				                </where>) O
+       ON O.USER_NO = U.USER_NO
 	</select>
 
 </mapper>
