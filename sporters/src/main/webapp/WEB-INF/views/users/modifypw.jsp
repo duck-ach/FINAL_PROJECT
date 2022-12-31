@@ -22,14 +22,14 @@
 
 	.btn {
 	  	position: relative;
-	display: inline-block;
-	text-align: center;
-    height: 30px;
-    border: none;
-    font-size: 14px;
-    color: white;
-    background-color: #c8c8ff;
-    border-radius: 4px;
+		display: inline-block;
+		text-align: center;
+	    height: 30px;
+	    border: none;
+	    font-size: 14px;
+	    color: white;
+	    background-color: #c8c8ff;
+	    border-radius: 4px;
     
 	}
 	.btn:active {
@@ -80,7 +80,7 @@
 	
 	/* 본문 */
 	.first_div {
-		width: 60%;
+		width: 70%;
 		margin: auto;
 	}
 	
@@ -95,31 +95,40 @@
 		background-color: #c8c8ff;
 		border-radius: 20px;
 		color: white;
-	    height: 35px;
+        height: 35px;
 	    width: 38%;
 	    font-size: 15px;
 	    text-align: center;
-	    margin-bottom: 45px;
+	    margin-bottom: 30px;
 	    line-height: 35px;
+	    margin-top: 20px;
 	}
 	
 	.div_result {
 		display:inline-block;
 		font-size: 15px;
+		border: none;
 		border-bottom: 1px solid #8282ff;
-		width: 50%;
+		width: 58%;
    		margin-left: 6px;
-		height: 24px;
+		height: 0;
 		line-height: 35px;
-		margin-bottom: 45px;
+		margin-bottom: 5px;
 		padding-bottom: 10px;
     	padding-left: 7px;
 	}
 	
-	input {
-		border: none;
-		line-height: 30px;
-		transition: .2s;
+	.msg_class {
+	    font-size: 12px;
+	    color: lightgray;
+	    position: absolute;
+	    margin: auto;
+	    margin-left: -30%;
+    	margin-top: 63px;
+	}
+	
+	.input_pw {
+		height: 30px;
 	}
 
 
@@ -198,17 +207,17 @@
 				<form id="frm_edit_pw" action="/users/modify/pw" method="post">
 					<div class="div_in_form">
 						<label class="div_topic" for="pw">새로운 비밀번호</label>
-						<input class="div_result" type="password" name="pw" id="pw">
-						<span id="msg_pw"></span>					
+						<input class="div_result input_pw" type="password" name="pw" id="pw">
+						<span class="msg_class" id="msg_pw"></span>					
 					</div>
 					<div class="div_in_form">
 						<label class="div_topic" for="re_pw">새로운 비밀번호 확인</label>
-						<input class="div_result" type="password" id="re_pw">
-						<span id="msg_re_pw"></span>
+						<input class="div_result input_pw" type="password" id="re_pw">
+						<span class="msg_class" id="msg_re_pw"></span>
 					</div>
 					<div class="div_btns">
-						<button class="btn purple">비밀번호 변경하기</button>
-						<input class="btn purple" type="button" value="비밀번호 변경 취소하기" id="btn_cancel">
+						<button class="btn purple">변경하기</button>
+						<input class="btn purple" type="button" value="취소하기" id="btn_cancel">
 					</div>
 				</form>
 			</div>
