@@ -5,12 +5,13 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <style>
         #modal {
-          display: none;
-          position:relative;
-          width:100%;
-          height:100%;
-          z-index:1;
-        }
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    top: 34%;
+}
         
         #modal h2 {
           margin:0;

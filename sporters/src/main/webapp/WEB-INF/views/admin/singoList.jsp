@@ -145,7 +145,7 @@ $(document).ready(function(){
 				<th>신고카테고리</th>
 				<th>원글제목</th>
 				<th>신고링크</th>
-				<th>작성자ID</th>
+<!-- 				<th>작성자ID</th> -->
 				<th>신고기타</th>
 				<th>원글작성일</th>
 				<th>삭제사유</th>
@@ -159,7 +159,7 @@ $(document).ready(function(){
 					<td>${singo.singoCategory}</td>
 					<td>${singo.singoTitle}</td>
 					<td><a>${singo.singoLink}</a></td>
-					<td>${singo.id}</td>
+<%-- 					<td>${singo.id}</td> --%>
 					<td>${singo.singoUserReason}</td>
 					<td>${singo.singoCreateDate}</td>
 					<td>${singo.singoReason}</td>

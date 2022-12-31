@@ -37,17 +37,22 @@ body {
 }
 
 button{
-border: 0;
-width: 70px;
-height: 40px;
-padding: 7px;
-border: 1px solid #FFF;
-background-color: #D5C2EE;
-border-radius: 17px;
-	}
+  	background:#8c8cff;
+  	color:#fff;
+  	border:3px solid;
+  	border-color:#8282ed;
+  	border-radius:3px;
+  	position:relative;
+  	height:35px;
+  	font-size:20px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	outline:none;
+  	vertical-align: bottom;
+}
 button:hover{
-background-color:  rgba(213, 194, 238, 0.69);
-border-radius: 17px;
+  	background:#9999FF;
+  	color:#FFF;
 }
 
 #searchText{

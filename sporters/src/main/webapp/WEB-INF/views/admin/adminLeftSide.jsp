@@ -21,6 +21,7 @@ body, html {
 	padding-top: 8px;
 }
 #com_menu, #shop_menu{
+	display:none;
 	padding-bottom:20px;
 	border-bottom: 1px solid #FFF;
 }
@@ -33,7 +34,7 @@ ul li{
 ul li:hover{
 	background-color: rgb(56,65,81) !important;
 }
-ul li a, a{
+ul li a, .zup{
 	text-align:left !important;
 	font-size: 18px !important;
 	color: rgb(156, 163, 175) !important;
@@ -77,7 +78,7 @@ cursor:pointer;
 	<div>
 		<p class="upper_menu">
 		<i class="fa-solid fa-users" id="icon_commu"></i>&nbsp;
-		<a>커뮤니티 관리</a>
+		<a class="zup">커뮤니티 관리</a>
 		</p>
 		<ul id="com_menu">
 			<li><a href="/admin/userAdmin">- 유저관리</a></li>
@@ -88,7 +89,7 @@ cursor:pointer;
 	<div>
 	<p class="upper_menu">
 	<i class="fa-solid fa-basket-shopping" id="icon_shop"></i>&nbsp;
-	<a>쇼핑몰 관리</a>
+	<a class="zup">쇼핑몰 관리</a>
 	</p>
 		<ul id="shop_menu">
 			<li><a href="/shopAdmin/categoryManage">- 카테고리관리</a></li>
