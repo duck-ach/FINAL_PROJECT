@@ -150,13 +150,14 @@ $(function(){
 		top:0px;
 		margin: 50px auto;
 	   
-	    width: 70%;
-	/*    overflow: hidden;*/
+	    width: 80%;
+	    overflow: hidden;
 	/*    border: 2px solid #000;*/
 	}
 	
 	.wrap .content_leyout_section{
-		width:100%;		
+		width:90%;	
+		margin: 0 auto;	
 	}
 	
 
