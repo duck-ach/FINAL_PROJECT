@@ -13,7 +13,12 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3436810b3f87959018036d9419f8c1b1"></script>
 
 <style>
+	.div_hr{
+	margin:3vh 0 3vh ; 
+	height: 1vh;
+	border-bottom: 1px solid rgba(0,0,0,0.3);
 	
+	}
 	.weather_map_contaner{
 	
 	display: flex;
@@ -25,7 +30,7 @@
 /*	height: 250px;
 */
 
-	height: 25vw;
+	height: 14vw;
 	border: 1px solid #000;
 	margin-top: 20px;
 }
@@ -245,7 +250,7 @@
 			
 			</div><!-- 메인 상단 날씨 위치 영역 끝 -->
 			
-			
+		<div class="div_hr"></div>	
 			
 			
 			<ul class="local_board_image_Area">
@@ -271,8 +276,7 @@
 			
 			
 			
-			
-			
+		<div class="div_hr"></div>
 			
 		<!-- 메인 슬라이드 시작 -->
 		<div class="team_area">    
@@ -298,11 +302,14 @@
 		</div>
 	      <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="false"></div>
 	      <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="true"></div>
+	    	<div class="spo_review_list">
+			
+				<a href="/shop/list">▶ 쇼핑몰</a>
+			</div>
 	    </div>    
 			
 			
-		<div>
-		</div>	
+	
 			
 			
 			

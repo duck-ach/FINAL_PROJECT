@@ -4,9 +4,10 @@
 <style>
 
 footer{
+	margin-top: 60px;
 	background-color: rgba(221,221,221,0.7);
 	
-	padding:2vw 0 2vw 0;
+	padding:1vw 0 1vw 0;
 	margin-left: 60px;
 }
 .footer_area{
