@@ -58,6 +58,11 @@ public class SingoController {
 			System.out.println(model);
 			return "/admin/singoList";
 		}
+		
+		@PostMapping("/admin/userSingo")
+		public void singoButton(HttpServletRequest request, HttpServletResponse response) {
+			singoService.singoButton(request, response);
+		}
 
 
 }

@@ -21,7 +21,7 @@ public class SingoDTO {
 	private String singoTitle;
 	private String singoUserReason;
 	private String singoLink;
-	private Date singoCreateDate;
+	private String singoCreateDate;
 	private Date singoRemoveDate;
 	private String singoReason;
 	private int userNo;

@@ -44,7 +44,7 @@
 
 <select id="selectSingoList" parameterType="Map" resultMap="SingoMap">
 	SELECT A.SINGO_NO, A.SINGO_CATEGORY, A.SINGO_LINK, A.SINGO_USER_REASON, A.SINGO_CREATE_DATE, A.SINGO_REMOVE_DATE, A.SINGO_REASON, A.FREE_NO, A.USER_NO
-	FROM (SELECT S.SINGO_NO, S.SINGO_CATEGORY, S.SINGO_LINK, S.SINGO_USER_REASON, S.SINGO_CREATE_DATE, S.SINGO_REMOVE_DATE, S.SINGO_REASON, F.FREE_NO, U.USER_NO, U.U 
+	FROM (SELECT S.SINGO_NO, S.SINGO_CATEGORY, S.SINGO_LINK, S.SINGO_USER_REASON, S.SINGO_CREATE_DATE, S.SINGO_REMOVE_DATE, S.SINGO_REASON, F.FREE_NO, U.USER_NO
 	FROM SINGO S LEFT JOIN FREE F
 	ON S.FREE_NO = F.FREE_NO LEFT JOIN USERS U
 	ON F.USER_NO = U.USER_NO) A
@@ -59,6 +59,7 @@
 			(#{singoCategory}, #{singoTitle}, #{singoLink}, #{singoUserReason}, #{createDate}, NULL, #{singoReason}, #{userId}, #{ip})
 	</insert>
 	
+	<!-- 관리자 신고글업데이트 -->
 	<update id="adminUpdateSingo" parameterType="SingoDTO">
 		UPDATE SINGO
 		SET SINGO_REMOVE_DATE = NOW(), SINGO_REASON = #{singoReason}
