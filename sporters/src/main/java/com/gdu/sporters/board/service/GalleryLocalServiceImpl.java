@@ -27,11 +27,11 @@ import com.gdu.sporters.util.MyFileUtil;
 
 @Service
 public class GalleryLocalServiceImpl implements GalleryLocalService {
-
+ 
 	@Autowired
 	private LocalBoardMapper localBoardMapper;
 	
-	@Autowired
+	@Autowired  
 	private MyFileUtil myFileUtil;
 	
 	
@@ -102,9 +102,9 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 	
 
 		// DB에 Gallery 저장
-		int result = localBoardMapper.insertLocal(freeBbs);
+		int result = localBoardMapper.insertLocal(freeBbs); 
 		
-		
+		 
 		// 응답
 		try {
 

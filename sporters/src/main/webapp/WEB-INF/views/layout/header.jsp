@@ -25,6 +25,54 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/left_menus.css">
 <script src="/resources/js/left_menus.js"></script>
  -->
+ 
+<script type="text/javascript">
+$(function(){
+	
+	$('#menu').hover(function(){
+		
+		setTimeout(function() { 
+			 $('.spoters_logo').css('backgroundColor','rgb(300,300,300,1)');
+		}, 400);
+		 $('.spoters_logo').css('marginLeft','-100px');
+		
+		/*
+        $('.spoters_logo').css('marginLeft','-100px').animate({
+        	backgroundColor:"rgb(255,255,255,1)"
+        }, 200, function() {
+        	backgroundColor:"rgb(255,255,255,0)"
+        	
+          // Animation complete.
+      });
+		*/
+  //      $('.spoters_logo').animate({ backgroundColor: "#ffffff"},200);
+       // $('.spoters_logo')
+    }, function() {
+    	 $('.spoters_logo').css('marginLeft','0px');
+    	
+    	 setTimeout(function() { 
+    		 $('.spoters_logo').css('backgroundColor','rgb(300,300,300,0)');
+    	   		
+		}, 400);
+    }    );
+ /*
+	 setTimeout(function() { 
+		 
+		 $('#menu').hover(function(){
+		       
+		       
+		    }, function() {
+		    
+		    	
+		    });		
+		}, 200);
+	 
+	 */
+	 
+});
+
+</script>
+ 
 <style type="text/css">
 	html,body{
 	height:100%;
@@ -45,7 +93,7 @@
 		width:100%;
 		top: 0;
 	    left: 0;
-	    background-color: #EDEBFE;
+	/*    background-color: #EDEBFE;*/
 	    z-index: 11;
 	}
 	.main_header_area_fix{
@@ -56,7 +104,7 @@
 	}
 	
 	.spoters_logo_area{
-	    padding: 50px 100px 0 100px;
+	    padding: 0px 100px 0 100px;
 	    
 	    display: flex;
 	    
@@ -70,12 +118,16 @@
 	    align-items: baseline;
 	    
 	}
+	
 	.spoters_logo{
 		width:300px; 
+		transition: 1000ms all cubic-bezier(0.19, 1, 0.22, 1);
 	}
-	.spoters_logo img{
+	.spoters_logo_img{
 		width:100%;
+		transition: 3000ms all cubic-bezier(0.19, 1, 0.22, 1);
 	}
+
 	
 	/*
 		.left_side_gnd_area{
@@ -99,7 +151,7 @@
 		margin: 50px auto;
 	   
 	    width: 70%;
-	    overflow: hidden;
+	/*    overflow: hidden;*/
 	/*    border: 2px solid #000;*/
 	}
 	
@@ -131,7 +183,7 @@ $(function(){
 <header class="main_header_area">
 	<div class="main_header_area_fix">
 	<nav class="spoters_logo_area">
-		<h1 class="spoters_logo"><a href="/"><img alt="we are best team!" src="/resources/images/spoters_logo_2.jpg"></a></h1>
+		<h1 class="spoters_logo"><a href="/"><img class="spoters_logo_img" alt="we are best team!" src="/resources/images/spoters_logo_3.png"></a></h1>
 		<div style="font-size: 15px; ">
 			<c:if test="${loginUser != null}">
 				<div>
@@ -147,6 +199,9 @@ $(function(){
 			</c:if>
 		</div>
 		<script>
+			
+		
+		
 			$(function(){
 				$('.mypage_a').hover(function(){
 			        $(this).text("나의 정보")
