@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,6 +57,7 @@ public class HeartController {
 	@ResponseBody
 	@GetMapping(value="/heart/likeNhate", produces="application/json")
 	public Map<String, Object> likeNhate(int userNo){
+		
 		return heartService.likeNhate(userNo);
 	}
 

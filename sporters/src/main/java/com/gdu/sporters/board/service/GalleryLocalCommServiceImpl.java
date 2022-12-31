@@ -28,7 +28,7 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 	@Override
 	public Map<String, Object> getLocalCommentCnt(int localBoardNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("LocalcommentCnt", commentMapper.selectFreeCommentCnt(localBoardNo));
+		result.put("commentCnt", commentMapper.selectFreeCommentCnt(localBoardNo));
 		System.out.println("service : " + commentMapper.selectFreeCommentCnt(localBoardNo));
 		return result;
 	} 
@@ -45,9 +45,6 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		commContent.setUserNo(userNo);
 		
 		result.put("isAdd", commentMapper.insertFreeComment(commContent) == 1);
-		System.out.println("123");
-		System.out.println(commContent);
-		
 		commentMapper.updateCommGroupOrder(commContent);
 		
 		return result;
@@ -57,13 +54,14 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 	public Map<String, Object> getLocalCommentList(HttpServletRequest request) {
 		
 		int localBoardNo = Integer.parseInt(request.getParameter("localBoardNo"));
+		System.out.println("localBoardNo"+localBoardNo);
 		int page = Integer.parseInt(request.getParameter("page"));		
-		int LocalcommentCnt = commentMapper.selectFreeCommentCnt(localBoardNo);
-		galleryPageUtil.setPageUtil(page, LocalcommentCnt);
+		int commentCnt = commentMapper.selectFreeCommentCnt(localBoardNo);
+		galleryPageUtil.setPageUtil(page, commentCnt);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("localBoardNo", localBoardNo);
 		
-		System.out.println(LocalcommentCnt);
+		System.out.println(commentCnt);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("LocalcommentList", commentMapper.selectFreeCommentList(map));
 		result.put("galleryPageUtil", galleryPageUtil);
@@ -78,7 +76,7 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		result.put("isRemove", commentMapper.deleteFreeComment(localCoNo) == 1);
 		return result;
 	}
-	 
+	
 	@Override
 	public Map<String, Object> addLocalReply(LocalCommDTO reply, HttpServletRequest request) {
 		// Session의 User 정보
@@ -88,7 +86,6 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isAdd", commentMapper.insertFreeReply(reply) == 1);
-		System.out.println("결과값: " + result.get("isAdd"));
 		return result;
 	}
 	

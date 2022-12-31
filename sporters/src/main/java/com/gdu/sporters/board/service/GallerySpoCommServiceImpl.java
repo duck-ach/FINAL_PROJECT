@@ -28,8 +28,8 @@ public class GallerySpoCommServiceImpl implements GallerySpoCommService{
 	@Override
 	public Map<String, Object> getSpoCommentCnt(int spoReviewNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("SpocommentCnt", commentMapper.selectFreeCommentCnt(spoReviewNo));
-		System.out.println("service : " + commentMapper.selectFreeCommentCnt(spoReviewNo));
+		result.put("SpocommentCnt", commentMapper.selectSpoCommentCnt(spoReviewNo));
+		System.out.println("service : " + commentMapper.selectSpoCommentCnt(spoReviewNo));
 		return result;
 	} 
 	

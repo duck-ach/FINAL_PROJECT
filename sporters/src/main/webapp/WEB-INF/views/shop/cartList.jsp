@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -89,6 +88,23 @@
 				prodName = nameArray[0] + ' 외 ' + (nameArray.length - 1) + '개';
 			};
 			
+			$.ajax({
+				url: '/shop/addOrder',
+				type: 'post',
+				data: 'priceAll=' + sum,
+				success: function(result){
+					if(result == 1){
+						alert('주문완료');
+						location.href='/shop/deleteCart';
+					} else {
+						alert('로그인하세요!');
+					}
+				},
+				error: function(){
+					alert('주문 실패');
+				}
+			});
+			
 			IMP.request_pay({ 
 			pg: "html5_inicis",
 			pay_method: 'card',
@@ -164,7 +180,7 @@
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 	<div>
-		<form id="frm_product" method="post">
+		<form id="frm_product" method="get">
 			<table>
 					<tbody>				
 					<tr>
@@ -255,7 +271,7 @@
 								}); 
 							</script>
 							<input type="hidden" id="prodNo" value="${cartList.prodNo}">
-		 					<a href="${contextPath}/shop/detail?prodNo=${cartList.prodNo}"><span id="productId">${cartList.product.prodName}</span></a><br>
+		 					<a href="/shop/detail?prodNo=${cartList.prodNo}"><span id="productId">${cartList.product.prodName}</span></a><br>
 							<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
 							<span>재고 : ${cartList.product.stock} 개</span><br>
 							<span>구매할 수량 : ${cartList.prodCnt} 개</span><br>
@@ -353,7 +369,7 @@
 										                } else {
 										                    document.getElementById("extraAddress").value = '';
 										                }
-										 */
+										 				*/
 										                var guideTextBox = document.getElementById("guide");
 										                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
 										                if(data.autoRoadAddress) {
@@ -374,7 +390,6 @@
 										    }
 										</script>
 									</div>
-								  
 								</div>
 							</div><br>
 						</td>

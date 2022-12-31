@@ -84,9 +84,9 @@ $('#frm_write').submit(function(event){
 			
 		<h1>작성 화면</h1>
 	
-		<form id="frm_edit" action="/free/modify" method="post">
+		<form id="frm_edit" action="/local/modify" method="post">
 		
-			<input type="hidden" name="freeNo" value="${gallery.freeNo}">
+			<input type="hidden" name="freeNo" value="${gallery.localBoardNo}">
 		
 			<div>
 				<label for="title">제목</label>

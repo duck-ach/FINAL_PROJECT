@@ -86,7 +86,7 @@ $('#frm_write').submit(function(event){
 	
 		<form id="frm_edit" action="/spo_review/add" method="post">
 		
-			<input type="hidden" name="localBoardNo" value="${gallery.localBoardNo}">
+			<input type="hidden" name="spoReviewNo" value="${gallery.localBoardNo}">
 		
 			<div>
 				<label for="title">제목</label>

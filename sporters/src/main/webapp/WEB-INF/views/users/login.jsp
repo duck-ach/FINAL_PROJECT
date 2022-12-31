@@ -1,10 +1,12 @@
-<%@page import="java.util.Optional"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="/resources/js/jquery-3.6.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <style>
 
 	#frm_login{
@@ -142,6 +144,7 @@
 	    position: relative;
 	    min-height: 100vh;
 	    overflow: hidden;
+	    font-family: 'Noto Sans KR', sans-serif;
 	}
 	
 	.row {
@@ -287,6 +290,15 @@
 	.container.sign-in .text.sign-in h2,
 	.container.sign-in .text.sign-in p,
 	.container.sign-in .img.sign-in img{
+	    transform: translateX(0);
+	}
+	
+	.container.sign-in .text.sign-in h2,
+	.container.sign-in .text.sign-in p,
+	.container.sign-in .img.sign-in img,
+	.container.sign-up .text.sign-up h2,
+	.container.sign-up .text.sign-up p,
+	.container.sign-up .img.sign-up img {
 	    transform: translateX(0);
 	}
 	
@@ -457,7 +469,7 @@
 								<input type="password" name="pw" id="pw" placeholder="PASSWORD">
 							</div>
 							
-							<p>
+							<p style="text-align: right;">
 								<b>
 									<label for="rememberId">
 										<input type="checkbox" id="rememberId">

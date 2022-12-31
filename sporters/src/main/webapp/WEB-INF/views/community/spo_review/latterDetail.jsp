@@ -135,7 +135,7 @@
 	            data: 'spoReviewNo=${gallery.spoReviewNo}',   // 글번호 달아줌
 	            dataType: 'json',
 	            success: function(resData){  // resData = {"commentCount": 개수}
-	               $('#comment_count').text(resData.commentCnt);
+	               $('#comment_count').text(resData.SpocommentCnt);
 	            }
 	         });
 	      }

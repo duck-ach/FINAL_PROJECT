@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.sporters.shop.domain.CartDTO;
+import com.gdu.sporters.shop.domain.OrderDTO;
+import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
 
 @Mapper
@@ -17,6 +19,7 @@ public interface ShopMapper {
 	public List<CartDTO> selectCartListByMap(Map<String, Object> map);
 	public int deleteCart(CartDTO cart);
 	public List<ProductDTO> categoryList(int prodCategoryNo);
-	
+	public ProdThumbnailDTO selectProdThumbnailListByNo(int prodNo);
 	public CartDTO selectProdNo(Map<String, Object> map);
+	public int insertOrder(OrderDTO order);
 }

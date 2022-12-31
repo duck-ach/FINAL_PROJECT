@@ -54,6 +54,7 @@ public class GalleryFreeCommServiceImpl implements GalleryFreeCommService{
 	public Map<String, Object> getCommentList(HttpServletRequest request) {
 		
 		int freeNo = Integer.parseInt(request.getParameter("freeNo"));
+		System.out.println("freeNo"+freeNo);
 		int page = Integer.parseInt(request.getParameter("page"));		
 		int commentCnt = commentMapper.selectFreeCommentCnt(freeNo);
 		galleryPageUtil.setPageUtil(page, commentCnt);

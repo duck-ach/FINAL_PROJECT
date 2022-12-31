@@ -22,6 +22,8 @@ body, html {
 			left: 60px;
 			top:0;
 			z-index: 10;opacity: 0.7;
+			
+			text-indent: 20px;
 						
 		}
 
@@ -113,9 +115,47 @@ body, html {
 		}
 
 
+	.left_menu_hide{
+		display: none;
+		margin-left:20px;
+	}
 	
+	.left_menu_hide_span{
+	
+		cursor: pointer;
+	}
+	
+	.left_menu_show_span{
+	cursor: pointer;
+	}
+	
+	
+	
+	/* effect-shine */
+	
+menu-inner ul{
+position: relative;
+ -webkit-transform: translate(-50%,-50%);
 
+}
+menu-inner ul li:hover {
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
+  animation: shine 2s infinite;
+}
+
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+  }
+  
+  to {
+    -webkit-mask-position: -50%;
+  }
+}
 </style> 
+
+
 <div id="menu">
 		<div class="hamburger">
 			<div class="line"></div>
@@ -125,15 +165,55 @@ body, html {
 		<div class="menu-inner">
 			
 			<ul>
-			 	<li><a href="/local/list">지역별게시판</a> </li>
-			 	<li><a href="/spo_review/list">운동후기게시판</a> </li>
-			 	<li><a href="/free/list">자유게시판</a> </li>
-			 	<li><a href="/shop/list">쇼핑몰</a> </li>
-			 	<li><a href="/supp/singo">신고게시판</a> </li>
-			 	<li><a href="/qna/list">고객문의게시판</a> </li>
-			 	<li><a href="/faq/list">자주하는질문</a> </li>
-			 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
-			 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
+				<li>
+					<a href="#none">
+						관리자센터
+					</a>			 		
+			 	</li>
+			 	<li class="left_menu_hide_span ">
+			 		게시판
+			 		<ul  class="left_menu_hide">
+			 			<li><a href="/free/list">자유게시판</a> </li>
+			 			<li><a href="/local/list">운동 게시판</a> </li>
+			 			<li><a href="/spo_review/list">운동후기게시판</a> </li>					 	
+					 	<li><a href="/shop/list">쇼핑몰</a> </li>
+					 	<li><a href="/supp/singo">신고게시판</a> </li>
+					 	<li><a href="/qna/list">고객문의게시판</a> </li>
+					 	<li><a href="/faq/list">자주하는질문</a> </li>
+					 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
+					 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
+			 		</ul>			 	
+			 	</li>
+			 	
+			 	<li>
+					<a href="#none">
+						관리자센터
+					</a>			 		
+			 	</li>
+			 	
+			 	
+			 	<li>
+			 		<a href="/chat/chatList">실시간채팅</a>							 		
+			 	</li>
+			 	
+			 	
+			 	<li>
+					<a href="#none">
+						쇼핑몰
+					</a>			 		
+			 	</li>
+			 	
+			 	
+			 	<li  class="left_menu_hide_span">				
+			 	고객지원						
+					<ul class="left_menu_hide">						
+			 			<li><a href="/faq/list">FAQ</a></li>
+					 	<li><a href="/qna/list">QNA</a></li>
+					 				 	
+			 		</ul>			 		
+			 	</li>
+			 	
+			 	
 			</ul>
 		</div>
   
@@ -147,6 +227,21 @@ body, html {
 	<p  class="action_mouse"></p>
 	
 <script type="text/javascript">
+
+$('.left_menu_hide_span').click(function(){	
+	/*
+		$(this).removeClass('left_menu_hide_span');
+		$(this).addClass('left_menu_show_span');
+		.slideDown( 1000, 'swing' ); 
+		
+		*/
+		$(this).children('.left_menu_hide').slideToggle();
+	
+		
+		
+});
+
+
 
 
 	var height = window.innerHeight,
