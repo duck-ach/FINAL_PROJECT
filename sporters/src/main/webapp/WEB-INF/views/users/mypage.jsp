@@ -55,7 +55,7 @@
 	  display: inline-block;
 	  position: relative;
 	  top: 1px;
-	  height: 100%;
+	  height: 5%;
 	  font-size: 1.25em;
 	  color: #8282ff;
 	  transition: all 0.5s ease;
