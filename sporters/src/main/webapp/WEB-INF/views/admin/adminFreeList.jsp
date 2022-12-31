@@ -5,8 +5,51 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
+<jsp:include page="adminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
+<style>
+body {
+	background: #fff;
+}
+.tbl {
+	width:100%;
+	border-collapse: collapse;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	table-layout:fixed
+}
+.tbl thead {
+	padding: 10px;
+	background-color:rgba(213, 194, 238, 0.38);
+	border-bottom: 3px solid #D5C2EE;
+}
+.tbl td {
+	color: #669;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	word-break:break-all;
+}
+.tbl tr:hover td {
+	color: #004;
+}
+.button{
+border: 0;
+width: 30px;
+padding: 7px;
+margin-top: 10px;
+margin-left:90%;
+background-color: #D5C2EE;
+border-radius: 2px;
+}
+.button:hover{
+background-color:  rgba(213, 194, 238, 0.69);
+border-radius: 2px;
+}
+</style>
 <script>
-	
+
 	$(document).ready(function(){
 		
 		// 함수 호출
@@ -55,16 +98,13 @@
 
 <body>
 
-
-<section class="wrap">기본틀 1
-	<section class="content_leyout_section">기본틀 2
-		<div><a href="/free/write">글쓰러가기</a>  </div>
-		<div> 여기부터 각자 내용 넣기 시작
-			
+<div class="body_wrap">
+	<div class="code_wrap">
+		<div><a href="/free/write">글쓰러가기</a>  </div>		
 			<form id="frm_search"  action="/admin/removeFreeList" method="post">										
 				<br><hr><br>
 				<button>선택삭제</button>
-				<table border="1">
+				<table border="1" class="tbl">
 					<thead>
 						<tr>	
 							<td>
@@ -107,37 +147,7 @@
 			
 		</div>여기부터 각자 내용 넣기 끝
 		
-	</section>기본틀 2
-	
-</section>기본틀 1
-	
- <jsp:include page="../layout/right_side.jsp">
- 	<jsp:param value="right_side" name="right_side" />
-</jsp:include>
+</div>
 
-<script type="text/javascript">
- $(function(){
- 	var right_side =  $('.content_leyout_section').offset().top;
- 	var my_right_side = $('.right_side_menu_area').width();
- 	var right_side_marginLeft = $('.content_leyout_section').width() + my_right_side*2 ;
-
-
- 	 $('.right_side_menu_area').offset({top:right_side});
- 	 $('.right_side_menu_area').css({marginLeft:right_side_marginLeft  });
-	 
- 	 // content_leyout 현재 높이값을 구함. 
- 	 var left_side_top =  $('.content_leyout_section').offset().top;
- 	 var right_side_marginLeft = $('.content_leyout_section').offset().left;
-
- 	// 왼쪽 사이드 메뉴의 넓이값을 구함
- 	var my_left_side =right_side_marginLeft -  $('.left_side_gnd_area').width() - my_right_side;
- 	var left_side_marginLeft = $('.content_leyout_section').width();
-
-
- 	 $('.left_side_gnd_area').offset({top:left_side_top});	 
-	 
-	
- }); 
-</script>
 </body>
 </html>

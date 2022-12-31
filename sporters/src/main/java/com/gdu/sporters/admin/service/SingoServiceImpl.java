@@ -93,7 +93,7 @@ public class SingoServiceImpl implements SingoService {
 		List<SingoDTO> singoList = singoMapper.selectSingoList(map);
 		
 		// view로 전달할 데이터 model에 저장
-		model.addAttribute("totalRecord", totalSingoRecord); // 상품전체갯수
+		model.addAttribute("totalRecord", totalSingoRecord); // 전체갯수
 		model.addAttribute("singoList", singoList);
 		model.addAttribute("beginNo", totalSingoRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
 		model.addAttribute("paging", galleryPageUtil.getPaging("/admin/singoList"));

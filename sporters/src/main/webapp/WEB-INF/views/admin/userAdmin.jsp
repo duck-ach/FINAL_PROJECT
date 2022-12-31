@@ -5,32 +5,61 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
+<jsp:include page="adminLeftSide.jsp">
+	<jsp:param value="left_side" name="left_side" />
+</jsp:include>
+
 <style>
 
-* {
-		box-sizing: border-box;
-	}
-table, th {
-	text-align: center;
+body {
+	background: #fff;
 }
 .tbl {
+	width:90%;
 	border-collapse: collapse;
 	text-align: center;
-	margin-left: auto;
 	margin-right: auto;
+	table-layout:fixed
 }
-.wrap{
-	border-collapse: collapse;
- 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
+.tbl thead {
+	padding: 10px;
+	background-color:rgba(213, 194, 238, 0.38);
+	border-bottom: 3px solid #D5C2EE;
 }
-.blind {
-	display: none;
+.tbl td {
+	color: #669;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	word-break:break-all;
+}
+.tbl tr:hover td {
+	color: #004;
+}
+
+button{
+border: 0;
+width: 70px;
+height: 40px;
+padding: 7px;
+border: 1px solid #FFF;
+background-color: #D5C2EE;
+border-radius: 17px;
+	}
+button:hover{
+background-color:  rgba(213, 194, 238, 0.69);
+border-radius: 17px;
+}
+
+#searchText{
+  width: 70px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+
 }
 </style>
 <script type="text/javascript">
-
 
 	$(document).ready(function(){
 		fn_getUserList();
@@ -96,7 +125,6 @@ table, th {
 			tr += '<td>' + user.email + '</td>';
 			tr += '<td>' + user.mobile + '</td>';
 			tr += '<td>' + user.joinDate + '</td>';
-			tr += '<td></td>';
 			tr += '</tr>';
 			$('#list').append(tr);
 			})
@@ -136,7 +164,6 @@ table, th {
 					tr += '<td>' + user.email + '</td>';
 					tr += '<td>' + user.mobile + '</td>';
 					tr += '<td>' + user.joinDate + '</td>';
-					tr += '<td></td>';
 					tr += '</tr>';
 					$('#list').append(tr);
 				})
@@ -205,7 +232,8 @@ table, th {
 </script>
 <body>
 
-	<div class="wrap">
+<div class="body_wrap">
+	<div class="code_wrap">
 		<h1>회원 관리</h1>
 		<form id="frm_user_list" method="post">
 			<select name="column" id="column">
@@ -215,14 +243,18 @@ table, th {
 				<option value="USER_NO">회원번호</option>
 			</select>
 			<input type="text" id="searchText" name="searchText">
-				<input type="button" id="btn_search" value="검색"> 
-				<input type="button" id="btn_init" value="초기화">
-				<input type="button" id="btn_deleteUser" value="회원 탈퇴"><br>
-			<table class="tbl" width="70%" style="border-collapse:collapse; border:1px gray solid;">
+			</form>
+				<button id="btn_search" value="검색" >검색</button>&nbsp;
+				<button id="btn_init" value="초기화">초기화</button>&nbsp;
+				<button id="btn_deleteUser" value="회원 탈퇴">탈퇴</button>
+			
+				<br>
+				<form>
+			<table class="tbl" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="check_all"></th>
-						<th>회원번호</th>
+						<th style="size: 10px">회원번호</th>
 						<th>아이디</th>
 						<th>닉네임</th>
 						<th>이름</th>
@@ -236,13 +268,12 @@ table, th {
 
 				</tbody>
 				<tfoot>
-			
 				</tfoot>
 			</table>
 			
 		</form>
 	</div>
-	
+</div>
 
 </body>
 </html>

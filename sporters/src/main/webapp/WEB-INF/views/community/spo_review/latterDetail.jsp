@@ -11,7 +11,7 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="/local/write">글쓰러가기</a>  </div>
+		
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<h1>${SpoReviewgalleryList.title}</h1>
@@ -36,7 +36,7 @@
 			<div>
 				<form id="frm_btn" method="post">	
 					
-					<input type="hidden" name="localBoardNo" value="${SpoReviewgalleryList.spoReviewNo}">
+					<input type="hidden" name="spoReviewNo" value="${SpoReviewgalleryList.spoReviewNo}">
 					<c:if test="${loginUser.id == SpoReviewgalleryList.users.id}" >
 						<input type="button" value="수정" id="btn_edit_gallery">
 						<input type="button" value="삭제" id="btn_remove_gallery">
@@ -57,12 +57,12 @@
 				*/	
 				
 					$('#btn_edit_gallery').click(function(){
-						$('#frm_btn').attr('action', '/local/edit');
+						$('#frm_btn').attr('action', '/spo_review/edit');
 						$('#frm_btn').submit();
 					});
 					$('#btn_remove_gallery').click(function(){
 						if(confirm('게시글을 삭제하시겠습니까?')){
-							$('#frm_btn').attr('action', '/local/remove');
+							$('#frm_btn').attr('action', '/spo_review/remove');
 							$('#frm_btn').submit();
 						}
 					});
@@ -100,7 +100,7 @@
 					<input type="button" value="작성완료" id="btn_add_comment">
 				</div>
 			</div>
-			<input type="hidden" name="localBoardNo" value="${LocalgalleryList.localBoardNo}">
+			<input type="hidden" name="spoReviewNo" value="${LocalgalleryList.spoReviewNo}">
 		</form>
 	</div>
 	</c:if>		
@@ -131,8 +131,8 @@
 	      function fn_commentCount(){
 	         $.ajax({
 	            type: 'get',
-	            url: '/galleryLocalComm/getCount', 
-	            data: 'localBoardNo=${gallery.localBoardNo}',   // 글번호 달아줌
+	            url: '/gallerySpoComm/getCount', 
+	            data: 'spoReviewNo=${gallery.spoReviewNo}',   // 글번호 달아줌
 	            dataType: 'json',
 	            success: function(resData){  // resData = {"commentCount": 개수}
 	               $('#comment_count').text(resData.commentCnt);
@@ -155,7 +155,7 @@
             	}
 				$.ajax({
 					type: 'post',
-					url: '/galleryLocalComm/add',
+					url: '/gallerySpoComm/add',
 					data: $('#frm_add_comment').serialize(),
 					dataType: 'json',
 					success: function(resData){  // resData = {"isAdd", true}
@@ -173,8 +173,8 @@
 	      function fn_commentList(){
 	         $.ajax({
 	            type: 'get',
-	            url: '/galleryLocalComm/list',
-	            data: 'localBoardNo=${gallery.localBoardNo}&page=' + $('#page').val(),   // 현재 page도 넘겨줘야 함
+	            url: '/gallerySpoComm/list',
+	            data: 'spoReviewNo=${gallery.spoReviewNo}&page=' + $('#page').val(),   // 현재 page도 넘겨줘야 함
 	            dataType: 'json',
 	            success: function(resData){
 	               /*
@@ -208,9 +208,9 @@
 	                     div += comment.commContent;   // 정상일 때 내용 보여줌
 	                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
 	                     if(${loginUser.id == 'admin'}) {
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.localCoNo + '">';
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.spoCoNo + '">';
 							} else if ('${loginUser.id}' == comment.users.id){
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.localCoNo + '">';
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.spoCoNo + '">';
 							}
 	                     /*
 							if(comment.commDepth == 0) {
@@ -284,8 +284,8 @@
 	               if(confirm('삭제된 댓글은 복구할 수 없습니다. 댓글을 삭제할까요?')) {
 	                  $.ajax({
 	                     type: 'post',
-	                     url: '/galleryLocalComm/remove',
-	                     data: 'localCoNo=' + $(this).data('comment_no'), // 코멘트 번호에 삭제버튼 넣어놨음
+	                     url: '/gallerySpoComm/remove',
+	                     data: 'spoCoNo=' + $(this).data('comment_no'), // 코멘트 번호에 삭제버튼 넣어놨음
 	                     dataType: 'json',
 	                     success: function(resData) {   // resData = {"isRemove" : true}
 	                        if(resData.isRemove) {
@@ -312,7 +312,7 @@
 					}
 					$.ajax({
 						type: 'post',
-						url: '/galleryLocalComm/reply/add',
+						url: '/gallerySpoComm/reply/add',
 						data: $(this).closest('.frm_reply').serialize(),  // 이건 안 됩니다 $('.frm_reply').serialize(),
 						dataType: 'json',
 						success: function(resData){  // resData = {"isAdd", true}

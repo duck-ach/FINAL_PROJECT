@@ -5,7 +5,7 @@
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="Sporters 쇼핑몰 관리자페이지" name="title" />
 </jsp:include>
-<jsp:include page="shopAdminLeftSide.jsp">
+<jsp:include page="../admin/adminLeftSide.jsp">
 	<jsp:param value="left_side" name="left_side" />
 </jsp:include>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
@@ -14,8 +14,10 @@ h2 {
 	font-size: 30px;
 }
 
-input_cate {
-	width: 200px;
+.input_cate {
+	width: 400px;
+	height: 35px;
+	font-size: 20px;
 }
 
 tr{
@@ -32,6 +34,55 @@ tr td{
 .tbl_wrap {
 	width: 600px;
 	margin: 0 auto;
+}
+button{
+  	background:#8c8cff;
+  	color:#fff;
+  	border:none;
+  	position:relative;
+  	height:40px;
+  	font-size:20px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	transition:800ms ease all;
+  	outline:none;
+  	vertical-align: bottom;
+}
+button:hover{
+  	background:#fff;
+  	color:#8c8cff;
+}
+button:before,button:after{
+  	content:'';
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	height:2px;
+  	width:0;
+  	background: #c8c8ff;
+  	transition:400ms ease all;
+}
+button:after{
+  	right:inherit;
+  	top:inherit;
+  	left:0;
+  	bottom:0;
+}
+button:hover:before,button:hover:after{
+  	width:100%;
+  	transition:800ms ease all;
+}
+
+.cateName {
+	line-height: 
+}
+
+.fa-trash {
+	text-align: center;
+}
+
+.cate_info {
+	
 }
 </style>
 <body>
@@ -89,10 +140,12 @@ tr td{
 <div class="body_wrap">
 	<div class="code_wrap">
 		<h2>카테고리 추가</h2>
+		<span>카테고리를 관리합니다.</span>
+		<hr>
 		<form id="addCategoryFrm" method="get">
-			<label for="cateName">카테고리 이름을 입력하세요.</label><br>
+			<label for="cateName"><i class="fa-solid fa-pen"></i><span class="cate_info">카테고리 이름을 입력하세요.</span></label><br>
 			<input type="text" id="cateName" class="input_cate">
-			<button>Add</button>
+			<button>ADD</button>
 		</form>
 		
 		<hr>

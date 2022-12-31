@@ -9,8 +9,8 @@
 	pageContext.setAttribute("title", title);
 	pageContext.setAttribute("contextPath", request.getContextPath());
 %>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html5>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>${title}</title>
@@ -55,14 +55,18 @@
 	
 	.spoters_logo_area{
 	    padding: 50px 100px 0 100px;
+	    
 	    display: flex;
+	    
 	    /* border: 1px solid #000; */
 	    /* background-color: #fff; */
+	    
 	    flex-direction: row;
 	    align-content: stretch;
 	    flex-wrap: nowrap;
 	    justify-content: space-between;
 	    align-items: baseline;
+	    
 	}
 	.spoters_logo{
 		width:300px; 
@@ -126,18 +130,37 @@ $(function(){
 	<div class="main_header_area_fix">
 	<nav class="spoters_logo_area">
 		<h1 class="spoters_logo"><a href="/"><img alt="we are best team!" src="/resources/images/spoters_logo_2.jpg"></a></h1>
-		<div style="font-size: 18px; ">
+		<div style="font-size: 15px; ">
 			<c:if test="${loginUser != null}">
-			
-				${loginUser.nickname} 님 활동적인 하루되세요!🦾🦾	<br>
-				
-				<span><a href="/users/mypage">MYPAGE</a> ｜ <a href="/users/logout">LOGOUT</a></span>	
+				<div>
+					<span style="font-weight: bold;">${loginUser.nickname}</span><span>님 활동적인 하루되세요!🦾🦾</span>	<br>
+				</div>
+				<div style="text-align: right;">
+					<span><a href="/users/mypage" class="mypage_a">MYPAGE</a> &nbsp;&nbsp; <a href="/users/logout" class="logout_a">LOGOUT</a></span>	
+				</div>
 			</c:if>	
 			
 			<c:if test="${loginUser == null}">
 				<span><a href="/users/login/form">로그인</a> ｜ <a href="/users/agree/form">회원가입</a></span>
 			</c:if>
 		</div>
+		<script>
+			$(function(){
+				$('.mypage_a').hover(function(){
+			        $(this).text("나의 정보")
+			    }, function() {
+			        $(this).text("MYPAGE")
+			    });
+			});
+			
+			$(function(){
+				$('.logout_a').hover(function(){
+			        $(this).text("접속 종료")
+			    }, function() {
+			        $(this).text("LOGOUT")
+			    });
+			});
+		</script>
 	
 	</nav>	
 	</div>

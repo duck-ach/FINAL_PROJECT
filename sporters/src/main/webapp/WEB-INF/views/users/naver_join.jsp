@@ -8,6 +8,7 @@
 <script>
 	
 	$(function(){
+
 		fn_emailCheck();
 		fn_nicknameCheck();
 		fn_checkAll();
@@ -16,8 +17,12 @@
 		fn_join();
 	});
 	
+
 	var emailPass = false;
 	var nicknamePass = false;
+	
+
+
 	
 	function fn_emailCheck(){
 		$('#btn_check').click(function(){
@@ -97,12 +102,17 @@
 	
 	function fn_join(){
 		$('#frm_join').submit(function(event){
-			if(emailPass == false){
+			if(idPass == false){
+				alert('가입할 수 없는 아이디입니다.');
+				event.preventDefault();
+				return;
+			}
+			else if(emailPass == false){
 				alert('이메일을 확인하세요.');
 			event.preventDefault();
 			return;
 			}
-			if($('#service').is(':checked') == false || $('#privacy').is(':checked') == false  || $('#location').is(':checked') == false){
+			else if($('#service').is(':checked') == false || $('#privacy').is(':checked') == false  || $('#location').is(':checked') == false){
 				alert('필수 약관에 동의하세요.');
 				event.preventDefault();
 				return;

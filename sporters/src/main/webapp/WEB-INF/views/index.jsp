@@ -36,8 +36,7 @@
 	.local_board_image_Area{
 		width:100%;
 		display: flex;
-		justify-content: space-between;	
-		
+		justify-content: space-between;			
 		margin-bottom: 70px;
 		
 	}
@@ -46,15 +45,14 @@
 	
 	
 	.local_board_image_Area li{
-	background-size: cover;
+	
     width: 30%;
-    height: 300px;
-    background-position: top;
-		
+    height: 300px;	
 	
 	}
 	.local_board_image_Area li img{
 	width:100%;
+	opacity: 0;
 	}
 	
 	#preview{
@@ -63,9 +61,30 @@
 		
 	}
 
+    #moveDetail{
+    position:relative;
+    display: block;
+    width: 100%;
+    height: 100%;
     
+    background-size: cover;
+		background-position: top;
+    
+    }
+    
+    #moveDetail span{
+    margin:0;
+    position: absolute;
+    top:0;
+    left: 0;
+    display: block;
+    line-height: 40px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(300,300,300,0.8); 
+    }
 </style>
-
+<!--  
 <script>
 
 $(function(){
@@ -91,14 +110,10 @@ $(function(){
          
     });
 </script>
+-->
 <body>
 
 
-<div id="left_side_gnd_area"  class="left_side_gnd_area">
-	<jsp:include page="layout/left_side.jsp">
-		<jsp:param value="left_side" name="left_side" />
-	</jsp:include>
-</div>
 
 
 
@@ -125,9 +140,9 @@ $(function(){
 						${beginNo - vs.index}	
 					</li>	
 					 -->			
-					<li style="background-image: url(/load/image/${gallery.localImagess.filesystem})" >
-						<a id="moveDetail" href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">
-						${gallery.title}
+					<li >
+						<a id="moveDetail" href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}" style="background-image: url(/load/image/${gallery.localImagess.filesystem})" >
+						<span> ${gallery.title}</span>
 						<br>						
 							<img  style="width:100%;height:100%;" src="/load/image/${gallery.localImagess.filesystem}"  class="thumbnail">								
 						</a>	
