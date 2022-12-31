@@ -59,7 +59,7 @@ public class SingoController {
 			return "/admin/singoList";
 		}
 		
-		@PostMapping("/admin/userSingo")
+		@PostMapping("free/admin/userSingo")
 		public void singoButton(HttpServletRequest request, HttpServletResponse response) {
 			singoService.singoButton(request, response);
 		}

@@ -158,7 +158,7 @@ body, html {
 			 	</li>
 			 	
 			 	<li>
-					<a href="#none">
+					<a href="admin/adminIndex">
 						관리자센터
 					</a>			 		
 			 	</li>
