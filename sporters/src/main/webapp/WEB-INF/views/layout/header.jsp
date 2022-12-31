@@ -9,8 +9,8 @@
 	pageContext.setAttribute("title", title);
 	pageContext.setAttribute("contextPath", request.getContextPath());
 %>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html5>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>${title}</title>

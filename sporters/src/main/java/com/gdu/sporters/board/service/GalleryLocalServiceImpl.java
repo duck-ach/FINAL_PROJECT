@@ -153,14 +153,14 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 
 		// 저장 경로 (separator : 경로 구분자) 윈도우만 쓰려고할 때는 C:\\upload
-		String path = "C:" + File.separator + "summernoteImage";
-//		String path = "file:"+ File.separator +"///summernoteImage";
+		String path = myFileUtil.getSummernotePath();
+//		String path = "C:" + File.separator + "summernoteImage";
 
 		// 저장할 파일 이름
 		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());
 
 		// 저장 경로가 없으면 만들기
-		File dir = new File(path);
+		File dir = new File(path); 
 		if (dir.exists() == false) {
 			dir.mkdirs();
 		}
@@ -205,7 +205,8 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 		if (LocalsummernoteImageList != null && LocalsummernoteImageList.isEmpty() == false) {
 			for (LocalImageDTO summernoteImage : LocalsummernoteImageList) {
 				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
-					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
+					String path = myFileUtil.getSummernotePath();
+					File file = new File(path);
 			//		File file = new File("file:"+ File.separator + "///summernoteImage", summernoteImage.getFilesystem());
 					if (file.exists()) {
 						file.delete();
@@ -301,7 +302,10 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 				// HDD에서 SummernoteImage 리스트 삭제
 				if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
 					for (LocalImageDTO summernoteImage : summernoteImageList) {
-						File file = new File("C:" + File.separator + "summernoteImage",
+						
+						String path = myFileUtil.getSummernotePath();
+//						String path = "C:" + File.separator + "summernoteImage";
+						File file = new File(path,
 								summernoteImage.getFilesystem());
 						if (file.exists()) {
 							file.delete();

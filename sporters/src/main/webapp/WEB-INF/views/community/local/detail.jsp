@@ -11,7 +11,6 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="/local/write">글쓰러가기</a>  </div>
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<h1>${LocalgalleryList.title}</h1>
