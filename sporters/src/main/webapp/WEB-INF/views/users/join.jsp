@@ -5,6 +5,8 @@
    <jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 
 <style>
 
@@ -13,6 +15,7 @@ position: static;
 position: unset !important;
 margin-top: 50%;
 overflow: unset; 
+font-family: 'Noto Sans KR', sans-serif;
 }
 
 

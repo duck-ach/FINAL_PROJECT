@@ -86,11 +86,11 @@ $('#frm_write').submit(function(event){
 	
 		<form id="frm_edit" action="/spo_review/add" method="post">
 		
-			<input type="hidden" name="localBoardNo" value="${gallery.localBoardNo}">
+			<input type="hidden" name="spoReviewNo" value="${gallery.spoReviewNo}">
 		
 			<div>
 				<label for="title">제목</label>
-				<input type="text" name="title" id="title" value="${gallery.title}"  readonly="readonly">
+				<input type="text" name="title" id="title" value="&#91;후기글&#93; ${gallery.title}"  readonly="readonly">
 			</div>
 			<label for="content">내용</label>
 				<textarea name="content" id="content">${gallery.content}</textarea>		

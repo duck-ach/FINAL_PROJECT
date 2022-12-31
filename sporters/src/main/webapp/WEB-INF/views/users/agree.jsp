@@ -5,6 +5,8 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 
 <style>
 	.label_one {
@@ -33,6 +35,7 @@
 	.first_div{
 		width: 80%;
 	    margin: auto;
+	    font-family: 'Noto Sans KR', sans-serif;
 	}
 	
 	.div_span{
@@ -69,10 +72,11 @@
 	.div_span h2:after,.div_span h2:before {
 	    content: " ";
 	    display: block;
-	    border-bottom: 1px solid #8c8cff;
-	    border-top: 1px solid #8c8cff;
-	    height: 5px;
-	  background-color:#f8f8f8;
+/* 	    border-bottom: 1px solid #c8c8ff;
+	    border-top: 1px solid #c8c8ff;
+	    height: 1px;
+	  background-color:#c8c8ff; */
+	  border-top: 3px dotted #c8c8ff;
 	}
 	
 	.div_label_all {
@@ -475,7 +479,7 @@ SPORTERS 정보수정 페이지에서 개별서비스의 마케팅 수신동의�
 				</div>
 				
 				
-				<div style="border-bottom: 1px solid #8c8cff; height: 20px;"></div>
+				<div style="border-bottom: 2px dotted #c8c8ff; height: 20px;"></div>
 				
 				<div class="div_btns">
 					<input class="buttons purple" type="button" value="회원가입취소" onclick="history.back();">

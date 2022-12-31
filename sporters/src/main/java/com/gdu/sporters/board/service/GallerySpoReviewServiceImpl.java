@@ -48,13 +48,25 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 
-		int totalRecord = spoReviewMapper.selectSpoReviewListCnt();
 		
-		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
-		int userNo = loginUser.getUserNo();
-		int totalCount = spoReviewMapper.spoReviewCount(userNo);
 		
-		galleryPageUtil.setPageUtil(page, totalRecord);
+		
+		HttpSession sessions = request.getSession();
+		
+		// 로그인 여부 확인
+		if(sessions.getAttribute("loginUser") != null) {
+			UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+			int userNo = loginUser.getUserNo();
+			int totalCount = spoReviewMapper.spoReviewCount(userNo);
+			int totalRecord = spoReviewMapper.selectSpoReviewListCnt();
+			galleryPageUtil.setPageUtil(page, totalRecord);
+			model.addAttribute("totalRecord", totalRecord);
+			model.addAttribute("beginNo", totalRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
+			model.addAttribute("totalCount", totalCount);
+		}
+		else {
+			
+		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("begin", galleryPageUtil.getBegin() - 1);
@@ -62,11 +74,10 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 
 		List<SpoReviewDTO> SpoReviewgalleryList = spoReviewMapper.selectSpoReviewList(map);
 
-		model.addAttribute("totalRecord", totalRecord);
-		model.addAttribute("beginNo", totalRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
+		
 		model.addAttribute("SpoReviewgalleryList", SpoReviewgalleryList);
 		model.addAttribute("paging", galleryPageUtil.getPaging("/spo_review/list"));
-		model.addAttribute("totalCount", totalCount);
+	
 
 	} 
 	
@@ -81,6 +92,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
+		int localBoardNo = Integer.parseInt(request.getParameter("localBoardNo"));
 		
 		Optional<String> opt = Optional.ofNullable(request.getHeader("X-Forwarded-For"));
 		String Ip = opt.orElse(request.getRemoteAddr());		
@@ -95,7 +107,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 						.content(content)						
 						.ip(Ip)
 						.userNo(loginUser.getUserNo())						
-					//	.localBoardNo(localNo)
+						.localBoardNo(localBoardNo)
 						.build();
 					System.out.println(freeBbs);
 		
@@ -247,7 +259,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 
 		// 저장 경로 (separator : 경로 구분자) 윈도우만 쓰려고할 때는 C:\\upload
-		String path = "C:" + File.separator + "summernoteImage";
+		String path = myFileUtil.getSummernotePath();
 //		String path = "file:"+ File.separator +"///summernoteImage";
 
 		// 저장할 파일 이름
@@ -300,7 +312,8 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 		if (LocalsummernoteImageList != null && LocalsummernoteImageList.isEmpty() == false) {
 			for (LocalImageDTO summernoteImage : LocalsummernoteImageList) {
 				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
-					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
+					String path = myFileUtil.getSummernotePath();
+					File file = new File(path);
 			//		File file = new File("file:"+ File.separator + "///summernoteImage", summernoteImage.getFilesystem());
 					if (file.exists()) {
 						file.delete();
@@ -331,7 +344,8 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 		if (SpoReviewsummernoteImageList != null && SpoReviewsummernoteImageList.isEmpty() == false) {
 			for (SpoImageDTO summernoteImage : SpoReviewsummernoteImageList) {
 				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
-					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
+					String path = myFileUtil.getSummernotePath();
+					File file = new File(path);
 			//		File file = new File("file:"+ File.separator + "///summernoteImage", summernoteImage.getFilesystem());
 					if (file.exists()) {
 						file.delete();
@@ -494,7 +508,8 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 				// HDD에서 SummernoteImage 리스트 삭제
 				if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
 					for (SpoImageDTO summernoteImage : summernoteImageList) {
-						File file = new File("C:" + File.separator + "summernoteImage",
+						String path = myFileUtil.getSummernotePath();
+						File file = new File(path,
 								summernoteImage.getFilesystem());
 						if (file.exists()) {
 							file.delete();
@@ -510,7 +525,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 			//	loginUser.setPoint(loginUser.getPoint() - 5);
 				
 				if(loginUser.getId().equals("admin")) {
-					out.println("location.href='/admin/galleryAdmin';");
+					out.println("location.href='/spo_review/list';");
 				} else {
 					out.println("location.href='/spo_review/list';");
 				}

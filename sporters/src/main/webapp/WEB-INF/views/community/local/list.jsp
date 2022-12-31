@@ -8,9 +8,18 @@
 
 <body>
 
+
+
+
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="/local/write">글쓰러가기</a>  </div>
+	
+		<c:if test="${loginUser.id == null}" >	
+			<div class="no_login"><a href="#none">글쓰러가기</a></div>
+		</c:if>
+		<c:if test="${loginUser.id != null}" >	
+			<div><a href="/local/write">글쓰러가기</a>  </div>
+		</c:if>
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<form id="frm_search" method="post">										
@@ -20,12 +29,12 @@
 					<thead>
 						<tr>	
 										
-							<td>글 제목</td>	
-							<td>회원 아이디</td>						
-							<td>회원 이름</td>
-							<td>회원 성별</td>						
-							<td>회원 핸드폰번호</td>												
-							<td>회원 포인트</td>	
+							<td>글 제목</td>													
+							<td>닉네임</td>
+							<td>회원 성별</td>	
+							<td>조회수</td>						
+							<td>회원 작성일</td>												
+							<td>IP</td>	
 						<!--  
 							<td>작성 글 수</td>
 						-->				
@@ -34,16 +43,17 @@
 					<tbody id="list">						
 						<c:forEach items="${LocalgalleryList}" var="gallery" varStatus="vs">
 							<tr>
-								<td>${beginNo - vs.index}</td>						
+							<!--  
+								<td>${beginNo - vs.index}</td>		
+							-->				
 								<td><a id="moveDetail"
 									href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">${gallery.title}</a></td>									
 							
-								<td>${gallery.users.id}</td>
-								<td>${gallery.users.nickname}</td>
-								<td>${gallery.users.gender}</td>
-							
+								<td>${gallery.users.nickname}</td>							
+								<td>${gallery.users.gender}</td>	
+								<td>${gallery.hit}</td>						
 								<td>${gallery.createDate}</td>
-								<td>${gallery.hit}</td>
+								<td>${gallery.ip}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -68,6 +78,15 @@
 
 <script type="text/javascript">
 $(function(){
+	
+	$('.no_login').click(function(){
+		alert('로그인 후 이용해주세요!');
+		
+	});
+	
+	
+	
+	
 	 var right_side =  $('.content_leyout_section').offset().top;
 	var my_right_side = $('.right_side_menu_area').width();
 	var right_side_marginLeft = $('.content_leyout_section').width() + my_right_side*2 ;

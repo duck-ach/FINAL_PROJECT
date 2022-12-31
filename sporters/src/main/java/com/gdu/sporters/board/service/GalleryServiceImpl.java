@@ -198,7 +198,8 @@ public class GalleryServiceImpl implements GalleryService {
 		if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
 			for (FreeImageDTO summernoteImage : summernoteImageList) {
 				if (gallery.getContent().contains(summernoteImage.getFilesystem()) == false) {
-					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
+					String path = myFileUtil.getSummernotePath();
+					File file = new File(path);
 			//		File file = new File("file:"+ File.separator + "///summernoteImage", summernoteImage.getFilesystem());
 					if (file.exists()) {
 						file.delete();
@@ -294,7 +295,8 @@ public class GalleryServiceImpl implements GalleryService {
 				// HDD에서 SummernoteImage 리스트 삭제
 				if (summernoteImageList != null && summernoteImageList.isEmpty() == false) {
 					for (FreeImageDTO summernoteImage : summernoteImageList) {
-						File file = new File("C:" + File.separator + "summernoteImage",
+						String path = myFileUtil.getSummernotePath();
+						File file = new File(path,
 								summernoteImage.getFilesystem());
 						if (file.exists()) {
 							file.delete();

@@ -155,12 +155,25 @@ public class UsersController {
 	public void requiredLogin_withdraw(HttpServletRequest request, HttpServletResponse response) {
 		usersService.withdraw(request, response);
 	}
-	
-	@GetMapping("/users/check/form")
-	public String requiredLogin_checkForm() {
-		return "users/check";
+	 
+	// 정보수정 비번확인
+	@GetMapping("/users/check/form_info")
+	public String requiredLogin_checkinfoForm() {
+		return "users/check_info";
 	}
 	
+	// 비번수정 비번확인
+	@GetMapping("/users/check/form_pw")
+	public String requiredLogin_checkpwForm() {
+		return "users/check_modipw";
+	}
+	
+	// 탈퇴 비번확인
+	@GetMapping("/users/check/form_withdraw")
+	public String requiredLogin_checkwithdrawForm() {
+		return "users/check_withdraw";
+	}
+
 	@ResponseBody
 	@PostMapping(value="/users/check/pw", produces="application/json")
 	public Map<String, Object> requiredLogin_checkPw(HttpServletRequest request) {

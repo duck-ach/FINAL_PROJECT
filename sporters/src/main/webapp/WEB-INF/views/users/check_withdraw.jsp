@@ -125,7 +125,7 @@ input {
 				dataType: 'json',
 				success: function(resData){
 					if(resData.isUser){
-						location.href = '/users/modify/info';
+						location.href = '/users/withdraw';
 					} else {
 						alert('비밀번호를 확인하세요.');
 					}
@@ -140,6 +140,8 @@ input {
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div class="align">
+		
+			<h1>탈퇴를 위한 비밀번호 확인</h1>
 			<h3>회원의 정보를 안전하게 보호하기 위해서 비밀번호를 확인합니다.</h3>
 			
 			<div>
@@ -148,8 +150,8 @@ input {
 			</div>
 			
 			<div class="div_btns">
-				<input class="btn purple" type="button" value="취소" onclick="history.back()">
 				<input class="btn purple" type="button" value="확인" id="btn_check_pw">
+				<input class="btn purple" type="button" value="취소" onclick="history.back()">
 			</div>
 		</div>
 	</section><!-- 기본틀 2 -->

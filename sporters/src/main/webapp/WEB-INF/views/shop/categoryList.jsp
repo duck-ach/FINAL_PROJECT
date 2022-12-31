@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -21,7 +20,6 @@
 					prodNo: prodNo,
 					prodCnt: prodCnt
 					};
-			var prodNo = $('.prodNo').val();
 			alert(prodNo);
 			
 			$.ajax({
@@ -45,7 +43,6 @@
 			var prodName = $('.prodName').val();
 			if(prodCnt > stock) {
 				alert('구매량이 재고량보다 많습니다.');
-				prodcnt == stock;
 			} else {
 				if(confirm(prodName + ' \'' + prodCnt + '\'개 구매하시겠습니까?')){
 					location.href = '/shop/cart';
@@ -109,7 +106,7 @@
 		<br>
 		<h3>카테고리</h3>
 		<ul>
-			<li><a href="/shop/categoryList">전체</a></li>
+			<li><a href="/shop/list">전체</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=1">음식</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=2">의류</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=3">기타</a></li>
@@ -118,29 +115,27 @@
 		</ul>
 	</div>
 	<div>
-		<c:forEach items="${list}" var="list">
-			<form id="frm_product">
-				<ul>
-					<li class="product">
-						<img src="${list.prodThumbnail}"><br>
-						<input type="hidden" class="prodNo" value="${list.prodNo}">
-						<a href="${contextPath}/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-						<input type="hidden" class="prodName" value="${list.prodName}">
-						<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
-						<span>재고 : ${list.stock} 개</span><br>
-						<input type="hidden" class="stock" value="${list.stock}">
-						<span>구매할 수량 : 
-						<select name="prodCnt" class="prodCnt">
-						<%for(int i=1; i<100; i++){%>
-							<option value="<%=i%>"><%=i%></option>
-						<%}%>
-						</select>개</span>
-						<button class="btn_buy">구매하기</button>
-						<button class="btn_addCart" >장바구니 담기</button>
-					</li>
-				</ul>
-			</form>
-		</c:forEach>
+		<ul>
+			<c:forEach items="${list}" var="list">
+				<li class="product">
+					<img src="/shopAdmin/prod/display?prodNo=${list.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${list.prodThumbnail.tnFilesystem}"><br>
+					<input type="hidden" class="prodNo" value="${list.prodNo}">
+					<a href="/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
+					<input type="hidden" class="prodName" value="${list.prodName}">
+					<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
+					<span>재고 : ${list.stock} 개</span><br>
+					<input type="hidden" class="stock" value="${list.stock}">
+					<span>구매할 수량 : 
+					<select name="prodCnt" class="prodCnt">
+					<%for(int i=1; i<100; i++){%>
+						<option value="<%=i%>"><%=i%></option>
+					<%}%>
+					</select>개</span>
+					<button class="btn_buy">구매하기</button>
+					<button class="btn_addCart" >장바구니 담기</button>
+				</li>
+			</c:forEach>
+		</ul>
 	</div>
 	<div id="paging">
 		${paging}

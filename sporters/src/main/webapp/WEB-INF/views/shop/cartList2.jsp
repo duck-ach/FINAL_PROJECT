@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -200,7 +199,7 @@
 								});
 							</script>
 							<input type="hidden" id="prodNo" value="${cartList.prodNo}">
-		 					<a href="${contextPath}/shop/detail?prodNo=${cartList.prodNo}">${cartList.product.prodName}</a><br>
+		 					<a href="/shop/detail?prodNo=${cartList.prodNo}">${cartList.product.prodName}</a><br>
 							<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
 							<span>재고 : ${cartList.product.stock} 개</span><br>
 							<span>구매할 수량 : ${cartList.prodCnt} </span><br>

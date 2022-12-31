@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,7 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value="/shop/addCart", method=RequestMethod.POST)
-	public int addCart(CartDTO cart, HttpSession session) {
+	public int requiredLogin_addCart(CartDTO cart, HttpSession session) {
 		int result = 0;
 		
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
@@ -97,11 +98,13 @@ public class ShopController {
 		String roadAddress = loginUser.getRoadAddress();
 		String jibunAddress = loginUser.getJibunAddress();
 		String detailAddress = loginUser.getDetailAddress();
+		System.out.println(name);
 		order.setName(name);
 		order.setPostcode(postcode);
 		order.setRoadAddress(roadAddress);
 		order.setJibunAddress(jibunAddress);
 		order.setDetailAddress(detailAddress);
+		System.out.println(order);
 		return order;
 	}
 	
@@ -116,11 +119,35 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value = "/shop/categoryList", method = RequestMethod.GET)
+	
 	public void getList(@RequestParam(value="prodCategoryNo", required=false) int prodCategoryNo, Model model) throws Exception {
 		List<ProductDTO> list = null;
 		list = shopService.getCategoryList(prodCategoryNo);
  
 		model.addAttribute("list", list);
+		System.out.println("list"+list);
 	 }
+	
+	@ResponseBody
+	@GetMapping("/shop/prod/display")
+	public ResponseEntity<byte[]> display(@RequestParam int prodNo){
+		return shopService.display(prodNo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/shop/addOrder", method=RequestMethod.GET)
+	public int requiredLogin_addOrder(OrderDTO order, HttpSession session) {
+		System.out.println(order);
+		int result = 0;
+		
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		if(loginUser != null) {
+			order.setUserNo(loginUser.getUserNo());
+			shopService.addOrder(order);
+			result = 1;
+		}
+		
+		return result;
+	}
 	
 }

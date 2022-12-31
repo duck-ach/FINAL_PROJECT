@@ -9,8 +9,8 @@
 	pageContext.setAttribute("title", title);
 	pageContext.setAttribute("contextPath", request.getContextPath());
 %>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html5>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>${title}</title>
@@ -19,6 +19,7 @@
 <script src="/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
 <script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- 
 <link rel="stylesheet" type="text/css" href="/resources/css/left_menus.css">
@@ -28,6 +29,7 @@
 	html,body{
 	height:100%;
 	position: relative; 
+	font-family: 'Noto Sans KR', sans-serif;
 	
 		/*
 			width:1280px;
@@ -133,15 +135,15 @@ $(function(){
 		<div style="font-size: 15px; ">
 			<c:if test="${loginUser != null}">
 				<div>
-					<span style="font-weight: bold;">${loginUser.nickname}</span><span>님 활동적인 하루되세요!🦾🦾</span>	<br>
+					<span style="font-weight: bold;">${loginUser.nickname}</span><span>님 활동적인 하루되세요!💪💪</span>	<br>
 				</div>
 				<div style="text-align: right;">
-					<span><a href="/users/mypage" class="mypage_a">MYPAGE</a> &nbsp;&nbsp; <a href="/users/logout" class="logout_a">LOGOUT</a></span>	
+					<span><a href="/users/mypage" class="mypage_a">MYPAGE</a> &nbsp;&nbsp;&nbsp; <a href="/users/logout" class="logout_a">LOGOUT</a></span>	
 				</div>
 			</c:if>	
 			
 			<c:if test="${loginUser == null}">
-				<span><a href="/users/login/form">로그인</a> ｜ <a href="/users/agree/form">회원가입</a></span>
+				<span><a href="/users/login/form" class="login_a">로그인</a> &nbsp;&nbsp;&nbsp; <a href="/users/agree/form" class="sign_up_a">회원가입</a></span>
 			</c:if>
 		</div>
 		<script>
@@ -158,6 +160,22 @@ $(function(){
 			        $(this).text("접속 종료")
 			    }, function() {
 			        $(this).text("LOGOUT")
+			    });
+			});
+			
+			$(function(){
+				$('.login_a').hover(function(){
+			        $(this).text("SIGN IN")
+			    }, function() {
+			        $(this).text("로그인")
+			    });
+			});
+			
+			$(function(){
+				$('.sign_up_a').hover(function(){
+			        $(this).text("SIGN UP")
+			    }, function() {
+			        $(this).text("회원가입")
 			    });
 			});
 		</script>
