@@ -13,16 +13,23 @@
 	
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="/spo_review/write">활동참여</a></div>
-		<br><br>
-		<h2> 작성 가능한 후기 </h2>
+		
+		
 		
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			<div class="my_porters_area">
+			<c:if test="${loginUser.id == null}" >						
+				<h2>SPORTERS 멤버들의 활동 후기입니다. 우리와 함께해요!</h2>						
+			</c:if>	
+			
+			<c:if test="${loginUser.id != null}" >		
+			
 				<form id="frm_searchs" method="post">										
 						<br>
-					
-					
+						
+						
+							
+						<h2> 작성 가능한 후기 </h2>
 						<table border="1">
 							<thead>
 								<tr>	
@@ -38,20 +45,14 @@
 								-->				
 								</tr>
 							</thead>
-							<tbody id="list">								
-							<c:if test="${loginUser.id == null}" >
-								<tr>
-									<td colspan="6" >로그인 후 이용가능합니다.</td>
-								</tr>
-							</c:if>	
-							
-							<c:if test="${loginUser.id != null}" >
+							<tbody id="list">	
+								
 								<c:if test="${totalCount eq 0}">	
 									<tr>
 										<td colspan="6" >활동하신 내역이 없습니다. 주저말고 모임에 참여해보세요!</td>
 									</tr>
 								</c:if>	
-							
+								
 								<c:forEach items="${LocalgalleryList}" var="gallery" varStatus="vs">
 									<c:if test="${loginUser.userNo eq gallery.userNo}" >	
 										<tr>
@@ -68,7 +69,7 @@
 										</tr>	
 									</c:if>		
 								</c:forEach>
-							</c:if>		
+								
 								
 							</tbody>
 							
@@ -78,7 +79,8 @@
 				
 					<div class="div_paging">
 						${paging}
-					</div>			
+					</div>	
+				</c:if>			
 			</div>
 			
 			
