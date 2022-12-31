@@ -68,7 +68,7 @@ body {
   position: absolute;
   top:0;
   left: 0;
-  padding: 10px 0;
+/*   padding: 10px 0; */
   font-size: 16px;
   color: #999;
   pointer-events: none;
@@ -112,7 +112,7 @@ body {
 	.user-box-with-btn input {
 	  width: 50%;
 	  height: 20px;
-	  padding: 10px 0;
+	  padding: 16px 0;
 	  font-size: 16px;
 	  color: #999;
 	  margin-bottom: 26px;
@@ -123,7 +123,7 @@ body {
 	}
 	
 	.user-box-with-btn label {
-		position: absolute;
+	  position: absolute;
 	  top:0;
 	  left: 0;
 	  padding: 10px 0;

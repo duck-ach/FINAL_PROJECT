@@ -44,23 +44,8 @@ spring:
           auth: true
           starttls:
             enable: true
-#  main:
-#    web-application-type: none
       
 # mybatis
 mybatis:
   config-location: mybatis/config/mybatis-config.xml
   mapper-locations: mybatis/mapper/*.xml
-
-
-
-
-
-
-
-
-
-
-
-
-

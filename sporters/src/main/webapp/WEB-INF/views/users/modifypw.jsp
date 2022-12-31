@@ -5,6 +5,126 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<style>
+
+	.wrap {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+	/* 버튼 */
+	.div_btns{
+		padding-top: 26px;
+	    padding-bottom: 100px;
+	    text-align: right;
+	}
+
+	.btn {
+	  	position: relative;
+	display: inline-block;
+	text-align: center;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    color: white;
+    background-color: #c8c8ff;
+    border-radius: 4px;
+    
+	}
+	.btn:active {
+	  top: 4px; 
+	}
+	
+	.btn.purple {box-shadow:0px 4px 0px #b6b6f3;}
+	.btn.purple:active {box-shadow: 0 0 #b6b6f3; background-color: #c8c8ff;}
+	
+	.rounded {
+	  border-radius: 10px;
+	}
+	
+	.btn.purple, .btn-two.purple {background-color: #c8c8ff;}
+	
+	/* 헤더 */
+		
+	.mapage_div { 
+	position: relative; 
+	font-size: 32px; 
+	font-weight: bold; 
+	text-align: center; 
+	margin-bottom: 40px;
+	}
+	
+	.mapage_div:before,
+	.mapage_div:after {
+	  content: '[';
+	  display: inline-block;
+	  position: relative;
+	  top: 1px;
+	  height: 5%;
+	  font-size: 1.25em;
+	  color: #8282ff;
+	  transition: all 0.5s ease;
+	}
+	
+	.mapage_div:after { content: ']'; }
+	
+	.mapage_div:hover:before { 
+	  transform: translateX(-5px);
+	}
+	
+	.mapage_div:hover:after { 
+	  transform: translateX(5px);
+	}
+	
+	
+	/* 본문 */
+	.first_div {
+		width: 60%;
+		margin: auto;
+	}
+	
+	.div_form {
+		margin: auto;
+   		width: 75%;
+	}
+	
+	.div_topic {
+		display:inline-block;
+		border: 1px solid;
+		background-color: #c8c8ff;
+		border-radius: 20px;
+		color: white;
+	    height: 35px;
+	    width: 38%;
+	    font-size: 15px;
+	    text-align: center;
+	    margin-bottom: 45px;
+	    line-height: 35px;
+	}
+	
+	.div_result {
+		display:inline-block;
+		font-size: 15px;
+		border-bottom: 1px solid #8282ff;
+		width: 50%;
+   		margin-left: 6px;
+		height: 24px;
+		line-height: 35px;
+		margin-bottom: 45px;
+		padding-bottom: 10px;
+    	padding-left: 7px;
+	}
+	
+	input {
+		border: none;
+		line-height: 30px;
+		transition: .2s;
+	}
+
+
+</style>
+
 <script>
 	
 	$(function(){		
@@ -71,24 +191,24 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div>
-			<div style="font-size: 32px; font-weight: bold;"> 비밀번호 변경 </div>
+		<div class="first_div">
+			<div class="mapage_div"> 비밀번호 변경 </div>
 			
-			<div id="modify_pw_area">
+			<div class="div_form" id="modify_pw_area">
 				<form id="frm_edit_pw" action="/users/modify/pw" method="post">
-					<div>
-						<label for="pw">새로운 비밀번호 ▷ </label>
-						<input type="password" name="pw" id="pw">
+					<div class="div_in_form">
+						<label class="div_topic" for="pw">새로운 비밀번호</label>
+						<input class="div_result" type="password" name="pw" id="pw">
 						<span id="msg_pw"></span>					
 					</div>
-					<div>
-						<label for="re_pw">새로운 비밀번호 확인 ▷ </label>
-						<input type="password" id="re_pw">
+					<div class="div_in_form">
+						<label class="div_topic" for="re_pw">새로운 비밀번호 확인</label>
+						<input class="div_result" type="password" id="re_pw">
 						<span id="msg_re_pw"></span>
 					</div>
-					<div>
-						<button>비밀번호 변경하기</button>
-						<input type="button" value="비밀번호 변경 취소하기" id="btn_cancel">
+					<div class="div_btns">
+						<button class="btn purple">비밀번호 변경하기</button>
+						<input class="btn purple" type="button" value="비밀번호 변경 취소하기" id="btn_cancel">
 					</div>
 				</form>
 			</div>

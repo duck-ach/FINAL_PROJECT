@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <style>
 
+	/* 버튼 */
 	.div_btns{
 		padding-top: 26px;
 	    padding-bottom: 100px;
@@ -39,12 +40,6 @@
 	
 	.btn.purple, .btn-two.purple {background-color: #c8c8ff;}
 	
-	.first_div {
-		width: 60%;
-		margin: auto;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-	
 	/* 헤더 */
 		
 	.mapage_div { position: relative; }
@@ -73,6 +68,12 @@
 	
 	
 	/* 본문 */
+	
+	.first_div {
+		width: 60%;
+		margin: auto;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
 	
 	.div_form {
 		margin: auto;
