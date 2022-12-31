@@ -28,8 +28,8 @@ public class GallerySpoCommServiceImpl implements GallerySpoCommService{
 	@Override
 	public Map<String, Object> getSpoCommentCnt(int spoReviewNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("SpocommentCnt", commentMapper.selectSpoCommentCnt(spoReviewNo));
-		System.out.println("service : " + commentMapper.selectSpoCommentCnt(spoReviewNo));
+		result.put("commentCnt", commentMapper.selectFreeCommentCnt(spoReviewNo));
+		System.out.println("service : " + commentMapper.selectFreeCommentCnt(spoReviewNo));
 		return result;
 	} 
 	
@@ -45,9 +45,6 @@ public class GallerySpoCommServiceImpl implements GallerySpoCommService{
 		commContent.setUserNo(userNo);
 		
 		result.put("isAdd", commentMapper.insertFreeComment(commContent) == 1);
-		System.out.println("123");
-		System.out.println(commContent);
-		
 		commentMapper.updateCommGroupOrder(commContent);
 		
 		return result;
@@ -57,13 +54,14 @@ public class GallerySpoCommServiceImpl implements GallerySpoCommService{
 	public Map<String, Object> getSpoCommentList(HttpServletRequest request) {
 		
 		int spoReviewNo = Integer.parseInt(request.getParameter("spoReviewNo"));
+		System.out.println("spoReviewNo"+spoReviewNo);
 		int page = Integer.parseInt(request.getParameter("page"));		
-		int SpocommentCnt = commentMapper.selectFreeCommentCnt(spoReviewNo);
-		galleryPageUtil.setPageUtil(page, SpocommentCnt);
+		int commentCnt = commentMapper.selectFreeCommentCnt(spoReviewNo);
+		galleryPageUtil.setPageUtil(page, commentCnt);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("spoReviewNo", spoReviewNo);
 		
-		System.out.println(spoReviewNo);
+		System.out.println(commentCnt);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("SpocommentList", commentMapper.selectFreeCommentList(map));
 		result.put("galleryPageUtil", galleryPageUtil);
@@ -78,7 +76,7 @@ public class GallerySpoCommServiceImpl implements GallerySpoCommService{
 		result.put("isRemove", commentMapper.deleteFreeComment(spoCoNo) == 1);
 		return result;
 	}
-	 
+	
 	@Override
 	public Map<String, Object> addSpoReply(SpoCommDTO reply, HttpServletRequest request) {
 		// Session의 User 정보
@@ -88,7 +86,6 @@ public class GallerySpoCommServiceImpl implements GallerySpoCommService{
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isAdd", commentMapper.insertFreeReply(reply) == 1);
-		System.out.println("결과값: " + result.get("isAdd"));
 		return result;
 	}
 	
