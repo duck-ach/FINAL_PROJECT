@@ -17,7 +17,7 @@ public class FreeDTO {
 	private int freeNo;
 	private String title;
 	private String content;
-	private String createDate;
+	private Date createDate;
 	private int hit;
 	private int userNo;
 	private int state;

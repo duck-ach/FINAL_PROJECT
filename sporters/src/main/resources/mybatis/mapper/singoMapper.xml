@@ -54,9 +54,9 @@
 <!-- 게시판 삽입(첨부파일 추가) -->
 	<insert id="insertSingo" parameterType="SingoDTO"  useGeneratedKeys="true" keyProperty="singoNo">
 		INSERT INTO SINGO
-			(SINGO_CATEGORY, SINGO_TITLE, SINGO_LINK, SINGO_USER_REASON, SINGO_CREATE_DATE, SINGO_REMOVE_DATE, SINGO_REASON, IP)
+			(SINGO_CATEGORY, SINGO_TITLE, SINGO_LINK, SINGO_USER_REASON, SINGO_CREATE_DATE, SINGO_REMOVE_DATE, SINGO_REASON)
 		VALUES
-			(#{singoCategory}, #{singoTitle}, #{singoLink}, #{singoUserReason}, #{createDate}, NULL, #{singoReason}, #{userId}, #{ip})
+			(#{singoCategory}, #{singoTitle}, #{singoLink}, #{singoUserReason}, #{createDate}, NULL, #{singoReason})
 	</insert>
 	
 	<!-- 관리자 신고글업데이트 -->

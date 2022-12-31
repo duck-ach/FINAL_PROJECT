@@ -98,7 +98,7 @@ public class SingoServiceImpl implements SingoService {
 				.singoTitle(free.getTitle())
 				.singoLink(url)
 				.singoUserReason(content)
-				.singoCreateDate(free.getCreateDate().toString())
+				.singoCreateDate(free.getCreateDate())
 				.build();
 		int result = singoMapper.insertSingo(singo);
 		try {
