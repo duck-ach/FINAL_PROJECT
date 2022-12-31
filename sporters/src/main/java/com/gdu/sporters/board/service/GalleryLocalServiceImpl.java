@@ -183,7 +183,7 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 	*/
 		// 저장된 파일을 확인할 수 있는 매핑을 반환
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("src", "/storage/summernote/" + filesystem);
+		map.put("src", "/load/image/" + filesystem);
 		map.put("filesystem", filesystem);
 		return map;
 
