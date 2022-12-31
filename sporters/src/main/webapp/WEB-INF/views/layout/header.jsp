@@ -19,6 +19,7 @@
 <script src="/resources/summernote-0.8.18-dist/summernote-lite.min.js"></script>
 <script src="/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/reset.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- 
 <link rel="stylesheet" type="text/css" href="/resources/css/left_menus.css">
@@ -28,6 +29,7 @@
 	html,body{
 	height:100%;
 	position: relative; 
+	font-family: 'Noto Sans KR', sans-serif;
 	
 		/*
 			width:1280px;

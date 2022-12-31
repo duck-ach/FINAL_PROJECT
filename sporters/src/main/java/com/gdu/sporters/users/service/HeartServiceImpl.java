@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.gdu.sporters.users.domain.HeartDTO;
 import com.gdu.sporters.users.domain.UsersDTO;
