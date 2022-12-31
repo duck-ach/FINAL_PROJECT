@@ -79,8 +79,9 @@
 					<c:if test="${loginUser.id == gallery.users.id}" >
 						<input type="button" value="수정" id="btn_edit_gallery">
 						<input type="button" value="삭제" id="btn_remove_gallery">
-						<div id="root"><button type="button" id="modal_open_btn">신고쌔리기</button></div>
+						
 					</c:if>
+					<div id="root"><button type="button" id="modal_open_btn">신고쌔리기</button></div>
 				</form>
 			</div>
 	

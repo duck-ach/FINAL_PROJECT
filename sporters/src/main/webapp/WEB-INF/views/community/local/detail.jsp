@@ -133,7 +133,7 @@
 	            data: 'localBoardNo=${LocalgalleryList.localBoardNo}',   // 글번호 달아줌
 	            dataType: 'json',
 	            success: function(resData){  // resData = {"commentCount": 개수}
-	               $('#comment_count').text(resData.LocalcommentCnt);
+	               $('#comment_count').text(resData.commentCnt);
 	            }
 	         });
 	      }
