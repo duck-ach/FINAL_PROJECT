@@ -6,7 +6,14 @@
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="지역게시판_상세" name="title" />
 </jsp:include>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
+<style>
+	*{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+</style>
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->

@@ -17,6 +17,62 @@
 		margin: auto;
 	}
 	
+	.div_form {
+		margin: auto;
+   		width: 100%;
+		border-radius: 4px;
+	}
+	
+	.div_head{
+		 background: #8c8cff; 
+		 border-radius: 4px;
+		 color: white;
+	}
+	
+	span {
+		display: inline-block;
+		text-align: center;
+		line-height: 30px;
+	}
+	
+	.span_title{
+		width: 40%;
+	}
+	.span_id{
+		width: 10%;
+	}
+	
+	.span_nickname {
+		width: 15%;
+	}
+	
+	.span_gender {
+		width: 5%;
+	}
+	
+	.span_view {
+		width: 10%;
+	}
+	
+	.span_date {
+		width: 15%;
+	}
+	
+	.div_paging {
+		text-align: center;
+		margin-top: 3%;
+	}
+	
+	.div_items{
+		margin-bottom: 10px;
+		margin-top: 10px;
+		padding-bottom: 5px;
+	}
+	
+	.div_items:hover{
+		/*background-color: #f0f0ff;*/
+		background-color: rgba(240, 240, 255, 0.5);
+	}
 	
 </style>
 
@@ -46,15 +102,15 @@
 			
 			<form id="frm_search" method="post">										
 				
-				<div>
+				<div class="div_form">
 					<div>
-						<div>				
-							<span>글 제목</span>	
-							<span>아이디</span>												
-							<span>닉네임</span>
-							<span>회원 성별</span>	
-							<span>조회수</span>						
-							<span>회원 작성일</span>												
+						<div class="div_head">				
+							<span class="span_title">제목</span>	
+							<span class="span_id">아이디</span>												
+							<span class="span_nickname">닉네임</span>
+							<span class="span_gender">성별</span>	
+							<span class="span_view">조회수</span>						
+							<span class="span_date">작성일</span>												
 
 						<!--  
 							<td>작성 글 수</td>
@@ -63,19 +119,19 @@
 					</div>
 					<div id="list">						
 						<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
-							<div>
+							<div class="div_items">
 							<!-- 
 								<td>${beginNo - vs.index}</td>	
 							 -->					
-								<span><a id="moveDetail"
+								<span class="span_title"><a id="moveDetail"
 									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></span>									
-								<span>
+								<span class="span_id">
 									<a class="to_userInfo">${gallery.users.id}</a><input type="hidden" class="userId" name="id" value="${gallery.users.id}">
 								</span>
-								<span>${gallery.users.nickname}</span>							
-								<span>${gallery.users.gender}</span>	
-								<span>${gallery.hit}</span>						
-								<span>${gallery.createDate}</span>
+								<span class="span_nickname">${gallery.users.nickname}</span>							
+								<span class="span_gender">${gallery.users.gender}</span>	
+								<span class="span_view">${gallery.hit}</span>						
+								<span class="span_date">${gallery.createDate}</span>
 
 							</div>
 						</c:forEach>
@@ -84,6 +140,8 @@
 				</div>
 				
 			</form>
+			
+			<div style="border-top: 1px solid black; text-align: center; line-height: 35px;"></div>
 		
 			<div class="div_paging">
 				${paging}
