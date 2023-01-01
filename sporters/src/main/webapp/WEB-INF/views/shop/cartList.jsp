@@ -317,19 +317,10 @@
 							<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
 							<span>재고 : ${cartList.product.stock} 개</span><br>
 							<span>구매할 수량 : ${cartList.prodCnt} 개</span><br>
-							<span id="test"></span>
-							<button id="test1">끼엑</button>
-							<script>
-								$('#test1').click(function(){
-									$('#test').append('\'안녕\' <br> 하세요');
-								})
-							</script>
 							<span>합계 가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price * cartList.prodCnt}" /> 원</span><br>
 						</td>
-						
 					</tr>
 					</c:forEach>
-					
 					<tr>
 						<td colspan="2">
 							<br><div class="listResult">
@@ -353,7 +344,7 @@
 													url : "/cartList/sameAdd",
 													type : 'post',
 													success : function(order) {
-														alert("성공데스");
+														alert("기본 배송지로 변경되었습니다.");
 														console.log(order);
 														$('#name').val(order.name);
 														$('#mobile').val(order.mobile);
@@ -363,7 +354,7 @@
 														$('#detailAddress').val(order.detailAddress);
 												     },
 													error : function(order) {
-														alert("에러데스");
+														alert("변경 실패!");
 													}
 												});
 												

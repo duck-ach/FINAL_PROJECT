@@ -121,10 +121,10 @@ public class ShopController {
 	
 	@RequestMapping(value = "/shop/categoryList", method = RequestMethod.GET)
 	public void getList(@RequestParam(value="prodCategoryNo", required=false) int prodCategoryNo, Model model) throws Exception {
-		List<ProductDTO> list = null;
-		list = shopService.getCategoryList(prodCategoryNo);
+		List<ProductDTO> cartList = null;
+		cartList = shopService.getCategoryList(prodCategoryNo);
  
-		model.addAttribute("list", list);
+		model.addAttribute("cartList", cartList);
 	 }
 	
 	@ResponseBody
