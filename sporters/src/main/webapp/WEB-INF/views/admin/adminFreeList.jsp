@@ -21,15 +21,15 @@ ul{list-style:none;}
 }
 .tabmenu ul li{
   display:  inline-block;
-  width:18%%; 
+  width:69px; 
   float:left;  
   text-align:center; 
   background :#f9f9f9;
-  line-height:40px;
+  line-height:15px;
 }
 .tabmenu label{
   display:block;
-  width:100%; 
+  width:30px; 
   height:40px;
   line-height:40px;
 }
@@ -40,7 +40,7 @@ ul{list-style:none;}
   text-align:left; 
   padding: 20px;
  position: absolute;
-    left: 5px;
+    left: 0px;
     top: 75px;
   box-sizing: border-box; 
   border : 5px solid #f9f9f9;
@@ -51,32 +51,10 @@ ul{list-style:none;}
 .tabmenu input:checked ~ .tabCon{
   display:block;
 }
+.tbl{
+width: 90%
+}
 
-body {
-	background: #fff;
-}
-.tbl {
-	width:100%;
-	border-collapse: collapse;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	table-layout:fixed
-}
-.tbl thead {
-	padding: 10px;
-	background-color:rgba(213, 194, 238, 0.38);
-	border-bottom: 3px solid #D5C2EE;
-}
-.tbl td {
-	color: #669;
-	padding: 10px;
-	border-bottom: 1px solid #ddd;
-	word-break:break-all;
-}
-.tbl tr:hover td {
-	color: #004;
-}
 .button{
 border: 0;
 width: 30px;
@@ -89,6 +67,9 @@ border-radius: 2px;
 .button:hover{
 background-color:  rgba(213, 194, 238, 0.69);
 border-radius: 2px;
+}
+.selectBoard{
+width: 100%
 }
 </style>
 <script>
@@ -143,7 +124,7 @@ border-radius: 2px;
 
 <div class="body_wrap">
 	<div class="code_wrap">
-
+<div class="selectBoard">
 <div class="tabmenu out-tabmenu">
   <ul>
     <li id="tab1" class="btnCon"> 
@@ -214,6 +195,7 @@ border-radius: 2px;
 			
 		</div>여기부터 각자 내용 넣기 끝
 		
+</div>
 </div>
 
 </body>
