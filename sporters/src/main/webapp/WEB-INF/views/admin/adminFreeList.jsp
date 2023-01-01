@@ -124,6 +124,7 @@ width: 100%
 
 <div class="body_wrap">
 	<div class="code_wrap">
+	<div class="in_wrap">
 <div class="selectBoard">
 <div class="tabmenu out-tabmenu">
   <ul>
@@ -195,6 +196,7 @@ width: 100%
 			
 		</div>여기부터 각자 내용 넣기 끝
 		
+	</div>
 </div>
 </div>
 

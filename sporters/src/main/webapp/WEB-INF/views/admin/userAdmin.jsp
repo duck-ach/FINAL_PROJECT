@@ -11,57 +11,95 @@
 
 <style>
 
+h2 {
+	font-size: 30px;
+}
+
 body {
 	background: #fff;
 }
 .tbl {
-	width:90%;
-	border-collapse: collapse;
-	text-align: center;
-	margin-right: auto;
-	table-layout:fixed
+	width:1000px;
+	border: 2px solid #8c8cff;
+	border-radius: 10px;
+	margin: 0 auto;
+	margin-top: 50px;
 }
 .tbl thead {
 	padding: 10px;
-	background-color:rgba(213, 194, 238, 0.38);
+	height:35px;
+	background-color: #8c8cff;
+	color: #fff;
 	border-bottom: 3px solid #D5C2EE;
 }
 .tbl td {
 	color: #669;
 	padding: 10px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #D2D2FF;
+	height:28px;
 	word-break:break-all;
 }
 .tbl tr:hover td {
 	color: #004;
 }
 
-button{
+#btn_init, #btn_search{
   	background:#8c8cff;
   	color:#fff;
   	border:3px solid;
   	border-color:#8282ed;
   	border-radius:3px;
   	position:relative;
-  	height:35px;
+  	height:30px;
   	font-size:20px;
-  	padding:0 2em;
   	cursor:pointer;
   	outline:none;
   	vertical-align: bottom;
 }
+
+#btn_deleteUser{
+background:#8c8cff;
+  	color:#fff;
+  	border: 3px solid #8c8cff;
+  	border-color:#8282ed;
+  	border-radius:3px;
+  	position:relative;
+  	height:30px;
+  	font-size:20px;
+  	cursor:pointer;
+  	outline:none;
+  	vertical-align: bottom;
+}
+
 button:hover{
   	background:#9999FF;
   	color:#FFF;
 }
+#column{
+    width: 134px;
+    border: 3px solid #bbb;
+    border-radius: 8px;
+    font-size: 14px;
+    height:30px;
+}
 
 #searchText{
-  width: 70px;
-  border: 1px solid #bbb;
-  border-radius: 8px;
+  width: 135px;
+  height: 5px;
+  border: 3px solid #bbb;
+  border-radius: 8px 0px 0px 8px;
   padding: 10px 12px;
   font-size: 14px;
+}
+.search_grp{
+display: inline-block;
+position: relative;
 
+}
+.btn_group{
+display: inline-block;
+position: absolute;
+right:13%;
 }
 </style>
 <script type="text/javascript">
@@ -239,21 +277,26 @@ button:hover{
 
 <div class="body_wrap">
 	<div class="code_wrap">
-		<h1>회원 관리</h1>
-		<form id="frm_user_list" method="post">
-			<select name="column" id="column">
-				<option value="">회 원 분 류</option>
-				<option value="ID">아이디</option>
-				<option value="NAME">이름</option>
-				<option value="USER_NO">회원번호</option>
-			</select>
-			<input type="text" id="searchText" name="searchText">
+	<div class="in_wrap">
+		<h2>회원 관리</h2><br>
+		<div class="search_grp">
+			<form id="frm_user_list" method="post">
+				<select name="column" id="column">
+					<option value="">회 원 분 류</option>
+					<option value="ID">아이디</option>
+					<option value="NAME">이름</option>
+					<option value="USER_NO">회원번호</option>
+				</select>
+				<input type="text" id="searchText" name="searchText">
 			</form>
+		</div>
+			<div class="btn_group">
 				<button id="btn_search" value="검색" >검색</button>&nbsp;
 				<button id="btn_init" value="초기화">초기화</button>&nbsp;
 				<button id="btn_deleteUser" value="회원 탈퇴">탈퇴</button>
+			</div>
 			
-				<br>
+
 				<form>
 			<table class="tbl" style="border-collapse:collapse; border:1px gray solid;">
 				<thead>
@@ -277,6 +320,7 @@ button:hover{
 			</table>
 			
 		</form>
+	</div>
 	</div>
 </div>
 
