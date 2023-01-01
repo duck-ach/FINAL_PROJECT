@@ -160,7 +160,35 @@ $(function(){
 		margin: 0 auto;	
 	}
 	
+.div_content{
+	height: unset !important;
+}
 
+.div_content_text img{
+
+	display: block;		
+	}
+	
+.div_paging{
+	display: flex;
+    justify-content: center;
+    width: 10%;
+    margin: 3% auto;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+.div_paging a{
+
+/*	margin-left:10px;*/
+}
+
+
+.div_head{
+	display: flex;
+}
+.div_items{
+display: flex;
+}
 </style>
 </head>
 <!--  

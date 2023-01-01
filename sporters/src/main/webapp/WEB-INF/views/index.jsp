@@ -131,6 +131,16 @@
     	left: -40px;
     }
     
+    .weather ul{
+    	display: flex;
+    	    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-around;
+    line-height: 14vw;
+    font-size: 1.3vw;
+    }
+    
+    
 </style>
 
 <body>
@@ -163,10 +173,12 @@
 				<li class="city"></li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
 				<li class="ctemp">온도 :</li>
+				<!--  
 				<li class="hightemp">최고 온도 :</li>
 				<li class="lowtemp">최저 온도 :</li>
 				<li class="humidity">습도 :</li>
 				<li class="wind">풍속 :</li>
+				-->
 			</ul>
 		</div>
 		<!-- 날씨 api 주소 -->

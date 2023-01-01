@@ -207,7 +207,7 @@ menu-inner ul li:hover {
 			 	</li>
 			 	<c:if test="${loginUser.id == 'admin'}">
 			 	<li>
-					<a href="admin/adminIndex">
+					<a href="/admin/adminIndex">
 						관리자센터
 					</a>			 		
 			 	</li>
