@@ -164,32 +164,25 @@ menu-inner ul li:hover {
 		</div>
 		<div class="menu-inner">
 			
-			<ul>
-				<li>
-					<a href="#none">
-						관리자센터
-					</a>			 		
-			 	</li>
+			<ul>				
 			 	<li class="left_menu_hide_span ">
 			 		게시판
 			 		<ul  class="left_menu_hide">
 			 			<li><a href="/free/list">자유게시판</a> </li>
 			 			<li><a href="/local/list">운동 게시판</a> </li>
-			 			<li><a href="/spo_review/list">운동후기게시판</a> </li>					 	
+			 			<li><a href="/spo_review/list">운동후기게시판</a> </li>	
+			 			<!--  			 	
 					 	<li><a href="/shop/list">쇼핑몰</a> </li>
 					 	<li><a href="/supp/singo">신고게시판</a> </li>
 					 	<li><a href="/qna/list">고객문의게시판</a> </li>
 					 	<li><a href="/faq/list">자주하는질문</a> </li>
 					 	<li><a href="/admin/adminIndex">관리자게시판</a> </li>
 					 	<li><a href="/admin/shopIndex">쇼핑몰관리자게시판</a> </li>
+					 	-->	
 			 		</ul>			 	
 			 	</li>
 			 	
-			 	<li>
-					<a href="admin/adminIndex">
-						관리자센터
-					</a>			 		
-			 	</li>
+			 	
 			 	
 			 	
 			 	<li>
@@ -198,7 +191,7 @@ menu-inner ul li:hover {
 			 	
 			 	
 			 	<li>
-					<a href="#none">
+					<a href="/shop/list">
 						쇼핑몰
 					</a>			 		
 			 	</li>
@@ -212,8 +205,13 @@ menu-inner ul li:hover {
 					 				 	
 			 		</ul>			 		
 			 	</li>
-			 	
-			 	
+			 	<c:if test="${loginUser.id == 'admin'}">
+			 	<li>
+					<a href="admin/adminIndex">
+						관리자센터
+					</a>			 		
+			 	</li>
+			 	</c:if>
 			</ul>
 		</div>
   
