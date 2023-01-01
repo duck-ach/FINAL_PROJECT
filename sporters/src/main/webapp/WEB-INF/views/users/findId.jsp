@@ -20,6 +20,7 @@
 	.div_form {
 		margin: auto;
    		width: 75%;
+   		    position: relative;
 	}
 	
 	/* 버튼 */
@@ -49,6 +50,39 @@
 
 	.btn.purple, .btn-two.purple {background-color: #c8c8ff;}
 	
+	/* 헤더 */
+		
+	.mapage_div { 
+	  position: relative; 
+	  font-size: 32px; 
+	  font-weight: bold; 
+	  text-align: center; 
+	  margin-bottom: 40px;
+	}
+	
+	.mapage_div:before,
+	.mapage_div:after {
+	  content: '[';
+	  display: inline-block;
+	  position: relative;
+	  top: 1px;
+	  height: 5%;
+	  font-size: 1.25em;
+	  color: #8282ff;
+	  transition: all 0.5s ease;
+	}
+	
+	.mapage_div:after { content: ']'; }
+	
+	.mapage_div:hover:before { 
+	  transform: translateX(-5px);
+	}
+	
+	.mapage_div:hover:after { 
+	  transform: translateX(5px);
+	}
+	
+	
 	
 	/* 본문 */
 	.div_topic {
@@ -72,7 +106,7 @@
 		margin-bottom: 30px;
 		padding-bottom: 10px;
     	padding-left: 7px;
-    	width: 60%;
+    	width: 23vw;
 	}
 	
 	input {
@@ -83,6 +117,17 @@
 	.div_box{
 		margin-top: 10%;
 	}
+	
+	.msg_class {
+	    font-size: 12px;
+	    color: lightgray;
+	    position: absolute;
+	    bottom: 22%;
+	}
+	
+	.msg_result {
+		margin-top: 10px;
+	}
 
 	
 </style>
@@ -91,7 +136,12 @@
 	
 	$(document).ready(function(){
 		fn_findId();
+		fn_emailCheck();
 	});
+	
+	var emailPass = true;
+	
+	
 	
 	function fn_findId(){
 		
@@ -99,8 +149,12 @@
 			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;
 			if(regEmail.test($('#email').val()) == false) {
 				alert('이메일 형식을 확인하세요!');
-				$('#msg_result').text('');
+				$('#msg_email').text('');
+				emailPass = false;
 				return;
+			} else {
+				$('#msg_email').text('');
+				emailPass = true;
 			}
 			
 			$.ajax({
@@ -125,6 +179,17 @@
 		});
 	}
 	
+	function fn_emailCheck(){
+		$('#email').keyup(function(){
+			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;
+			let emailValue = $(this).val();
+			if(regEmail.test(emailValue) == false){
+				$('#msg_email').text('이메일 형식이 올바르지 않습니다.');
+				emailPass = false;
+				return;
+			}
+		});
+	}
 	
 </script>
 <body>
@@ -133,7 +198,7 @@
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div class="first_div">
 			<div class="div_form">
-			<div> 🔍 아이디 찾기 </div>
+			<div class="mapage_div"> 🔍 아이디 찾기 </div>
 			
 			<div class="div_box">
 				<label class="div_topic" for="name">
@@ -143,18 +208,17 @@
 				<input class="div_input" type="text" name="name" id="name">
 			</div>
 			
-			<div class="div_box">
+			<div class="div_box" style="margin-top: 25px;">
 				<label class="div_topic" for="email">
 					이메일
 				</label>
 				<br>
 				<input class="div_input" type="text" name="email" id="email">
+				<input class="btn purple" type="button" value="아이디찾기" id="btn_findId" style="text-align: right; margin-left: 30px;">
 			</div>
-			<div  class="div_btns">
-			<div>
-				<input class="btn purple" type="button" value="아이디찾기" id="btn_findId">
-			</div>
+			<div class="msg_class" id="msg_email"></div>
 			
+			<div class="div_btns">
 			<div>
 				<input class="btn purple" type="button" value="로그인" onclick="location.href='/users/login/form'">
 				<input class="btn purple" type="button" value="회원가입" onclick="location.href='/users/agree/form'">
@@ -163,9 +227,9 @@
 			
 			</div>
 			
-			<div style="border-bottom: 1px solid #8c8cff; height: 20px;"></div>
+			<div style="border-bottom: 1px dotted #8c8cff; height: 10px;"></div>
 			
-			<div id="msg_result"></div>
+			<div class="msg_result" id="msg_result"></div>
 			</div>
 		</div>
 	</section><!-- 기본틀 2 -->
