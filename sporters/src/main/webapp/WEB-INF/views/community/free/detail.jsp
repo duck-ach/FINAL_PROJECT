@@ -118,9 +118,6 @@
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 	
 		
-	
-	
-	
 		
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			<div id="holder">
@@ -143,7 +140,6 @@
 						<span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABiElEQVR4nO3VO2tVQRSG4UeJB0SCWHkpghgE4wXEQrCwFgsLQdAg+gO0EkRstEsl+AckQRGsLAyBWBi1EwvRaJ14aQQVFK+JGohs+AKHw7klc9L5wWaYvdbMO7NmrRn+axW1FpvS9lwHMI45LKa9h/29ApzEb3zHKK5gDD8wjxOlgF2ZaBo7GmyDeJVd7SyBjAYy1MK+O7u8UQJ5i8kOPvfxugTyJfFvpzF8LoE8x5MOPk/xrARyKSl7vIX9WOwXSyDr8TLhONVgG87/6fgVaWvCtphEmEpb9V9gSylgM27iTyb9iln8Sv8vbmNb3ZgaruNdMnOgHeAQPqbYrqUm6rUnk1V18gmHAxjPAh7hZ9qm2ptVz7QpxCXtw5tcO48DuBzbXXzTROty2B+wXXcaSujqAaexgDvNBpyJ89kuAbW6EDUCqhra2GzQA7zv8s2orQSwJodVZVQn9a0EUKk/KXqhC8jBAEaWA1iuzgdyBOdWA1DpViBLX3VJVu9/T/UQE7iKo9jQyvMfsCVuvY9ZWbgAAAAASUVORK5CYII="></span>
 						<span>${gallery.users.nickname}</span>						
 					</div>
-					
 				</div>
 				
 			</div>
@@ -152,7 +148,6 @@
 				<span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhUlEQVR4nM3TPUjWURgF8F9fhH0MFULQZhRFiw3hUkNCgUtQWwUtQR+QOAYaEi0KKbo0FUQQmUVLBEUUREURRUM0NOagVEsfFtoXxoUjvLwovr01eJb//3LvPc/znHMu8wSbsf5/EB3HG0zg7r+SHcZPdGEk37qxGz9wBI0YxdF6iJZjHz6jFw14ghf5rwlLcSwaTWIKQ1iEG1mfwYJayBrwAJ9wMeI/TJF+fMQpjONWxp8VC3Edb9GEO3F0NU7gO3bm7Ea8xBj2z9ZtXzrYgvN4H+I9cfdQ1fnS9elM8RwdWFyZr9JBKzrxDS3Yhq/oriBaU0XchHN4NL23IgTFiAP4hb0p8iFdn0yH1/DaHFiF3xiMqx25XIoMYBjPEubb2KoG9CYOg9GmZO1prdGYCcNxtYh6Ge/wBfexQx0YQw8uhKgZG3A1ctyriEzlK2pLLs9GnmVlY23GnUq2tlddLDG6kuiMRo5X0XsCj3ETl7CyXFgSRzfNMcU6HIzj7dj1N+95/uAP1/ReFe34fBUAAAAASUVORK5CYII="> 작성일 <fmt:formatDate value="${gallery.createDate}" pattern="yy/M/d"/></span>
 				&nbsp;&nbsp;&nbsp;
 				<span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA3UlEQVR4nN3Tv0oDMRwH8A/VpeoulHYR8QUEX8A3KHZxdBAX/4y6dfQpxEUdO3SrUNBBER0c+xK+gxwkcMNdk6M3iF8IIbnwIckvx3/MHo6x3QY2wguu8IX9VbAjzLEVxv2AHrSBWQUd4RmbNd/7+Ax91s6WYTEnONMSto5p6thNsCecp7AF7tHJwC5SBZhhAze4q0HX8JjCBngNWEwVGrFLiRzitmL+uoRmY0W6eKupVkQfwm+XnR4+KtCiAN9NsF2chjbGT7jwODfBe2lcvISl2SktzmnDJsf+W/kFReEspVxuLHYAAAAASUVORK5CYII="> 수정일 <fmt:formatDate value="${gallery.modifyDate}" pattern="yy/M/d"/></span>
-				
 			</div>
 	
 			<div class="div_btns">

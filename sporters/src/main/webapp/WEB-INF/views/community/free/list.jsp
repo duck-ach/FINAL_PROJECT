@@ -36,7 +36,7 @@
 	}
 	
 	.span_title{
-		width: 40%;
+	    width: 50%;
 	}
 	.span_id{
 		width: 10%;
