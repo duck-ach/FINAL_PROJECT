@@ -141,7 +141,6 @@ input {
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div class="align">
 		
-			<h1>비밀번호 변경을 위한 비밀번호 확인</h1>
 			<h3>회원의 정보를 안전하게 보호하기 위해서 비밀번호를 확인합니다.</h3>
 			
 			<div>

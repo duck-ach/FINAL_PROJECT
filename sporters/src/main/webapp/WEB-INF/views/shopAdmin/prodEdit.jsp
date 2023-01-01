@@ -21,10 +21,11 @@ $('.shopAdmin').addClass('checked');
 $(document).ready(function(){
 	
 	fileCheck();
+	fn_file_change();
 	
 	// summernote
 	$('#content').summernote({
-		width: 800,
+		width: 830,
 		height: 400,
 		lang: 'ko-KR',
 		toolbar:[
@@ -150,64 +151,311 @@ $(document).ready(function(){
 				$('#content').focus();
 				return;  // 더 이상 코드 실행할 필요 없음
 			}
-			
 		});
-		
-		
 	});
+	
+	function fn_file_change() {
+		$('#thumbnail').on('change',function(){
+			console.log($(this));
+		  	var fileName = $("#thumbnail").val();	
+		  	$('.upload-name').val(fileName);
+		});
+	}
 </script>
+<style>
+h2 {
+	font-size: 30px;
+}
+#all_content_wrap {
+	margin-left: 60px;
+    margin-top: 30px;
+}
+/* input box */
+.input_wrap {
+	margin-top: 7px;
+	font-size: 20px;
+	margin-left: 70px;
+    margin-bottom: 20px;
+}
+.input_box {
+	width: 500px;
+	height: 35px;
+	border: none;
+	border-radius: 10px;
+	background-color: #dcdcdc;
+}
+.label {
+	display: inline-block;
+	width:120px;
+	vertical-align: middle;
+}
+.star_point {
+	color:#FF88A7;
+	vertical-align: top;
+}
+/* select 박스 */
+#prodCategoryNo {
+	width: 216px; 
+	padding: .5em .5em; 
+	border: 1px solid #000;
+	color: #000;
+	font-family: inherit;  
+	background: url('/resources/images/shopAdmin/arrow.jpeg') no-repeat 95% 50%; 
+	border-radius: 0px; 
+	-webkit-appearance: none; 
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 10px;
+}
+#prodCategoryNo::-ms-expand {
+    display: none;
+}
+/* 첨부파일 */
+.file_wrap {
+	margin-top: 7px;
+	font-size: 20px;
+	margin-left: 70px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.filebox {
+	position: absolute;
+    top: 1px;
+    margin-left: 300px;
+}
+.filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 240px;
+    color: #999999;
+    font-size: 15px;
+}
+.filebox label {
+    display: inline-block;
+    padding: 1px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+#thumbnail_add {
+	font-size: 16px;
+	line-height: 40px;
+}
+.file_info {
+	font-size: 13px;
+	color: #FF88A7;
+	position: absolute;
+	top: 29px;
+	
+}
+
+/* 상품 상세 내용 */
+#content {
+	margin-top: 5px;
+    width: 100%;
+    height: 6.25em;
+    border: none;
+    resize: none;
+}
+.content_wrap {
+	padding-top: 10px;
+}
+.lbl_content {
+	margin-bottom: 3px;
+}
+
+/* button */
+.button{
+  	background:#8c8cff;
+  	color:#fff;
+  	border:none;
+  	position:relative;
+  	height:31px;
+  	font-size:18px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	transition:800ms ease all;
+  	outline:none;
+  	vertical-align: bottom;
+}
+.button:hover{
+  	background:#fff;
+  	color:#8c8cff;
+}
+.button:before, .button:after{
+  	content:'';
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	height:2px;
+  	width:0;
+  	background: #c8c8ff;
+  	transition:400ms ease all;
+}
+.button:after{
+  	right:inherit;
+  	top:inherit;
+  	left:0;
+  	bottom:0;
+}
+.button:hover:before, .button:hover:after{
+  	width:100%;
+  	transition:800ms ease all;
+}
+.button_wrap {
+	position: relative;
+	margin-left: 70px;
+}
+.loc_btn_submit {
+	position: absolute;
+    bottom: -35px;
+    margin-left:690px;
+}
+.loc_btn_list {
+	position: absolute;
+    bottom: -35px;
+    margin-left: 580px;
+}
+/* pink button */
+.pink_button {
+  	background:#F09494;
+  	color:#fff;
+  	border:none;
+  	display: inline-block;
+    height: 30px;
+    line-height: 30px;
+  	font-size:18px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	transition:800ms ease all;
+  	outline:none;
+  	vertical-align: bottom;
+}
+.pink_button:hover{
+  	background:#fff;
+  	color:#F09494;
+}
+.pink_button:before, .pink_button:after{
+  	content:'';
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	height:2px;
+  	width:0;
+  	background: #FFC8C8;
+  	transition:400ms ease all;
+}
+.pink_button:after{
+  	right:inherit;
+  	top:inherit;
+  	left:0;
+  	bottom:0;
+}
+.pink_button:hover:before, .pink_button:hover:after{
+  	width:100%;
+  	transition:800ms ease all;
+}
+
+
+/* img */
+img {
+	margin-top: 26px;
+}
+</style>
 <body>
-	<form id="frm_write" action="/shopAdmin/prod/modify" method="post" enctype="multipart/form-data">
-		<div>
-			<h1>상품등록</h1>
-			<input type="hidden" name="prodNo" value="${product.prodNo}">
-			<div>
-				<label for="prodName">상품명</label>
-				<input type="text" id="prodName" name="prodName" value="${product.prodName}">
-			</div>
-			<div>
-				상품카테고리
-				<select name="prodCategoryNo" id="prodCategoryNo">
-					<option value="${product.prodCategoryNo}">${product.prodCategory.prodCategoryName}</option>
-					<option value="1">식품</option>
-					<option value="2">의류</option>
-					<option value="3">물건</option>
-				</select>
-			</div>
-			<div>
-				<label for="price">정가격</label>
-				<input type="number" id="price" name="price" value="${product.price}">
-				<label for="discount">할인가격</label>
-				<input type="number" id="discount" name="discount" value="${product.discount}">
-			</div>
-			<div>
-				<label for="thumbnail">상품 썸네일(대표사진)</label>
-				<c:if test="${prodThumbnail.isThumbnail == 1}">
-					<img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
-				</c:if>
-				<input type="hidden" class="tnNo" name="tnNo" value="${prodThumbnail.tnNo}">
-				<input type="file" name="thumbnail" accept="image" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
-			</div>
-			<div>
-				<label for="origin">원산지</label>
-				<input type="text" id="origin" name="origin" value="${product.origin}">
-			</div>
-			<div>
-				<label for="stock">재고</label>
-				<input type="number" id="stock" name="stock" value="${product.stock}">
-			</div>
-			
-			<div>
-				<label for="content"></label>
-		        <textarea name="content" id="content" name="content">${product.prodContent}</textarea>   
-			</div>
-			<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
-			<div id="summernote_image_list"></div>
-			<div>
-				<button>수정하기</button>
-				<input type="button" value="목록" id="btn_list">
+	<div class="body_wrap">
+		<div class="code_wrap">
+			<div class="in_wrap">
+				<form id="frm_write" action="/shopAdmin/prod/modify" method="post" enctype="multipart/form-data">
+					<div>
+						<h2>상품수정</h2>
+						<span>상품을 수정할 수 있습니다. 수정사항을 입력해주세요.</span>
+						<hr>
+						<div id="all_content_wrap">
+							<input type="hidden" name="prodNo" value="${product.prodNo}">
+							<div class="input_wrap">
+								<div class="label">
+									카테고리 <span class="star_point">*</span>
+								</div>
+								<select name="prodCategoryNo" id="prodCategoryNo">
+									<option value="${product.prodCategoryNo}">${product.prodCategory.prodCategoryName}</option>
+									<option value="1">식품</option>
+									<option value="2">의류</option>
+									<option value="3">물건</option>
+								</select>
+							</div>
+							<div class="input_wrap">
+								<div class="label">
+									<label for="prodName">상품명 <span class="star_point">*</span></label>
+								</div>
+								<input type="text" id="prodName" class="input_box" name="prodName" value="${product.prodName}">
+							</div>
+							<div class="input_wrap">
+								<div class="label">
+									<label for="price">소비자가격 <span class="star_point">*</span></label>
+								</div>
+								<input type="number" id="price" class="input_box" name="price" value="${product.price}">
+							</div>
+							<div class="input_wrap">
+								<div class="label">
+									<label for="discount">할인가격 <span class="star_point">*</span></label>
+								</div>
+								<input type="number" id="discount" class="input_box" name="discount" value="${product.discount}">
+							</div>
+							<div class="input_wrap">
+								<div class="label">
+									<label for="origin">원산지 <span class="star_point">*</span></label>
+								</div>
+								<input type="text" id="origin" class="input_box" name="origin" value="${product.origin}">
+							</div>
+							<div class="input_wrap">
+								<div class="label">
+									<label for="stock">재고 <span class="star_point">*</span></label>
+								</div>
+								<input type="number" id="stock" class="input_box" name="stock" value="${product.stock}">
+							</div>
+							<div class="file_wrap">
+								<label for="thumbnail">썸네일 등록(대표이미지) <span class="star_point">*</span></label><br>
+								<span class="file_info">gif, png, jpg, jpeg 파일만 첨부가능 합니다.</span>
+								<c:if test="${prodThumbnail.isThumbnail == 1}">
+									<img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.filesystem}">
+								</c:if>
+								<input type="hidden" class="tnNo" name="tnNo" value="${prodThumbnail.tnNo}">
+								<div class="filebox">
+									<input class="upload-name" value="대표이미지" placeholder="대표이미지" readonly>
+								    <label for="thumbnail"><span id="thumbnail_add">썸네일 등록</span></label> 
+								    <input type="file" name="thumbnail" id="thumbnail" multiple="multiple" accept="image/gif, image/png, image/jpg, image/jpeg">
+								</div>
+							</div>
+							<div class="input_wrap content_wrap">
+								<label for="content" class="lbl_content">상세설명 <span class="star_point">*</span></label>
+						        <textarea name="content" id="content" name="content">${product.prodContent}</textarea>   
+							</div>
+							<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
+							<div id="summernote_image_list"></div>
+							<div class="button_wrap">
+								<button class="pink_button loc_btn_submit">수정하기</button>
+								<input type="button" class="button loc_btn_list" value="목록" id="btn_list">
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-	</form>
+	</div>
 </body>
 </html>

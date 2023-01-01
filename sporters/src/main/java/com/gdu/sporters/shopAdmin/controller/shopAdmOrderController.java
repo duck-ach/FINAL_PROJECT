@@ -32,5 +32,9 @@ public class shopAdmOrderController {
 		shopAdminOrderService.getOrderState(request);
 		return "redirect:/shopAdmin/orderManage";
 	}
-	
+	@GetMapping("/shopAdmin/orderSearch")
+	public String search(HttpServletRequest request, Model model) {
+		shopAdminOrderService.searchOrders(request, model);
+		return "shopAdmin/orderManage";
+	}
 }
