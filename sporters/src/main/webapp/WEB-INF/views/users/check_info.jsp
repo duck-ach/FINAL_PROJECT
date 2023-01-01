@@ -86,14 +86,14 @@ input {
 
 	.btn {
 	  	position: relative;
-	display: inline-block;
-	text-align: center;
-    height: 30px;
-    border: none;
-    font-size: 14px;
-    color: white;
-    background-color: #c8c8ff;
-    border-radius: 4px;
+		display: inline-block;
+		text-align: center;
+	    height: 30px;
+	    border: none;
+	    font-size: 14px;
+	    color: white;
+	    background-color: #c8c8ff;
+	    border-radius: 4px;
     
 	}
 	.btn:active {
