@@ -146,7 +146,7 @@
 	.div_result {
 		display:inline-block;
 		font-size: 15px;
-		border-bottom: 1px solid #8282ff;
+	/*	border-bottom: 1px solid #8282ff;*/
 		width: 70%;
    		margin-left: 6px;
 		height: 24px;
@@ -161,13 +161,14 @@
 		transition: .2s;
 	}
 	
-	
+	/*
 	.div_result:active,
 	.div_result:focus,
 	.div_result:hover {
 	  outline: none;
 	  border-bottom: 1px solid #black;
 	}
+	*/
 	
 	.msg_class {
 	    font-size: 12px;
@@ -190,13 +191,87 @@
 	.detail_addr {
 		width: 100%;
 	}
-	
+	/*
 	input:focus {
 		width: 100%;
 		border-bottom: 2px solid #8c8cff;
 		padding-right: 10px;
 	}
 
+	*/
+	
+	/* input 박스 호버 이벤트 영역 시작  */
+
+.div_result{
+	position:relative;
+}
+
+	.menu .div_result_in {
+ /*   color: #7878ff;*/
+    font-family: Lato;
+    font-size: 10pt;
+    /*
+    padding: 14px 20px;
+    */
+    position: relative;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
+}
+	
+	
+	.SMN_effect-20 .div_result_in {
+	  transition: 0.35s;
+	}
+	
+	.SMN_effect-20 .div_result_in:hover {
+	/*  color: #8c8cff;*/
+	  transition: 0.35s;
+	}
+	
+	.SMN_effect-20 .div_result_in:before, .SMN_effect-20 .div_result_in:after {
+	  content: "";
+	  width: 100%;
+	  border-bottom: 1px solid #8282ff; 
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  opacity: 1;
+	  transform: scale(1, 1);
+	  transform-origin: right center 0;
+	}
+	
+	.SMN_effect-20 .div_result_in:after {
+	  opacity: 0;
+	  transform: scale(0, 1);
+	  transform-origin: left center 0;
+	}
+	
+	.SMN_effect-20 .div_result_in:hover:before {
+	  opacity: 0;
+	  transform: scale(0, 1);
+	  transition: opacity 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0s;
+	}
+	
+	.SMN_effect-20 .div_result_in:hover:after {
+	  opacity: 1;
+	  transform: scale(1, 1);
+	  transition: transform 0.2s ease-in-out 0.25s;
+	}
+	
+	
+/* input 박스 호버 이벤트 영역 끝  */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </style>
 <script>
@@ -359,50 +434,115 @@
 			<div class="div_form">
 				<form id="frm_edit" action="/users/modify/info" method="post">
 					<input type="hidden" name="id" value="${loginUser.id}">
-
-					<div class="div_in_form">
+						
+						<!-- 
+					<div class="">
+						<span class="div_topic"><span  class="div_topic_in">아이디</span></span>
+						<span class="div_result"><span class="div_result_in">${loginUser.id}</span></span>
+					</div>
+						 -->
+					
+					<div class="div_in_form menu SMN_effect-20">
 						<span class="div_topic"><label for="name">이름 </label></span>
-						<span class="div_result"><input type="text" name="name" id="name" value="${loginUser.name}"></span>
+						<span class="div_result"><span class="div_result_in"><input type="text" name="name" id="name" value="${loginUser.name}"></span></span>
 					</div>
 					
-					<div class="div_in_form">
+					<div class="div_in_form menu SMN_effect-20">
 						<span class="div_topic">닉네임</span>
-						<span class="div_result">${loginUser.nickname}</span>
+						<span class="div_result"><span class="div_result_in">${loginUser.nickname}</span></span>
 					</div>
 					
 					
-					<div class="div_in_form">
+					<div class="div_in_form menu SMN_effect-20">
 						<span class="div_topic"><label for="email">이메일 </label></span>
-						<span class="div_result"><input type="text" name="email" id="email" value="${loginUser.email}"></span>
+						<span class="div_result"><span class="div_result_in"><input type="text" name="email" id="email" value="${loginUser.email}"></span></span>
 						<div class="msg_class" id="msg_email"></div>
 					</div>
 					
-					<div class="div_in_form">
+					<div class="div_in_form menu SMN_effect-20">
 						<span class="div_topic"><label for="mobile">휴대전화</label></span>
-						<span class="div_result"><input type="text" name="mobile" id="mobile" value="${loginUser.mobile}"></span>
+						<span class="div_result"><span class="div_result_in"><input type="text" name="mobile" id="mobile" value="${loginUser.mobile}"></span></span>
 						<div class="msg_class" id="msg_mobile"></div>
 					</div>
 					
-					<div class="div_in_form">
+					<div class="div_in_form menu SMN_effect-20">
 						<span class="div_topic">성별 </span>
-						<span class="div_result">
-						<input type="radio" name="gender" id="male" value="M">
-						<label for="male">남자 🙋‍♂️</label> &nbsp; &nbsp; &nbsp;
-						<input type="radio" name="gender" id="female" value="F">
-						<label for="female">여자 🙋</label>
-						</span>
+						<span class="div_result"><span class="div_result_in">
+						<input  class="male_check"  type="radio" name="gender" id="male" value="M">
+						<label class="male_check_in"  for="male">남자 🙎‍♂️</label> &nbsp; &nbsp; &nbsp;
+						<input class="female_check" type="radio" name="gender" id="female" value="F">
+						<label class="female_check_in" for="female">여자 🙍‍♀️</label>
+						</span></span>
 						<script>
-							$(':radio[name="gender"][value="${loginUser.gender}"]').prop('checked', true);
+							
+						$(function(){
+							
+							setTimeout(function() {
+								$(':radio[name="gender"][value="${loginUser.gender}"]').prop('checked', true);
+								
+								if('${loginUser.gender}' == 'M'   ){  
+									 $('.male_check_in').text('남자 🙋‍♂️');
+								}
+								else if('${loginUser.gender}' == 'F'   ){  
+									 $('.female_check_in').text('여자 🙋');
+								}
+								
+								}, 1000);
+							
+							
+							
+							 $('.male_check').click(function() {
+							        if ($("input[type=radio][name=gender]:checked").val()) {
+							        //    alert('남자체크');
+							            $('.male_check_in').text('남자 🙋‍♂️');
+							            $('.female_check_in').text('여자 ‍🙍‍♀️');
+							        }
+							        else {
+							          //  alert('남자체크 해제');
+							        }
+							    })
+							
+							    $('.female_check').click(function() {
+							        if ($("input[type=radio][name=gender]:checked").val()) {
+							       //     alert('여자체크');
+							            $('.female_check_in').text('여자 🙋');
+							            $('.male_check_in').text('남자 🙎‍♂️');
+							        }
+							        else {
+							      //      alert('여자체크 해제');
+							        }
+							    })						
+							
+							
+								
+								//if($(":radio[name='gender'][value='value='M''].prop('checked', true")){
+								//	$('.male_check:radio[name=gender]').is(":checked");
+								/*
+								if($('.male_check:radio[name=gender]').is(":checked")){
+									alert('남자체크');
+									$('.male_check_in').text('남자 🙋‍♂️');
+								}else{
+									$('.male_check_in').text('남자 🙎‍♂️');	
+									}
+								
+								if($('.female_check:radio[name=gender]').is(":checked")){
+									alert('여자체크');
+									$('.female_check_in').text('여자 🙋');
+								}else{
+									$('.female_check_in').text('여자 ‍🙍‍♀️');	
+									}
+								*/
+							});							
 						</script>
 					</div>
 					
-					<div class="div_in_form">
+					<div class="div_in_form menu SMN_effect-20">
 						<span class="div_topic"><label for="birthyear">생년월일 </label></span>
-						<span class="div_result select_box_div">
+						<span class="div_result select_box_div"><span class="div_result_in">
 						<select name="birthyear" id="birthyear"></select>
 						<select name="birthmonth" id="birthmonth"></select>
 						<select name="birthday" id="birthday"></select>
-						</span>
+						</span></span>
 					</div>
 					
 					<div class="div_topic" style="margin-bottom: 10px;">주소 </div>
