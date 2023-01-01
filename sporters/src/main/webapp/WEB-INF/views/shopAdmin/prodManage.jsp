@@ -13,7 +13,6 @@
 <script>
 
 	$(function(){
-		/* fn_stock(); */
 		$('.attach_img').tooltip();
 		
 		// 검색 submit 확인
@@ -52,16 +51,6 @@
 			});
 		});
 	});
-/* 	function fn_stock() {
-		if($('.stock_cnt').val() == 0) {
-			$('.stock_cnt').parent().parent().parent().addClass('red');			
-		} else {
-			$('.stock_cnt').parent().removeClass('red');
-		} */
-		
-		
-		
-	}
 </script>
 <style>
 .in_wrap {
@@ -301,24 +290,46 @@ tfoot a {
 					</thead>
 					<tbody>
 						<c:forEach items="${prodList}" var="prod" varStatus="vs">
-							<tr class="tr">
-								<td class="center_td">${beginNo - vs.index}</td>
-								<td class="center_td">${prod.prodNo}</td>
-								<td>
-									<c:if test="${prod.prodThumbnail.isThumbnail == 1}">
-										<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodThumbnail.tnFilesystem}">
-									</c:if>
-									<c:if test="${prod.prodThumbnail.isThumbnail == 0 || prod.prodThumbnail.isThumbnail == null}">
-										<img src="/resources/images/shopAdmin/no-image.jpeg" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodName}">
-									</c:if>
-								</td>
-								<td class="center_td">${prod.prodCategory.prodCategoryName}</td>
-								<td><a class="prodName" href="/shopAdmin/prod/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>
-								<td class="center_td">${prod.origin}</td>
-								<td class="center_td">${prod.price}</td>
-								<td class="center_td">${prod.discount}</td>
-								<td class="center_td prod_stock">${prod.stock}<input type="hidden" class="stock_cnt" value="${prod.stock}"></td>
-							</tr>
+							<c:if test="${prod.stock == 0}">
+								<tr class="tr red">
+									<td class="center_td">${beginNo - vs.index}</td>
+									<td class="center_td">${prod.prodNo}</td>
+									<td>
+										<c:if test="${prod.prodThumbnail.isThumbnail == 1}">
+											<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodThumbnail.tnFilesystem}">
+										</c:if>
+										<c:if test="${prod.prodThumbnail.isThumbnail == 0 || prod.prodThumbnail.isThumbnail == null}">
+											<img src="/resources/images/shopAdmin/no-image.jpeg" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodName}">
+										</c:if>
+									</td>
+									<td class="center_td">${prod.prodCategory.prodCategoryName}</td>
+									<td><a class="prodName" href="/shopAdmin/prod/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>
+									<td class="center_td">${prod.origin}</td>
+									<td class="center_td">${prod.price}</td>
+									<td class="center_td">${prod.discount}</td>
+									<td class="center_td prod_stock">${prod.stock}</td>
+								</tr>
+							</c:if>
+							<c:if test="${prod.stock > 0}">
+								<tr class="tr">
+									<td class="center_td">${beginNo - vs.index}</td>
+									<td class="center_td">${prod.prodNo}</td>
+									<td>
+										<c:if test="${prod.prodThumbnail.isThumbnail == 1}">
+											<img src="/shopAdmin/prod/display?prodNo=${prod.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodThumbnail.tnFilesystem}">
+										</c:if>
+										<c:if test="${prod.prodThumbnail.isThumbnail == 0 || prod.prodThumbnail.isThumbnail == null}">
+											<img src="/resources/images/shopAdmin/no-image.jpeg" width="100px" class="attach_img" alt="thumbnail_img" title="${prod.prodName}">
+										</c:if>
+									</td>
+									<td class="center_td">${prod.prodCategory.prodCategoryName}</td>
+									<td><a class="prodName" href="/shopAdmin/prod/detail?prodNo=${prod.prodNo}">${prod.prodName}</a></td>
+									<td class="center_td">${prod.origin}</td>
+									<td class="center_td">${prod.price}</td>
+									<td class="center_td">${prod.discount}</td>
+									<td class="center_td prod_stock">${prod.stock}</td>
+								</tr>
+							</c:if>	
 						</c:forEach>
 					</tbody>
 					<tfoot>

@@ -200,30 +200,32 @@ button {
 					</thead>
 					<tbody>
 						<c:forEach items="${orderList}" var="order">
-							<tr>
-								<td class="center_td">${order.orderNo}</td>
-								<td class="center_td">${order.users.name}</td>
-								<td class="center_td">${order.name}</td>
-								<td class="center_td">${order.mobile}</td>
-								<td class="center_td">${order.priceAll}</td>
-								<td class="center_td">${order.orderState}</td>
-								<td class="center_td">${order.orderDate}</td>
-								<td class="center_td"><a class="go_detail" href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
-								<td class="center_td">
-									<form action="/shopAdmin/order/state" method="get">
-										<input type="hidden" name="orderNo" value="${order.orderNo}">
-										<select name="orderState">
-											<option value="">===선택===</option>
-											<option value="결제완료">결제완료</option>
-											<option value="상품준비중">상품준비중</option>
-											<option value="배송중">배송중</option>
-											<option value="배송완료">배송완료</option>
-											<option value="주문취소">주문취소</option>
-										</select>
-										<button>변경</button>
-									</form>
-								</td>
-							</tr>
+							<c:if test="${order.orderState == '결제완료'}">
+								<tr>
+									<td class="center_td">${order.orderNo}</td>
+									<td class="center_td">${order.users.name}</td>
+									<td class="center_td">${order.name}</td>
+									<td class="center_td">${order.mobile}</td>
+									<td class="center_td">${order.priceAll}</td>
+									<td class="center_td">${order.orderState}</td>
+									<td class="center_td">${order.orderDate}</td>
+									<td class="center_td"><a class="go_detail" href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
+									<td class="center_td">
+										<form action="/shopAdmin/order/state" method="get">
+											<input type="hidden" name="orderNo" value="${order.orderNo}">
+											<select name="orderState">
+												<option value="">===선택===</option>
+												<option value="결제완료">결제완료</option>
+												<option value="상품준비중">상품준비중</option>
+												<option value="배송중">배송중</option>
+												<option value="배송완료">배송완료</option>
+												<option value="주문취소">주문취소</option>
+											</select>
+											<button>변경</button>
+										</form>
+									</td>
+								</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 					<tfoot>

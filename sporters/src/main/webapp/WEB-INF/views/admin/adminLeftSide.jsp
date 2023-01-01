@@ -11,14 +11,14 @@ body, html {
 	height: 100%;
 }
 #menu_wrap {
-	position: absolute;
-	top : 80px;
-	background-color: rgb(17, 24, 39);
-	padding-left:8px;
-	width: 235px;
-	height: 200%;
-	border-right: 1px solid #FFF;
-	padding-top: 8px;
+	position: fixed;
+    top: 0;
+    background-color: rgb(17, 24, 39);
+    padding-left: 8px;
+    width: 235px;
+    height: 100%;
+    border-right: 1px solid #FFF;
+    padding-top: 94px;
 }
 #com_menu, #shop_menu{
 	padding-bottom:20px;

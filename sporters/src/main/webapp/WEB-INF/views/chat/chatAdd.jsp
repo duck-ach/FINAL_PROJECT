@@ -46,15 +46,6 @@
 	
 </script>
 <style>
-/* wrap */
-.all_wrap {
-	width:800px;
-	margin: 0 auto;
-}
-.frm_wrap {
-	width: 600px;
-	margin: 0 auto;
-}
 /* header */
 .mapage_div { position: relative; }
 
@@ -79,6 +70,78 @@
 .mapage_div:hover:after { 
   transform: translateX(5px);
 }
+/* wrap */
+.all_wrap {
+	width:800px;
+	margin: 0 auto;
+}
+.frm_wrap {
+	width: 600px;
+	margin: 0 auto;
+	position: relative;
+}
+.form_content_wrap {
+	margin-bottom: 30px;
+}
+
+/* input_box */
+.label_name {
+	font-size: 15px;
+}
+.input_box {
+	width: 600px;
+	border:none;
+	border-bottom: 1px solid #8c8cff;
+	outline: none;
+	font-size: 18px;
+}
+
+/* select box */
+.selectBox {
+  position: relative;
+  width: 150px;
+  height: 35px;
+  border-radius: 4px;
+  border: 2px solid lightcoral;
+  margin-left: 80px;
+}
+.selectBox .select {
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0 5px;
+  position: relative;
+  z-index: 3; // select가 위로 올라와야 함
+}
+.selectBox .select option {
+  background: lightcoral;
+  color: #fff;
+  padding: 3px 0;
+  font-size: 16px;
+}
+.selectBox .icoArrow {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  z-index: 1; 
+  width: 35px; 
+  height: inherit;
+  border-left: 2px solid lightcoral;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectBox .icoArrow img {
+
+  width: 50%;
+  transition: .3s; // 부드럽게 회전
+}
+
+.selectBox .select:focus + .icoArrow img {
+  transform: rotate(180deg);
+}
 </style>
 <body>
 <div class="all_wrap">
@@ -88,114 +151,125 @@
 	<hr>
 	<div class="frm_wrap">
 		<form id="chatAddFrm" action="/chat/chatAdd" method="post">
-			<label for="room_title">채팅방 이름</label>
-			<input type="text" id="room_title" name="roomTitle" maxlength="30"><br>
-			<label for="max_user_cnt">인원수</label>
-	        <select id="max_user_cnt" name="maxUserCnt">
-	            <option selected value="2">2</option>
-	            <option value="3">3</option>
-	            <option value="4">4</option>
-	            <option value="5">5</option>
-	            <option value="6">6</option>
-	            <option value="7">7</option>
-	            <option value="8">8</option>
-	            <option value="9">9</option>
-	            <option value="10">10</option>
-	            <option value="11">11</option>
-	            <option value="12">12</option>
-	            <option value="13">13</option>
-	            <option value="14">14</option>
-	            <option value="15">15</option>
-	            <option value="16">16</option>
-	            <option value="17">17</option>
-	            <option value="18">18</option>
-	            <option value="19">19</option>
-	            <option value="20">20</option>
-	            <option value="21">21</option>
-	            <option value="22">22</option>
-	            <option value="23">23</option>
-	            <option value="24">24</option>
-	            <option value="25">25</option>
-	            <option value="26">26</option>
-	            <option value="27">27</option>
-	            <option value="28">28</option>
-	            <option value="29">29</option>
-	            <option value="30">30</option>
-	            <option value="31">31</option>
-	            <option value="32">32</option>
-	            <option value="33">33</option>
-	            <option value="34">34</option>
-	            <option value="35">35</option>
-	            <option value="36">36</option>
-	            <option value="37">37</option>
-	            <option value="38">38</option>
-	            <option value="39">39</option>
-	            <option value="40">40</option>
-	            <option value="41">41</option>
-	            <option value="42">42</option>
-	            <option value="43">43</option>
-	            <option value="44">44</option>
-	            <option value="45">45</option>
-	            <option value="46">46</option>
-	            <option value="47">47</option>
-	            <option value="48">48</option>
-	            <option value="49">49</option>
-	            <option value="50">50</option>
-	            <option value="51">51</option>
-	            <option value="52">52</option>
-	            <option value="53">53</option>
-	            <option value="54">54</option>
-	            <option value="55">55</option>
-	            <option value="56">56</option>
-	            <option value="57">57</option>
-	            <option value="58">58</option>
-	            <option value="59">59</option>
-	            <option value="60">60</option>
-	            <option value="61">61</option>
-	            <option value="62">62</option>
-	            <option value="63">63</option>
-	            <option value="64">64</option>
-	            <option value="65">65</option>
-	            <option value="66">66</option>
-	            <option value="67">67</option>
-	            <option value="68">68</option>
-	            <option value="69">69</option>
-	            <option value="70">70</option>
-	            <option value="71">71</option>
-	            <option value="72">72</option>
-	            <option value="73">73</option>
-	            <option value="74">74</option>
-	            <option value="75">75</option>
-	            <option value="76">76</option>
-	            <option value="77">77</option>
-	            <option value="78">78</option>
-	            <option value="79">79</option>
-	            <option value="80">80</option>
-	            <option value="81">81</option>
-	            <option value="82">82</option>
-	            <option value="83">83</option>
-	            <option value="84">84</option>
-	            <option value="85">85</option>
-	            <option value="86">86</option>
-	            <option value="87">87</option>
-	            <option value="88">88</option>
-	            <option value="89">89</option>
-	            <option value="90">90</option>
-	            <option value="91">91</option>
-	            <option value="92">92</option>
-	            <option value="93">93</option>
-	            <option value="94">94</option>
-	            <option value="95">95</option>
-	            <option value="96">96</option>
-	            <option value="97">97</option>
-	            <option value="98">98</option>
-	            <option value="99">99</option>
-	            <option value="100">100</option>
-	        </select><br>
-			<label for="isPw">비밀번호</label>
-			<input type="checkbox" name="isPw" id="isPw" value="1"><br>
-			<input type="text" maxlength="4" id="roomPw" name="roomPw" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" disabled><br>
-			<button>생성하기</button>
+			<div class="form_content_wrap">
+				<label for="room_title" class="label_name">채팅방 이름</label><br>
+				<input type="text" id="room_title" class="input_box" name="roomTitle" maxlength="30"><br>
+			</div>
+			<div class="form_content_wrap">
+				<label for="max_user_cnt" class="label_name">인원수</label>
+				<div class="selectBox">
+			        <select id="max_user_cnt" class="select" name="maxUserCnt">
+			            <option selected value="2">2</option>
+			            <option value="3">3</option>
+			            <option value="4">4</option>
+			            <option value="5">5</option>
+			            <option value="6">6</option>
+			            <option value="7">7</option>
+			            <option value="8">8</option>
+			            <option value="9">9</option>
+			            <option value="10">10</option>
+			            <option value="11">11</option>
+			            <option value="12">12</option>
+			            <option value="13">13</option>
+			            <option value="14">14</option>
+			            <option value="15">15</option>
+			            <option value="16">16</option>
+			            <option value="17">17</option>
+			            <option value="18">18</option>
+			            <option value="19">19</option>
+			            <option value="20">20</option>
+			            <option value="21">21</option>
+			            <option value="22">22</option>
+			            <option value="23">23</option>
+			            <option value="24">24</option>
+			            <option value="25">25</option>
+			            <option value="26">26</option>
+			            <option value="27">27</option>
+			            <option value="28">28</option>
+			            <option value="29">29</option>
+			            <option value="30">30</option>
+			            <option value="31">31</option>
+			            <option value="32">32</option>
+			            <option value="33">33</option>
+			            <option value="34">34</option>
+			            <option value="35">35</option>
+			            <option value="36">36</option>
+			            <option value="37">37</option>
+			            <option value="38">38</option>
+			            <option value="39">39</option>
+			            <option value="40">40</option>
+			            <option value="41">41</option>
+			            <option value="42">42</option>
+			            <option value="43">43</option>
+			            <option value="44">44</option>
+			            <option value="45">45</option>
+			            <option value="46">46</option>
+			            <option value="47">47</option>
+			            <option value="48">48</option>
+			            <option value="49">49</option>
+			            <option value="50">50</option>
+			            <option value="51">51</option>
+			            <option value="52">52</option>
+			            <option value="53">53</option>
+			            <option value="54">54</option>
+			            <option value="55">55</option>
+			            <option value="56">56</option>
+			            <option value="57">57</option>
+			            <option value="58">58</option>
+			            <option value="59">59</option>
+			            <option value="60">60</option>
+			            <option value="61">61</option>
+			            <option value="62">62</option>
+			            <option value="63">63</option>
+			            <option value="64">64</option>
+			            <option value="65">65</option>
+			            <option value="66">66</option>
+			            <option value="67">67</option>
+			            <option value="68">68</option>
+			            <option value="69">69</option>
+			            <option value="70">70</option>
+			            <option value="71">71</option>
+			            <option value="72">72</option>
+			            <option value="73">73</option>
+			            <option value="74">74</option>
+			            <option value="75">75</option>
+			            <option value="76">76</option>
+			            <option value="77">77</option>
+			            <option value="78">78</option>
+			            <option value="79">79</option>
+			            <option value="80">80</option>
+			            <option value="81">81</option>
+			            <option value="82">82</option>
+			            <option value="83">83</option>
+			            <option value="84">84</option>
+			            <option value="85">85</option>
+			            <option value="86">86</option>
+			            <option value="87">87</option>
+			            <option value="88">88</option>
+			            <option value="89">89</option>
+			            <option value="90">90</option>
+			            <option value="91">91</option>
+			            <option value="92">92</option>
+			            <option value="93">93</option>
+			            <option value="94">94</option>
+			            <option value="95">95</option>
+			            <option value="96">96</option>
+			            <option value="97">97</option>
+			            <option value="98">98</option>
+			            <option value="99">99</option>
+			            <option value="100">100</option>
+			        </select>
+			        <span class="icoArrow"><img src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png" alt=""></span>
+				</div>
+			</div>
+			<div class="form_content_wrap">
+				<label for="isPw" class="label_name">비밀번호</label>
+				<input type="checkbox" name="isPw" id="isPw" value="1"><br>
+				<input type="text" maxlength="4" id="roomPw" name="roomPw" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" disabled><br>
+			</div>
+			<div class="btn_wrap">
+				<button>생성하기</button>
+			</div>
 		</form>
 	</div>
 	
