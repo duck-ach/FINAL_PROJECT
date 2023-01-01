@@ -68,7 +68,7 @@ body {
   position: absolute;
   top:0;
   left: 0;
-  padding: 10px 0;
+/*   padding: 10px 0; */
   font-size: 16px;
   color: #999;
   pointer-events: none;
@@ -112,7 +112,7 @@ body {
 	.user-box-with-btn input {
 	  width: 50%;
 	  height: 20px;
-	  padding: 10px 0;
+	  padding: 16px 0;
 	  font-size: 16px;
 	  color: #999;
 	  margin-bottom: 26px;
@@ -123,7 +123,7 @@ body {
 	}
 	
 	.user-box-with-btn label {
-		position: absolute;
+	  position: absolute;
 	  top:0;
 	  left: 0;
 	  padding: 10px 0;
@@ -711,7 +711,7 @@ select::-ms-expand{
                <input class="buttons purple" type="button" value="인증번호받기" id="btn_getAuthCode" >
             </span>
             </div> 
-            <div class="display_class">
+            <div class="display_class" style="margin-bottom: 10px;">
             <span class="user-box-with-btn">
                <input class="input" type="text" name="authCode" id="authCode" required="" style="width: 350px;">
                <label for="authCode" >인증코드 입력</label>
@@ -722,12 +722,12 @@ select::-ms-expand{
             </div>
             
             
-            <div style="height: 50px;"></div>
+            <div style="height: 10px; border-top: 1px dotted #c8c8ff;"></div>
            
 
-            <div style="text-align: right;">
-               <button class="buttons purple" >가입하기</button>
+            <div style="text-align: right;display: flex; justify-content: space-between;">
                <input  class="buttons purple" type="button" value="가입취소" onclick="history.back();">
+               <button class="buttons purple" >가입하기</button>
             </div>
          </form>
       </div>

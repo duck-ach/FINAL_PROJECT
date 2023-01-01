@@ -6,6 +6,11 @@
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
+
+.wrap {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
 .align {
   display: grid;
   place-items: center;
@@ -140,8 +145,7 @@ input {
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div class="align">
-		
-			<h1>탈퇴를 위한 비밀번호 확인</h1>
+
 			<h3>회원의 정보를 안전하게 보호하기 위해서 비밀번호를 확인합니다.</h3>
 			
 			<div>
