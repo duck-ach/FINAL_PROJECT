@@ -228,6 +228,7 @@ $(document).ready(function(){
 <body>
 <div class="body_wrap">
 	<div class="code_wrap">
+	<div class="in_wrap">
 <a>▩▩▩카테고리 관리▩▩▩</a>
 <section id="addCategory">
 <form id="addCategoryFrm" method="get" >
@@ -298,6 +299,7 @@ $(document).ready(function(){
 		</tfoot>
 	</table>
 </section>
+	</div>
 </div>
 </div>
 </body>
