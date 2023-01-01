@@ -7,6 +7,61 @@
 <meta charset="UTF-8">
 <title>Sporters - 실시간 채팅</title>
 <script src="/resources/js/jquery-3.6.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+	<script>
+	
+	$(function(){
+		fn_getUserList();
+		fn_keyup_chat_event();
+	});
+	
+
+	// 채팅창 close할때 유저 DB에서 삭제
+	$(window).on('unload', function() {
+		$.ajax({
+			type : 'POST',
+			url : '/chat/close',
+			data : $('#frm').serialize()
+		});
+
+	});
+	
+	function fn_keyup_chat_event() {
+		$('#message').on('keyup', function() {
+			if($(this).val() != '') {
+				$(this).next().css('backgroundColor', '#FF9696')
+			} else {
+				$(this).next().css('backgroundColor', '#FFE6E6')
+			}
+		});
+	}
+	
+	function fn_getUserList() {
+		$.ajax({
+			type: 'get',
+			url : '/chat/userList',
+			dataType : 'json',
+			success : function(resData) {
+				$('#userList').empty();
+				$.each(resData, function(i, data){
+					$('<li class="user_list"><i class="fa-solid fa-user"></i> <a class="users" href="/users/userInfo?id=' + data.user.id + '">').text(data.user.nickname)
+					 	.appendTo('#userList');
+				});
+			}
+		});
+	}
+	
+	// 유저가 0명일 때 해당 채팅방 삭제
+/* 	$('#currUserCnt').on('change', function() {
+		if($('#currUserCnt').val() == 0) {
+			alert($('#chatRoomId').val());
+			location.href='/chat/deleteChatRoom?chatRoomId=' + $('#chatRoomId').val();
+		}
+	}); */
+	
+	// 채팅 입력 버튼 활성화
+	
+</script>
 <style>
 	* {
 		box-sizing: border-box;
@@ -16,39 +71,99 @@
 		display: inline-block;
 	}
 	.user_wrap {
-		width: 200px;
+        width: 200px;
+	    height: 460px;
 	    display: inline-block;
 	    vertical-align: top;
-	    margin-top: 20px;
+	    margin-top: 0px;
+	    border: 2px solid #c8c8ff;
+	    border-radius: 10px;
+	    padding: 10px;
+        margin-left: 10px;
 	}
+	
+	.mapage_div { position: relative; }
+
+	.mapage_div:before,
+	.mapage_div:after {
+	  content: '[';
+	  display: inline-block;
+	  position: relative;
+	  top: 1px;
+	  height: 5%;
+	  font-size: 1.25em;
+	  color: #8282ff;
+	  transition: all 0.5s ease;
+	}
+	
+	.mapage_div:after { content: ']'; }
+	
+	.mapage_div:hover:before { 
+	  transform: translateX(-5px);
+	}
+	
+	.mapage_div:hover:after { 
+	  transform: translateX(5px);
+	}
+	
+	ul {
+		list-style: none;
+		padding-left: 0px;
+	    color: #000;
+	    font-size: 15px;
+	}
+	.user_list_title {
+		
+	}
+	
 	.btn {
 		width: 60px;
 	}
 	.talking_content {
 		width: 640px;
-		height: 360px;
+		height: 377px;
 		overflow-y: scroll;
-		border : 1px solid gray;
 		background-color: #fff;
 	}
+	.message_area {
+		height:80px;
+	}
 	.message {
-		width: 574px;
-		height: 100px;
+		width: 530px;
+		height: 80px;
 		display: inline-block;
 		resize: none;
+		background-color: rgb(239, 239, 239);
+		outline: none;
+		margin-top: 3px;
+		border-radius: 3px;
+		padding: 5px;
+		border:none;
 	}
 	.message_area > * {
 		vertical-align: top;
 	}
 	#btn_send {
-		height: 100px;
+	    height: 80px;
+	    width: 105px;
+	    margin-top: 3px;
+	    background-color: #FFE6E6;
+	    border: none;
+	    border-radius: 3px;
+	    color: #fff;
 	}
 	.talking_content {
 		position: relative;
-		padding: 5px;
+	    padding: 5px;
+	    border-radius: 4px;
+	    background-color: rgb(242, 242, 255);
+	}
+	.talking_content::-webkit-scrollbar {
+	    display: none;
 	}
 	.small_text {
 		font-size: 12px;
+		text-align: left;
 	}
 	.my_message, .other_message {
 		margin-bottom: 5px;
@@ -63,80 +178,65 @@
 		display: inline-block;
 		max-width: 48%;
 		border-radius: 3px;
+		width: 200px;
 	}
 	.my_message_content {
 		text-align: right;
 		color:#fff;
 		background-color: #8282FF;
+	    padding: 8px;
 	}
 	.other_message_content {
 		text-align: left;
-		background-color: rgb(241,241,251);
+		background-color: #C8C8FF;
+		padding: 5px;
+	}
+	/* chat no */
+	.chat_no {
+	    background-color: #8c8cff;
+	    border-radius: 5px;
+	    padding: 5px;
+	    color: #fff;
+	}
+	.chat_title {
+	    padding: 5px;
+	    font-weight: 900;
+	    margin-left: 10px;
+	}
+	.currUserCnt {
+		margin-left: 650px;
+	}
+	
+	.chat_content_wrap {
+	    margin-top: 22px;
+    	margin-left: 12px;
 	}
 </style>
-<script>
-	
-	$(function(){
-		fn_getUserList();	
-	});
-	
-
-	// 채팅창 close할때 유저 DB에서 삭제
-	$(window).on('unload', function() {
-		$.ajax({
-			type : 'POST',
-			url : '/chat/close',
-			data : $("#frm").serialize()
-		});
-
-	});
-	
-	function fn_getUserList() {
-		$.ajax({
-			type: 'get',
-			url : '/chat/userList',
-			dataType : 'json',
-			success : function(resData) {
-				$('#userList').empty();
-				$.each(resData, function(i, data){
-					$('<li><a href="/users/userInfo">').text(data.user.nickname)
-					 	.appendTo('#userList');
-				});
-			}
-		});
-	}
-	
-	// 유저가 0명일 때 해당 채팅방 삭제
-	$('#currUserCnt').on('change', function() {
-		if($('#currUserCnt').val() == 0) {
-			location.href='/chat/deleteChatRoom?chatRoomId=${chatRoom.chatRoomId}';
-		}
-	});
-	
-</script>
 </head>
 <body>
 	<form id="frm">
-		<input type="hidden" name="userNo" value="${user.userNo}">
+		<input type="hidden" id="userNo" name="userNo" value="${user.userNo}">
 		<input type="hidden" id="gender" value="${user.gender}">
 		<input type="hidden" id="id" name="nickname" value="${user.nickname}">
-		<input type="hidden" id="currUserCnt" value="${currUserCnt}">
 	</form>
+		<input type="hidden" id="currUserCnt" value="${currUserCnt}">
+		<input type="hidden" id="chatRoomId" value="${chatRoom.chatRoomId}">
 	<div>
-		<span>${chatRoom.chatRoomId}</span> | <span>${chatRoom.chatRoomTitle}</span>
-		<span class="currUserCnt">${currUserCnt}</span> / <span>${chatRoom.maxUsersCnt}</span>
+		<span class="chat_no">채팅방 번호 ${chatRoom.chatRoomId}</span><span class="chat_title">${chatRoom.chatRoomTitle}</span>
+		<span class="currUserCnt">${currUserCnt} / ${chatRoom.maxUsersCnt}</span>
 	</div>
 <hr>
-	<div id="after_come_in">
-		<strong id="login_id">${user.nickname}</strong><span> 님</span>
-	</div>
-	
-	
-	<div>
+	<div class="chat_content_wrap">
+		<div class="user_wrap">
+			<div id="title_wrap">
+				<div class="mapage_div" style="font-size: 15px; font-weight: bold; text-align: center;"> 현재 접속 유저 </div>
+			</div>
+			<div>
+				<ul id="userList">
+				</ul>
+			</div>
+		</div>
 		<div class="wrap">
-			
-			
-			<div>대화창</div>
 			<div id="talking_content" class="talking_content">
 			</div>
 			
@@ -144,11 +244,6 @@
 				<textarea class="message" id="message" wrap="hard"></textarea>
 				<input type="button" value="전송" class="btn" id="btn_send">
 			</div>
-		</div>
-		<div class="user_wrap">
-			<div>접속한 유저 목록</div>
-			<ul id="userList">
-			</ul>
 		</div>
 	</div>
 
@@ -211,7 +306,7 @@
 					text = '<div class="other_message"><div class="other_message_content">';
 				}
 				text += '<div class="small_text">'
-				text += '<strong>' + data.id + '</strong>&nbsp;<span>' + data.gender + '</span>';
+				text += '<strong>' + data.id + '</strong>&nbsp;<span>' + data.gender + '</span> ';
 				text += '(' + data.date + ')';
 				text += '</div>';
 				text += '<pre style="white-space: pre-wrap;">' + data.message + '</pre>';
@@ -246,6 +341,5 @@
 		
 
 	</script>
-	
 </body>
 </html>

@@ -12,9 +12,31 @@ public class MyTextWebSocketHandler extends TextWebSocketHandler {
 	// 현재 채팅 서버에 접속한 클라이언트(WebSocketSession Session) 목록 - HttpSession 아님 주의
 	private final Set<WebSocketSession> clientList = ConcurrentHashMap.newKeySet();
 	
+	// init-method
+	public void init() throws Exception{
+						
+	}
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {  // 클라이언트가 접속할 때 동작, '/chatserver'로 접속하면 가장 먼저 실행됨
 		clientList.add(session);
+//		 // 접속자 명단
+//		String connectingUserName = "「";
+//		
+//		for(WebSocketSession webSocketSession : clientList) {
+//			Map<String, Object> map = webSocketSession.getAttributes();						
+//			UsersDTO loginuser = (UsersDTO) map.get("loginuser");
+//			// "loginuser" 은 HttpSession에 저장된 키 값으로 로그인 되어진 사용자이다.
+//			
+//			connectingUserName += loginuser.getName()+" "; 
+//			
+//		}// end of for--------------------
+//		
+//		connectingUserName += "」";
+//				
+//		for(WebSocketSession webSocketSession : clientList) {
+//			webSocketSession.sendMessage(new TextMessage(connectingUserName)); 
+//		}
 	}
 	
 	@Override
