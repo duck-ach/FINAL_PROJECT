@@ -39,6 +39,14 @@
 		    ON U.USER_NO = C.USER_NO
 	</select>
 	
+	<!-- 현재 채팅에 접속한 유저목록 검색 -->
+	<select id="selectUserListByChatUserNo" resultMap="ChatUserMap" parameterType="map">
+		SELECT U.USER_NO, U.ID, U.NICKNAME, U.GENDER
+		  FROM USERS U INNER JOIN CHAT_USERS C
+		    ON U.USER_NO = C.USER_NO
+		 WHERE C.USER_NO = #{userNo}
+	</select>
+	
 	<!-- 현재 접속한 본인 -->
 	<select id="selectUserByChat" resultMap="UserMap" parameterType="int">
 		SELECT U.USER_NO, U.ID, U.NICKNAME, U.GENDER

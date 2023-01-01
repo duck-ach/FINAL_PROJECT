@@ -21,5 +21,9 @@ public interface ShopService {
 	public List<ProductDTO> getCategoryList(int prodCategoryNo);
 	public ResponseEntity<byte[]> display(int prodNo);
 	public Map<String, Object> isSameProdNo(Map<String, Object> map);
-	public void addOrder(OrderDTO order);
+	public void addOrder(OrderDTO order, CartDTO cart, Model model);
+	public int updateStock(ProductDTO product);
+	public void getOrderList(Model model);
+	public void getOrderDetail(HttpServletRequest request, Model model);
+	public void selectOrderNo();
 }

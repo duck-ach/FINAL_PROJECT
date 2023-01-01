@@ -16,26 +16,44 @@
 		$('.btn_addCart').click(function(){
 			var prodNo = $(this).data('prodno');
 			var prodCnt =$(this).prev().prev().children().val();
-			alert(prodNo);
-			alert(prodCnt);
+			var stock = $(this).data('stock');
 			var data = {
 					prodNo: prodNo,
-					prodCnt: prodCnt
+					prodCnt: prodCnt,
+					stock: stock
 					};
-			
 			$.ajax({
-				url: '/shop/addCart',
-				type: 'post',
-				data: data,
+				type: 'get',
+				url: '/cartList/sameProdNo',
+				data: 'prodNo=' + prodNo,
+				dataType: 'json',
 				success: function(result){
-					if(result == 1){
-						alert('카트 담기 성공');
+					if(result.prodNo != true){
+						if(stock > prodCnt){
+							$.ajax({
+								url: '/shop/addCart',
+								type: 'post',
+								data: data,
+								success: function(result){
+									if(result == 1){
+										alert('카트 담기 성공');
+									} else {
+										alert('로그인하세요!');
+									}
+								},
+								error: function(){
+									alert('카트 담기 실패');
+								}
+							});
+						} else {
+							alert('구매량이 재고량보다 많습니다.');
+						}
 					} else {
-						alert('로그인하세요!');
+						alert('이미 구매한 상품입니다.');
 					}
 				},
 				error: function(){
-					alert('카트 담기 실패');
+					alert('실패지롱');
 				}
 			});
 		}); 
@@ -145,7 +163,7 @@
 					<%}%>
 					</select>개</span>
 					<button class="btn_buy">구매하기</button>
-					<button class="btn_addCart" data-prodno="${list.prodNo}" data-prodcnt="">장바구니 담기</button>
+					<button class="btn_addCart" data-prodno="${list.prodNo}" data-stock="${list.stock}">장바구니 담기</button>
 				</li>
 			</ul>
 		</c:forEach>

@@ -16,9 +16,11 @@ import lombok.NoArgsConstructor;
 public class OrderDTO {
 	private int orderNo;
 	private int userNo;
+	private int cartBundle; // 카트묶음
 	private int cartNo;
 	private int payment;
 	private int priceAll; // 전체가격
+	private int prodCnt;
 	private String orderState; // 주문상태
 	private String name;
 	private String mobile;
