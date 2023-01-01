@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" type="text/css" href="/resources/css/button_go.css">
 <style>
         #modal {
           display: none;
@@ -42,6 +43,32 @@
           background:rgba(0, 0, 0, 0.5);
           z-index:-1;
         }   
+        
+        .content_title_area{
+        
+        display: flex;
+        margin-top: 1vw;       
+	    flex-wrap: nowrap;
+	    justify-content: space-between;
+	}
+	
+	.content_title_area_right div{
+	
+		display: inline-block;
+		vertical-align: text-top;
+		padding: 0 0.3vw;
+	}
+	
+	.content_title_area_right span{
+		padding: 0 0.3vw;
+	}
+	
+	.gogo_wright a{
+		
+	
+	}
+	
+	
 </style>
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자유게시판_상세" name="title" />
@@ -50,11 +77,38 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="/free/write">글쓰러가기</a>  </div>
-		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
-			
-			<h1>${gallery.title}</h1>
 	
+		
+	
+	
+	
+		
+		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
+			<div id="holder">
+
+			<div class="button">
+				<p class="gogo_wright btnText"><a href="/free/write">글쓰러가기</a> </p>			  
+			    <div class="btnTwo">
+			      <p class="btnText2">GO!</p>
+			    </div>
+			 </div>
+		 
+		 </div>
+			
+			<div class="content_title_area">
+				<h1  class="content_title_area_left">[글제목] ▶ ${gallery.title}</h1>
+				
+				
+				<div class="content_title_area_right">
+					<div>
+						<span>작성자 :</span>
+						<span>${gallery.users.nickname}</span>						
+					</div>
+					
+				</div>
+				
+			</div>
+			
 			<div>
 				
 				<span>▷ 작성일 <fmt:formatDate value="${gallery.createDate}" pattern="yyyy.M.d HH:mm"/></span>
@@ -69,9 +123,7 @@
 			<div>
 				${gallery.content}
 			</div>
-			<p>${gallery.users.id}
-				<span>작성자</span>
-			</p>
+			
 			<div>
 				<form id="frm_btn" method="post">	
 					
@@ -79,9 +131,8 @@
 					<c:if test="${loginUser.id == gallery.users.id}" >
 						<input type="button" value="수정" id="btn_edit_gallery">
 						<input type="button" value="삭제" id="btn_remove_gallery">
-						
-					</c:if>
-					<div id="root"><button type="button" id="modal_open_btn">신고쌔리기</button></div>
+						<div id="root"><button type="button" id="modal_open_btn">신고쌔리기</button></div>
+					</c:if>					
 				</form>
 			</div>
 	
@@ -242,7 +293,7 @@
 						}
 	                  if(comment.state == 1) {   // state:1 정상, state:-1은 삭제라서 보여주면 x
 	                     div += '<div>'
-	                     div += comment.users.id + '<br>';
+	                     div += comment.users.nickname + '<br>';
 	                     div += comment.commContent;   // 정상일 때 내용 보여줌
 	                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
 	                     if(${loginUser.id == 'admin'}) {
@@ -375,9 +426,6 @@
 	
 </section><!-- 기본틀 1 -->
 	
-<jsp:include page="../../layout/right_side.jsp">
-	<jsp:param value="right_side" name="right_side" />
-</jsp:include>
 
 <script type="text/javascript">
 $(function(){

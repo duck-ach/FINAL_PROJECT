@@ -56,7 +56,7 @@
 		          FROM FREE_COMMENT F INNER JOIN USERS U
 		     	    ON F.USER_NO = U.USER_NO) A	
 		     	    WHERE FREE_NO = #{freeNo}
-		     	    ORDER BY A.FREE_CO_NO DESC	
+		     	    ORDER BY A.FREE_CO_NO 	
 	</select>
 	
 		
