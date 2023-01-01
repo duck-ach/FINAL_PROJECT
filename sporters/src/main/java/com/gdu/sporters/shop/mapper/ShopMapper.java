@@ -22,4 +22,8 @@ public interface ShopMapper {
 	public ProdThumbnailDTO selectProdThumbnailListByNo(int prodNo);
 	public CartDTO selectProdNo(Map<String, Object> map);
 	public int insertOrder(OrderDTO order);
+	public int updateStock(ProductDTO product);
+	public List<OrderDTO> selectOrderList(Map<String, Object> map);
+	public OrderDTO selectOrderDetail(int OrderNo);
+	public Integer selectOrderNo();
 }

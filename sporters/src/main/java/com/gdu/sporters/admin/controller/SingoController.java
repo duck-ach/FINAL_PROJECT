@@ -23,11 +23,11 @@ public class SingoController {
 	private SingoService singoService;
 	
 	
-		// 카테고리 관리 페이지 이동
-		@GetMapping("/admin/singoList")
-		public String singoList(HttpServletRequest request, Model model) {
-			return "admin/singoList";
-		}
+//		// 카테고리 관리 페이지 이동
+//		@GetMapping("admin/singoList")
+//		public String singoList(HttpServletRequest request, Model model) {
+//			return "admin/singoList";
+//		}
 		
 		@ResponseBody
 		@GetMapping(value="/admin/getCategoryList", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -49,12 +49,20 @@ public class SingoController {
 			singoService.deleteCategory(request, response);
 		}
 		
-		@GetMapping(value="/admin/singoList", produces="application/json")
+		@GetMapping("/admin/singoList")
 		public String selectSingoList(HttpServletRequest request, Model model) {
-			singoService.getSingoList(request, model);
-			return "admin/singoList";
+			model.addAttribute("singoList", singoService.getSingoList(request, model));
+//			singoService.getSingoList(request, model);
+			
+			System.out.println(request);
+			System.out.println(model);
+			return "/admin/singoList";
 		}
 		
+		@PostMapping("free/admin/userSingo")
+		public void singoButton(HttpServletRequest request, HttpServletResponse response) {
+			singoService.singoButton(request, response);
+		}
 
 
 }

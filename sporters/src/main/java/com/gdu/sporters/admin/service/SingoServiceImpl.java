@@ -1,10 +1,7 @@
 package com.gdu.sporters.admin.service;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +13,7 @@ import org.springframework.ui.Model;
 import com.gdu.sporters.admin.domain.SingoCategoryDTO;
 import com.gdu.sporters.admin.domain.SingoDTO;
 import com.gdu.sporters.admin.mapper.SingoMapper;
+import com.gdu.sporters.board.domain.FreeDTO;
 import com.gdu.sporters.util.GalleryPageUtil;
 
 @Service
@@ -77,29 +75,52 @@ public class SingoServiceImpl implements SingoService {
 	}
 	
 	@Override
-	public void getSingoList(HttpServletRequest request, Model model) {
-		
-		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
-		int page = Integer.parseInt(opt.orElse("1"));
-		
-		int totalSingoRecord = singoMapper.selectSingoCount();
-		
-		galleryPageUtil.setPageUtil(page, totalSingoRecord);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", galleryPageUtil.getBegin() - 1);
-		map.put("end", galleryPageUtil.getEnd());
-		map.put("recordPerPage", galleryPageUtil.getRecordPerPage());
-		
-		List<SingoDTO> singoList = singoMapper.selectSingoList(map);
-		
-		// view로 전달할 데이터 model에 저장
-		model.addAttribute("totalRecord", totalSingoRecord); // 전체갯수
-		model.addAttribute("singoList", singoList);
-		model.addAttribute("beginNo", totalSingoRecord - (page - 1) * galleryPageUtil.getRecordPerPage());
-		model.addAttribute("paging", galleryPageUtil.getPaging("/admin/singoList"));
+	public List<SingoDTO>  getSingoList(HttpServletRequest request, Model model) {
+	
+//	Map<String, Object> map = new HashMap<String, Object>();
+//	map.put("begin", galleryPageUtil.getBegin());
+//	map.put("recordPerPage", galleryPageUtil.getRecordPerPage());
+
+//	model.addAttribute("singoList", singoMapper.selectSingoList());
+	return singoMapper.selectSingoList();
 	}
 	
-	
+	@Override
+	public void singoButton(HttpServletRequest request, HttpServletResponse response) {
+		String singoCategory = request.getParameter("singoCategory");
+		String content = request.getParameter("singoContent");
+		FreeDTO free = new FreeDTO();
+		String url = request.getRequestURL().toString();
+		if ( request.getQueryString() != null )
+		url = url + "?" + request.getQueryString();
+		SingoDTO singo = SingoDTO.builder()
+				.singoCategory(singoCategory)
+				.singoTitle(free.getTitle())
+				.singoLink(url)
+				.singoUserReason(content)
+				.singoCreateDate(free.getCreateDate())
+				.build();
+		int result = singoMapper.insertSingo(singo);
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			System.out.println("result="+result);
+			out.println("<script>");
+			if (result > 0) {
+				out.println("alert('게시글을 등록했습니다.');");
+				out.println("location.href='/free/list';");
+			} else {
+				out.println("alert('게시글을 등록할 수 없습니다.');");
+				out.println("history.back();");
+			}
+			out.println("</script>");
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }

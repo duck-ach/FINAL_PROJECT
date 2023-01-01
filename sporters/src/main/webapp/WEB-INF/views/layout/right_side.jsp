@@ -58,10 +58,10 @@ font-family: 'Poppins', sans-serif;
 				<li class="city"></li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
 				<li class="ctemp">온도 :</li>
-				<li class="hightemp">최고 온도 :</li>
-				<li class="lowtemp">최저 온도 :</li>
+<!-- 				<li class="hightemp">최고 온도 :</li> -->
+<!-- 				<li class="lowtemp">최저 온도 :</li> -->
 				<li class="humidity">습도 :</li>
-				<li class="wind">풍속 :</li>
+<!-- 				<li class="wind">풍속 :</li> -->
 			</ul>
 		</div>
 		<!-- 날씨 api 주소 -->
@@ -109,10 +109,10 @@ font-family: 'Poppins', sans-serif;
             // 보여질 정보
             $('.city').append(result.name);
             $('.ctemp').append(result.main.temp);
-            $('.lowtemp').append(result.main.temp_min);
-            $('.hightemp').append(result.main.temp_max);
+//             $('.lowtemp').append(result.main.temp_min);
+//             $('.hightemp').append(result.main.temp_max);
             $('.humidity').append(result.main.humidity);
-            $('.wind').append(result.wind.speed);
+//             $('.wind').append(result.wind.speed);
             //아이콘
             var wiconUrl = '<img width="100" src="http://openweathermap.org/img/wn/'+ result.weather[0].icon + '.png" alt="'+result.weather[0].description +'">'
             $('.icon').html(wiconUrl);

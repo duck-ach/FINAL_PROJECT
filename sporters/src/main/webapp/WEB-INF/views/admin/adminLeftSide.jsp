@@ -21,6 +21,7 @@ body, html {
 	padding-top: 8px;
 }
 #com_menu, #shop_menu{
+	display:none;
 	padding-bottom:20px;
 	border-bottom: 1px solid #FFF;
 }
@@ -33,6 +34,7 @@ body, html {
 .li_tag:hover{
 	background-color: rgb(56,65,81) !important;
 }
+
 .li_tag a, .a_tag {
 	text-align:left !important;
 	font-size: 18px !important;
@@ -78,7 +80,9 @@ cursor:pointer;
 	<div class="div_all">
 		<p class="upper_menu p_tag">
 		<i class="fa-solid fa-users" id="icon_commu"></i>&nbsp;
+		
 		<a class="a_tag">커뮤니티 관리</a>
+
 		</p>
 		<ul id="com_menu">
 			<li class="li_tag"><a href="/admin/userAdmin">- 유저관리</a></li>
@@ -89,7 +93,9 @@ cursor:pointer;
 	<div class="div_all">
 	<p class="upper_menu p_tag">
 	<i class="fa-solid fa-basket-shopping" id="icon_shop"></i>&nbsp;
+
 	<a class="a_tag">쇼핑몰 관리</a>
+
 	</p>
 		<ul id="shop_menu">
 			<li class="li_tag"><a href="/shopAdmin/categoryManage">- 카테고리관리</a></li>
