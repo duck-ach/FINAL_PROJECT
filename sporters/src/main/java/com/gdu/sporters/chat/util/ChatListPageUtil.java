@@ -59,7 +59,7 @@ public class ChatListPageUtil {
 		// 페이지번호 : 현재 페이지는 링크가 없다
 		for(int p = beginPage; p <= endPage; p++) {
 			if(p == page) {
-				sb.append(p);
+				sb.append("<span class=\"now_page\">" + p + "</span>");
 			} else {
 				sb.append("<a href=\"" + path + "?page=" + p + "\">" + p + "</a>");
 			}
