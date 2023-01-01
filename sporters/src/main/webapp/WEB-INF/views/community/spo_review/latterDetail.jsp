@@ -31,7 +31,9 @@
 				${SpoReviewgalleryList.content}
 			</div>
 			<p>${SpoReviewgalleryList.users.id}
-				<span>작성자</span>
+			
+			
+				<span>작성자  ${SpoReviewgalleryList.users.nickname}</span>
 			</p>
 			<div>
 				<form id="frm_btn" method="post">	

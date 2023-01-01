@@ -26,13 +26,15 @@
     justify-content: space-between;
 	}
 	.weather_map_contaner .map_area,.weather_map_contaner .weather_area {
-	width: 45%;
+	width: 48%;
 /*	height: 250px;
 */
 
 	height: 14vw;
 	border: 1px solid #000;
 	margin-top: 20px;
+	overflow: hidden;
+	
 }
 	
 	#map {
@@ -158,15 +160,18 @@
 		<div id="openweathermap-widget-12"></div>
 		
 		<div class="weather">
-			<ul>
+			
+			<ul style="display: flex;justify-content: space-around;align-items: center;font-size: 2.4vw;line-height: 14vw;">
 				<li class="icon"></li>
 				<li class="city"></li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
 				<li class="ctemp">온도 :</li>
+				<!--  
 				<li class="hightemp">최고 온도 :</li>
 				<li class="lowtemp">최저 온도 :</li>
 				<li class="humidity">습도 :</li>
 				<li class="wind">풍속 :</li>
+				-->
 			</ul>
 		</div>
 		<!-- 날씨 api 주소 -->
