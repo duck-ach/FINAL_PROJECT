@@ -93,6 +93,8 @@
 		padding-top: 26px;
 	    padding-bottom: 100px;
 	    text-align: right;
+	    display: flex;
+    	justify-content: space-between;
 	}
 	
 	.buttons {

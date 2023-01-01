@@ -86,14 +86,14 @@ input {
 
 	.btn {
 	  	position: relative;
-	display: inline-block;
-	text-align: center;
-    height: 30px;
-    border: none;
-    font-size: 14px;
-    color: white;
-    background-color: #c8c8ff;
-    border-radius: 4px;
+		display: inline-block;
+		text-align: center;
+	    height: 30px;
+	    border: none;
+	    font-size: 14px;
+	    color: white;
+	    background-color: #c8c8ff;
+	    border-radius: 4px;
     
 	}
 	.btn:active {
@@ -141,8 +141,8 @@ input {
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div class="align">
 		
-			<h1>정보 변경을 위한 비밀번호 확인</h1>
-			<h3>회원의 정보를 안전하게 보호하기 위해서 비밀번호를 확인합니다.</h3>
+
+			<h3>회원님의 정보를 안전하게 보호하기 위해서 비밀번호를 확인합니다.</h3>
 			
 			<div>
 				<input style="vertical-align: middle;" class="form_input" type="password" id="pw" required>
