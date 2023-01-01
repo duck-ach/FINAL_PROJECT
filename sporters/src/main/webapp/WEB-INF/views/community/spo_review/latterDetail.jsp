@@ -95,8 +95,24 @@
 				</div>
 			
 
+
 			<div class="div_btns">
 				<form id="frm_btn" method="post">				
+
+			<hr>
+	
+			<div>
+				${SpoReviewgalleryList.content}
+			</div>
+			<p>${SpoReviewgalleryList.users.id}
+			
+			
+				<span>작성자  ${SpoReviewgalleryList.users.nickname}</span>
+			</p>
+			<div>
+				<form id="frm_btn" method="post">	
+					
+
 					<input type="hidden" name="spoReviewNo" value="${SpoReviewgalleryList.spoReviewNo}">
 					<c:if test="${loginUser.id == SpoReviewgalleryList.users.nickname}" >
 						<span><input type="button" value="수정" id="btn_edit_gallery"></span>

@@ -82,7 +82,7 @@
 	
 	.div_content {
 		background-color: rgba(194, 194, 255, 0.08);
-		height: 50%;
+	/*	height: 50%;*/
     	margin-top: 3%;
     	margin-bottom: 3%;
     	border-radius: 4px;
@@ -322,8 +322,13 @@
 						}
 	                  if(comment.state == 1) {   // state:1 정상, state:-1은 삭제라서 보여주면 x
 	                     div += '<div style="margin-bottom:10px;">'
+
 	                     div += '<span>작성자 : </span>'+   '<span>'+ comment.users.nickname + '</span>' + '<span>&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ comment.commContent + '</span>' ;
 	              //       div += comment.commContent;   // 정상일 때 내용 보여줌
+
+	                     div += '<span> 닉네임 ▶ </span>' +'<span>'+ comment.users.nickname +'</span>' +'<span>&nbsp; : &nbsp;</span>';
+	                     div += '<span>'+ comment.commContent +'</span>';   // 정상일 때 내용 보여줌
+
 	                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
 	                     if(${loginUser.id == 'admin'}) {
 								div += '&nbsp;<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.freeCoNo + '">';
@@ -349,7 +354,7 @@
 						// moment.locale('ko-KR');
 						// div += '<span style="font-size: 12px; color: silver;">' + moment(comment.commDate).format('YYYY. MM. DD hh:mm') + '</span>';
 						div += '</div>';
-						div += '<div style="margin-left: 40px;" class="reply_area blind">';
+						div += '<div style="margin-left: 40px;margin-bottom:10px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="freeNo" value="' + comment.freeNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
