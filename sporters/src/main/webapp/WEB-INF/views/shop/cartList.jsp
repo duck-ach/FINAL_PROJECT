@@ -15,23 +15,23 @@
 	});
 	
 	function fn_showHide(){
-		$('#sumAll').hide();
+		$('#priceAll').hide();
 		$('#orderDetail').hide();
 		$('#btn_orderOpen').click(function(){
 			var priceArray = [];
 			$('input:checkbox[name=checkOne]:checked').each(function (index){
 				priceArray.push($(this).data('price'));
 			});
-			var sum = priceArray.reduce((a,b) => (a+b));
-			$('#sumAll').show();
+			var priceAll = priceArray.reduce((a,b) => (a+b));
+			$('#priceAll').show();
 			$('#orderDetail').show();
 			$.ajax({
-				url : "/cartList/sumAll",
+				url : "/cartList/priceAll",
 				type : 'post',
-				data : 'sum=' + sum,
-				success : function(sum) {
-					$('#sumAll').empty();
-					$('#sumAll').append('최종 구매 가격 : ' + sum.toLocaleString() + ' 원');
+				data : 'priceAll=' + priceAll,
+				success : function(priceAll) {
+					$('#priceAll').empty();
+					$('#priceAll').append('최종 구매 가격 : ' + priceAll.toLocaleString() + ' 원');
 			     },
 				error : function(sum) {
 				}
@@ -39,7 +39,7 @@
 			
 		});
 		$('#btn_orderOpen_cancel').click(function(){
-			$('#sumAll').hide();
+			$('#priceAll').hide();
 			$('#orderDetail').hide();
 		});
 	}
@@ -76,7 +76,7 @@
 			$('input:checkbox[name=checkOne]:checked').each(function (index){
 				priceArray.push($(this).data('price'));
 			});
-			var sum = priceArray.reduce((a,b) => (a+b));
+			var priceAll = priceArray.reduce((a,b) => (a+b));
 			
 			var nameArray = [];
 			$('input:checkbox[name=checkOne]:checked').each(function (index){
@@ -87,15 +87,58 @@
 			} else {
 				prodName = nameArray[0] + ' 외 ' + (nameArray.length - 1) + '개';
 			};
+			var cartNoArray = [];
+			$('input:checkbox[name=checkOne]:checked').each(function (index){
+				cartNoArray.push($(this).data('cartno'));
+			});
+			
+			var data = {
+				'cartNo' : cartNoArray,
+				'priceAll' : priceAll,
+				'name' : $('#name').val(),
+				'mobile' : $('#mobile').val(),
+				'postcode' : $('#postcode').val(),
+				'roadAddress' : $('#roadAddress').val(),
+				'jibunAddress' : $('#jibunAddress').val(),
+				'detailAddress' : $('#detailAddress').val()
+			}
+			
+			var stockArray = [];
+			$('input:checkbox[name=checkOne]:checked').each(function (index){
+				stockArray.push($(this).data('stock') - $(this).data('prodcnt'));
+			});
+			
+			var prodNoArray = [];
+			$('input:checkbox[name=checkOne]:checked').each(function (index){
+				prodNoArray.push($(this).data('prodno'));
+			});
+			
+			var updateStock = {
+				'stock' : stockArray,
+				'prodNo' : prodNoArray
+			}
+			alert(updateStock);
 			
 			$.ajax({
 				url: '/shop/addOrder',
 				type: 'post',
-				data: 'priceAll=' + sum,
+				data: data,
+				dataType : 'json',
 				success: function(result){
 					if(result == 1){
 						alert('주문완료');
-						location.href='/shop/deleteCart';
+						$.ajax({
+							url: '/shop/updateStock',
+							type: 'post',
+							data: updateStock,
+							dataType : 'json',
+							success: function(data){
+								alert('업데이트 실패!');
+							},
+							error: function(){
+								location.href='/shop/cartList';
+							}
+						});
 					} else {
 						alert('로그인하세요!');
 					}
@@ -105,12 +148,13 @@
 				}
 			});
 			
-			IMP.request_pay({ 
+			
+			/* IMP.request_pay({ 
 			pg: "html5_inicis",
 			pay_method: 'card',
 			merchant_uid: merchant_uid,
 			name: prodName, 
-			amount: sum,
+			amount: priceAll,
 			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
 			}, function (rsp) {
 				if (rsp.success) {
@@ -120,7 +164,7 @@
 				msg += rsp.error_msg;
 				alert(msg)
        			}
-			});
+			}); */
 		});
 	}
 	
@@ -180,7 +224,6 @@
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 	<div>
-		<form id="frm_product" method="get">
 			<table>
 					<tbody>				
 					<tr>
@@ -200,7 +243,6 @@
 								 
 									if(confirm_val) {
 										var checkArr = new Array();
-								  
 										$("input[class='checkOne']:checked").each(function(){
 											checkArr.push($(this).attr("data-cartNo"));
 										});
@@ -233,12 +275,12 @@
 					<tr>
 						<td style="padding-right:10px;">
 							<div>
-								<input type="checkbox" name="checkOne" class="checkOne" data-cartNo="${cartList.cartNo}" data-price="${cartList.product.price * cartList.prodCnt}" data-prodName="${cartList.product.prodName}">
+								<input type="checkbox" name="checkOne" class="checkOne" data-cartno="${cartList.cartNo}" data-price="${cartList.product.price * cartList.prodCnt}" data-prodname="${cartList.product.prodName}" data-stock="${cartList.product.stock}" data-prodcnt="${cartList.prodCnt}" data-prodno="${cartList.prodNo}">
 							</div>
 						</td>
 						<td class="cartListDetail">
 							<div class="delete">
-								<button type="button" class="btn_delete${cartList.cartNo}" data-cartNo="${cartList.cartNo}">삭제</button>
+								<button type="button" class="btn_delete${cartList.cartNo}" data-cartno="${cartList.cartNo}">삭제</button>
 							</div>
 			
 							<script>
@@ -249,7 +291,6 @@
 										var checkArr = new Array();
 								  
 										checkArr.push($(this).attr("data-cartNo"));
-								   		console.log(checkArr);
 										$.ajax({
 											url : "/shop/deleteCart",
 											type : "post",
@@ -270,11 +311,19 @@
 									} 
 								}); 
 							</script>
-							<input type="hidden" id="prodNo" value="${cartList.prodNo}">
-		 					<a href="/shop/detail?prodNo=${cartList.prodNo}"><span id="productId">${cartList.product.prodName}</span></a><br>
+							<input type="hidden" class="prodNo" value="${cartList.prodNo}">
+							<input type="hidden" class="cartNo" value="${cartList.cartNo}">
+		 					<a href="/shop/detail?prodNo=${cartList.prodNo}"><span class="productId">${cartList.product.prodName}</span></a><br>
 							<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
 							<span>재고 : ${cartList.product.stock} 개</span><br>
 							<span>구매할 수량 : ${cartList.prodCnt} 개</span><br>
+							<span id="test"></span>
+							<button id="test1">끼엑</button>
+							<script>
+								$('#test1').click(function(){
+									$('#test').append('\'안녕\' <br> 하세요');
+								})
+							</script>
 							<span>합계 가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price * cartList.prodCnt}" /> 원</span><br>
 						</td>
 						
@@ -288,7 +337,7 @@
 									<button type="button" id="btn_orderOpen">주문 정보 입력</button>
 									<button type="button" id="btn_orderOpen_cancel">주문 정보 입력 취소</button>
 								</div><br>
-								<div id="sumAll"></div>
+								<div id="priceAll"></div>
 								<div id="orderDetail">
 								    <br><input type="button" id="sameAdd" value="기본 배송지">
 									<script>
@@ -306,7 +355,8 @@
 													success : function(order) {
 														alert("성공데스");
 														console.log(order);
-														$('#receiver').val(order.name);
+														$('#name').val(order.name);
+														$('#mobile').val(order.mobile);
 														$('#postcode').val(order.postcode);
 														$('#roadAddress').val(order.roadAddress);
 														$('#jibunAddress').val(order.jibunAddress);
@@ -320,9 +370,13 @@
 											});
 										}
 									</script>
-									<div class="inputArea">
-										<label for="">수령인</label>
-										<input type="text" name="receiver" id="receiver">
+									<div>
+										<label for="name">수령인</label>
+										<input type="text" name="name" id="name">
+									</div>
+									<div>
+										<label for="mobile">전화번호</label>
+										<input type="text" name="mobile" id="mobile">
 									</div>
 									<div>
 										<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly><br>
@@ -331,6 +385,7 @@
 										<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly><br>
 										<span id="guide" style="color:#999;display:none"></span>
 										<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+										<input type="hidden" name="orderState" id="orderState" value="결제완료">
 										<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 										<script>
 										    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -396,7 +451,6 @@
 					</tr>				
 				</tbody>
 			 </table>
-		</form>
 	 
 	</div>
 	<button type="submit" class="btn_payment">주문</button>

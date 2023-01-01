@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,9 +66,9 @@ public class ShopController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/cartList/sumAll", method = RequestMethod.POST)	
-	public int sumAll(@RequestParam("sum") int sum) {
-		return sum;
+	@RequestMapping(value = "/cartList/priceAll", method = RequestMethod.POST)	
+	public int priceAll(@RequestParam("priceAll") int priceAll) {
+		return priceAll;
 	}
 	
 	@ResponseBody
@@ -94,17 +95,17 @@ public class ShopController {
 	public OrderDTO sameAdd(HttpSession session, OrderDTO order) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		String name = loginUser.getName();
+		String mobile = loginUser.getMobile();
 		String postcode = loginUser.getPostcode();
 		String roadAddress = loginUser.getRoadAddress();
 		String jibunAddress = loginUser.getJibunAddress();
 		String detailAddress = loginUser.getDetailAddress();
-		System.out.println(name);
 		order.setName(name);
+		order.setMobile(mobile);
 		order.setPostcode(postcode);
 		order.setRoadAddress(roadAddress);
 		order.setJibunAddress(jibunAddress);
 		order.setDetailAddress(detailAddress);
-		System.out.println(order);
 		return order;
 	}
 	
@@ -119,13 +120,11 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value = "/shop/categoryList", method = RequestMethod.GET)
-	
 	public void getList(@RequestParam(value="prodCategoryNo", required=false) int prodCategoryNo, Model model) throws Exception {
 		List<ProductDTO> list = null;
 		list = shopService.getCategoryList(prodCategoryNo);
  
 		model.addAttribute("list", list);
-		System.out.println("list"+list);
 	 }
 	
 	@ResponseBody
@@ -135,19 +134,58 @@ public class ShopController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/shop/addOrder", method=RequestMethod.GET)
-	public int requiredLogin_addOrder(OrderDTO order, HttpSession session) {
-		System.out.println(order);
+	@RequestMapping(value="/shop/addOrder", method=RequestMethod.POST)
+	public int requiredLogin_addOrder(OrderDTO order, CartDTO cart, HttpSession session, Model model
+									, @RequestParam("cartNo[]") List<String> cartNo
+									, @RequestParam("name") String name
+									, @RequestParam("mobile") String mobile
+									, @RequestParam("postcode") String postcode
+									, @RequestParam("roadAddress") String roadAddress
+									, @RequestParam("jibunAddress") String jibunAddress
+									, @RequestParam("detailAddress") String detailAddress) {
 		int result = 0;
-		
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
-		if(loginUser != null) {
-			order.setUserNo(loginUser.getUserNo());
-			shopService.addOrder(order);
+		if(loginUser != null) { 
+			int userNo = loginUser.getUserNo();
+			order.setUserNo(userNo);
+			cart.setUserNo(userNo);
+			model.addAttribute("cartNo", cartNo);
+			shopService.addOrder(order, cart, model);
 			result = 1;
 		}
 		
 		return result;
+	}
+	
+	@PostMapping("/shop/updateStock")
+	public void updateStock(ProductDTO product
+						  , @RequestParam("stock[]") List<String> stock
+						  , @RequestParam("prodNo[]") List<String> prodNo) {
+		for(int i = 0; i < stock.size(); i++) {
+			product.setStock(Integer.parseInt(stock.get(i)));
+			product.setProdNo(Integer.parseInt(prodNo.get(i)));
+			shopService.updateStock(product);
+		}
+	}
+	
+	@GetMapping("/shop/orderList")
+	public String orderList(HttpSession session, Model model) {
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		String name = loginUser.getName();
+		int userNo = loginUser.getUserNo();
+		model.addAttribute("name", name);
+		model.addAttribute("userNo", userNo);
+		shopService.getOrderList(model);
+		return "shop/orderList";
+	}
+	
+	@GetMapping("/shop/order/detail")
+	public String shopOrderDetail(HttpSession session, HttpServletRequest request, Model model) {
+		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
+		String name = loginUser.getName();
+		model.addAttribute("name", name);
+		shopService.getOrderDetail(request, model);
+		return "shop/orderDetail";
 	}
 	
 }
