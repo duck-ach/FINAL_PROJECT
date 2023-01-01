@@ -36,10 +36,10 @@
 	</select>
 	<insert id="insertFreeComment" parameterType="LocalCommDTO" useGeneratedKeys="true" keyProperty="localCoNo">
 		INSERT INTO LOCALS_COMMENT
-			( LOCAL_BOARD_NO, COMM_CONTENT,COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)
+			( LOCAL_BOARD_NO, COMM_CONTENT,    COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)
 		VALUES
-			( #{localBoardNo}, #{commContent}, NOW(), 1, 0, #{groupNo}, #{localCoNo}, #{userNo})
-	</insert>
+			( #{localBoardNo}, #{commContent}, NOW(),               1,    0,   #{groupNo}, #{localCoNo}, #{userNo})
+	</insert> 
 	
 	<update id="updateCommGroupOrder" parameterType="LocalCommDTO">
 		UPDATE LOCALS_COMMENT
