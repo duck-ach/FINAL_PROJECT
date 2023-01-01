@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <style>
 
+	/* 버튼 */
 	.div_btns{
 		padding-top: 26px;
 	    padding-bottom: 100px;
@@ -32,18 +33,8 @@
 	
 	.btn.purple {box-shadow:0px 4px 0px #b6b6f3;}
 	.btn.purple:active {box-shadow: 0 0 #b6b6f3; background-color: #c8c8ff;}
-	
-	.rounded {
-	  border-radius: 10px;
-	}
-	
+
 	.btn.purple, .btn-two.purple {background-color: #c8c8ff;}
-	
-	.first_div {
-		width: 60%;
-		margin: auto;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
 	
 	/* 헤더 */
 		
@@ -73,6 +64,12 @@
 	
 	
 	/* 본문 */
+	
+	.first_div {
+		width: 60%;
+		margin: auto;
+		font-family: 'Noto Sans KR', sans-serif;
+	}
 	
 	.div_form {
 		margin: auto;
@@ -168,7 +165,7 @@
 					</form>
 				</div>
 				
-				<div style="border-bottom: 1px solid #8c8cff; height: 20px;"></div>
+				<div style="border-bottom: 1px solid lightgray; height: 20px;"></div>
 				
 				<div class="div_btns" style="text-align: right;">
 					<input class="btn purple" type="button" value="회원정보 변경" onclick="location.href='/users/check/form_info'">

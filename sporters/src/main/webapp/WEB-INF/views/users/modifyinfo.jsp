@@ -5,6 +5,200 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<style>
+	
+	.wrap {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	/* 버튼 */
+	
+	.div_btns{
+		padding-top: 26px;
+	    padding-bottom: 100px;
+	    text-align: right;
+	}
+
+	.btn {
+	  	position: relative;
+		display: inline-block;
+		text-align: center;
+	    height: 30px;
+	    border: none;
+	    font-size: 14px;
+	    color: white;
+	    background-color: #c8c8ff;
+	    border-radius: 4px;
+    
+	}
+	.btn:active {
+	  top: 4px; 
+	}
+	
+	.btn.purple {box-shadow:0px 4px 0px #b6b6f3;}
+	.btn.purple:active {box-shadow: 0 0 #b6b6f3; background-color: #c8c8ff;}
+	
+	.rounded {
+	  border-radius: 10px;
+	}
+	
+	.btn.purple, .btn-two.purple {background-color: #c8c8ff;}
+	
+	
+	/* 라디오 */
+	
+	[type="radio"] {
+	  vertical-align: middle;
+	  appearance: none;
+	  border: max(2px, 0.1em) solid gray;
+	  border-radius: 50%;
+	  width: 1.25em;
+	  height: 1.25em;
+	  transition: border 0.5s ease-in-out;
+	}
+	[type="radio"]:checked {
+	  border: 0.4em solid #5a5aff;
+	}
+	
+	[type="radio"]:focus-visible {
+	  outline-offset: max(2px, 0.1em);
+	  outline: max(2px, 0.1em) dotted #5a5aff;
+	}
+	
+	[type="radio"]:hover {
+	  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+	  cursor: pointer;
+	}
+	
+	/* 헤더 */
+		
+	.mapage_div { position: relative; }
+	
+	.mapage_div:before,
+	.mapage_div:after {
+	  content: '[';
+	  display: inline-block;
+	  position: relative;
+	  top: 1px;
+	  height: 5%;
+	  font-size: 1.25em;
+	  color: #8282ff;
+	  transition: all 0.5s ease;
+	}
+	
+	.mapage_div:after { content: ']'; }
+	
+	.mapage_div:hover:before { 
+	  transform: translateX(-5px);
+	}
+	
+	.mapage_div:hover:after { 
+	  transform: translateX(5px);
+	}
+	
+	/* 셀렉트 */
+	select {
+		  -webkit-appearance: none;
+		  -moz-appearance: none;
+		  -o-appearance:none;
+		  appearance: none;
+		  list-style: none;
+		  border: 1px solid #8c8cff;
+		  border-radius: 4px;
+		  width: 70px;
+		  padding: -0.2em .5em;
+		  background: url(https://img.icons8.com/material-sharp/20/7950F2/expand-arrow--v1.png) center right 3px no-repeat;	
+	}
+	
+	select::-ms-expand{
+  		display:none;
+	}
+	
+	
+	/* 본문 */
+	
+	.first_div {
+		width: 60%;
+		margin: auto;
+	}
+	
+	.div_form {
+		margin: auto;
+   		width: 75%;
+	}
+	
+	.div_topic {
+		display:inline-block;
+		border: 1px solid;
+		background-color: #c8c8ff;
+		border-radius: 20px;
+		color: white;
+	    height: 35px;
+	    width: 24%;
+	    font-size: 15px;
+	    text-align: center;
+	    margin-bottom: 45px;
+	    line-height: 35px;
+	}
+	
+	.div_result {
+		display:inline-block;
+		font-size: 15px;
+		border-bottom: 1px solid #8282ff;
+		width: 70%;
+   		margin-left: 6px;
+		height: 24px;
+		line-height: 35px;
+		margin-bottom: 45px;
+		padding-bottom: 10px;
+	}
+	
+	input {
+		border: none;
+		line-height: 30px;
+		transition: .2s;
+	}
+	
+	
+	.div_result:active,
+	.div_result:focus,
+	.div_result:hover {
+	  outline: none;
+	  border-bottom: 1px solid #black;
+	}
+	
+	.msg_class {
+	    font-size: 12px;
+	    color: lightgray;
+	    position: absolute;
+	    margin: auto;
+	    margin-left: 27%;
+	    margin-top: -40px;
+	}
+	
+	.div_in_form{
+		position: relative;
+	}
+	
+	.addr_class {
+		border-bottom: 1px solid #8282ff;
+		margin-bottom: 2%;
+	}
+	
+	.detail_addr {
+		width: 100%;
+	}
+	
+	input:focus {
+		width: 100%;
+		border-bottom: 2px solid #8c8cff;
+		padding-right: 10px;
+	}
+
+	
+</style>
 <script>
 
 	$(function(){
@@ -149,6 +343,7 @@
 			location.href = '/users/mypage';
 		});
 	}
+	
 
 	
 </script>
@@ -156,62 +351,68 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div>
-			<div style="font-size: 32px; font-weight: bold;"> 정보 수정 </div>
-			<div>* 표시는 필수 입력사항입니다.</div>
+		<div class="first_div">
+			<div class="mapage_div" style="font-size: 32px; font-weight: bold; text-align: center; margin-bottom: 40px;"> 정보 수정 </div>
+			
+			<div style="height: 20px;"></div>
+			
+			<div class="div_form">
 				<form id="frm_edit" action="/users/modify/info" method="post">
 					<input type="hidden" name="id" value="${loginUser.id}">
-					
-					<div>
-						아이디 : ${loginUser.id}
+
+					<div class="div_in_form">
+						<span class="div_topic"><label for="name">이름 </label></span>
+						<span class="div_result"><input type="text" name="name" id="name" value="${loginUser.name}"></span>
 					</div>
 					
-					<div>
-						닉네임 : ${loginUser.nickname}
+					<div class="div_in_form">
+						<span class="div_topic">닉네임</span>
+						<span class="div_result">${loginUser.nickname}</span>
 					</div>
 					
-					<div>
-						<label for="name"> * 이름 </label>
-						<input type="text" name="name" id="name" value="${loginUser.name}">
+					
+					<div class="div_in_form">
+						<span class="div_topic"><label for="email">이메일 </label></span>
+						<span class="div_result"><input type="text" name="email" id="email" value="${loginUser.email}"></span>
+						<div class="msg_class" id="msg_email"></div>
 					</div>
 					
-					<div>
-						<label for="email"> * 이메일 </label>
-						<input type="text" name="email" id="email" value="${loginUser.email}">
-						<span id="msg_email"></span>
+					<div class="div_in_form">
+						<span class="div_topic"><label for="mobile">휴대전화</label></span>
+						<span class="div_result"><input type="text" name="mobile" id="mobile" value="${loginUser.mobile}"></span>
+						<div class="msg_class" id="msg_mobile"></div>
 					</div>
 					
-					<div>
-						<label for="mobile"> * 휴대전화</label>
-						<input type="text" name="mobile" id="mobile" value="${loginUser.mobile}">
-						<span id="msg_mobile"></span>
-					</div>
-					
-					<div>
-						<span> * 성별 </span>
+					<div class="div_in_form">
+						<span class="div_topic">성별 </span>
+						<span class="div_result">
 						<input type="radio" name="gender" id="male" value="M">
-						<label for="male">남자</label>
+						<label for="male">남자 🙋‍♂️</label> &nbsp; &nbsp; &nbsp;
 						<input type="radio" name="gender" id="female" value="F">
-						<label for="female">여자</label>
+						<label for="female">여자 🙋</label>
+						</span>
 						<script>
 							$(':radio[name="gender"][value="${loginUser.gender}"]').prop('checked', true);
 						</script>
 					</div>
 					
-					<div>
-						<label for="birthyear"> * 생년월일 </label>
+					<div class="div_in_form">
+						<span class="div_topic"><label for="birthyear">생년월일 </label></span>
+						<span class="div_result select_box_div">
 						<select name="birthyear" id="birthyear"></select>
 						<select name="birthmonth" id="birthmonth"></select>
 						<select name="birthday" id="birthday"></select>
+						</span>
 					</div>
 					
+					<div class="div_topic" style="margin-bottom: 10px;">주소 </div>
 					<div>
-						<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly="readonly" value="${loginUser.postcode}">
-						<input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소"  readonly="readonly" value="${loginUser.roadAddress}">
-						<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소"  readonly="readonly" value="${loginUser.jibunAddress}"><br>
+						<input class="addr_class" type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly="readonly" value="${loginUser.postcode}">
+						<input class="btn purple" style="margin-left: 10%;" type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input class="addr_class detail_addr" type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소"  readonly="readonly" value="${loginUser.roadAddress}">
+						<input class="addr_class detail_addr" type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소"  readonly="readonly" value="${loginUser.jibunAddress}"><br>
 						<span id="guide" style="color:#999;display:none"></span>
-						<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${loginUser.detailAddress}">
+						<input class="addr_class detail_addr" type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${loginUser.detailAddress}">
 						<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 						<script>
 						    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -271,14 +472,15 @@
 						    }
 						</script>
 					</div>
-					
-					<hr>
-					
-					<div>
-						<button>수정하기</button>
-						<input type="button" value="취소하기" id="btn_cancel">
-					</div>
 				</form>
+					</div>
+					
+					<div style="border-bottom: 1px solid #8c8cff; height: 20px;"></div>
+					
+					<div class="div_btns">
+						<button class="btn purple">수정하기</button>
+						<input class="btn purple" type="button" value="취소하기" id="btn_cancel">
+					</div>
 
 		</div>
 	</section><!-- 기본틀 2 -->
