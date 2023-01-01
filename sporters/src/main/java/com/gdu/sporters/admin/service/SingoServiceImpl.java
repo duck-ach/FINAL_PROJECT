@@ -1,9 +1,7 @@
 package com.gdu.sporters.admin.service;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +13,7 @@ import org.springframework.ui.Model;
 import com.gdu.sporters.admin.domain.SingoCategoryDTO;
 import com.gdu.sporters.admin.domain.SingoDTO;
 import com.gdu.sporters.admin.mapper.SingoMapper;
+import com.gdu.sporters.board.domain.FreeDTO;
 import com.gdu.sporters.util.GalleryPageUtil;
 
 @Service
@@ -87,8 +86,39 @@ public class SingoServiceImpl implements SingoService {
 	}
 	
 	@Override
-	public void singoButton(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	public void singoButton(HttpServletRequest request, HttpServletResponse response) {
+		String singoCategory = request.getParameter("singoCategory");
+		String content = request.getParameter("singoContent");
+		FreeDTO free = new FreeDTO();
+		String url = request.getRequestURL().toString();
+		if ( request.getQueryString() != null )
+		url = url + "?" + request.getQueryString();
+		SingoDTO singo = SingoDTO.builder()
+				.singoCategory(singoCategory)
+				.singoTitle(free.getTitle())
+				.singoLink(url)
+				.singoUserReason(content)
+				.singoCreateDate(free.getCreateDate())
+				.build();
+		int result = singoMapper.insertSingo(singo);
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			System.out.println("result="+result);
+			out.println("<script>");
+			if (result > 0) {
+				out.println("alert('게시글을 등록했습니다.');");
+				out.println("location.href='/free/list';");
+			} else {
+				out.println("alert('게시글을 등록할 수 없습니다.');");
+				out.println("history.back();");
+			}
+			out.println("</script>");
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

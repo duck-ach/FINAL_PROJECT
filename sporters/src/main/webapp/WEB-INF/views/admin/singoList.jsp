@@ -11,21 +11,143 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 <style>
 
-.tbl {
-	border-spacing: 2px;
+.in_wrap {
+	position: relative;
+}
+.title_wrap {
+	position: absolute;
+}
+.search_wrap {
+	position: absolute;
+    right: 50px;
+    top: 15px;
+}
+h2 {
+	font-size: 30px;
+}
+
+#query {
+	width: 300px;
+    height: 25px;
+    border-radius: 12px;
+}
+#column {
+	width: 130px;
+    height: 30px;
+    border-style: groove;
+    border-radius: 12px;
+    border-width: initial;
+    margin-right: 4px;
+    padding-left: 3px;
+}
+
+/* table */
+.singo_list {
+	width:1000px;
+	border: 2px solid #8c8cff;
+	border-radius: 10px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+/* button */
+.button{
+  	background:#8c8cff;
+  	color:#fff;
+  	border:none;
+  	position:relative;
+  	height:31px;
+  	font-size:18px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	transition:800ms ease all;
+  	outline:none;
+  	vertical-align: bottom;
+}
+.button:hover{
+  	background:#fff;
+  	color:#8c8cff;
+}
+.button:before, .button:after{
+  	content:'';
+  	position:absolute;
+  	top:0;
+  	right:0;
+  	height:2px;
+  	width:0;
+  	background: #c8c8ff;
+  	transition:400ms ease all;
+}
+.button:after{
+  	right:inherit;
+  	top:inherit;
+  	left:0;
+  	bottom:0;
+}
+.button:hover:before, .button:hover:after{
+  	width:100%;
+  	transition:800ms ease all;
+}
+
+table {
+	width:1000px;
 	border-collapse: collapse;
+}
+
+th {
+	height:35px;
+	background-color: #8c8cff;
+	color: #fff;
+}
+
+td {
+	height:50px;
+	border-bottom: 1px solid #D2D2FF;
+}
+
+.center_td {
 	text-align: center;
-/* 	margin-left: auto; */
-/* 	margin-right: auto; */
 }
 
-tr{
-border-bottom: 1px solid #000;
-padding-bottom:2px;
+.go_detail {
+	color: #8C8CFF;
+}
+.go_detail:hover{
+	color: #D2D2FF;
+}
+/* page */
+.now_page{
+	border: none;
+	display:inline-block;
+	width: 25px;
+	height:25px;
+	line-height: 25px;
+	background-color: #8C8CFF;
+	color : white;
+	text-align: center;
+	text-decoration: none;
+	
+}
+tfoot td {
+	text-align: center;
 }
 
-tr td{
+tfoot a {
+	color:#8C8CFF;
+	width:25px;
+	height:25px;
+	margin:0 5px;
+}
 
+/* button */
+button {
+	width: 50px;
+    height: 25px;
+    background-color: #c8c8ff;
+    border: none;
+    border-radius: 5px;
+    margin-left: 3px;
+    color: #fff;
 }
 
 .menu a{
@@ -137,7 +259,7 @@ $(document).ready(function(){
 </table>
 </section>
 <br>
-<section>
+<section class="singo_list">
 	<table class="tbl">
 		<thead>
 			<tr>
