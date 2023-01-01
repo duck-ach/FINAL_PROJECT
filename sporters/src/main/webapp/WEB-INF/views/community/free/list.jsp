@@ -5,6 +5,20 @@
 <jsp:include page="../../layout/header.jsp">
 	<jsp:param value="자유게시판" name="title" />
 </jsp:include>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<style>
+	.wrap {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.first_div {
+		width: 70%;
+		margin: auto;
+	}
+	
+	
+</style>
 
 <script>
 	$(function(){
@@ -25,48 +39,49 @@
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div><a href="/free/write">글쓰러가기</a>  </div>
+	
+	<div class="first_div">
+		<div style="text-align: right;"><a href="/free/write">글쓰러가기</a>  </div>
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<form id="frm_search" method="post">										
-				<br><hr><br>
 				
-				<table border="1">
-					<thead>
-						<tr>	
-										
-							<td>글 제목</td>													
-							<td>닉네임</td>
-							<td>회원 성별</td>	
-							<td>조회수</td>						
-							<td>회원 작성일</td>												
-							<td>IP</td>	
+				<div>
+					<div>
+						<div>				
+							<span>글 제목</span>	
+							<span>아이디</span>												
+							<span>닉네임</span>
+							<span>회원 성별</span>	
+							<span>조회수</span>						
+							<span>회원 작성일</span>												
+
 						<!--  
 							<td>작성 글 수</td>
 						-->				
-						</tr>
-					</thead>
-					<tbody id="list">						
+						</div>
+					</div>
+					<div id="list">						
 						<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
-							<tr>
+							<div>
 							<!-- 
 								<td>${beginNo - vs.index}</td>	
 							 -->					
-								<td><a id="moveDetail"
-									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></td>									
-								<td>
+								<span><a id="moveDetail"
+									href="/free/increase/hit?freeNo=${gallery.freeNo}">${gallery.title}</a></span>									
+								<span>
 									<a class="to_userInfo">${gallery.users.id}</a><input type="hidden" class="userId" name="id" value="${gallery.users.id}">
-								</td>
-								<td>${gallery.users.nickname}</td>							
-								<td>${gallery.users.gender}</td>	
-								<td>${gallery.hit}</td>						
-								<td>${gallery.createDate}</td>
-								<td>${gallery.ip}</td>
-							</tr>
+								</span>
+								<span>${gallery.users.nickname}</span>							
+								<span>${gallery.users.gender}</span>	
+								<span>${gallery.hit}</span>						
+								<span>${gallery.createDate}</span>
+
+							</div>
 						</c:forEach>
-					</tbody>
+					</div>
 					
-				</table>
+				</div>
 				
 			</form>
 		
@@ -76,6 +91,7 @@
 			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
 		
+	</div>
 	</section><!-- 기본틀 2 -->
 	
 </section><!-- 기본틀 1 -->

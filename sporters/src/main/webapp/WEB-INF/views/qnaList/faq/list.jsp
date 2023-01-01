@@ -65,6 +65,7 @@
 	  font-size: 32px; 
 	  font-weight: bold; 
 	  text-align: center; 
+	  margin-bottom: 5%;
 	}
 	
 	.mapage_div:before,
@@ -102,25 +103,17 @@
 	}
 	
 	.table_class {
-		text-align: center;
 		width: 70%;
 		margin: auto;
     	border-collapse: collapse;
 	}
 	
-	#table_list_no {
-		width: 10%
-	}
-	
+
 	.no_td {
 		width: 10%
 	}
 	
-	#table_list_title {
-		width: 70%; 
-		text-align: left;
-	}
-	
+
 	.title_td {
 		width: 70%; 
 		text-align: left;
@@ -128,14 +121,20 @@
 	
 	
 	.reply_tr {
-		width: 50%; 
-		text-align: left;
+	    width: 60%;
+	    margin-left: 20%;
+	    text-align: left;
+	    font-size: 18px;
 	}
 	/*
 	#title_td {
 		text-align: left;
 	}
 	*/
+	
+	#table_list_title {
+		text-align: center;
+	}
 	
 	#div_btn_write {
 		width: 100%;
@@ -144,20 +143,44 @@
 	}
 	
 	.span_no {
-		width: 10%;
-		text-align: left;
+		display: inline-block;
+		width: 20%;
+		text-align: center;
 	}
 	
 	.span_title {
-		width: 85%;
+		display: inline-block;
+		width: 65%;
+		text-align: left;
+		
 	}
 	.div_container {
-		width: 100%;
+	    width: 100%;
+	    font-size: 18px;
+	    margin-bottom: 10px;
+	    border-bottom: 1px solid lightgray;
+	    line-height: 40px;
 	}
 	
 	.tr_toggle {
 		width: 100%;
+		font-size: 20px;
+		margin-bottom: 15px;
+		font-weight: bold;
 	}
+	
+	.tr_toggle:hover {
+		width: 100%;
+		font-size: 20px;
+		margin-bottom: 15px;
+		font-weight: bold;
+		color: #7B68EE;
+	}
+	
+	.tr_toggle:hover #arrow {
+		content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA50lEQVR4nO2QPQrCQBBGA9pZ+HcmQRKwS2cnuLtYWKRI3A2E3MEbKIrnEL2KjTPGE0RG2LhRSdRY5oOvyOTxlhnLqvPXLNh5QP0LLwU6kuHhXoFOmayQDxnY9CMQSZdaJtUykw8Z2A+AwVJyiPV3kdSUZTMOMTkyyHXThmKwkgyVnkXzS0dy3IccR3qmpjBUHI/B7NrP7sjBUxx3UZQ2cy+/k/pTbGuplkWTpFcqy0txKwX4L+s/rynAJ9Z104ZVFAIkx40p9canFtWUEVMqK1r/4zW/kf4seyetLMvfFNbUj29Wx6qSGw0h1imJT4+JAAAAAElFTkSuQmCC');
+	}
+	
 	
 </style>
 
@@ -171,6 +194,7 @@
 	$(document).ready(function(){
 		$('.tr_toggle').click(function(){
 			$('.reply_tr').addClass('blind');
+			$(this).next('.reply_tr').slideToggle(500);
 			$(this).next('.reply_tr').removeClass('blind');
 		});
 	});
@@ -201,14 +225,15 @@
 							<div class="tr_toggle">
 								<span class="no_td span_no">${beginNo - vs.index}</span>
 								<span class="title_td span_title">${faq.faqTitle}</span>
+	 							<span><img id="arrow" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAoklEQVR4nO3QQQqCUBSF4R9s1iCzNQWh0GYaOHDkHtxBYbSOyHWFcJWDPN97mUMPXNDr4YMrbFk7Z5tV+gXwsemfQ/H2c/twtAmhhaOfa6EBann3oYoNqc0YkwB3oJJdCryBq+wuQAecZHcDXsBOwTn0IOiAZTGYok+gdJw/PbO0bkIgfaGdoHsbxdoYzHd+9Jm/oIsxF/o3pujDJvqfbWFxvplWJZxqRIgcAAAAAElFTkSuQmCC"></span>
 							</div>
-
 							<div class="reply_tr blind">
 								<span>
 									<c:if test="${faq.depth > 0}">
 										${faq.faqContent}
 									</c:if>
 								</span>
+								<span></span>
 							</div>
 						</c:if>
 					</c:forEach>
