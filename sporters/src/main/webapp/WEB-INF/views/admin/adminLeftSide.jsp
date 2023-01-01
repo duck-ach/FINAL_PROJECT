@@ -26,20 +26,22 @@ body, html {
 	border-bottom: 1px solid #FFF;
 }
 
-ul li{
-	vertical-align : bottom !important;
-	padding: 20px 20px 20px 27px !important;
+.li_tag{
+	vertical-align : bottom;
+	padding: 20px 20px 20px 27px;
 }
 
-ul li:hover{
+.li_tag:hover{
 	background-color: rgb(56,65,81) !important;
 }
-ul li a, .zup{
+
+.li_tag a, .a_tag {
 	text-align:left !important;
 	font-size: 18px !important;
 	color: rgb(156, 163, 175) !important;
+	vertical-align: bottom; !important;
 }
-div {
+.div_all {
 	padding-left: 15px;
 }
 #icon_shop, #icon_commu{
@@ -47,9 +49,9 @@ div {
 	color:rgb(156, 163, 175);
 	font-size: 20px;
 }
-p{
-margin-top:10px !important;
-height: 50px !important;
+.p_tag{
+	margin-top:10px;
+	height: 50px;
 }
 .upper_menu:hover{
 cursor:pointer;
@@ -74,33 +76,37 @@ cursor:pointer;
 </script>
 <body>
 
-<div id="menu_wrap">
-	<div>
-		<p class="upper_menu">
+<div id="menu_wrap" class="div_all">
+	<div class="div_all">
+		<p class="upper_menu p_tag">
 		<i class="fa-solid fa-users" id="icon_commu"></i>&nbsp;
-		<a class="zup">커뮤니티 관리</a>
+		
+		<a class="a_tag">커뮤니티 관리</a>
+
 		</p>
 		<ul id="com_menu">
-			<li><a href="/admin/userAdmin">- 유저관리</a></li>
-			<li><a href="/admin/singoList">- 신고관리</a></li>
-			<li><a href="/admin/adminFreeList">- 게시판관리</a></li>
+			<li class="li_tag"><a href="/admin/userAdmin">- 유저관리</a></li>
+			<li class="li_tag"><a href="/admin/singoList">- 신고관리</a></li>
+			<li class="li_tag"><a href="/admin/adminFreeList">- 게시판관리</a></li>
 		</ul>
 	</div>
-	<div>
-	<p class="upper_menu">
+	<div class="div_all">
+	<p class="upper_menu p_tag">
 	<i class="fa-solid fa-basket-shopping" id="icon_shop"></i>&nbsp;
-	<a class="zup">쇼핑몰 관리</a>
+
+	<a class="a_tag">쇼핑몰 관리</a>
+
 	</p>
 		<ul id="shop_menu">
-			<li><a href="/shopAdmin/categoryManage">- 카테고리관리</a></li>
-			<li><a href="/shopAdmin/prod/write">- 상품등록</a></li>
-			<li><a href="/shopAdmin/prodManage">- 상품관리</a></li>
-			<li><a href="/shopAdmin/orderManage">- 주문관리</a></li>
+			<li class="li_tag"><a href="/shopAdmin/categoryManage">- 카테고리관리</a></li>
+			<li class="li_tag"><a href="/shopAdmin/prod/write">- 상품등록</a></li>
+			<li class="li_tag"><a href="/shopAdmin/prodManage">- 상품관리</a></li>
+			<li class="li_tag"><a href="/shopAdmin/orderManage">- 주문관리</a></li>
 		</ul>
 	</div>
-	<div>
+	<div class="div_all">
 		<ul>
-			<li><a href="/">Sporters 메인페이지</a></li>
+			<li class="li_tag"><a href="/">Sporters 메인페이지</a></li>
 		</ul>
 	</div>
 </div>
