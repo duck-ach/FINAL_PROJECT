@@ -13,4 +13,5 @@ public interface ShopAdminOrderService {
 	public void getOrderDetail(HttpServletRequest request, Model model);
 	public void getOrderState(HttpServletRequest request);
 	public List<OrderDTO> getGragh();
+	public void searchOrders(HttpServletRequest request, Model model);
 }

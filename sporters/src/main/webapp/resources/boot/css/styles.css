@@ -10,6 +10,14 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .p_tag{
+	margin-top:10px !important;
+	height: 50px !important;
+}
+.li_tag {
+    vertical-align: bottom !important;
+    padding: 11px 20px 20px 27px !important;
+}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -64,7 +72,6 @@
   --bs-body-bg: #fff;
 }
 
-*,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -171,20 +178,6 @@ address {
   line-height: inherit;
 }
 
-
-dt {
-  font-weight: 700;
-}
-
-dd {
-  margin-bottom: 0.5rem;
-  margin-left: 0;
-}
-
-blockquote {
-  margin: 0 0 1rem;
-}
-
 b,
 strong {
   font-weight: bolder;
@@ -278,33 +271,6 @@ svg {
   vertical-align: middle;
 }
 
-table {
-  caption-side: bottom;
-  border-collapse: collapse;
-}
-
-caption {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  color: #6c757d;
-  text-align: left;
-}
-
-th {
-  text-align: inherit;
-  text-align: -webkit-match-parent;
-}
-
-thead,
-tbody,
-tfoot,
-tr,
-td,
-th {
-  border-color: inherit;
-  border-style: solid;
-  border-width: 0;
-}
 
 label {
   display: inline-block;
@@ -614,7 +580,7 @@ progress {
 .container-lg,
 .container-md,
 .container-sm {
-  width: 100%;
+  width: 97%;
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
   margin-right: auto;
@@ -654,6 +620,7 @@ progress {
   margin-top: calc(-1 * var(--bs-gutter-y));
   margin-right: calc(-0.5 * var(--bs-gutter-x));
   margin-left: calc(-0.5 * var(--bs-gutter-x));
+  box-sizing: border-box;
 }
 .row > * {
   flex-shrink: 0;
@@ -1569,6 +1536,7 @@ progress {
   .col-xl-3 {
     flex: 0 0 auto;
     width: 25%;
+    box-sizing: border-box;
   }
 
   .col-xl-4 {
@@ -1584,6 +1552,7 @@ progress {
   .col-xl-6 {
     flex: 0 0 auto;
     width: 50%;
+    box-sizing: border-box;
   }
 
   .col-xl-7 {
@@ -4770,27 +4739,6 @@ textarea.form-control-lg {
   border-radius: 0;
 }
 
-.breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 0;
-  margin-bottom: 1rem;
-  list-style: none;
-}
-
-.breadcrumb-item + .breadcrumb-item {
-  padding-left: 0.5rem;
-}
-.breadcrumb-item + .breadcrumb-item::before {
-  float: left;
-  padding-right: 0.5rem;
-  color: #6c757d;
-  content: var(--bs-breadcrumb-divider, "/") /* rtl: var(--bs-breadcrumb-divider, "/") */;
-}
-.breadcrumb-item.active {
-  color: #6c757d;
-}
-
 .pagination, .dataTable-pagination ul {
   display: flex;
   padding-left: 0;
@@ -5068,6 +5016,7 @@ textarea.form-control-lg {
 .list-group-numbered > li::before {
   content: counters(section, ".") ". ";
   counter-increment: section;
+  box-sizing: border-box;
 }
 
 .list-group-item-action {
@@ -6616,6 +6565,7 @@ textarea.form-control-lg {
   left: 0;
   z-index: 1;
   content: "";
+  box-sizing: border-box;
 }
 
 .text-truncate {

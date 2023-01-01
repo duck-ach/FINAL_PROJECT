@@ -84,7 +84,7 @@ public class ShopAdminServiceImpl implements ShopAdminService{
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 		
 		// 저장경로
-		String path =  myFileUtil.getTodayPath();
+		String path =  myFileUtil.getSummernotePath();
 		
 		// 저장할 파일명
 		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());

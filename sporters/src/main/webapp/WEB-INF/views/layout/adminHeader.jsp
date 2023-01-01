@@ -29,8 +29,7 @@ html,body{
 	position: relative; 
 }
 .main_header_area{
-	position: relative;
-    /* position: fixed; */
+    position: relative;
     width: 100%;
     height: 80px;
     top: 0;
@@ -53,6 +52,10 @@ html,body{
 }
 .code_wrap { /* 코드가 들어갈 부분 */
 	width : 100%;
+}
+.in_wrap { /* 부트스트랩 덕분에 ^^.. 하나더 추가해야하는 템플릿 code_wrap 아래로 하나 더 감싸주세요! */
+	padding-right: 1.5rem;
+    padding-left: 1.5rem;
 }
 </style>
 </head>
