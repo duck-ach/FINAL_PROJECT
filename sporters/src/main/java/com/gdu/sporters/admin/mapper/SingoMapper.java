@@ -16,7 +16,7 @@ public interface SingoMapper {
 	public int insertSingoCategory(SingoCategoryDTO category);
 	public int deleteSingoCategory(int prodCategoryNo);
 	public int selectSingoCount();
-	public List<SingoDTO> selectSingoList(Map<String, Object> map);
+	public List<SingoDTO> selectSingoList();
 	public int insertSingo(SingoDTO singo);
 	public int adminUpdateSingo(SingoDTO singo);
 }

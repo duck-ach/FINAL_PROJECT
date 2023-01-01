@@ -124,7 +124,7 @@
 	.div_items{
 		margin-bottom: 10px;
 		margin-top: 10px;
-		padding-bottom: 10px;
+		padding-bottom: 5px;
 	}
 	
 	.div_items:hover{

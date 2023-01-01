@@ -6,12 +6,13 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/button_go.css">
 <style>
         #modal {
-          display: none;
-          position:relative;
-          width:100%;
-          height:100%;
-          z-index:1;
-        }
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    top: 34%;
+}
         
         #modal h2 {
           margin:0;
@@ -456,7 +457,7 @@ $(function(){
     <div class="modal_content">
     <form action="admin/userSingo" method="post">
         <h2> 게시글 신고하기</h2>
-        <button type="button" id="modal_close_btn">X</button>
+        <button type="button" name="singoCategory" id="modal_close_btn">X</button>
         <select>
         <option>광고</option>
         <option>도배</option>
@@ -466,7 +467,7 @@ $(function(){
         <option>저작권침해</option>
         <option>기타</option>
         </select>
-        <textarea name="singo_content" placeholder="신고 내용" maxlength="200" style="width: 400px; height: 191px; resize:none;" ></textarea>
+        <textarea name="singoContent" placeholder="신고 내용" maxlength="200" style="width: 400px; height: 191px; resize:none;" ></textarea>
         <br>
         <input type="submit" name="신고">
     </form>

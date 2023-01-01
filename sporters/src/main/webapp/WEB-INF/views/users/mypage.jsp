@@ -165,7 +165,7 @@
 					</form>
 				</div>
 				
-				<div style="border-bottom: 1px solid #8c8cff; height: 20px;"></div>
+				<div style="border-bottom: 1px solid lightgray; height: 20px;"></div>
 				
 				<div class="div_btns" style="text-align: right;">
 					<input class="btn purple" type="button" value="회원정보 변경" onclick="location.href='/users/check/form_info'">

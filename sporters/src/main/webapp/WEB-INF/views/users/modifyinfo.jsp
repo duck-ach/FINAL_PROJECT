@@ -153,7 +153,6 @@
 		line-height: 35px;
 		margin-bottom: 45px;
 		padding-bottom: 10px;
-    	padding-left: 7px;
 	}
 	
 	input {
@@ -167,7 +166,7 @@
 	.div_result:focus,
 	.div_result:hover {
 	  outline: none;
-	  border-bottom-color: #black;
+	  border-bottom: 1px solid #black;
 	}
 	
 	.msg_class {
@@ -192,7 +191,12 @@
 		width: 100%;
 	}
 	
-	
+	input:focus {
+		width: 100%;
+		border-bottom: 2px solid #8c8cff;
+		padding-right: 10px;
+	}
+
 	
 </style>
 <script>
