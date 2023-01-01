@@ -29,16 +29,16 @@
 
 
 
-	<select id="selectSpoCommentCnt" parameterType="int" resultType="int">
+	<select id="selectFreeCommentCnt" parameterType="int" resultType="int">
 		SELECT COUNT(*)
 		  FROM SPO_COMMENT
 		 WHERE SPO_REVIEW_NO = #{spoReviewNo}
 	</select>
-	<insert id="insertSpoComment" parameterType="SpoCommDTO" useGeneratedKeys="true" keyProperty="spoCoNo">
+	<insert id="insertFreeComment" parameterType="SpoCommDTO" useGeneratedKeys="true" keyProperty="spoCoNo">
 		INSERT INTO SPO_COMMENT
-			( SPO_REVIEW_NO, COMM_CONTENT,COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)
+			( SPO_REVIEW_NO,  COMM_CONTENT,   COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)
 		VALUES
-			( #{spoReviewNo}, #{commContent}, NOW(), 1, 0, #{groupNo}, #{spoCoNo}, #{userNo})
+			( #{spoReviewNo}, #{commContent}, NOW(),             1,       0, #{groupNo}, #{spoCoNo}, #{userNo})
 	</insert>
 	
 	<update id="updateCommGroupOrder" parameterType="SpoCommDTO">
@@ -48,25 +48,25 @@
 	</update>
 	
 		
-	<select id="selectSpoCommentList" parameterType="Map" resultMap="SpoCommdtoMap">
+	<select id="selectFreeCommentList" parameterType="Map" resultMap="SpoCommdtoMap">
 	 
-		SELECT A.SPO_CO_NO, A.SPO_REVIEW_NO, A.COMM_CONTENT,A.COMM_CREATE_DATE, A.STATE, A.DEPTH, A.GROUP_NO, A.GROUP_ORDER, A.USER_NO , A.ID
-		  FROM (SELECT F.SPO_CO_NO,  F.SPO_REVIEW_NO, F.COMM_CONTENT, F.COMM_CREATE_DATE, F.STATE, F.DEPTH, F.GROUP_NO, F.GROUP_ORDER, F.USER_NO, U.ID, U.NICKNAME, U.GENDER  
+		SELECT         A.SPO_CO_NO, A.SPO_REVIEW_NO, A.COMM_CONTENT, A.COMM_CREATE_DATE, A.STATE, A.DEPTH, A.GROUP_NO, A.GROUP_ORDER, A.USER_NO, A.ID, A.NICKNAME, A.GENDER  
+		  FROM (SELECT F.SPO_CO_NO, F.SPO_REVIEW_NO, F.COMM_CONTENT, F.COMM_CREATE_DATE, F.STATE, F.DEPTH, F.GROUP_NO, F.GROUP_ORDER, F.USER_NO, U.ID, U.NICKNAME, U.GENDER  
 		          FROM SPO_COMMENT F INNER JOIN USERS U
 		     	    ON F.USER_NO = U.USER_NO) A	
-		     	    ORDER BY SPO_REVIEW_NO DESC
 		 WHERE SPO_REVIEW_NO = #{spoReviewNo}
+		     	    ORDER BY A.SPO_CO_NO 
 	
 	</select>
 	
 		
-	<update id="deleteSpoComment" parameterType="int">
+	<update id="deleteFreeComment" parameterType="int">
 		UPDATE SPO_COMMENT
 		   SET STATE = -1
 		 WHERE SPO_CO_NO = #{spoCoNo}
 	</update>
 	
-	<insert id="insertSpoReply" parameterType="SpoCommDTO">
+	<insert id="insertFreeReply" parameterType="SpoCommDTO">
 	INSERT INTO SPO_COMMENT
 			( SPO_REVIEW_NO, COMM_CONTENT,COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER, USER_NO)
 		VALUES
