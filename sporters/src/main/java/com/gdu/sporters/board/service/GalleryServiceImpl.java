@@ -74,7 +74,7 @@ public class GalleryServiceImpl implements GalleryService {
 	@Override
 	public void saveGallery(HttpServletRequest request, HttpServletResponse response) {
 		String filesystem = request.getParameter("filesystem");
-		System.out.println(filesystem);
+		
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
@@ -90,8 +90,7 @@ public class GalleryServiceImpl implements GalleryService {
 						.ip(Ip)
 						.userNo(loginUser.getUserNo())
 						.build();
-					System.out.println(freeBbs);
-		
+					
 	
 
 		// DB에 Gallery 저장
@@ -103,7 +102,6 @@ public class GalleryServiceImpl implements GalleryService {
 
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			System.out.println("result="+result);
 			out.println("<script>");
 			if (result > 0) {
 
@@ -112,14 +110,13 @@ public class GalleryServiceImpl implements GalleryService {
 				
 				// DB에 SummernoteImage 저장
 				if (summernoteImageNames != null) {
-					System.out.println("summernoteImageNames="+summernoteImageNames);
 					for (String summernoteImage : summernoteImageNames) {
 						FreeImageDTO summernote = FreeImageDTO.builder()
 								.filesystem(summernoteImage)
 								.freeNo(freeBbs.getFreeNo())												
 								.build();
 						boardMapper.insertSummernoteImage(summernote);
-						System.out.println("summernote="+summernote);
+				
 					}
 				}
 				

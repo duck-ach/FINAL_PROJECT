@@ -441,6 +441,10 @@
 										    }
 										</script>
 									</div>
+									<div>
+										<button type="submit" class="btn_payment">주문</button>
+										<button type="button" class="btn_cancel">취소</button>
+									</div>
 								</div>
 							</div><br>
 						</td>
@@ -450,8 +454,7 @@
 	 
 	</div>
 	
-	<button type="submit" class="btn_payment">주문</button>
-	<button type="button" class="btn_cancel">취소</button>
+	
 	
 	</section><!-- 기본틀 2 -->
 </section><!-- 기본틀 1 -->

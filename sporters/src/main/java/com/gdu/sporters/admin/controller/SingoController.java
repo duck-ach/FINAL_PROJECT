@@ -38,7 +38,6 @@ public class SingoController {
 		@ResponseBody
 		@PostMapping(value="/admin/addCategory")
 		public String addCategory(HttpServletRequest request) {
-			System.out.println(request.getParameter("categoryName"));
 			singoService.addCategory(request);
 			return "admin/getCategoryList";
 		}
@@ -53,9 +52,7 @@ public class SingoController {
 		public String selectSingoList(HttpServletRequest request, Model model) {
 			model.addAttribute("singoList", singoService.getSingoList(request, model));
 //			singoService.getSingoList(request, model);
-			
-			System.out.println(request);
-			System.out.println(model);
+		
 			return "/admin/singoList";
 		}
 		

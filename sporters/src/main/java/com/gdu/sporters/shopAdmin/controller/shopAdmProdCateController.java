@@ -40,7 +40,7 @@ public class shopAdmProdCateController {
 	@ResponseBody
 	@PostMapping(value="/shopAdmin/categoryAdd")
 	public String categoryAdd(HttpServletRequest request) {
-		System.out.println(request.getParameter("cateName"));
+
 		shopAdminCateService.addCategory(request);
 		return "/shopAdmin/getCategoryList";
 	}

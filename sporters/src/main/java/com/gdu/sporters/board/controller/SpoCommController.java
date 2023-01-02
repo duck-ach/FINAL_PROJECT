@@ -29,7 +29,7 @@ public class SpoCommController {
 	@ResponseBody
 	@PostMapping(value="/gallerySpoComm/add", produces="application/json")
 	public Map<String, Object> add(SpoCommDTO commContent, HttpServletRequest request) {
-		System.out.println(commContent);
+		
 		return gallerySpoCommService.addSpoComment(commContent, request);
 	}
 	
@@ -48,7 +48,6 @@ public class SpoCommController {
 	@ResponseBody
 	@PostMapping(value="/gallerySpoComm/reply/add", produces="application/json")
 	public Map<String, Object> replyAdd(SpoCommDTO reply, HttpServletRequest request){
-		System.out.println(request.getParameter("spoReviewNo"));
 		return gallerySpoCommService.addSpoReply(reply, request);
 	}
 	

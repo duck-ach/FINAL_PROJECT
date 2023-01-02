@@ -32,8 +32,6 @@ public class SingoServiceImpl implements SingoService {
 		SingoCategoryDTO category = SingoCategoryDTO.builder()
 				.singoCategoryName(categoryName)
 				.build();
-		System.out.println(category);
-		
 		singoMapper.insertSingoCategory(category);
 	}
 		
@@ -89,8 +87,7 @@ public class SingoServiceImpl implements SingoService {
 	public void singoButton(HttpServletRequest request, HttpServletResponse response) {
 		String singoCategory = request.getParameter("singoCategory");
 		String singoTitle = request.getParameter("singoTitle");
-		System.out.println(singoTitle);
-		System.out.println(request.getParameter("singoTitle"));
+	
 		String content = request.getParameter("singoContent");
 		String url = request.getRequestURL().toString();
 		
@@ -122,7 +119,6 @@ public class SingoServiceImpl implements SingoService {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			System.out.println("result="+result);
 			out.println("<script>");
 			if (result > 0) {
 				out.println("alert('게시글을 등록했습니다.');");

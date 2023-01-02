@@ -29,8 +29,7 @@ public class FreeCommController {
 	@ResponseBody
 	@PostMapping(value="/galleryFreeComm/add", produces="application/json")
 	public Map<String, Object> add(FreeCommDTO commContent, HttpServletRequest request) {
-		System.out.println("ㅎㅇ");
-		System.out.println(commContent);
+		
 		return galleryCommService.addComment(commContent, request);
 	}
 	
@@ -49,7 +48,6 @@ public class FreeCommController {
 	@ResponseBody
 	@PostMapping(value="/galleryFreeComm/reply/add", produces="application/json")
 	public Map<String, Object> replyAdd(FreeCommDTO reply, HttpServletRequest request){
-		System.out.println(reply);
 		return galleryCommService.addReply(reply, request);
 	}
 	

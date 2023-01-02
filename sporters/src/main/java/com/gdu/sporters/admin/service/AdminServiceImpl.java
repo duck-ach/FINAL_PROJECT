@@ -54,8 +54,6 @@ public class AdminServiceImpl implements AdminService {
 		
 	String column = request.getParameter("column");
 	String searchText = securityUtil.preventXSS(request.getParameter("searchText"));
-	System.out.println(column);
-	System.out.println(searchText);
 	Map<String, Object> map = new HashMap<String, Object>();
 	map.put("column", column);
 	map.put("searchText", searchText);

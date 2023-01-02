@@ -66,8 +66,7 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 		
 		OrderDTO order = shopAdminOrderMapper.selectOrderDetailByUserNo(map);
 		
-		System.out.println(shopAdminOrderMapper.selectOrderDetailByUserNo(map));
-		System.out.println(shopAdminOrderMapper.selectOrderProdDetailByUserNo(map));
+	
 		model.addAttribute("order", order);
 		model.addAttribute("orderInfo", shopAdminOrderMapper.selectOrderProdDetailByUserNo(map));
 		

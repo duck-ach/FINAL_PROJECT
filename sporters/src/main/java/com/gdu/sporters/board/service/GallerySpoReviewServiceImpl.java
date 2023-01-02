@@ -88,7 +88,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 	@Override
 	public void saveSpoReviewGallery(HttpServletRequest request, HttpServletResponse response) {
 		String filesystem = request.getParameter("filesystem");
-		System.out.println(filesystem);
+
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
@@ -109,7 +109,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 						.userNo(loginUser.getUserNo())						
 						.localBoardNo(localBoardNo)
 						.build();
-					System.out.println(freeBbs);
+				
 		
 	
 
@@ -122,7 +122,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			System.out.println("result="+result);
+	
 			out.println("<script>");
 			if (result > 0) {
 
@@ -131,14 +131,14 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 				
 				// DB에 SummernoteImage 저장
 				if (summernoteImageNames != null) {
-					System.out.println("summernoteImageNames="+summernoteImageNames);
+				
 					for (String summernoteImage : summernoteImageNames) {
 						SpoImageDTO summernote = SpoImageDTO.builder()
 								.filesystem(summernoteImage)
 								.spoReviewNo(freeBbs.getSpoReviewNo())												
 								.build();
 						spoReviewMapper.insertlatterSummernoteImage(summernote);
-						System.out.println("summernote="+summernote);
+			
 					}
 				}
 				
@@ -178,7 +178,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 	@Override
 	public void lattersaveSpoReviewGallery(HttpServletRequest request, HttpServletResponse response) {
 		String filesystem = request.getParameter("filesystem");
-		System.out.println(filesystem);
+	
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
@@ -203,7 +203,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 						.localNo(localNo)
 					//	.localBoardNo(localNo)
 						.build();
-					System.out.println(freeBbs);
+			
 		
 	
 
@@ -216,7 +216,7 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			System.out.println("result="+result);
+		
 			out.println("<script>");
 			if (result > 0) {
 
@@ -225,14 +225,14 @@ public class GallerySpoReviewServiceImpl implements GallerySpoReviewService {
 				
 				// DB에 SummernoteImage 저장
 				if (summernoteImageNames != null) {
-					System.out.println("summernoteImageNames="+summernoteImageNames);
+			
 					for (String summernoteImage : summernoteImageNames) {
 						SpoImageDTO summernote = SpoImageDTO.builder()
 								.filesystem(summernoteImage)
 								.spoReviewNo(freeBbs.getSpoReviewNo())												
 								.build();
 						spoReviewMapper.insertlatterSummernoteImage(summernote);
-						System.out.println("summernote="+summernote);
+				
 					}
 				}
 				

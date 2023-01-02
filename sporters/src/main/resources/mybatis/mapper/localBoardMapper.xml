@@ -52,7 +52,6 @@
                   ON F.USER_NO = U.USER_NO LEFT OUTER JOIN LOCALS_IMAGE TN
 		  		  ON F.LOCAL_BOARD_NO = TN.LOCAL_BOARD_NO) A
 		  		  ORDER BY LOCAL_BOARD_NO DESC
-		<!--   WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}	-->
 		 LIMIT #{begin}, #{recordPerPage}		 	 
 	</select>
 	

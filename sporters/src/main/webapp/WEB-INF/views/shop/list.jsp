@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<link rel="stylesheet" type="text/css" href="/resources/css/button_shop.css">
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -92,12 +93,14 @@
 	#aside {
 		float: left;
 		width: 180px;
+		height: 500px;
 	}
 	#aside h3 {
 		width: 180px;
-		font-size:22px;
+		font-size:30px;
 		margin-bottom:20px;
 		text-align: center; 
+		font-weight: bold;
 	}
 	#aside li {
 		font-size:16px;
@@ -126,10 +129,35 @@
 	    margin-left: 10px;
 	    margin-right: 10px;
 	    margin-bottom: 30px;
+	    line-height: 30px;
 	}
 	.btn_buy {
 		display: none;
 	}
+	
+	
+	.cartList_area{
+	margin-top: 60px;
+	
+	}
+	
+	.btn-hover {
+    width: 170px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px auto;
+    height: 30px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
 </style>
 <body>
 <section class="wrap"><!-- 기본틀 1 -->
@@ -142,7 +170,7 @@
 			<li><a href="/shop/categoryList?prodCategoryNo=1">음식</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=2">의류</a></li>
 			<li><a href="/shop/categoryList?prodCategoryNo=3">기타</a></li>
-			<li><a href="/shop/cartList">장바구니로 이동</a></li>
+			<li class="cartList_area"><a href="/shop/cartList">장바구니로 이동</a></li>
 			<li><a href="/shop/orderList">주문내역 확인</a></li>
 		</ul>
 	</div>
@@ -163,8 +191,8 @@
 						<option value="<%=i%>"><%=i%></option>
 					<%}%>
 					</select>개</span>
-					<button class="btn_buy">구매하기</button>
-					<button class="btn_addCart" data-prodno="${list.prodNo}" data-stock="${list.stock}">장바구니 담기</button>
+					<button class="btn_buy">구매하기</button>					
+					<button  id="btn_addCart" class="btn-hover color-3 btn_addCart" data-prodno="${list.prodNo}"  data-stock="${list.stock}">장바구니 담기</button>
 				</li>
 			</ul>
 		</c:forEach>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<link rel="stylesheet" type="text/css" href="/resources/css/button_shop.css">
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="Spoters쇼핑몰페이지" name="title" />
 </jsp:include>
@@ -60,12 +61,24 @@
 	});
 	
 </script>
+
+<style>
+
+.product_area{
+	line-height: 60px;
+}
+
+
+.product_area h1{ font-size: 30px;}
+.product_area span{font-size: 24px;}
+
+</style>
 <body>
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div class="product_detail_area" style="display: flex;justify-content: space-around;">
+		<div class="product_detail_area" style="display: flex;justify-content: space-evenly;">
 			<div><img src="/shopAdmin/prod/display?prodNo=${product.prodNo}" width="300px" class="attach_img" alt="thumbnail_img" title="${product.prodThumbnail.tnFilesystem}"></div>
-			<div>
+			<div class="product_area"  style="">
 				<input type="hidden" id="prodNo" value="${product.prodNo}">
 				<h1>&#91;${product.prodCategory.prodCategoryName}&#93; ${product.prodName}</h1> 
 				<span>${product.prodContent}</span><br>
@@ -79,7 +92,8 @@
 					<%}%>
 					</select>개
 				</span><br>
-				<button id="btn_addCart" data-stock="${product.stock}">장바구니</button>
+			
+				<button  id="btn_addCart" class="btn-hover color-3"data-stock="${product.stock}">장바구니</button>
 			</div>
 		</div>
 		
