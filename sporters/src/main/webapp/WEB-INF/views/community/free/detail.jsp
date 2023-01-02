@@ -326,8 +326,8 @@
 	                     div += '<span>작성자 : </span>'+   '<span>'+ comment.users.nickname + '</span>' + '<span>&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ comment.commContent + '</span>' ;
 	              //       div += comment.commContent;   // 정상일 때 내용 보여줌
 
-	                     div += '<span> 닉네임 ▶ </span>' +'<span>'+ comment.users.nickname +'</span>' +'<span>&nbsp; : &nbsp;</span>';
-	                     div += '<span>'+ comment.commContent +'</span>';   // 정상일 때 내용 보여줌
+	                //     div += '<span> 닉네임 ▶ </span>' +'<span>'+ comment.users.nickname +'</span>' +'<span>&nbsp; : &nbsp;</span>';
+	              //       div += '<span>'+ comment.commContent +'</span>';   // 정상일 때 내용 보여줌
 
 	                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
 	                     if(${loginUser.id == 'admin'}) {

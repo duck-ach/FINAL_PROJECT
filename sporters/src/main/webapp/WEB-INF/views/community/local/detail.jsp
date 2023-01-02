@@ -78,7 +78,6 @@
 			
 			<div class="content_title_area">
 				<h1 class="content_title_area_left">${LocalgalleryList.title}</h1>
-				
 				<div class="content_title_area_right">
 					<div>
 						<span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABiElEQVR4nO3VO2tVQRSG4UeJB0SCWHkpghgE4wXEQrCwFgsLQdAg+gO0EkRstEsl+AckQRGsLAyBWBi1EwvRaJ14aQQVFK+JGohs+AKHw7klc9L5wWaYvdbMO7NmrRn+axW1FpvS9lwHMI45LKa9h/29ApzEb3zHKK5gDD8wjxOlgF2ZaBo7GmyDeJVd7SyBjAYy1MK+O7u8UQJ5i8kOPvfxugTyJfFvpzF8LoE8x5MOPk/xrARyKSl7vIX9WOwXSyDr8TLhONVgG87/6fgVaWvCtphEmEpb9V9gSylgM27iTyb9iln8Sv8vbmNb3ZgaruNdMnOgHeAQPqbYrqUm6rUnk1V18gmHAxjPAh7hZ9qm2ptVz7QpxCXtw5tcO48DuBzbXXzTROty2B+wXXcaSujqAaexgDvNBpyJ89kuAbW6EDUCqhra2GzQA7zv8s2orQSwJodVZVQn9a0EUKk/KXqhC8jBAEaWA1iuzgdyBOdWA1DpViBLX3VJVu9/T/UQE7iKo9jQyvMfsCVuvY9ZWbgAAAAASUVORK5CYII="></span>
@@ -86,7 +85,8 @@
 					</div>
 				</div>
 			</div>
-			
+			<h6 class="" style="margin-top:1vw;" >모집 시작일 : ${LocalgalleryList.joinStart}</h6>
+			<h6 class="">모집 종료일 : ${LocalgalleryList.joinEnd}</h6>
 			<div style="text-align: right;">
 				<span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhUlEQVR4nM3TPUjWURgF8F9fhH0MFULQZhRFiw3hUkNCgUtQWwUtQR+QOAYaEi0KKbo0FUQQmUVLBEUUREURRUM0NOagVEsfFtoXxoUjvLwovr01eJb//3LvPc/znHMu8wSbsf5/EB3HG0zg7r+SHcZPdGEk37qxGz9wBI0YxdF6iJZjHz6jFw14ghf5rwlLcSwaTWIKQ1iEG1mfwYJayBrwAJ9wMeI/TJF+fMQpjONWxp8VC3Edb9GEO3F0NU7gO3bm7Ea8xBj2z9ZtXzrYgvN4H+I9cfdQ1fnS9elM8RwdWFyZr9JBKzrxDS3Yhq/oriBaU0XchHN4NL23IgTFiAP4hb0p8iFdn0yH1/DaHFiF3xiMqx25XIoMYBjPEubb2KoG9CYOg9GmZO1prdGYCcNxtYh6Ge/wBfexQx0YQw8uhKgZG3A1ctyriEzlK2pLLs9GnmVlY23GnUq2tlddLDG6kuiMRo5X0XsCj3ETl7CyXFgSRzfNMcU6HIzj7dj1N+95/uAP1/ReFe34fBUAAAAASUVORK5CYII="> 작성일 <fmt:formatDate value="${gallery.createDate}" pattern="yy/M/d"/></span>
 				&nbsp;&nbsp;&nbsp;
