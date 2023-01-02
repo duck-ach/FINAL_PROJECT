@@ -55,19 +55,19 @@ address{
 			<br>
 			<address  style="font-style: italic;">
 				<span>
-					신준호/ @xtick18000@naver.com
+					신준호/ @@naver.com
 				</span>
 				<span>
-					김나영/ @nayoung188@naver.com
+					김나영/ @@naver.com
 				</span>
 				<span>
-					이정행/ @wjdgod777@naver.com
+					이정행/ @@naver.com
 				</span>
 				<span>
-					박지원/ @giwon0923@naver.com
+					박지원/ @@naver.com
 				</span>
 				<span>
-					엄희라/ @djagmlfk@naver.com
+					엄희라/ @@naver.com
 				</span>			
 			</address>		
 		</li>
