@@ -16,6 +16,7 @@ public class CartDTO {
 	private int userNo;
 	private int prodNo;
 	private int prodCnt;
+	private int cartState;
 	private ProductDTO product;
 	private UsersDTO users;
 	private OrderDTO order;
