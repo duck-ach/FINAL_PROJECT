@@ -25,5 +25,4 @@ public interface ShopService {
 	public int updateStock(ProductDTO product);
 	public void getOrderList(Model model);
 	public void getOrderDetail(HttpServletRequest request, Model model);
-	public void selectOrderNo();
 }
