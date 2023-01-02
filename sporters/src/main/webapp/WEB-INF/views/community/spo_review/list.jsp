@@ -170,7 +170,7 @@
 						<div id="list">						
 							<c:forEach items="${SpoReviewgalleryList}" var="gallery" varStatus="vs">
 								<div class="div_items">			
-									<span><a id="moveDetail"
+									<span class="span_title"><a id="moveDetail"
 										href="/latterSpo_review/increase/hit?spoReviewNo=${gallery.spoReviewNo}">${gallery.title}</a></span>									
 									<span class="span_nickname">${gallery.users.nickname}</span>							
 									<span class="span_gender">${gallery.users.gender}</span>	

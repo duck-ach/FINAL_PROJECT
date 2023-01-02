@@ -29,7 +29,7 @@
 				dataType: 'json',
 				success: function(result){
 					if(result.prodNo != true){
-						if(stock > prodCnt){
+						if(stock >= prodCnt){
 							$.ajax({
 								url: '/shop/addCart',
 								type: 'post',
@@ -49,7 +49,7 @@
 							alert('구매량이 재고량보다 많습니다.');
 						}
 					} else {
-						alert('이미 구매한 상품입니다.');
+						alert('이미 장바구니에 담은 상품입니다.');
 					}
 				},
 				error: function(){
@@ -64,8 +64,6 @@
 			var prodCnt = $(this).data('prodno');
 			var stock = $('.stock').val();
 			var prodName = $('.prodName').val();
-			alert(prodCnt);
-			alert(stock);
 			if(prodCnt > stock) {
 				alert('구매량이 재고량보다 많습니다.');
 				prodcnt == stock;
@@ -129,6 +127,9 @@
 	    margin-right: 10px;
 	    margin-bottom: 30px;
 	}
+	.btn_buy {
+		display: none;
+	}
 </style>
 <body>
 <section class="wrap"><!-- 기본틀 1 -->
@@ -149,7 +150,7 @@
 		<c:forEach items="${productList}" var="list">
 			<ul>
 				<li class="product">
-					<img src="/shopAdmin/prod/display?prodNo=${list.prodNo}" width="100px" class="attach_img" alt="thumbnail_img" title="${list.prodThumbnail.tnFilesystem}"><br>
+					<img src="/shopAdmin/prod/display?prodNo=${list.prodNo}" width="180px" height="180px" class="attach_img" alt="thumbnail_img" title="${list.prodThumbnail.tnFilesystem}"><br>
 					<input type="hidden" class="prodNo" value="${list.prodNo}">
 					<a href="/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
 					<input type="hidden" class="prodName" value="${list.prodName}">

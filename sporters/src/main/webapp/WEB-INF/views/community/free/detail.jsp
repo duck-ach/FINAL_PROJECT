@@ -152,7 +152,9 @@
 	
 			<div class="div_btns">
 				<form id="frm_btn" method="post">	
+					
 					<input type="hidden" name="freeNo" value="${gallery.freeNo}">
+
 					<c:if test="${loginUser.id == gallery.users.id}" >
 						<span><input type="button" value="수정" id="btn_edit_gallery"></span>
 						<span><input type="button" value="삭제" id="btn_remove_gallery"></span>
@@ -326,8 +328,8 @@
 	                     div += '<span>작성자 : </span>'+   '<span>'+ comment.users.nickname + '</span>' + '<span>&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ comment.commContent + '</span>' ;
 	              //       div += comment.commContent;   // 정상일 때 내용 보여줌
 
-	                     div += '<span> 닉네임 ▶ </span>' +'<span>'+ comment.users.nickname +'</span>' +'<span>&nbsp; : &nbsp;</span>';
-	                     div += '<span>'+ comment.commContent +'</span>';   // 정상일 때 내용 보여줌
+	                //     div += '<span> 닉네임 ▶ </span>' +'<span>'+ comment.users.nickname +'</span>' +'<span>&nbsp; : &nbsp;</span>';
+	              //       div += '<span>'+ comment.commContent +'</span>';   // 정상일 때 내용 보여줌
 
 	                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
 	                     if(${loginUser.id == 'admin'}) {
@@ -487,18 +489,21 @@ $(function(){
     <div class="modal_content">
     <form action="admin/userSingo" method="post">
         <h2> 게시글 신고하기</h2>
-        <button type="button" name="singoCategory" id="modal_close_btn">X</button>
-        <select>
-        <option>광고</option>
-        <option>도배</option>
-        <option>음란물</option>
-        <option>욕설</option>
-        <option>개인정보침해</option>
-        <option>저작권침해</option>
-        <option>기타</option>
+        <button type="button" name="modal_close_btn" id="modal_close_btn">X</button>
+        <select name="singoCategory" id="singoCategory">
+        <option value="광고">광고</option>
+        <option value="도배">도배</option>
+        <option value="음란물">음란물</option>
+        <option value="욕설">욕설</option>
+        <option value="개인정보침해">개인정보침해</option>
+        <option value="저작권침해">저작권침해</option>
+        <option value="기타">기타</option>
         </select>
         <textarea name="singoContent" placeholder="신고 내용" maxlength="200" style="width: 400px; height: 191px; resize:none;" ></textarea>
         <br>
+        <input type="hidden" name="singoTitle" id="singoTitle" value="${gallery.title}">
+        <input type="hidden" name="userNo" value="${gallery.userNo}">
+		<input type="hidden" name="freeNo" value="${gallery.freeNo}">
         <input type="submit" name="신고">
     </form>
        

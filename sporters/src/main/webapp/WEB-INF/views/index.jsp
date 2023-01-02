@@ -143,6 +143,20 @@
     }
     
     
+    .citys{
+        display: flex;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
+    }
+    
+    
+    .citys p{
+        height: 3vw;
+    }
 </style>
 
 <body>
@@ -172,10 +186,16 @@
 		<div class="weather">
 			
 			<ul style="display: flex;justify-content: space-around;align-items: center;font-size: 2.4vw;line-height: 14vw;">
-				<li class="icon"></li>
-				<li class="city"></li>
+				<li class="icons"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE7ElEQVR4nO2dS48bRRCAGwhIPITEsomrvQ6PAxwgIA4QAWcOLFcIAs7AXwiPKwhxzQP+QxAcEg5wWtbdNouUCyjcUBCwQsBugkAkWbtKalTjMdl4/WTtnprp+qS+2J7p6f7cPdM9NT3GKIqiKIqiKIpSBsJ5c2sI5qaij0MxxpCrvYwe/kRn/yYHx7RSCgad/Y28DZzQ21+LPp7koVxGPyVfIUVDKkQWpEJkQSpEFqRCZEEqRBakQmRBKkQWpELGEzaW7sYmPB/ajZWqCgktuB8drIYva3cayYS1g3ehsz9k0xgOrqCHF6smBFvwEnq4lk/VfB/O2zuMVNDDC7srB71FLkBVhGAmw+INZXT154xUwnrtQfSwE1MKentxV14Xo8rwcC2s1w8byQw/8MVJQQer6GAzT6tVKNPc4XMHOtsdKACRs6+ZkoGjytK0r5oyUQUpWBUZVZCCVZNRZilYVRllPCliiY51Adfw0AlfrTxkhBCa9YeHtIzqyRgrZYbChmBu7rpDT5O375C3n5K3F9DDZa7ELHm4zJ9l3zn7Nv+Wt5l2/xy1koyMG6Q46OQt5JfQbixN2iZsrDTQwwc81hgcmU9KnAdvy/uYmM839Xv59/3WW3kZfbib4hPnJBkhqyD7cV/gfhLPIKCzH/E+x+bZbixlxyaoKxUBteqvoIPt/YoYImaLg+uKLl9pCGvmALeKeYvYK8ae5ryKLq9oQrtxO3l7btEyric4y3kWXW6RhDPmFvLwWTwZeXL2c20pQ4jRTdHo7utU/L+g8BN4UTLov5aikfO7LzO3ihaCDrbDml02qVNkV0V7ui44aVImG4HPYdBH8xOyEytaRiQ8pVG0BNrbdb1vUoQn/dDDzwKFbPIluEmNfNY2SEzddu2oSQ3y8G7RFU+jkrPHTWoUMir3Uwv5xKRGfiNJqpDvjFTQwYf9WNZZEkcRjgtcQweXCq94P+rYYSt2fUxFx9ef2FfBHGyOKVhHsJCd2PWhQnwJhWT/5N697CvzbqKl7bL8YuqjcPSkLow8jCcITWdMauSxVUFkcgkODEVPnbTgKZMaYicXPfw0S7RjpdDpd2HkIaI7glrHTtI3qBgO7xQjxMEJkzq9IAf7hwAZ25PifpOBY20LF9JKJNJ9WjjWlrSrkhZKaosYvZ/TUNKxwdZwNp4MDbae7nEEb09FOImf0JYxA+Tg2CKuvtDZ3/UEPtgK1pdt18OTk6YoQi/u9+Q8Bo982zVrFe6+e8bmeeGR27qt+rOhCQdNCvQeyoerWUU5+GKaeaPgD9c5ovD/zH3x3BQ6+x7vY2I+a+YAebvR287+E2O9L3GPRXeaK4/P9Fh0u3aUnH2LQ3U4OoTvPGZPzPbSJfLwbf7dcZ61nWWisOvrzyTzWPSIhQOuSnoEIKwv28GIkkpKGblchcAuAblLrfLSGmVcyAVLuGBOZWVUVkqZZVROSuwljsIC30FV+uWaYheAIryDqrRSOu1Dj8VebwojvYNq+GW77XZatSNGKuTsm7H/RTQwMl9kXsOkkLdvGKmEr2sPoLN/xVxviiIKub7eV68X4LLyOvBGMiyFvH2942qPxsiPIgthuJviMnJZY+RXKqgAIcoYVIgwSFuILEiFyIJUiCxIhciCVIgsSIXIglSILNDZH2O8g0oR9A4qRVEURVEURVEUU2H+BQG+q+d+yzpFAAAAAElFTkSuQmCC"></li>
+				<li class="citys">
+				
+					
+					<p class="">서울</p>
+					<p class="ctemp">현재온도 :</p>
+				
+				</li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
-				<li class="ctemp">온도 :</li>
+				
 				<!--  
 				<li class="hightemp">최고 온도 :</li>
 				<li class="lowtemp">최저 온도 :</li>
@@ -196,11 +216,10 @@
 		            const latitude = coords.latitude;   // 위도
 		            const longitude = coords.longitude; // 경도
 		           */
-		           var latitude = 33.450701;   // 제주도 카카오 사옥 좌표
-		       	var longitude = 126.570667;  // 제주도 카카오 사옥 좌표 
-		            
-		            console.log(latitude);
-		            console.log(longitude);
+		      //     var latitude = 33.450701;   // 제주도 카카오 사옥 좌표
+		      // 	var longitude = 126.570667;  // 제주도 카카오 사옥 좌표 
+		             var latitude = 37.4730836;
+		             var longitude = 126.8788276;
 		         //   alert(`위도: ${latitude}, 경도: ${longitude}, 위치 반환 시간: ${timestamp}`);
 		           // alert(longitude);
 		            
@@ -316,7 +335,7 @@
 		
 		</div>
 	      <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="false"></div>
-	      <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="true"></div>
+	      <div class="swiper-button-prev" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="true"></div>
 	    	<div class="spo_review_list">
 			
 				<a href="/shop/list">▶ 쇼핑몰</a>
@@ -346,9 +365,10 @@
 
 $(document).ready(function(position) {
 //위치 측정 불가인 경우 기본 경/위도 : 서울
-	var lat = 33.450701;   // 제주도 카카오 사옥 좌표
-	var lon = 126.570667;  // 제주도 카카오 사옥 좌표 
-     
+//	var  = 33.450701;   // 제주도 카카오 사옥 좌표
+//var  = 126.570667;  // 제주도 카카오 사옥 좌표 
+	var lat = 37.4730836;
+    var lon = 126.8788276;
 var options = {
    enableHighAccuracy : true,
    timeout : 5000,
@@ -357,10 +377,12 @@ var options = {
 function success(pos) {
    var crd = pos.coords;
    
+  
+   var lat = 37.4730836;
+   var lon = 126.8788276;
+   
    console.log('위도 : ' + crd.latitude);
    console.log('경도: ' + crd.longitude);
-   lat = crd.latitude;
-   lon = crd.longitude;
 };
 function error(err) {
    console.warn('ERROR(' + err.code + '): '
@@ -370,9 +392,10 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 var wAPI = '17f7777f4c3c5d6b66df232b3ee2ffc8'
 
     function successs({ coords, timestamp }) {
-             lat = coords.latitude;   // 위도
-             lon = coords.longitude; // 경도
-            
+          //   lat = coords.latitude;   // 위도
+           //  lon = coords.longitude; // 경도
+               lat = coords.latitude;   // 위도
+               lon = coords.longitude; // 경도
               
        
 //var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' +lon+ '&appid=' + '9e59ce9dcb1014633e13dc6b7a7ffa54' + &units=metric';
@@ -419,35 +442,6 @@ $.ajax({
 
   getUserLocation();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 var swiper = new Swiper(".mySwiper", {

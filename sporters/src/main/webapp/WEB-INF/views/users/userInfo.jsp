@@ -3,6 +3,69 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="/resources/js/jquery-3.6.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<style>
+	*{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+	.blind {
+		display: none;
+	}
+	/* 헤더 */
+		
+	.mapage_div { 
+		position: relative; 
+		margin-top: 5%;
+	}
+	
+	.mapage_div:before,
+	.mapage_div:after {
+	  content: '[';
+	  display: inline-block;
+	  position: relative;
+	  top: 1px;
+	  height: 5%;
+	  font-size: 1.25em;
+	  color: #8282ff;
+	  transition: all 0.5s ease;
+	}
+	
+	.mapage_div:after { content: ']'; }
+	
+	.mapage_div:hover:before { 
+	  transform: translateX(-5px);
+	}
+	
+	.mapage_div:hover:after { 
+	  transform: translateX(5px);
+	}
+	
+		/* 본문 */
+	
+	.first_div {
+	    width: 75%;
+	    height: 90%;
+	    margin: auto;
+	    border: 1px solid #e8e8e8;
+	    box-shadow: 5px 5px #c8c8ff;
+	    margin-top: 5%;
+	}
+	
+	.div_form {
+		margin: auto;
+	    width: 75%;
+    	text-align: left;
+	}
+	
+	.div_element{
+	    margin-bottom: 2%;
+	}
+	
+	
+	
+</style>
 <script>
 	
 	$(function(){
@@ -159,29 +222,27 @@
 		
 	
 </script>
-<style>
-	.blind {
-		display: none;
-	}
-</style>
+
 <body>
 
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
-		<div>
-			<div style="font-size: 24px; font-weight: bold;"> 회원 상세 정보 </div>
+		<div class="first_div">
+			<div class="mapage_div" style="font-size: 32px; font-weight: bold; text-align: center; margin-bottom: 20px;"> 회원 상세 정보 </div>
 				<input type="hidden"  id="userNo" name="userNo" value="${user.userNo}">
-				<div>
-					프로필사진
-				</div>
-				<div>
-					<div>
+				<div class="div_form">
+				
+					<div style="text-align: center; margin-bottom: 10%;">
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAETklEQVR4nO2dzW8XRRiAH0GpsVVaNUGxCRHCoYdGDsQ0+gcYY6I0fPQEppcaOXDgoEmhxkNJwGhaLlzQRBJbRezFgxcSPpQjCSEBv20sKQkxKAUKVsEOmWRMTOzS33Zm552d3/sk73nnnWd2ZnZndhYURVEURVEURVHqwQqgDxgHvgdmAdPkMevqwtbJNldHUdgM/JJABZjE42egt0oRy4H3E0jU1CzeA5ZVIURlsGQpB6ropqRbmql5bAolY4XrD6UTMjWPyVADfV8CyZhMYmsIIZ8mkIjJJD4JIeTHBBIxmYR9TvHmZgKJmEzC1qU30kmYzEKFIC9BhSBf8SoE+cpuOiFzwFfAXuBVoAtY5R642oA1wIvA28AJYD6BMmcp5DugH3i0ZNk3ABcSKH82QmaBnZ5vS58ELicgovZCpl2XFIIO4GVgFJhRIeVlXAXWUQ2PAR/pHVJOyCtUz6B2WY3J+JJ4fK5jyOJCno8o5Bk3ldZBvaASviU+sZcXvIlZ2P3Exy4aqZCq151L8LQKKW6RXchwXbushYW0CQn5SYX8X8Y88ICQkJjL1N7EKugd5FAhBVJahYTE3KvsTcwp4VriY7vJP1XIwkJeEBCi0977tMZeASE9kXsBb2IW9i3i86YKKRbyhYCQIyqkWMglASGxt8p6YyLHauKxViA/b0zkp/Ue4vGGCln8e7yY2AfRH/QOKRbyLPHZpUKKhbQLCLHbg3QMKaiEbgEhdlFMhRRUQr+AkCEVUtwiPxMQclaFFAv5B9gYUcZrOu1dvL/+A9hd8eqh/XxhR+S19Fo+GJr/xHqq4yXBvLyRKvjr5DOQZyFkjOqwX2GpkJKV8Jf7XC00TwF/q5CltcjBCoTsEZRR6y7LANdciw7FSuCKCvGTMh5QyKhwA6v9HWJc7AuQx3b34Cmdizcmgfg9QB6/JZBHNkKuBchDhQQUciOAEOnBPKs7ZCZAHtMJ5JGNkKmMTsbzxiQQ5wPkcS6BPLIRcjpAHt8kkEc2QnYGyOOdBPLIQsjXgQ4gbk3kqCZvJAt/BniCcHQmIMUbiULPAcPAQ4TH3imHgLsqpDERH1a8fPsvzwFH3cemeocscD7WcOBX7Y2yxv2KI9bBZt5UWTi7J2oAeAR5HnbnnhxvNiF2afaw0LbRModnHq7o6CZvQp57ftDNdOrCKuBd97Y5GyF20BwBHqe+dLhxJsTmCG98DySzs5lc6A7wHOPNUi98TPB0nyppdZvCayXEHpv3IPmyDPhYSsjtkhc85f55mDvLgZMl6+ZWiAtPlty5XqdZlC+dLudG68f+7c6bMv2l3cTcbAzF3mPWV2Ijgt0Z2Gy0u9yj/TavBfi1gYtN0LxMxPyxZKO/XrXvpJqVAYmjpw4ucZqnAR9QAfabP5VC6QY2UvVpq1vcPilt+dy3DqZcVx+FFncx+9nZxRKzjJzjhquLMVc3to4URVEURVEURVFInXvGCW/YXnbmPAAAAABJRU5ErkJggg==">
+					</div>
+					<div style="margin-left: 26%;">
+					<div class="div_element">
 						닉네임 : ${user.nickname}
 					</div>
-					<div>
+					<div class="div_element">
 						호감도 : <span id="good_hate_count"></span>
 					</div>
-					<div>
+					<div class="div_element">
 						<span id="good">
 							<a id="lnk_good">
 								<span><img src="https://img.icons8.com/material-two-tone/24/null/thumb-up--v1.png"/></span><span id="good_count"></span>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;            
@@ -194,8 +255,9 @@
 						</span>
 						
 					</div>
-					<div>
+					<div class="div_element">
 						가입일 : ${user.joinDate}
+					</div>
 					</div>
 				</div>
 		</div>

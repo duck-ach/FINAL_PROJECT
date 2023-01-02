@@ -88,8 +88,10 @@ public class SingoServiceImpl implements SingoService {
 	@Override
 	public void singoButton(HttpServletRequest request, HttpServletResponse response) {
 		String singoCategory = request.getParameter("singoCategory");
+		String singoTitle = request.getParameter("singoTitle");
+		System.out.println(singoTitle);
+		System.out.println(request.getParameter("singoTitle"));
 		String content = request.getParameter("singoContent");
-		FreeDTO free = new FreeDTO();
 		String url = request.getRequestURL().toString();
 		
 		//////////////////////////////////////////////////////////
@@ -110,7 +112,7 @@ public class SingoServiceImpl implements SingoService {
 		url = url + "?" + request.getQueryString();
 		SingoDTO singo = SingoDTO.builder()
 				.singoCategory(singoCategory)
-				.singoTitle(free.getTitle())
+				.singoTitle(singoTitle)
 				.singoLink(url)
 				.singoUserReason(content)
 				.userNo(userNo)
