@@ -47,6 +47,7 @@ public class ShopServiceImpl implements ShopService {
 		map.put("begin", shopPageUtil.getBegin() - 1);
 		map.put("recordPerPage", shopPageUtil.getRecordPerPage());
 		
+		
 		model.addAttribute("prodCount", prodCount);
 		model.addAttribute("productList", shopMapper.selectProductListByMap(map));
 		model.addAttribute("beginNo", prodCount - (page - 1) * shopPageUtil.getRecordPerPage());
@@ -128,7 +129,8 @@ public class ShopServiceImpl implements ShopService {
 				cart.setCartNo(cart.getCartNo());
 				cart.setUserNo(cart.getUserNo());
 				shopMapper.insertOrder(order);
-				shopMapper.deleteCart(cart);
+				shopMapper.updateCartState(cart);
+				// shopMapper.deleteCart(cart);
 			}
 		}
 		
@@ -154,12 +156,6 @@ public class ShopServiceImpl implements ShopService {
 		
 		model.addAttribute("order", shopMapper.selectOrderDetail(orderNo));
 		model.addAttribute("name", model.getAttribute("name"));
-	}
-	
-	@Override
-	public void selectOrderNo() {
-		
-		
 	}
 	
 }

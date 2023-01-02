@@ -225,7 +225,6 @@
 										var checkArr = new Array();
 								  
 										checkArr.push($(this).attr("data-cartNo"));
-								   		console.log(checkArr);
 										$.ajax({
 											url : "/shop/deleteCart",
 											type : "post",
@@ -280,7 +279,6 @@
 													type : 'post',
 													success : function(order) {
 														alert("성공!");
-														console.log(order);
 														$('#name').val(order.name);
 														$('#postcode').val(order.postcode);
 														$('#roadAddress').val(order.roadAddress);

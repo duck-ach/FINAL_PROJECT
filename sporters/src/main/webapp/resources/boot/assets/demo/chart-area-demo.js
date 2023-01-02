@@ -14,6 +14,9 @@ let day6 = date.getMonth() + "-" + (date.getDate() - 1);
 
 let labels = [day1, day2, day3, day4, day5, day6, now];
 
+// db에서 데이터 받아오기
+
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {

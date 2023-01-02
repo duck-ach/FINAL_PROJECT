@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.sporters.shop.domain.CartDTO;
 import com.gdu.sporters.shop.domain.OrderDTO;
+import com.gdu.sporters.shop.domain.ProdCategoryDTO;
 import com.gdu.sporters.shop.domain.ProdThumbnailDTO;
 import com.gdu.sporters.shop.domain.ProductDTO;
 
@@ -22,8 +23,12 @@ public interface ShopMapper {
 	public ProdThumbnailDTO selectProdThumbnailListByNo(int prodNo);
 	public CartDTO selectProdNo(Map<String, Object> map);
 	public int insertOrder(OrderDTO order);
+	public int updateCartState(CartDTO cart);
+	
 	public int updateStock(ProductDTO product);
 	public List<OrderDTO> selectOrderList(Map<String, Object> map);
 	public OrderDTO selectOrderDetail(int OrderNo);
 	public Integer selectOrderNo();
+	public ProdCategoryDTO selectCategoryList();
+	
 }
