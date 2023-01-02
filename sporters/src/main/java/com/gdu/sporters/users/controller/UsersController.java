@@ -86,6 +86,7 @@ public class UsersController {
 		return "users/join";
 	}
 	
+	// 네이버 로그인
 	@GetMapping("/users/naver/login")
 	public String naverLogin(HttpServletRequest request, Model model) {
 		String access_token = usersService.getNaverLoginToken(request);
@@ -93,7 +94,6 @@ public class UsersController {
 		UsersDTO profile = usersService.getNaverLoginProfile(access_token);
 		// 가져온 프로필을 naverUser에 저장
 		UsersDTO naverUser = usersService.getNaverUserById(profile.getId());
-		System.out.println("profile : " + profile);
 		// 네이버 회원가입 전
 		if(naverUser == null) {
 			model.addAttribute("profile", profile);
@@ -105,6 +105,20 @@ public class UsersController {
 		}
 	}
 	
+	
+	// 카카오 로그인
+	@GetMapping("/v2/user/me")
+	public String kakaoLogin(HttpServletRequest request, Model model) {
+		return "users/kakao_join";
+	}
+	
+	// 카카오 로그아웃
+	@GetMapping("/v1/user/unlink")
+	public String kakaoLogout(HttpServletRequest request, Model model) {
+		return "users/kakao_join";
+	}
+	
+	// 네이버아이디 회원가입
 	@PostMapping("/users/naver/join")
 	public void naverJoin(HttpServletRequest request, HttpServletResponse response) {
 		usersService.naverJoin(request, response);

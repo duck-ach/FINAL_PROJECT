@@ -495,8 +495,50 @@
 							<div style="font-size: 12px; padding-bottom: 17px; padding-top: 15px;">
 								<a href="/users/agree/form" class="sign_up_a_tag">계정이 없으신가요?</a>
 							</div>
-							<div style="text-align: left;">
-								<a href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+							<div style="text-align: center;">
+								<a href="${apiURL}"><img width="48%;" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+								<a href="javascript:void(0)"><img onclick="kakaoLogin();" width="48%;" height="50" src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png"/></a>
+								<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+								<script>
+								Kakao.init('3f14ce0d2a83955ff158089f8735f875'); //javascript키
+								console.log(Kakao.isInitialized()); // sdk초기화여부판단
+								//카카오로그인
+								function kakaoLogin() {
+								    Kakao.Auth.login({
+								      success: function (response) {
+								        Kakao.API.request({
+								          url: '/v2/user/me',
+								          success: function (response) {
+								        	  console.log(response);
+								        	  alert('정상적으로 로그인 되었습니다.');
+								          },
+								          fail: function (error) {
+								            console.log(error)
+								          },
+								        })
+								      },
+								      fail: function (error) {
+								        console.log(error)
+								      },
+								    })
+								  }
+								//카카오로그아웃  
+								function kakaoLogout() {
+								    if (Kakao.Auth.getAccessToken()) {
+								      Kakao.API.request({
+								        url: '/v1/user/unlink',
+								        success: function (response) {
+								        	console.log(response)
+								        	alert('정상적으로 로그아웃 되었습니다.');
+								        },
+								        fail: function (error) {
+								          console.log(error)
+								        },
+								      })
+								      Kakao.Auth.setAccessToken(undefined)
+								    }
+								  }  
+								</script>		
 							</div>				
 						</div>
 					</div>

@@ -47,7 +47,7 @@ public class QnaServiceImpl implements QnaService {
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("qna", qna);
 		model.addAttribute("beginNo", totalRecord - (page -1) * pageUtil.getRecordPerPage());
-		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/qna/list"));
+		model.addAttribute("paging", pageUtil.getPaging("/qna/list"));
 	}
 	
 	@Transactional
@@ -64,7 +64,6 @@ public class QnaServiceImpl implements QnaService {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		String qnaId = loginUser.getId();
-		System.out.println(qnaTitle);
 		
 		QnaDTO qna = QnaDTO.builder()
 				.qnaTitle(qnaTitle)
@@ -76,8 +75,6 @@ public class QnaServiceImpl implements QnaService {
 				.build();
 
 		int result = qnaMapper.insertQnaPw(qna);
-		
-		System.out.println(qna);
 		
 		try {
 			response.setContentType("text/html; charset=UTF-8");

@@ -113,7 +113,7 @@ public class HeartServiceImpl implements HeartService {
 		int loveResult = heartMapper.clickedUserHeartCount(map);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("loveResult", loveResult);
-		System.out.println("loveResult : " + result);
+
 		HeartDTO heart = heartMapper.selectLoveOrHate(map);
 		
 		if(heartMapper.selectUserHeartCount(map) == 0) {   // 좋아요/싫어요를  안누를상태
@@ -145,7 +145,7 @@ public class HeartServiceImpl implements HeartService {
 		int hateResult = heartMapper.clickedUserHateCount(map);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("hateResult", hateResult);
-		System.out.println("hateResult : " + result);
+
 		
 		HeartDTO heart = heartMapper.selectLoveOrHate(map);
 		

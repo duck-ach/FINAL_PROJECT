@@ -45,7 +45,7 @@ public class FaqServiceImpl implements FaqService {
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("faqList", faqList);
 		model.addAttribute("beginNo", totalRecord - (page -1) * pageUtil.getRecordPerPage());
-		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/faq/list"));
+		model.addAttribute("paging", pageUtil.getPaging("/faq/list"));
 	}
 	
 	@Transactional

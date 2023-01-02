@@ -484,11 +484,11 @@ public class UsersServiceImpl implements UsersService {
 		
 		// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
 		request.getSession().setAttribute("loginUser", naverUser);		
-		System.out.println(naverUser);
+
 		// 로그인 기록 남기기
 		
 		int userNo = naverUser.getUserNo();
-		System.out.println("userNo : " + userNo);
+
 		int updateResult = usersMapper.updateAccessLog(userNo);
 		if(updateResult == 0) {
 			usersMapper.insertAccessLog(userNo);
@@ -619,7 +619,6 @@ public class UsersServiceImpl implements UsersService {
 				session.removeAttribute("sleepUser");
 				out.println("<script>");
 				out.println("alert('휴면 계정이 복구되었습니다. 휴면 계정 활성화를 위해 곧바로 로그인을 해 주세요.');");
-				// out.println("location.href='" + request.getContextPath() + "/user/login/form';");  // 로그인 후 referer에 의해 /user/restore로 되돌아오기 때문에 사용하지 말 것
 				out.println("location.href='/';");
 				out.println("</script>");
 			} else {
