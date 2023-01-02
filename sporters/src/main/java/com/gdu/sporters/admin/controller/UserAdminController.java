@@ -27,21 +27,21 @@ public class UserAdminController {
 	// 유저리스트 불러오기
 	@ResponseBody
 	@GetMapping(value="/searchAllUsers", produces="application/json; charset=UTF-8")
-	public Map<String, Object> userList(HttpServletRequest request){
+	public Map<String, Object> requiredAdmin_userList(HttpServletRequest request){
 		return adminService.getAllUsers(request);
 	}	
 	
 	// 검색어로 유저 불러오기
 	@ResponseBody
 	@GetMapping(value="/searchUsers", produces="application/json; charset=UTF-8")
-	public Map<String, Object> getSearchUsers(HttpServletRequest request){
+	public Map<String, Object> requiredAdmin_getSearchUsers(HttpServletRequest request){
 		return adminService.searchUsersbyQuery(request);
 	}
 	
 	// 유저 탈퇴
 	@ResponseBody
 	@PostMapping(value="/retireUser", produces="application/json; charset=UTF-8")
-	public Map<String, Object> retire(HttpServletRequest request, Map<String, Object> map) {
+	public Map<String, Object> requiredAdmin_retire(HttpServletRequest request, Map<String, Object> map) {
 		return adminService.removeUsers(request, map);
 	}
 	

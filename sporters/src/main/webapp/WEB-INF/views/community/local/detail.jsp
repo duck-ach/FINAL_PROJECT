@@ -70,6 +70,7 @@
 	}	
 	
 </style>
+
 <body>
 
 <section class="wrap" style="padding-bottom: 25%;"><!-- 기본틀 1 -->
@@ -86,7 +87,8 @@
 				</div>
 			</div>
 			<h6 class="" style="margin-top:1vw;" >모집 시작일 : ${LocalgalleryList.joinStart}</h6>
-			<h6 class="">모집 종료일 : ${LocalgalleryList.joinEnd}</h6>
+			<h6 >모집 종료일 : ${LocalgalleryList.joinEnd}</h6>
+			<h6 class="close_day"  style="color:red;">모집이 끝난 게시글입니다! </h6>
 			<div style="text-align: right;">
 				<span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhUlEQVR4nM3TPUjWURgF8F9fhH0MFULQZhRFiw3hUkNCgUtQWwUtQR+QOAYaEi0KKbo0FUQQmUVLBEUUREURRUM0NOagVEsfFtoXxoUjvLwovr01eJb//3LvPc/znHMu8wSbsf5/EB3HG0zg7r+SHcZPdGEk37qxGz9wBI0YxdF6iJZjHz6jFw14ghf5rwlLcSwaTWIKQ1iEG1mfwYJayBrwAJ9wMeI/TJF+fMQpjONWxp8VC3Edb9GEO3F0NU7gO3bm7Ea8xBj2z9ZtXzrYgvN4H+I9cfdQ1fnS9elM8RwdWFyZr9JBKzrxDS3Yhq/oriBaU0XchHN4NL23IgTFiAP4hb0p8iFdn0yH1/DaHFiF3xiMqx25XIoMYBjPEubb2KoG9CYOg9GmZO1prdGYCcNxtYh6Ge/wBfexQx0YQw8uhKgZG3A1ctyriEzlK2pLLs9GnmVlY23GnUq2tlddLDG6kuiMRo5X0XsCj3ETl7CyXFgSRzfNMcU6HIzj7dj1N+95/uAP1/ReFe34fBUAAAAASUVORK5CYII="> 작성일 <fmt:formatDate value="${gallery.createDate}" pattern="yy/M/d"/></span>
 				&nbsp;&nbsp;&nbsp;
@@ -421,6 +423,51 @@ $(function(){
 	 
 	
 }); 
+</script>
+
+
+<script>
+	$(function(){
+		
+		var date = new Date();
+	//	console.log(date);
+
+		var year = date.getFullYear();
+
+		var month = date.getMonth();
+		month += 1;
+		if (month <= 9){
+		    month = "0" + month;
+		}
+
+		var day = date.getDate();
+		/*
+		if (day <= 9){
+		    day = "0" + month;
+		}*/
+
+		var today = year + '/' + month + '/' + day;
+		console.log(today);
+		
+		
+		var close_day = '${LocalgalleryList.joinEnd}';
+		console.log(${LocalgalleryList.joinEnd})
+		console.log("마감일 : "+close_day)
+		const date1 = new Date(today);
+		const date2 = new Date(close_day);
+
+		console.log(date1 > date2);
+		console.log(date1 >= date2);
+		console.log(date1 < date2 + "마감됨");
+		console.log(date1 <= date2);
+		
+		if(date1 > date2 ){
+			$('.close_day').show();
+		}else{
+			$('.close_day').hide();
+		}
+		
+	});
 </script>
 </body>
 </html>

@@ -14,7 +14,7 @@ public class MainAdminController {
 	private ShopAdminOrderService orderService;
 	
 	@GetMapping("/admin/adminIndex")
-	public String adminIndex(Model model) {
+	public String requiredAdmin_adminIndex(Model model) {
 		model.addAttribute("orderList", orderService.getGragh());
 		return "admin/adminIndex";
 	}
