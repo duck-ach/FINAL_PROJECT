@@ -28,13 +28,17 @@ margin-left:-60px;
 }
 
 address{
-font-size: 0.3em;
-
+	letter-spacing: -1px;
+    font-size: 0.3vw;
 }
 
-address span{
+.spoters_logo_img{
+	width: 30%;
+}
+
+/* address span{
 	display: block;
-}
+} */
 </style>
 
 <footer>
@@ -43,31 +47,27 @@ address span{
 
 <ul class="footer_ul">
 		<li>
-			스포터즈 카피라이터용 이미지 
-		<p style="font-size:0.1em;">we_are_best_team!!</p>
+			<img class="spoters_logo_img" alt="we are best team!" src="/resources/images/spoters_logo_3.png">
 		</li>
 
 		<li style="font-style: italic;">
 			ⓒ 2022 - 2023 sporters All right reserved	
-					
-		</li>
-
-		<li>
+			<br>
 			<address  style="font-style: italic;">
 				<span>
 					신준호/ @xtick18000@naver.com
 				</span>
 				<span>
-					김나영/
+					김나영/ @nayoung188@naver.com
 				</span>
 				<span>
-					이정행/
+					이정행/ @wjdgod777@naver.com
 				</span>
 				<span>
-					박지원/
+					박지원/ @giwon0923@naver.com
 				</span>
 				<span>
-					엄희라/
+					엄희라/ @djagmlfk@naver.com
 				</span>			
 			</address>		
 		</li>

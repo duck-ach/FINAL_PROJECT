@@ -5,6 +5,161 @@
 	<jsp:param value="Spoters홈페이지" name="title" />
 </jsp:include>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<style>
+	.wrap{
+		position: static;
+		position: unset !important;
+		margin-top: 50%;
+		overflow: unset; 
+		font-family: 'Noto Sans KR', sans-serif;
+		}
+	
+	.label_one {
+		text-align: left;
+	}
+	
+	.label_all {
+		
+	}
+	
+	textarea {
+		height: 130px;
+	    border: 1px solid lightgray;
+	    width: 100%;
+	    text-align: justify;
+	    text-justify: auto ;
+	    overflow: auto;
+	}
+	
+	.div_agree {
+		margin: auto;
+		width: 100%;
+		padding-bottom: 15px;
+	}
+	
+	.first_div{
+		width: 80%;
+	    margin: auto;
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.div_span{
+		padding-bottom: 30px;
+	    font-size: 20px;
+	    font-weight: bold;
+	     text-align: center;
+	}
+	
+	h2 {
+	  position: relative;
+	  padding: 0;
+	  margin: 0;
+	  font-family: "Raleway", sans-serif;
+	  font-weight: 300;
+	  font-size: 20px;
+	  color: #080808;
+	  -webkit-transition: all 0.4s ease 0s;
+	  -o-transition: all 0.4s ease 0s;
+	  transition: all 0.4s ease 0s;
+	}
+	
+	.div_span h2 {
+	text-align: center;
+	    font-size:30px; font-weight:300; color:#222; letter-spacing:1px;
+	    text-transform: uppercase;
+	    display: grid;
+	    grid-template-columns: 1fr max-content 1fr;
+	    grid-template-rows: 27px 0;
+	    grid-gap: 20px;
+	    align-items: center;
+	}
+	
+	.div_span h2:after,.div_span h2:before {
+	    content: " ";
+	    display: block;
+/* 	    border-bottom: 1px solid #c8c8ff;
+	    border-top: 1px solid #c8c8ff;
+	    height: 1px;
+	  background-color:#c8c8ff; */
+	  border-top: 3px dotted #c8c8ff;
+	}
+	
+	.div_label_all {
+		padding-bottom: 30px;
+		text-align: right;
+	}
+	
+	.div_label_one {
+		padding-bottom: 10px;
+		text-align: right;
+	}
+	
+	.div_btns{
+		padding-top: 26px;
+	    padding-bottom: 100px;
+	    text-align: right;
+	    display: flex;
+    	justify-content: space-between;
+	}
+	
+	.btn {
+	position: relative;
+	display: inline-block;
+	text-align: center;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    color: white;
+    background-color: #c8c8ff;
+    border-radius: 4px;
+    
+	}
+	.btn:active {
+		  top: 4px; 
+		}
+		
+	.btn .purple {box-shadow:0px 4px 0px #b6b6f3;}
+	.btn .purple:active {box-shadow: 0 0 #c8c8ff; background-color: #c8c8ff;}
+	
+	.btn .purple, .btn-two.purple {background-color: #c8c8ff;}
+	
+	/* 헤더 */
+		
+	.mapage_div { 
+		position: relative; 
+		font-size: 32px; 
+		font-weight: bold; 
+		text-align: center; 
+		margin-bottom: 40px;
+	}
+	
+	.mapage_div:before,
+	.mapage_div:after {
+	  content: '[';
+	  display: inline-block;
+	  position: relative;
+	  top: 1px;
+	  height: 5%;
+	  font-size: 1.25em;
+	  color: #8282ff;
+	  transition: all 0.5s ease;
+	}
+	
+	.mapage_div:after { content: ']'; }
+	
+	.mapage_div:hover:before { 
+	  transform: translateX(-5px);
+	}
+	
+	.mapage_div:hover:after { 
+	  transform: translateX(5px);
+	}
+	
+	
+</style>	
+
 <script>
 	
 	$(function(){
@@ -126,7 +281,7 @@
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 		<div>
-			<div> 네이버 간편 가입 </div>
+			<div class="mapage_div"> 네이버 간편 가입 </div>
 			<div> * 표시는 필수 입력사항입니다</div>
 			<div> 초기설정 비밀번호는 생년월일 8자리 입니다 </div>
 			
@@ -168,7 +323,7 @@
 				</div>
 				<div>
 					<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly>
-					<input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input class="btn purple" type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
 					<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
 					<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly><br>
 					<span id="guide" style="color:#999;display:none"></span>
@@ -235,16 +390,18 @@
 				<div>
 					<label for="email">이메일 * </label>
 					<input type="text" name="email" id="email" value="${profile.email}">
-					<input type="button" value="이메일중복체크" id="btn_check">
+					<input class="btn purple" type="button" value="이메일중복체크" id="btn_check">
 					<span id="msg_email"></span>
 				</div>
 				
 				<hr>
 				
-				<div>
-					<input type="checkbox" id="service" class="check_one blind">
+				<div class="div_agree">
+					<div class="div_label_one">
 					<label for="sevice" class="label_one">이용약관 동의(필수)</label>
-					<div>
+					<input type="checkbox" id="service" class="check_one blind">
+					</div>
+					<div class="div_agree">
 						<textarea>제 1 장 총칙
 
 제 1 조 (목적)
@@ -392,10 +549,12 @@
 								</textarea>
 					</div>
 					</div>
-					<div>
+					<div class="div_agree">
+						<div class="div_label_one">
 						<input type="checkbox" id="privacy" class="check_one blind">
 						<label for="privacy" class="label_one">개인정보수집 동의(필수)</label>
-						<div>
+						</div>
+						<div class="div_agree">
 							<textarea>1. 개인정보의 수집항목 및 수집방법 
 	통계청 나라통계사이트에서는 기본적인 회원 서비스 제공을 위한 필수정보로 실명인증정보와 가입정보로 구분하여 다음의 정보를 수집하고 있습니다. 필수정보를 입력해주셔야 회원 서비스 이용이 가능합니다.
 	
@@ -445,9 +604,11 @@
 						</div>
 					</div>
 					<div>
-						<input type="checkbox" id="location" name="location" class="check_one blind">
-						<label for="location" class="label_one">위치정보수집 동의(필수)</label>
-					<div>
+						<div class="div_label_one">
+							<label for="location" class="label_one">위치정보수집 동의(필수)</label>
+							<input type="checkbox" id="location" name="location" class="check_one blind">
+						</div>
+					<div class="div_agree">
 						<textarea>제 3자 정보제공
 	
 	제1조 (위치기반서비스의 내용)
@@ -502,9 +663,11 @@
 	① 회사는 위치정보를 적절히 관리, 보호하고 개인위치정보주체의 불만을 원활히 처리할 수 있도록 실질적인 책임을 질 수 있는 지위에 있는 자를 위치정보관리 책임자로 지정해 운영합니다.
 	② 위치정보관리책임자는 위치기반 서비스를 제공하는 부서의 부서장으로서 구체적인 사항은 본 약관의 부칙에 따릅니다.</textarea>
 					</div>
-					<input type="checkbox" id="marketing" name="marketing" class="check_one blind">
+					<div class="div_label_one">
 					<label for="marketing" class="label_one">마케팅 동의(선택)</label>
-					<div>
+					<input type="checkbox" id="marketing" name="marketing" class="check_one blind">
+					</div>
+					<div class="div_agree">
 						<textarea>
 	마케팅 정보 수신 동의
 	SPORTERS는 개인정보보호법 및 정보통신망이용촉진 및 정보보호 등에 관한 법률 등 관계법령에 따라 광고성 정보를 전송하기 위해 이용자의 사전 수신 동의를 받고 있습니다. 본 내용은 SPORTERS 회원 서비스가 적용되는 개별서비스의 마케팅 수신동의를 포함하고 있으며, 마케팅 정보 수신 동의 시개별서비스의 마케팅 수신에 일괄 동의한 것으로 처리됩니다. 
@@ -523,15 +686,15 @@
 	SPORTERS 정보수정 페이지에서 개별서비스의 마케팅 수신동의를 변경(동의/철회)할 수 있으며, 동의일로부터 회원 탈퇴 혹은 마케팅 수신 동의 해제 시까지 광고성 정보 전달을 위하여 보유ㆍ이용 됩니다.  
 							</textarea>
 					</div>
-					<div>
-						<input type="checkbox" id="check_all" class="blind">
+					<div class="div_label_all">
 						<label for="check_all" class="label_all">전체 동의</label>
+						<input type="checkbox" id="check_all" class="blind">
 					</div>
 				</div>				
 				<hr>
 				<div>
-					<button>가입하기</button>
-					<input type="button" value="취소하기" onclick="location.href='/'">
+					<button class="btn purple">가입하기</button>
+					<input class="btn purple" type="button" value="취소하기" onclick="location.href='/'">
 				</div>
 			</form>		
 		</div>

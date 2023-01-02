@@ -193,7 +193,7 @@
 					<input type="checkbox" id="service" class="check_one blind">
 					</div>
 					<div>
-						<textarea>제 1 장 총칙
+						<textarea class="div_agree">제 1 장 총칙
 
 제 1 조 (목적)
 본 약관은 통계청이 운영하는 나라통계시스템 운영홈페이지(이하 "당 사이트")에서 제공하는 모든 서비스(이하 "서비스")의 이용조건 및 절차, 이용자와 당 사이트의 권리, 의무, 책임사항과 기타 필요한 사항을 규정함을 목적으로 합니다.
