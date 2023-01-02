@@ -28,7 +28,7 @@ public class shopAdmProdController {
 	private ShopAdminCateService shopAdminCateService;
 	
 	@GetMapping("/shopAdmin/prodManage")
-	public String prodManage(HttpServletRequest request, Model model) {
+	public String requiredAdmin_prodManage(HttpServletRequest request, Model model) {
 		shopAdminService.getProdList(request, model);
 		return "shopAdmin/prodManage";
 	}
@@ -36,7 +36,7 @@ public class shopAdmProdController {
 	
 	// 상품등록 페이지로 이동
 	@GetMapping("/shopAdmin/prod/write")
-	public String writeProd(Model model) {
+	public String requiredAdmin_writeProd(Model model) {
 		model.addAttribute("prodCategoryList", shopAdminCateService.getCategoryList());
 		return "shopAdmin/prodWrite";
 	}
@@ -44,27 +44,27 @@ public class shopAdmProdController {
 	
 	// 상품등록
 	@PostMapping("/shopAdmin/prod/add")
-	public void addProd(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+	public void requiredAdmin_addProd(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		shopAdminService.saveProd(multipartRequest, response);
 	}
 	
 	// 상품 이미지 등록
 	@ResponseBody
 	@PostMapping(value="/shopAdmin/prodImage", produces="application/json")
-	public Map<String, Object> uploadProdImage(MultipartHttpServletRequest multipartRequest) {
+	public Map<String, Object> requireAdmin_uploadProdImage(MultipartHttpServletRequest multipartRequest) {
 		return shopAdminService.saveProdImage(multipartRequest);
 	}
 	
 	// 상품 썸네일 
 	@ResponseBody
 	@GetMapping("/shopAdmin/prod/display")
-	public ResponseEntity<byte[]> display(@RequestParam int prodNo){
+	public ResponseEntity<byte[]> requireAdmin_display(@RequestParam int prodNo){
 		return shopAdminService.display(prodNo);
 	}
 	
 	// 상품 상세보기
 	@GetMapping("/shopAdmin/prod/detail")
-	public String detail(@RequestParam(value="prodNo", required=false, defaultValue="0") int prodNo, Model model) {
+	public String requireAdmin_detail(@RequestParam(value="prodNo", required=false, defaultValue="0") int prodNo, Model model) {
 		model.addAttribute("product", shopAdminService.getProdByNo(prodNo));
 		model.addAttribute("prodThumbnail", shopAdminService.getProdThumbnailByNo(prodNo));
 		return "shopAdmin/prodDetail";
@@ -72,7 +72,7 @@ public class shopAdmProdController {
 	
 	// 상품 수정 페이지로 이동
 	@PostMapping("/shopAdmin/prod/edit")
-	public String edit(int prodNo, Model model) {
+	public String requireAdmin_edit(int prodNo, Model model) {
 		model.addAttribute("product", shopAdminService.getProdByNo(prodNo));
 		model.addAttribute("prodThumbnail", shopAdminService.getProdThumbnailByNo(prodNo));
 		model.addAttribute("prodCategoryList", shopAdminCateService.getCategoryList());
@@ -81,31 +81,31 @@ public class shopAdmProdController {
 	
 	// 상품 수정 submit
 	@PostMapping("/shopAdmin/prod/modify")
-	public void modify(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+	public void requireAdmin_modify(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 		shopAdminService.prodModify(multipartRequest, response);
 	}
 	
 	// 상품 썸네일 삭제
 	@GetMapping("/shopAdmin/prodThumbnail/remove")
-	public void removeThumbnail(@RequestParam("tnNo") int tnNo, HttpServletResponse response) {
+	public void requireAdmin_removeThumbnail(@RequestParam("tnNo") int tnNo, HttpServletResponse response) {
 		shopAdminService.removeThumbnailByTnNo(tnNo, response);
 	}
 	
 	// 상품 삭제
 	@PostMapping("/shopAdmin/prod/remove")
-	public void remove(HttpServletRequest request, HttpServletResponse response) {
+	public void requireAdmin_remove(HttpServletRequest request, HttpServletResponse response) {
 		shopAdminService.removeProd(request, response);
 	}
 	
 	// 상품검색 자동완성
 	@ResponseBody
 	@GetMapping(value="/shopAdmin/prod/autoComplete", produces="application/json")
-	public Map<String, Object> autoComplete(HttpServletRequest request) {
+	public Map<String, Object> requireAdmin_autoComplete(HttpServletRequest request) {
 		return shopAdminService.getAutoCompleteList(request);
 	}
 
 	@GetMapping("/shopAdmin/prodSearch")
-	public String search(HttpServletRequest request, Model model) {
+	public String requireAdmin_search(HttpServletRequest request, Model model) {
 		shopAdminService.searchProducts(request, model);
 		return "shopAdmin/prodManage";
 	}

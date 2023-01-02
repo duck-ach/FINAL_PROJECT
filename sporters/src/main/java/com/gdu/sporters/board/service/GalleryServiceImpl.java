@@ -309,7 +309,7 @@ public class GalleryServiceImpl implements GalleryService {
 			//	loginUser.setPoint(loginUser.getPoint() - 5);
 				
 				if(loginUser.getId().equals("admin")) {
-					out.println("location.href='/admin/galleryAdmin';");
+					out.println("location.href='/free/list';");
 				} else {
 					out.println("location.href='/free/list';");
 				}

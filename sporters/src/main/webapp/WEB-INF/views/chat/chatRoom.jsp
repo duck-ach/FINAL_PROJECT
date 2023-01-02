@@ -319,12 +319,7 @@
 			};
 			
 			ws.onerror = function(error) {
-				console.log("ERROR:", error);
 			};
-			
-			ws.onclose = onClose;
-			ws.onopen = onOpen;
-			
 		}
 		
 		

@@ -52,7 +52,9 @@ public class SingoController {
 		public String selectSingoList(HttpServletRequest request, Model model) {
 			model.addAttribute("singoList", singoService.getSingoList(request, model));
 //			singoService.getSingoList(request, model);
-		
+			
+			System.out.println(request);
+			System.out.println(model);
 			return "/admin/singoList";
 		}
 		

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰상품관리" name="title" />
 </jsp:include>
@@ -82,7 +81,6 @@ $(document).ready(function(){
 				
 				// 대표사진(썸네일) 개수 체크
 				if($('#thumbnail')[0].files.length > 1) {
-					console.log($(this));
 					alert('대표사진은 1장만 설정할 수 있습니다.');
 					$(this).val(''); 
 					event.preventDefault();
@@ -156,7 +154,6 @@ $(document).ready(function(){
 	
 	function fn_file_change() {
 		$('#thumbnail').on('change',function(){
-			console.log($(this));
 		  	var fileName = $("#thumbnail").val();	
 		  	$('.upload-name').val(fileName);
 		});

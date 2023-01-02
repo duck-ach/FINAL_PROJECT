@@ -24,7 +24,7 @@ public class shopAdmProdCateController {
 	
 	// 카테고리 관리 페이지 이동
 	@GetMapping("/shopAdmin/categoryManage")
-	public String categoryManage(HttpServletRequest request, Model model) {
+	public String requiredAdmin_categoryManage(HttpServletRequest request, Model model) {
 		return "shopAdmin/prodCategoryMng";
 	}
 	
@@ -32,15 +32,14 @@ public class shopAdmProdCateController {
 	@ResponseBody
 	@GetMapping(value="/shopAdmin/getCategoryList"
 				, produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<ProdCategoryDTO> categoryList() {
+	public List<ProdCategoryDTO> requiredAdmin_categoryList() {
 		return shopAdminCateService.getCategoryList();
 	}
 	
 	// 카테고리 등록
 	@ResponseBody
 	@PostMapping(value="/shopAdmin/categoryAdd")
-	public String categoryAdd(HttpServletRequest request) {
-
+	public String requiredAdmin_categoryAdd(HttpServletRequest request) {
 		shopAdminCateService.addCategory(request);
 		return "/shopAdmin/getCategoryList";
 	}
@@ -48,7 +47,7 @@ public class shopAdmProdCateController {
 	// 카테고리 삭제
 	@ResponseBody
 	@GetMapping(value="/shopAdmin/categoryRemove")
-	public void categoryRemove(HttpServletRequest request, HttpServletResponse response) {
+	public void requireAdmin_categoryRemove(HttpServletRequest request, HttpServletResponse response) {
 		shopAdminCateService.deleteCategory(request, response);
 	}
 }

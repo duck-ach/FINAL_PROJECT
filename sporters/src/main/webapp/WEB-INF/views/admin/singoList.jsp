@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="Sporters 신고관리" name="title" />
 </jsp:include>
@@ -103,6 +102,7 @@ th {
 td {
 	height:50px;
 	border-bottom: 1px solid #D2D2FF;
+	text-align: center;
 }
 
 .center_td {
@@ -271,8 +271,8 @@ $(document).ready(function(){
 <!-- 				<th>작성자ID</th> -->
 				<th>신고기타</th>
 				<th>원글작성일</th>
-				<th>삭제사유</th>
-				<th>삭제일</th>
+<!-- 				<th>삭제비고란</th> -->
+<!-- 				<th>삭제일</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -281,12 +281,12 @@ $(document).ready(function(){
 					<td>${singo.singoNo}</td>
 					<td>${singo.singoCategory}</td>
 					<td>${singo.singoTitle}</td>
-					<td>${singo.singoLink}</td>
+					<td><a href='${singo.singoLink}'>${singo.singoLink}</a></td>
 <%-- 					<td>${singo.id}</td> --%>
 					<td>${singo.singoUserReason}</td>
 					<td>${singo.singoCreateDate}</td>
-					<td>${singo.singoReason}</td>
-					<td>${singo.singoRemoveDate}</td>
+<%-- 					<td>${singo.singoReason}</td> --%>
+<%-- 					<td>${singo.singoRemoveDate}</td> --%>
 				</tr>
 			</c:forEach>
 		</tbody>

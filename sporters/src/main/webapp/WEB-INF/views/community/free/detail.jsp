@@ -159,7 +159,7 @@
 						<span><input type="button" value="수정" id="btn_edit_gallery"></span>
 						<span><input type="button" value="삭제" id="btn_remove_gallery"></span>
 						<span><input type="button" value="목록" onclick="location.href='/free/list'"></span>
-						<span id="root"><button type="button" id="modal_open_btn">신고쌔리기</button></span>
+						<span id="root"><button type="button" id="modal_open_btn">신고</button></span>
 					</c:if>					
 				</form>
 			</div>
@@ -186,6 +186,7 @@
 						if(confirm('게시글을 삭제하시겠습니까?')){
 							$('#frm_btn').attr('action', '/free/remove');
 							$('#frm_btn').submit();
+							history.back();
 						}
 					});
 
@@ -501,11 +502,13 @@ $(function(){
         </select>
         <textarea name="singoContent" placeholder="신고 내용" maxlength="200" style="width: 400px; height: 191px; resize:none;" ></textarea>
         <br>
+        <input type="hidden" name="singoURL" id="singoURL">
         <input type="hidden" name="singoTitle" id="singoTitle" value="${gallery.title}">
         <input type="hidden" name="userNo" value="${gallery.userNo}">
 		<input type="hidden" name="freeNo" value="${gallery.freeNo}">
         <input type="submit" name="신고">
     </form>
+
        
     </div>
    
@@ -519,6 +522,13 @@ $(function(){
     document.getElementById("modal_close_btn").onclick = function() {
         document.getElementById("modal").style.display="none";
     }   
+    
+    $(document).ready(function(){
+    const link = window.location.href;
+    var url = new URL(link);
+     $('#singoURL').val(url);
+    	});
+    
 </script>
 
 </body>

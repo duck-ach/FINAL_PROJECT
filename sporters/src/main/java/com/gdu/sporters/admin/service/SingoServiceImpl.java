@@ -32,6 +32,7 @@ public class SingoServiceImpl implements SingoService {
 		SingoCategoryDTO category = SingoCategoryDTO.builder()
 				.singoCategoryName(categoryName)
 				.build();
+		
 		singoMapper.insertSingoCategory(category);
 	}
 		
@@ -89,7 +90,7 @@ public class SingoServiceImpl implements SingoService {
 		String singoTitle = request.getParameter("singoTitle");
 	
 		String content = request.getParameter("singoContent");
-		String url = request.getRequestURL().toString();
+		String url = request.getParameter("singoURL");
 		
 		//////////////////////////////////////////////////////////
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
@@ -121,10 +122,10 @@ public class SingoServiceImpl implements SingoService {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			if (result > 0) {
-				out.println("alert('게시글을 등록했습니다.');");
+				out.println("alert('게시글을 신고했습니다.');");
 				out.println("location.href='/free/list';");
 			} else {
-				out.println("alert('게시글을 등록할 수 없습니다.');");
+				out.println("alert('게시글을 신고할 수 없습니다.');");
 				out.println("history.back();");
 			}
 			out.println("</script>");
@@ -135,6 +136,35 @@ public class SingoServiceImpl implements SingoService {
 		}
 		
 	}
+	
+	@Override
+	public void singoUpdate(HttpServletRequest request, HttpServletResponse response) {
+		String singoReason = request.getParameter("singoReason");
+		SingoDTO singo = SingoDTO.builder()
+				.singoReason(singoReason)
+				.build();
+		int result = singoMapper.adminUpdateSingo(singo);
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			if (result > 0) {
+				out.println("alert('게시글을 삭제하세요.');");
+				out.println("location.href='/free/list';");
+			} else {
+				out.println("alert('게시글을 신고할 수 없습니다.');");
+				out.println("history.back();");
+			}
+			out.println("</script>");
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+		
+
 	
 	
 }

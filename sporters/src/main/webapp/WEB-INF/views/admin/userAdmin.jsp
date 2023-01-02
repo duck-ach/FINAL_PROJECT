@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="관리자페이지" name="title" />
 </jsp:include>
@@ -46,27 +45,30 @@ body {
 #btn_init, #btn_search{
   	background:#8c8cff;
   	color:#fff;
-  	border:3px solid;
-  	border-color:#8282ed;
+  	border:none;
   	border-radius:3px;
   	position:relative;
-  	height:30px;
-  	font-size:20px;
+  	height:31px;
+  	font-size:18px;
+  	padding:0 2em;
   	cursor:pointer;
   	outline:none;
   	vertical-align: bottom;
 }
 
 #btn_deleteUser{
-background:#8c8cff;
+  	background:#F09494;
   	color:#fff;
-  	border: 3px solid #8c8cff;
-  	border-color:#8282ed;
+  	border:none;
   	border-radius:3px;
   	position:relative;
-  	height:30px;
-  	font-size:20px;
+  	display: inline-block;
+    height: 30px;
+    line-height: 30px;
+  	font-size:18px;
+  	padding:0 2em;
   	cursor:pointer;
+  	transition:800ms ease all;
   	outline:none;
   	vertical-align: bottom;
 }
@@ -150,7 +152,6 @@ position: absolute;
 			url : '/searchAllUsers',
 			dataType : 'json',
 			success : function(resData) {
-				console.log(resData);
 				$('#list').empty();
 				$.each(resData.userList, function(i, user) {
 			var tr = '<tr>';
@@ -188,8 +189,6 @@ position: absolute;
 			data : 'column=' + $('#column').val() + '&searchText=' + $('#searchText').val(),
 			dataType:'json',
 			success : function(resData){
-				console.log(resData);
-				console.log(resData.users);
 				$('#list').empty();
 				$.each(resData.users, function(i, user){
 					var tr = '<tr>';
@@ -220,7 +219,6 @@ position: absolute;
 		$('#btn_deleteUser').click(function(event){
 			
 // 		if($('input:[name="userCheck"]:checked').val() == 1){
-// 			console.log($('input[name="userCheck"]:checked').val());
 // 			alert('관리자는 탈퇴할 수 없습니다.');
 // 			event.preventDefault();
 // 			return;
@@ -228,13 +226,9 @@ position: absolute;
 			var userArray = [];
 			$('input:checkbox[name="userCheck"]:checked').each(function(i){
 				userArray.push($(this).val());
-				console.log($(this).val());
 				
 			});
-			
-			console.log(userArray);
-			alert(userArray);
-			
+
 			$.ajax({
 				type:'post',
 				url: '/retireUser',

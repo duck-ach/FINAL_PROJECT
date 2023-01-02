@@ -17,5 +17,6 @@ public interface SingoService {
 	public void deleteCategory(HttpServletRequest request, HttpServletResponse response);
 	public List<SingoDTO> getSingoList(HttpServletRequest request, Model model);
 	public void singoButton(HttpServletRequest request, HttpServletResponse response);
+	public void singoUpdate(HttpServletRequest request, HttpServletResponse response);
 
 }

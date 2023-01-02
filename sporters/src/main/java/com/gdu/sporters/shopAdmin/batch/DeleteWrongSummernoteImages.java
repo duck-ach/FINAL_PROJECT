@@ -43,7 +43,6 @@ public class DeleteWrongSummernoteImages {
 			}
 		}
 		
-	
 		// HDD에 업로드 된 파일 목록 중 DB에 기록되어 있지 않은 써머노트 이미지 목록
 		File dir = new File(path);
 		File[] wrongSummernoteImages = dir.listFiles(new FilenameFilter() {
@@ -52,7 +51,6 @@ public class DeleteWrongSummernoteImages {
 				return !pathList.contains(new File(dir, name).toPath());
 			}
 		});
-
 		
 		// 삭제
 		if(wrongSummernoteImages != null) {

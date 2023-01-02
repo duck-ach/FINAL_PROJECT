@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import com.gdu.sporters.shop.domain.OrderDTO;
 import com.gdu.sporters.shopAdmin.mapper.ShopAdminOrderMapper;
 import com.gdu.sporters.shopAdmin.util.ShopAdminPageUtil;
-import com.gdu.sporters.shopAdmin.util.ShopAdminSearchPageUtil;
 
 @Service
 public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
@@ -24,9 +23,6 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 	
 	@Autowired
 	private ShopAdminPageUtil pageUtil;
-	
-	@Autowired
-	private ShopAdminSearchPageUtil searchPageUtil;
 	
 	@Override
 	public void getOrderList(HttpServletRequest request, Model model) {
@@ -66,7 +62,6 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 		
 		OrderDTO order = shopAdminOrderMapper.selectOrderDetailByUserNo(map);
 		
-	
 		model.addAttribute("order", order);
 		model.addAttribute("orderInfo", shopAdminOrderMapper.selectOrderProdDetailByUserNo(map));
 		
@@ -112,24 +107,22 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 		int totalRecord = shopAdminOrderMapper.selectSearchCount(map);
 		
 		// 페이징 계산
-		searchPageUtil.setNaverPageUtil(page, totalRecord);
+		pageUtil.setPageUtil(page, totalRecord);
 		
 		// 조회에서 사용하는 Map
-		map.put("begin", searchPageUtil.getBegin());
-		map.put("recordPerPage", searchPageUtil.getRecordPerPage());
-		
-		System.out.println(map);
+		map.put("begin", pageUtil.getBegin());
+		map.put("recordPerPage", pageUtil.getRecordPerPage());
 		
 		// 검색된 주문목록
 		List<OrderDTO> orderList = shopAdminOrderMapper.selectSearchOrderList(map);
 		
 		// search.jsp로 보낼 데이터
 		model.addAttribute("orderList", orderList);
-		model.addAttribute("beginNo", totalRecord - (page - 1) * searchPageUtil.getRecordPerPage());
+		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
 		
 		String path = "/shopAdmin/orderSearch?column=" + column + "&query=" + query;
 	
-		model.addAttribute("paging", searchPageUtil.getNaverPaging(path));
+		model.addAttribute("paging", pageUtil.getPaging(path));
 
 		// 검색된 상품 개수
 		int totalProdRecord = shopAdminOrderMapper.selectSearchCount(map);

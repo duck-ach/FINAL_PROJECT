@@ -21,7 +21,7 @@
 		<result property="detailAddress" column="DETAIL_ADDRESS"/>
 		<result property="orderDate" column="ORDER_DATE"/>
 		<result property="orderState" column="ORDER_STATE"/>
-		<result property="priceAll" column="PRICE_ALL"/>
+		<result property="cartBundle" column="CART_BUNDLE"/>
 		<association property="users" javaType="UsersDTO">
 			<id property="userNo" column="USER_NO"/>
 			<result property="id" column="ID"/>
@@ -67,7 +67,7 @@
 	
 	<!-- 주문목록 -->
 	<select id="selectOrderList" resultMap="OrderMap" parameterType="map">
-		SELECT O.ORDER_NO, U.NAME, O.NAME, O.MOBILE, O.ORDER_DATE, O.ORDER_STATE, O.PRICE_ALL
+		SELECT O.ORDER_NO, O.CART_BUNDLE, U.NAME, O.NAME, O.MOBILE, O.ORDER_DATE, O.ORDER_STATE, O.PRICE_ALL
 		  FROM ORDERS O LEFT OUTER JOIN USERS U
 		    ON O.USER_NO = U.USER_NO
 		 ORDER BY O.ORDER_NO
@@ -79,9 +79,10 @@
 		SELECT COUNT(ORDER_NO)
 		  FROM ORDERS
 	</select>
+	
 	<!-- 주문상세보기 -->
 	<select id="selectOrderDetailByUserNo" parameterType="map" resultMap="OrderMap">
-		SELECT O.ORDER_NO, U.USER_NO, O.CART_NO, O.USER_NO, O.NAME, U.NAME, O.MOBILE, O.PRICE_ALL, O.ORDER_STATE, O.POSTCODE, O.ROAD_ADDRESS, O.JIBUN_ADDRESS, O.DETAIL_ADDRESS, O.ORDER_DATE
+		SELECT O.ORDER_NO, U.USER_NO, O.CART_NO, O.USER_NO, O.NAME, U.NAME, O.MOBILE, O.PRICE_ALL, O.CART_BUNDLE, O.ORDER_STATE, O.POSTCODE, O.ROAD_ADDRESS, O.JIBUN_ADDRESS, O.DETAIL_ADDRESS, O.ORDER_DATE
 		  FROM ORDERS O INNER JOIN USERS U
 		    ON O.USER_NO = U.USER_NO
 		 WHERE O.ORDER_NO = #{orderNo}
