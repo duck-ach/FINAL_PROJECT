@@ -143,6 +143,20 @@
     }
     
     
+    .citys{
+        display: flex;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
+    }
+    
+    
+    .citys p{
+        height: 3vw;
+    }
 </style>
 
 <body>
@@ -172,10 +186,16 @@
 		<div class="weather">
 			
 			<ul style="display: flex;justify-content: space-around;align-items: center;font-size: 2.4vw;line-height: 14vw;">
-				<li class="icon"></li>
-				<li class="city"></li>
+				<li class="icons"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE7ElEQVR4nO2dS48bRRCAGwhIPITEsomrvQ6PAxwgIA4QAWcOLFcIAs7AXwiPKwhxzQP+QxAcEg5wWtbdNouUCyjcUBCwQsBugkAkWbtKalTjMdl4/WTtnprp+qS+2J7p6f7cPdM9NT3GKIqiKIqiKIpSBsJ5c2sI5qaij0MxxpCrvYwe/kRn/yYHx7RSCgad/Y28DZzQ21+LPp7koVxGPyVfIUVDKkQWpEJkQSpEFqRCZEEqRBakQmRBKkQWpELGEzaW7sYmPB/ajZWqCgktuB8drIYva3cayYS1g3ehsz9k0xgOrqCHF6smBFvwEnq4lk/VfB/O2zuMVNDDC7srB71FLkBVhGAmw+INZXT154xUwnrtQfSwE1MKentxV14Xo8rwcC2s1w8byQw/8MVJQQer6GAzT6tVKNPc4XMHOtsdKACRs6+ZkoGjytK0r5oyUQUpWBUZVZCCVZNRZilYVRllPCliiY51Adfw0AlfrTxkhBCa9YeHtIzqyRgrZYbChmBu7rpDT5O375C3n5K3F9DDZa7ELHm4zJ9l3zn7Nv+Wt5l2/xy1koyMG6Q46OQt5JfQbixN2iZsrDTQwwc81hgcmU9KnAdvy/uYmM839Xv59/3WW3kZfbib4hPnJBkhqyD7cV/gfhLPIKCzH/E+x+bZbixlxyaoKxUBteqvoIPt/YoYImaLg+uKLl9pCGvmALeKeYvYK8ae5ryKLq9oQrtxO3l7btEyric4y3kWXW6RhDPmFvLwWTwZeXL2c20pQ4jRTdHo7utU/L+g8BN4UTLov5aikfO7LzO3ihaCDrbDml02qVNkV0V7ui44aVImG4HPYdBH8xOyEytaRiQ8pVG0BNrbdb1vUoQn/dDDzwKFbPIluEmNfNY2SEzddu2oSQ3y8G7RFU+jkrPHTWoUMir3Uwv5xKRGfiNJqpDvjFTQwYf9WNZZEkcRjgtcQweXCq94P+rYYSt2fUxFx9ef2FfBHGyOKVhHsJCd2PWhQnwJhWT/5N697CvzbqKl7bL8YuqjcPSkLow8jCcITWdMauSxVUFkcgkODEVPnbTgKZMaYicXPfw0S7RjpdDpd2HkIaI7glrHTtI3qBgO7xQjxMEJkzq9IAf7hwAZ25PifpOBY20LF9JKJNJ9WjjWlrSrkhZKaosYvZ/TUNKxwdZwNp4MDbae7nEEb09FOImf0JYxA+Tg2CKuvtDZ3/UEPtgK1pdt18OTk6YoQi/u9+Q8Bo982zVrFe6+e8bmeeGR27qt+rOhCQdNCvQeyoerWUU5+GKaeaPgD9c5ovD/zH3x3BQ6+x7vY2I+a+YAebvR287+E2O9L3GPRXeaK4/P9Fh0u3aUnH2LQ3U4OoTvPGZPzPbSJfLwbf7dcZ61nWWisOvrzyTzWPSIhQOuSnoEIKwv28GIkkpKGblchcAuAblLrfLSGmVcyAVLuGBOZWVUVkqZZVROSuwljsIC30FV+uWaYheAIryDqrRSOu1Dj8VebwojvYNq+GW77XZatSNGKuTsm7H/RTQwMl9kXsOkkLdvGKmEr2sPoLN/xVxviiIKub7eV68X4LLyOvBGMiyFvH2942qPxsiPIgthuJviMnJZY+RXKqgAIcoYVIgwSFuILEiFyIJUiCxIhciCVIgsSIXIglSILNDZH2O8g0oR9A4qRVEURVEURVEUU2H+BQG+q+d+yzpFAAAAAElFTkSuQmCC"></li>
+				<li class="citys">
+				
+					
+					<p class="">서울</p>
+					<p class="ctemp">현재온도 :</p>
+				
+				</li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
-				<li class="ctemp">온도 :</li>
+				
 				<!--  
 				<li class="hightemp">최고 온도 :</li>
 				<li class="lowtemp">최저 온도 :</li>
