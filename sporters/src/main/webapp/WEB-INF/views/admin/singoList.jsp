@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="Sporters 신고관리" name="title" />
 </jsp:include>
@@ -103,6 +102,7 @@ th {
 td {
 	height:50px;
 	border-bottom: 1px solid #D2D2FF;
+	text-align: center;
 }
 
 .center_td {
@@ -281,7 +281,7 @@ $(document).ready(function(){
 					<td>${singo.singoNo}</td>
 					<td>${singo.singoCategory}</td>
 					<td>${singo.singoTitle}</td>
-					<td>${singo.singoLink}</td>
+					<td><a href='${singo.singoLink}'>${singo.singoLink}</a></td>
 <%-- 					<td>${singo.id}</td> --%>
 					<td>${singo.singoUserReason}</td>
 					<td>${singo.singoCreateDate}</td>

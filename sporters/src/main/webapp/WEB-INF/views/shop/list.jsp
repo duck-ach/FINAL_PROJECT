@@ -29,7 +29,7 @@
 				dataType: 'json',
 				success: function(result){
 					if(result.prodNo != true){
-						if(stock >= prodCnt){
+						if(stock > prodCnt){
 							$.ajax({
 								url: '/shop/addCart',
 								type: 'post',

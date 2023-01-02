@@ -89,10 +89,8 @@ public class SingoServiceImpl implements SingoService {
 	public void singoButton(HttpServletRequest request, HttpServletResponse response) {
 		String singoCategory = request.getParameter("singoCategory");
 		String singoTitle = request.getParameter("singoTitle");
-		System.out.println(singoTitle);
-		System.out.println(request.getParameter("singoTitle"));
 		String content = request.getParameter("singoContent");
-		String url = request.getRequestURL().toString();
+		String url = request.getParameter("singoURL");
 		
 		//////////////////////////////////////////////////////////
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
