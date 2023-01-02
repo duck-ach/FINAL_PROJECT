@@ -133,9 +133,6 @@
 							dataType : 'json',
 							success: function(data){
 								alert('업데이트 실패!');
-							},
-							error: function(){
-								location.href='/shop/cartList';
 							}
 						});
 					} else {
@@ -148,7 +145,7 @@
 			});
 			
 			
-			/* IMP.request_pay({ 
+			IMP.request_pay({ 
 			pg: "html5_inicis",
 			pay_method: 'card',
 			merchant_uid: merchant_uid,
@@ -158,12 +155,13 @@
 			}, function (rsp) {
 				if (rsp.success) {
 					alert('성공');
+					location.href='shop/cartList';
 				} else {
 				var msg = '';
 				msg += rsp.error_msg;
 				alert(msg)
        			}
-			}); */
+			});
 		});
 	}
 	
@@ -182,28 +180,30 @@
 		text-align: center;
 	}
 	#aside {
-		float: left;
-		width: 180px;
-	}
-	#aside h3 {
-		width: 180px;
-		font-size:22px;
-		margin-bottom:20px;
-		text-align: center; 
-	}
-	#aside li {
-		font-size:16px;
-		text-align:center;
-	}
-	#aside li a {
-		color:#000;
-		display:block;
-		padding:10px 0;
-	}
-	#aside li a:hover {
-		text-decoration:none;
-		background:#eee;
-	}
+      float: left;
+      width: 180px;
+      height: 500px;
+   }
+   #aside h3 {
+      width: 180px;
+      font-size:30px;
+      margin-bottom:20px;
+      text-align: center; 
+      font-weight: bold;
+   }
+   #aside li {
+      font-size:16px;
+      text-align:center;
+   }
+   #aside li a {
+      color:#000;
+      display:block;
+      padding:10px 0;
+   }
+   #aside li a:hover {
+      text-decoration:none;
+      background:#eee;
+   }
 	#title {
 		font-size: 24px;
 		text-align: center;
@@ -218,10 +218,26 @@
 	.blind {
 		display: none;
 	}
+	.cartList_area{
+   margin-top: 60px;
+   
+   }
 </style>
 <body>
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
+	<div id="aside">
+      <br>
+      <h3>카테고리</h3>
+      <ul>
+         <li><a href="/shop/list">전체</a></li>
+         <li><a href="/shop/categoryList?prodCategoryNo=1">음식</a></li>
+         <li><a href="/shop/categoryList?prodCategoryNo=2">의류</a></li>
+         <li><a href="/shop/categoryList?prodCategoryNo=3">기타</a></li>
+         <li class="cartList_area"><a href="/shop/cartList">장바구니로 이동</a></li>
+         <li><a href="/shop/orderList">주문내역 확인</a></li>
+      </ul>
+   </div>
 	<div>
 			<table>
 					<tbody>				
@@ -303,7 +319,6 @@
 													}
 												},
 												error: function(checkOne){
-													console.log(checkOne);
 													alert("에러남!!");
 												}
 											});
@@ -351,7 +366,6 @@
 													type : 'post',
 													success : function(order) {
 														alert("기본 배송지로 변경되었습니다.");
-														console.log(order);
 														$('#name').val(order.name);
 														$('#mobile').val(order.mobile);
 														$('#postcode').val(order.postcode);
@@ -442,6 +456,10 @@
 										    }
 										</script>
 									</div>
+									<div>
+										<button type="submit" class="btn_payment">주문</button>
+										<button type="button" class="btn_cancel">취소</button>
+									</div>
 								</div>
 							</div><br>
 						</td>
@@ -450,8 +468,6 @@
 			 </table>
 	 
 	</div>
-	<button type="submit" class="btn_payment">주문</button>
-	<button type="button" class="btn_cancel">취소</button>
 	</section><!-- 기본틀 2 -->
 </section><!-- 기본틀 1 -->
 </body>
