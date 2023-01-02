@@ -26,13 +26,15 @@
     justify-content: space-between;
 	}
 	.weather_map_contaner .map_area,.weather_map_contaner .weather_area {
-	width: 45%;
+	width: 48%;
 /*	height: 250px;
 */
 
 	height: 14vw;
 	border: 1px solid #000;
 	margin-top: 20px;
+	overflow: hidden;
+	
 }
 	
 	#map {
@@ -131,6 +133,16 @@
     	left: -40px;
     }
     
+    .weather ul{
+    	display: flex;
+    	    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-around;
+    line-height: 14vw;
+    font-size: 1.3vw;
+    }
+    
+    
 </style>
 
 <body>
@@ -158,15 +170,18 @@
 		<div id="openweathermap-widget-12"></div>
 		
 		<div class="weather">
-			<ul>
+			
+			<ul style="display: flex;justify-content: space-around;align-items: center;font-size: 2.4vw;line-height: 14vw;">
 				<li class="icon"></li>
 				<li class="city"></li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
 				<li class="ctemp">온도 :</li>
+				<!--  
 				<li class="hightemp">최고 온도 :</li>
 				<li class="lowtemp">최저 온도 :</li>
 				<li class="humidity">습도 :</li>
 				<li class="wind">풍속 :</li>
+				-->
 			</ul>
 		</div>
 		<!-- 날씨 api 주소 -->
@@ -181,11 +196,10 @@
 		            const latitude = coords.latitude;   // 위도
 		            const longitude = coords.longitude; // 경도
 		           */
-		           var latitude = 33.450701;   // 제주도 카카오 사옥 좌표
-		       	var longitude = 126.570667;  // 제주도 카카오 사옥 좌표 
-		            
-		            console.log(latitude);
-		            console.log(longitude);
+		      //     var latitude = 33.450701;   // 제주도 카카오 사옥 좌표
+		      // 	var longitude = 126.570667;  // 제주도 카카오 사옥 좌표 
+		             var latitude = 37.4730836;
+		             var longitude = 126.8788276;
 		         //   alert(`위도: ${latitude}, 경도: ${longitude}, 위치 반환 시간: ${timestamp}`);
 		           // alert(longitude);
 		            
@@ -301,7 +315,7 @@
 		
 		</div>
 	      <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="false"></div>
-	      <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="true"></div>
+	      <div class="swiper-button-prev" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-02491101839f2d8c1" aria-disabled="true"></div>
 	    	<div class="spo_review_list">
 			
 				<a href="/shop/list">▶ 쇼핑몰</a>
@@ -331,9 +345,10 @@
 
 $(document).ready(function(position) {
 //위치 측정 불가인 경우 기본 경/위도 : 서울
-	var lat = 33.450701;   // 제주도 카카오 사옥 좌표
-	var lon = 126.570667;  // 제주도 카카오 사옥 좌표 
-     
+//	var  = 33.450701;   // 제주도 카카오 사옥 좌표
+//var  = 126.570667;  // 제주도 카카오 사옥 좌표 
+	var lat = 37.4730836;
+    var lon = 126.8788276;
 var options = {
    enableHighAccuracy : true,
    timeout : 5000,
@@ -342,10 +357,12 @@ var options = {
 function success(pos) {
    var crd = pos.coords;
    
+  
+   var lat = 37.4730836;
+   var lon = 126.8788276;
+   
    console.log('위도 : ' + crd.latitude);
    console.log('경도: ' + crd.longitude);
-   lat = crd.latitude;
-   lon = crd.longitude;
 };
 function error(err) {
    console.warn('ERROR(' + err.code + '): '
@@ -355,9 +372,10 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 var wAPI = '17f7777f4c3c5d6b66df232b3ee2ffc8'
 
     function successs({ coords, timestamp }) {
-             lat = coords.latitude;   // 위도
-             lon = coords.longitude; // 경도
-            
+          //   lat = coords.latitude;   // 위도
+           //  lon = coords.longitude; // 경도
+               lat = coords.latitude;   // 위도
+               lon = coords.longitude; // 경도
               
        
 //var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' +lon+ '&appid=' + '9e59ce9dcb1014633e13dc6b7a7ffa54' + &units=metric';
@@ -404,35 +422,6 @@ $.ajax({
 
   getUserLocation();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 var swiper = new Swiper(".mySwiper", {

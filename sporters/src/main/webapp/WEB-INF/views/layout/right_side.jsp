@@ -42,13 +42,18 @@
 .weather{
 font-family: 'Poppins', sans-serif;
 }
+
+
 </style>
 
 
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3436810b3f87959018036d9419f8c1b1"></script>
 
-<nav class="right_side_menu_area">
+<nav class="right_side_menu_area"   style="display:none;">
+
+<nav class="right_side_menu_area" style="display: none;">
+
 	<div class="weather_area">
 		<div id="openweathermap-widget-12"></div>
 		<!-- <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 12,cityid: '1835848',appid: '17f7777f4c3c5d6b66df232b3ee2ffc8',units: 'metric',containerid: 'openweathermap-widget-12',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script> -->
@@ -148,7 +153,7 @@ font-family: 'Poppins', sans-serif;
 
 	</div>
 
-	<div class="map_area">
+	<div class="map_area"> 
 		<div id="map"></div>
 		<script type="text/javascript">
 			 function success({ coords, timestamp }) {

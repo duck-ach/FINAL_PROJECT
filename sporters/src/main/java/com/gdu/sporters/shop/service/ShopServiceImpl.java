@@ -50,7 +50,7 @@ public class ShopServiceImpl implements ShopService {
 		model.addAttribute("prodCount", prodCount);
 		model.addAttribute("productList", shopMapper.selectProductListByMap(map));
 		model.addAttribute("beginNo", prodCount - (page - 1) * shopPageUtil.getRecordPerPage());
-		model.addAttribute("paging", shopPageUtil.getPaging(request.getContextPath() + "/shop/list"));
+		model.addAttribute("paging", shopPageUtil.getPaging("/shop/list"));
 	}
 	
 	@Override
@@ -142,8 +142,6 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public void getOrderList(Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("begin", shopPageUtil.getBegin() - 1);
-		map.put("recordPerPage", shopPageUtil.getRecordPerPage());
 		map.put("userNo", model.getAttribute("userNo"));
 		
 		model.addAttribute("orderList", shopMapper.selectOrderList(map));

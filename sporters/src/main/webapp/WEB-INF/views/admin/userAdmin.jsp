@@ -87,7 +87,7 @@ button:hover{
   width: 135px;
   height: 5px;
   border: 3px solid #bbb;
-  border-radius: 8px 0px 0px 8px;
+  border-radius: 8px;
   padding: 10px 12px;
   font-size: 14px;
 }
@@ -99,7 +99,6 @@ position: relative;
 .btn_group{
 display: inline-block;
 position: absolute;
-right:13%;
 }
 </style>
 <script type="text/javascript">
@@ -289,7 +288,7 @@ right:13%;
 				</select>
 				<input type="text" id="searchText" name="searchText">
 			</form>
-		</div>
+		</div>&nbsp;
 			<div class="btn_group">
 				<button id="btn_search" value="검색" >검색</button>&nbsp;
 				<button id="btn_init" value="초기화">초기화</button>&nbsp;
