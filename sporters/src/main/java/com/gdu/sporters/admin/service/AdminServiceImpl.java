@@ -54,13 +54,10 @@ public class AdminServiceImpl implements AdminService {
 		
 	String column = request.getParameter("column");
 	String searchText = securityUtil.preventXSS(request.getParameter("searchText"));
-	System.out.println(column);
-	System.out.println(searchText);
 	Map<String, Object> map = new HashMap<String, Object>();
 	map.put("column", column);
 	map.put("searchText", searchText);
 	List<UsersDTO> users = adminMapper.selectAllUsersByQuery(map);
-	System.out.println(users);
 	map.put("users", users);
 	return map;
 		
@@ -96,7 +93,6 @@ public class AdminServiceImpl implements AdminService {
 				retireMap.put("retireJoinDate", user.getJoinDate());
 				
 				int result2 = adminMapper.insertRetireUser(retireMap);
-				System.out.println(result2);
 			}
         }
 		map.put("userList", adminMapper.selectAllUsers());
@@ -155,7 +151,6 @@ public class AdminServiceImpl implements AdminService {
 //					}
 //				}
 //				out.println("alert('삽입 성공');");
-//				out.println("location.href='" + request.getContextPath() + "/admin/userAdmin';");
 //			}else {
 //				out.println("alert('삽입 실패');");
 //				out.println("history.back();");
@@ -179,14 +174,12 @@ public class AdminServiceImpl implements AdminService {
 //         retireUser.setRetireUserId(users.get(i).getId());
 //         retireUser.setRetireJoinDate(users.get(i).getJoinDate());
 //         retireUserList.add(i, retireUser);
-//         System.out.println(retireUser);
 //      }
 //      Map<String, Object> rUser = new HashMap<>();
 //      rUser.put("retireUserList", retireUserList);
 //      int insertResult = adminMapper.insertRetireUser(rUser);
 //      int deleteResult = adminMapper.deleteUser(userNo);
 //      
-//      System.out.println(insertResult +"," + deleteResult);
 //
 //      return deleteUser;
 //      
