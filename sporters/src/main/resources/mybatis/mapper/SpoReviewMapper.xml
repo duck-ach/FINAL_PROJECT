@@ -137,16 +137,6 @@
 	
 
 	
-	<!--  
-	<select id="selectSpoReviewList" parameterType="Map" resultMap="SpoReviewMap">
-		SELECT A.ROW_NUM, A.FREE_NO, A.TITLE, A.CONTENT, A.CREATE_DATE,  A.HIT,A.USER_NO, A.STATE,  A.IP, A.MODIFY_DATE, A.ID, A.NICKNAME, A.GENDER
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY FREE_NO DESC) AS ROW_NUM, F.FREE_NO, F.TITLE, F.CONTENT, F.CREATE_DATE,  F.HIT, F.USER_NO , F.STATE, F.IP, F.MODIFY_DATE, U.ID, U.NICKNAME, U.GENDER
-		  		  FROM FREE F INNER JOIN USERS U
-		     	    ON F.USER_NO = U.USER_NO) A
-		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
-	</select>
-	-->
-	
 	<!-- 메인 섬네일 갯수제한을 위한 쿼리 -->
 	<!-- 미친 ㅋㅋㅋㅋ where로 파일 없을때는 게시글 안불러오게 구현성공함 ㄹㅇㅋㅋㅋㅋㅋ 신주노 드디어 빛을 보다 -주노창세기 2장 5절  -->
 	<select id="selectindexThumbNail" parameterType="Map" resultMap="SpoReviewMap">

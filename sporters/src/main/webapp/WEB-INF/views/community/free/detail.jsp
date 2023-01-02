@@ -159,7 +159,7 @@
 						<span><input type="button" value="수정" id="btn_edit_gallery"></span>
 						<span><input type="button" value="삭제" id="btn_remove_gallery"></span>
 						<span><input type="button" value="목록" onclick="location.href='/free/list'"></span>
-						<span id="root"><button type="button" id="modal_open_btn">신고쌔리기</button></span>
+						<span id="root"><button type="button" id="modal_open_btn">신고</button></span>
 					</c:if>					
 				</form>
 			</div>
@@ -269,7 +269,6 @@
 	      
 		function fn_addComment(){
 			$('#btn_add_comment').click(function(){
-			//	alert('test');
 				if($('#comment').val() == ''){
 					alert('댓글 내용을 입력하세요');
                		return; // ajax 실행 막음
@@ -315,8 +314,6 @@
 	               $('#comment_list').empty();   // 목록 초기화 필수
 	               $.each(resData.commentList, function(i, comment){
 	                  // 댓글 depth: 0 이면 들어갈 필요 없고, 대댓 depth: 1 이면 한칸 들어가야 함, 1단이면 그룹오더 필요x
-	                  console.log(comment.commContent);
-	                  console.log(comment);
 						var div = '';
 						if(comment.depth == 0){
 							div += '<div>';
@@ -508,6 +505,7 @@ $(function(){
 		<input type="hidden" name="freeNo" value="${gallery.freeNo}">
         <input type="submit" name="신고">
     </form>
+
        
     </div>
    
@@ -525,7 +523,6 @@ $(function(){
     $(document).ready(function(){
     const link = window.location.href;
     var url = new URL(link);
-    	  alert(url);
      $('#singoURL').val(url);
     	});
     

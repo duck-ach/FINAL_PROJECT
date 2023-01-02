@@ -220,8 +220,6 @@
 		      // 	var longitude = 126.570667;  // 제주도 카카오 사옥 좌표 
 		             var latitude = 37.4730836;
 		             var longitude = 126.8788276;
-		         //   alert(`위도: ${latitude}, 경도: ${longitude}, 위치 반환 시간: ${timestamp}`);
-		           // alert(longitude);
 		            
 		            
 		            
@@ -381,8 +379,6 @@ function success(pos) {
    var lat = 37.4730836;
    var lon = 126.8788276;
    
-   console.log('위도 : ' + crd.latitude);
-   console.log('경도: ' + crd.longitude);
 };
 function error(err) {
    console.warn('ERROR(' + err.code + '): '
@@ -403,7 +399,7 @@ $.ajax({
       url : 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat+ '&lon=' + lon + '&appid=' + wAPI + '&units=metric',
       dataType : 'json',
       type : 'POST',
-      
+      f
       success : function(result) {
       // 보여질 정보
       $('.city').append(result.name);

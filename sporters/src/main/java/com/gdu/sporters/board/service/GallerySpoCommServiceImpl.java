@@ -29,7 +29,6 @@ public class GallerySpoCommServiceImpl implements GallerySpoCommService{
 	public Map<String, Object> getSpoCommentCnt(int spoReviewNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("commentCnt", commentMapper.selectFreeCommentCnt(spoReviewNo));
-		System.out.println("service : " + commentMapper.selectFreeCommentCnt(spoReviewNo));
 		return result;
 	} 
 	

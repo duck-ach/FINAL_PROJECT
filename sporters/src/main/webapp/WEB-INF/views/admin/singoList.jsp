@@ -271,8 +271,8 @@ $(document).ready(function(){
 <!-- 				<th>작성자ID</th> -->
 				<th>신고기타</th>
 				<th>원글작성일</th>
-				<th>삭제사유</th>
-				<th>삭제일</th>
+<!-- 				<th>삭제비고란</th> -->
+<!-- 				<th>삭제일</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -285,8 +285,8 @@ $(document).ready(function(){
 <%-- 					<td>${singo.id}</td> --%>
 					<td>${singo.singoUserReason}</td>
 					<td>${singo.singoCreateDate}</td>
-					<td>${singo.singoReason}</td>
-					<td>${singo.singoRemoveDate}</td>
+<%-- 					<td>${singo.singoReason}</td> --%>
+<%-- 					<td>${singo.singoRemoveDate}</td> --%>
 				</tr>
 			</c:forEach>
 		</tbody>

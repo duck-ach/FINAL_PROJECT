@@ -2,13 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<%
-   Optional<String> opt = Optional.ofNullable(request.getParameter("title"));
-   String title = opt.orElse("Welcome Spoters");
-   pageContext.setAttribute("title", title);
-   pageContext.setAttribute("contextPath", request.getContextPath());
-%>
+
 <!DOCTYPE html5>
 <html lang="en">
 <head>

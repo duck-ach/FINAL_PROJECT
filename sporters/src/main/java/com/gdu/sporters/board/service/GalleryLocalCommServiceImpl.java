@@ -29,7 +29,7 @@ public class GalleryLocalCommServiceImpl implements GalleryLocalCommService{
 	public Map<String, Object> getLocalCommentCnt(int localBoardNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("commentCnt", commentMapper.selectFreeCommentCnt(localBoardNo));
-		System.out.println("service : " + commentMapper.selectFreeCommentCnt(localBoardNo));
+	
 		return result;
 	} 
 	

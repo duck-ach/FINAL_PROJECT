@@ -152,7 +152,6 @@ position: absolute;
 			url : '/searchAllUsers',
 			dataType : 'json',
 			success : function(resData) {
-				console.log(resData);
 				$('#list').empty();
 				$.each(resData.userList, function(i, user) {
 			var tr = '<tr>';
@@ -190,8 +189,6 @@ position: absolute;
 			data : 'column=' + $('#column').val() + '&searchText=' + $('#searchText').val(),
 			dataType:'json',
 			success : function(resData){
-				console.log(resData);
-				console.log(resData.users);
 				$('#list').empty();
 				$.each(resData.users, function(i, user){
 					var tr = '<tr>';
@@ -222,7 +219,6 @@ position: absolute;
 		$('#btn_deleteUser').click(function(event){
 			
 // 		if($('input:[name="userCheck"]:checked').val() == 1){
-// 			console.log($('input[name="userCheck"]:checked').val());
 // 			alert('관리자는 탈퇴할 수 없습니다.');
 // 			event.preventDefault();
 // 			return;
@@ -230,13 +226,9 @@ position: absolute;
 			var userArray = [];
 			$('input:checkbox[name="userCheck"]:checked').each(function(i){
 				userArray.push($(this).val());
-				console.log($(this).val());
 				
 			});
-			
-			console.log(userArray);
-			alert(userArray);
-			
+
 			$.ajax({
 				type:'post',
 				url: '/retireUser',

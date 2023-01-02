@@ -29,7 +29,7 @@ public class GalleryFreeCommServiceImpl implements GalleryFreeCommService{
 	public Map<String, Object> getCommentCnt(int freeNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("commentCnt", commentMapper.selectFreeCommentCnt(freeNo));
-		System.out.println("service : " + commentMapper.selectFreeCommentCnt(freeNo));
+		
 		return result;
 	} 
 	

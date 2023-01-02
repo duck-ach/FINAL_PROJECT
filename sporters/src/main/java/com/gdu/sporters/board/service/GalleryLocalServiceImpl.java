@@ -73,7 +73,7 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 	@Override
 	public void saveLocalGallery(HttpServletRequest request, HttpServletResponse response) {
 		String filesystem = request.getParameter("filesystem");
-		System.out.println(filesystem);
+
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");	
@@ -97,7 +97,7 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 						.joinStart(joinStart)
 						.joinEnd(joinEnd)
 						.build();
-					System.out.println(freeBbs);
+				
 		
 	
 
@@ -110,7 +110,7 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			System.out.println("result="+result);
+		
 			out.println("<script>");
 			if (result > 0) {
 
@@ -119,14 +119,14 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 				
 				// DB에 SummernoteImage 저장
 				if (summernoteImageNames != null) {
-					System.out.println("summernoteImageNames="+summernoteImageNames);
+				
 					for (String summernoteImage : summernoteImageNames) {
 						LocalImageDTO summernote = LocalImageDTO.builder()
 								.filesystem(summernoteImage)
 								.localBoardNo(freeBbs.getLocalBoardNo())												
 								.build();
 						localBoardMapper.insertSummernoteImage(summernote);
-						System.out.println("summernote="+summernote);
+		
 					}
 				}
 				
