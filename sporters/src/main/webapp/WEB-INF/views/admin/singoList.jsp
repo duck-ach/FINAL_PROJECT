@@ -278,10 +278,10 @@ $(document).ready(function(){
 		<tbody>
 			<c:forEach items="${singoList}" var="singo" varStatus="vs">
 				<tr>
-					<td>${beginNo - vs.index}</td>
+					<td>${singo.singoNo}</td>
 					<td>${singo.singoCategory}</td>
 					<td>${singo.singoTitle}</td>
-					<td><a>${singo.singoLink}</a></td>
+					<td>${singo.singoLink}</td>
 <%-- 					<td>${singo.id}</td> --%>
 					<td>${singo.singoUserReason}</td>
 					<td>${singo.singoCreateDate}</td>
