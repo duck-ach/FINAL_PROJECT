@@ -16,7 +16,7 @@ footer{
 /*
 margin:0 auto;
 	*/
-margin-left:-60px;
+/* margin-left:-60px; */
 }
 .footer_ul{
 	
@@ -32,7 +32,7 @@ address{
     font-size: 0.3vw;
 }
 
-.spoters_logo_img{
+.spoters_logo_img_footer{
 	width: 30%;
 }
 
@@ -47,7 +47,7 @@ address{
 
 <ul class="footer_ul">
 		<li>
-			<img class="spoters_logo_img" alt="we are best team!" src="/resources/images/spoters_logo_3.png">
+			<img class="spoters_logo_img_footer" alt="we are best team!" src="/resources/images/spoters_logo_3.png">
 		</li>
 
 		<li style="font-style: italic;">
