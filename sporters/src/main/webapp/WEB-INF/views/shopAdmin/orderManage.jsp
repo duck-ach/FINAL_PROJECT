@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/adminHeader.jsp">
 	<jsp:param value="쇼핑몰주문관리" name="title" />
 </jsp:include>
@@ -161,6 +160,33 @@ button {
     margin-left: 3px;
     color: #fff;
 }
+
+/* state */
+/* 결제완료 */
+.os_1 {
+	color: #00BFFF;
+	font-weight: 700;
+}
+/* 상품준비중 */
+.os_2 {
+	color: #FFB400;
+	font-weight: 700;
+}
+/* 배송중 */
+.os_3 {
+	color: #F08080;
+	font-weight: 700;
+}
+/* 배송완료 */
+.os_4 {
+	color: #64CD3C;
+	font-weight: 700;
+}
+/* 주문취소 */
+.os_5 {
+	color: red;
+	font-weight: 700;
+}
 </style>
 <body>
 <div class="body_wrap">
@@ -207,7 +233,111 @@ button {
 									<td class="center_td">${order.name}</td>
 									<td class="center_td">${order.mobile}</td>
 									<td class="center_td">${order.priceAll}</td>
-									<td class="center_td">${order.orderState}</td>
+									<td class="center_td os_1">${order.orderState}</td>
+									<td class="center_td">${order.orderDate}</td>
+									<td class="center_td"><a class="go_detail" href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
+									<td class="center_td">
+										<form action="/shopAdmin/order/state" method="get">
+											<input type="hidden" name="orderNo" value="${order.orderNo}">
+											<select name="orderState">
+												<option value="">===선택===</option>
+												<option value="결제완료">결제완료</option>
+												<option value="상품준비중">상품준비중</option>
+												<option value="배송중">배송중</option>
+												<option value="배송완료">배송완료</option>
+												<option value="주문취소">주문취소</option>
+											</select>
+											<button>변경</button>
+										</form>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${order.orderState == '상품준비중'}">
+								<tr>
+									<td class="center_td">${order.orderNo}</td>
+									<td class="center_td">${order.users.name}</td>
+									<td class="center_td">${order.name}</td>
+									<td class="center_td">${order.mobile}</td>
+									<td class="center_td">${order.priceAll}</td>
+									<td class="center_td os_2">${order.orderState}</td>
+									<td class="center_td">${order.orderDate}</td>
+									<td class="center_td"><a class="go_detail" href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
+									<td class="center_td">
+										<form action="/shopAdmin/order/state" method="get">
+											<input type="hidden" name="orderNo" value="${order.orderNo}">
+											<select name="orderState">
+												<option value="">===선택===</option>
+												<option value="결제완료">결제완료</option>
+												<option value="상품준비중">상품준비중</option>
+												<option value="배송중">배송중</option>
+												<option value="배송완료">배송완료</option>
+												<option value="주문취소">주문취소</option>
+											</select>
+											<button>변경</button>
+										</form>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${order.orderState == '배송중'}">
+								<tr>
+									<td class="center_td">${order.orderNo}</td>
+									<td class="center_td">${order.users.name}</td>
+									<td class="center_td">${order.name}</td>
+									<td class="center_td">${order.mobile}</td>
+									<td class="center_td">${order.priceAll}</td>
+									<td class="center_td os_3">${order.orderState}</td>
+									<td class="center_td">${order.orderDate}</td>
+									<td class="center_td"><a class="go_detail" href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
+									<td class="center_td">
+										<form action="/shopAdmin/order/state" method="get">
+											<input type="hidden" name="orderNo" value="${order.orderNo}">
+											<select name="orderState">
+												<option value="">===선택===</option>
+												<option value="결제완료">결제완료</option>
+												<option value="상품준비중">상품준비중</option>
+												<option value="배송중">배송중</option>
+												<option value="배송완료">배송완료</option>
+												<option value="주문취소">주문취소</option>
+											</select>
+											<button>변경</button>
+										</form>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${order.orderState == '배송완료'}">
+								<tr>
+									<td class="center_td">${order.orderNo}</td>
+									<td class="center_td">${order.users.name}</td>
+									<td class="center_td">${order.name}</td>
+									<td class="center_td">${order.mobile}</td>
+									<td class="center_td">${order.priceAll}</td>
+									<td class="center_td os_4">${order.orderState}</td>
+									<td class="center_td">${order.orderDate}</td>
+									<td class="center_td"><a class="go_detail" href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
+									<td class="center_td">
+										<form action="/shopAdmin/order/state" method="get">
+											<input type="hidden" name="orderNo" value="${order.orderNo}">
+											<select name="orderState">
+												<option value="">===선택===</option>
+												<option value="결제완료">결제완료</option>
+												<option value="상품준비중">상품준비중</option>
+												<option value="배송중">배송중</option>
+												<option value="배송완료">배송완료</option>
+												<option value="주문취소">주문취소</option>
+											</select>
+											<button>변경</button>
+										</form>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${order.orderState == '주문취소'}">
+								<tr>
+									<td class="center_td">${order.orderNo}</td>
+									<td class="center_td">${order.users.name}</td>
+									<td class="center_td">${order.name}</td>
+									<td class="center_td">${order.mobile}</td>
+									<td class="center_td">${order.priceAll}</td>
+									<td class="center_td os_5">${order.orderState}</td>
 									<td class="center_td">${order.orderDate}</td>
 									<td class="center_td"><a class="go_detail" href="/shopAdmin/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
 									<td class="center_td">

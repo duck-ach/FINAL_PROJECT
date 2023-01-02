@@ -31,13 +31,13 @@ public class SingoController {
 		
 		@ResponseBody
 		@GetMapping(value="/admin/getCategoryList", produces=MediaType.APPLICATION_JSON_VALUE)
-		public List<SingoCategoryDTO> categoryList() {
+		public List<SingoCategoryDTO> requiredAdmin_categoryList() {
 			return singoService.getCategoryList();
 		}
 		
 		@ResponseBody
 		@PostMapping(value="/admin/addCategory")
-		public String addCategory(HttpServletRequest request) {
+		public String requiredAdmin_addCategory(HttpServletRequest request) {
 			System.out.println(request.getParameter("categoryName"));
 			singoService.addCategory(request);
 			return "admin/getCategoryList";
@@ -45,22 +45,19 @@ public class SingoController {
 		
 		@ResponseBody
 		@GetMapping(value="/admin/removeCategory")
-		public void removeCategory(HttpServletRequest request, HttpServletResponse response) {
+		public void requiredAdmin_removeCategory(HttpServletRequest request, HttpServletResponse response) {
 			singoService.deleteCategory(request, response);
 		}
 		
 		@GetMapping("/admin/singoList")
-		public String selectSingoList(HttpServletRequest request, Model model) {
+		public String requiredAdmin_selectSingoList(HttpServletRequest request, Model model) {
 			model.addAttribute("singoList", singoService.getSingoList(request, model));
 //			singoService.getSingoList(request, model);
-			
-			System.out.println(request);
-			System.out.println(model);
 			return "/admin/singoList";
 		}
 		
 		@PostMapping("free/admin/userSingo")
-		public void singoButton(HttpServletRequest request, HttpServletResponse response) {
+		public void requiredAdmin_singoButton(HttpServletRequest request, HttpServletResponse response) {
 			singoService.singoButton(request, response);
 		}
 
