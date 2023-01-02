@@ -186,6 +186,7 @@
 						if(confirm('게시글을 삭제하시겠습니까?')){
 							$('#frm_btn').attr('action', '/free/remove');
 							$('#frm_btn').submit();
+							history.back();
 						}
 					});
 
@@ -501,6 +502,7 @@ $(function(){
         </select>
         <textarea name="singoContent" placeholder="신고 내용" maxlength="200" style="width: 400px; height: 191px; resize:none;" ></textarea>
         <br>
+        <input type="hidden" name="singoURL" id="singoURL">
         <input type="hidden" name="singoTitle" id="singoTitle" value="${gallery.title}">
         <input type="hidden" name="userNo" value="${gallery.userNo}">
 		<input type="hidden" name="freeNo" value="${gallery.freeNo}">
@@ -519,6 +521,14 @@ $(function(){
     document.getElementById("modal_close_btn").onclick = function() {
         document.getElementById("modal").style.display="none";
     }   
+    
+    $(document).ready(function(){
+    const link = window.location.href;
+    var url = new URL(link);
+    	  alert(url);
+     $('#singoURL').val(url);
+    	});
+    
 </script>
 
 </body>
