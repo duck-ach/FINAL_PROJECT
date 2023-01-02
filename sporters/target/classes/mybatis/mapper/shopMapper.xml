@@ -117,11 +117,10 @@
 	</update>
 	
 	<select id="selectOrderList" resultType="OrderDTO" parameterType="map">
-		SELECT ORDER_NO, USER_NO, CART_NO, PAYMENT, NAME, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, ORDER_DATE, ORDER_STATE, PRICE_ALL
+		SELECT ORDER_NO, USER_NO, CART_BUNDLE, CART_NO, PAYMENT, NAME, MOBILE, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, ORDER_DATE, ORDER_STATE, PRICE_ALL
 		  FROM ORDERS
 		 WHERE USER_NO = #{userNo}
 		 ORDER BY ORDER_NO
-		 LIMIT #{begin}, #{recordPerPage}
 	</select>
 	
 	<select id="selectOrderDetail" parameterType="int" resultType="OrderDTO">

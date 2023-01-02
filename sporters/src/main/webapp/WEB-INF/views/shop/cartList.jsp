@@ -117,7 +117,25 @@
 				'stock' : stockArray,
 				'prodNo' : prodNoArray
 			}
-			alert(updateStock);
+			
+			IMP.request_pay({ 
+				pg: "html5_inicis",
+				pay_method: 'card',
+				merchant_uid: merchant_uid,
+				name: prodName, 
+				amount: priceAll,
+				m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+				}, function (rsp) {
+					if (rsp.success) {
+						alert('결제완료');
+						location.href('/shop/cartList');
+					} else {
+					var msg = '';
+					msg += rsp.error_msg;
+					alert(msg)
+	       			}
+				}
+			);
 			
 			$.ajax({
 				url: '/shop/addOrder',
@@ -134,9 +152,6 @@
 							dataType : 'json',
 							success: function(data){
 								alert('업데이트 실패!');
-							},
-							error: function(){
-								location.href='/shop/cartList';
 							}
 						});
 					} else {
@@ -148,23 +163,6 @@
 				}
 			});
 			
-			
-			/* IMP.request_pay({ 
-			pg: "html5_inicis",
-			pay_method: 'card',
-			merchant_uid: merchant_uid,
-			name: prodName, 
-			amount: priceAll,
-			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-			}, function (rsp) {
-				if (rsp.success) {
-					alert('성공');
-				} else {
-				var msg = '';
-				msg += rsp.error_msg;
-				alert(msg)
-       			}
-			}); */
 		});
 	}
 	
@@ -313,11 +311,18 @@
 							</script>
 							<input type="hidden" class="prodNo" value="${cartList.prodNo}">
 							<input type="hidden" class="cartNo" value="${cartList.cartNo}">
-		 					<a href="/shop/detail?prodNo=${cartList.prodNo}"><span class="productId">${cartList.product.prodName}</span></a><br>
-							<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
-							<span>재고 : ${cartList.product.stock} 개</span><br>
-							<span>구매할 수량 : ${cartList.prodCnt} 개</span><br>
-							<span>합계 가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price * cartList.prodCnt}" /> 원</span><br>
+							<div style="display: flex;">
+								<div style="margin-right: 20px;">
+									<img src="/shopAdmin/prod/display?prodNo=${cartList.prodNo}" width="120px" height="120px" class="attach_img" alt="thumbnail_img"><br>
+								</div>
+								<div>
+				 					<a href="/shop/detail?prodNo=${cartList.prodNo}"><span class="productId">${cartList.product.prodName}</span></a><br>
+									<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price}" /> 원<br /></span>
+									<span>재고 : ${cartList.product.stock} 개</span><br>
+									<span>구매할 수량 : ${cartList.prodCnt} 개</span><br>
+									<span>합계 가격 : <fmt:formatNumber pattern="###,###,###" value="${cartList.product.price * cartList.prodCnt}" /> 원</span><br>
+								</div>
+							</div>
 						</td>
 					</tr>
 					</c:forEach>
@@ -444,8 +449,10 @@
 			 </table>
 	 
 	</div>
+	
 	<button type="submit" class="btn_payment">주문</button>
 	<button type="button" class="btn_cancel">취소</button>
+	
 	</section><!-- 기본틀 2 -->
 </section><!-- 기본틀 1 -->
 </body>

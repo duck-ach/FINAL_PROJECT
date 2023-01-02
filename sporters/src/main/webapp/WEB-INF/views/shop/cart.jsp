@@ -77,7 +77,6 @@
 			});
 			var sum = priceArray.reduce((a,b) => (a+b));
 			var name = $('#productId').val();
-			alert($('#productId').val());
 			
 			IMP.request_pay({ 
 			pg: "html5_inicis",
@@ -240,7 +239,6 @@
 												}
 											},
 											error: function(checkOne){
-												console.log(checkOne);
 												alert("에러남!!");
 											}
 										});
@@ -281,7 +279,7 @@
 													url : "/cartList/sameAdd",
 													type : 'post',
 													success : function(order) {
-														alert("성공데스");
+														alert("성공!");
 														console.log(order);
 														$('#name').val(order.name);
 														$('#postcode').val(order.postcode);
@@ -290,7 +288,7 @@
 														$('#detailAddress').val(order.detailAddress);
 												     },
 													error : function(order) {
-														alert("에러데스");
+														alert("에러!");
 													}
 												});
 												

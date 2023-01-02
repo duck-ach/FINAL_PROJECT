@@ -16,6 +16,7 @@
 			<thead>
 				<tr>
 					<td>주문번호</td>
+					<td>카트번호</td>
 					<td>주문자 정보</td>
 					<td>수령인</td>
 					<td>수령자 번호</td>
@@ -29,15 +30,17 @@
 			<tbody>
 				<c:forEach items="${orderList}" var="order">
 					<tr>
+						<td>${order.cartBundle}</td>
 						<td>${order.orderNo}</td>
 						<td>${name}</td>
 						<td>${order.name}</td>
 						<td>${order.mobile}</td>
-						<td>${order.priceAll}</td>
+						<td>${order.priceAll} 원</td>
 						<td>${order.orderState}</td>
 						<td>${order.orderDate}</td>
 						<td><a href="/shop/order/detail?orderNo=${order.orderNo}">상세보기</a></td>
 						<td>${order.orderState}</td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

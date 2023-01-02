@@ -73,7 +73,7 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/shop/deleteCart", method = RequestMethod.POST)
-	public int deleteCart(HttpSession session, @RequestParam("checkOne[]") List<String> checkOne, CartDTO cart) throws Exception {
+	public int requiredLogin_deleteCart(HttpSession session, @RequestParam("checkOne[]") List<String> checkOne, CartDTO cart) throws Exception {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		int result = 0;
@@ -92,7 +92,7 @@ public class ShopController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/cartList/sameAdd", method = RequestMethod.POST)	
-	public OrderDTO sameAdd(HttpSession session, OrderDTO order) {
+	public OrderDTO requiredLogin_sameAdd(HttpSession session, OrderDTO order) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		String name = loginUser.getName();
 		String mobile = loginUser.getMobile();
@@ -121,10 +121,10 @@ public class ShopController {
 	
 	@RequestMapping(value = "/shop/categoryList", method = RequestMethod.GET)
 	public void getList(@RequestParam(value="prodCategoryNo", required=false) int prodCategoryNo, Model model) throws Exception {
-		List<ProductDTO> cartList = null;
-		cartList = shopService.getCategoryList(prodCategoryNo);
+		List<ProductDTO> list = null;
+		list = shopService.getCategoryList(prodCategoryNo);
  
-		model.addAttribute("cartList", cartList);
+		model.addAttribute("list", list);
 	 }
 	
 	@ResponseBody
@@ -169,7 +169,7 @@ public class ShopController {
 	}
 	
 	@GetMapping("/shop/orderList")
-	public String orderList(HttpSession session, Model model) {
+	public String requiredLogin_orderList(HttpSession session, Model model) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		String name = loginUser.getName();
 		int userNo = loginUser.getUserNo();
@@ -180,7 +180,7 @@ public class ShopController {
 	}
 	
 	@GetMapping("/shop/order/detail")
-	public String shopOrderDetail(HttpSession session, HttpServletRequest request, Model model) {
+	public String requiredLogin_shopOrderDetail(HttpSession session, HttpServletRequest request, Model model) {
 		UsersDTO loginUser = (UsersDTO)session.getAttribute("loginUser");
 		String name = loginUser.getName();
 		model.addAttribute("name", name);
