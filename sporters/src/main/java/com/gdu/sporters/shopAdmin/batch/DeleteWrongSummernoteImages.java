@@ -43,7 +43,6 @@ public class DeleteWrongSummernoteImages {
 			}
 		}
 		
-		// System.out.println("1   " + pathList.toString());
 		
 		// HDD에 업로드 된 파일 목록 중 DB에 기록되어 있지 않은 써머노트 이미지 목록
 		File dir = new File(path);
@@ -57,7 +56,6 @@ public class DeleteWrongSummernoteImages {
 		Lambda Expression
 		File[] wrongSummernoteImages = dir.listFiles((directory, name) -> pathList.contains(new File(directory, name).toPath()));
 		*/
-		// System.out.println("2   " + Arrays.toString(wrongSummernoteImages));
 		
 		// 삭제
 		if(wrongSummernoteImages != null) {

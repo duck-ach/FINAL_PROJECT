@@ -158,7 +158,6 @@ $(function(){
 	});
 	function fn_file_change() {
 		$('#thumbnail').on('change',function(){
-			console.log($(this));
 		  	var fileName = $("#thumbnail").val();	
 		  	$('.upload-name').val(fileName);
 		});
