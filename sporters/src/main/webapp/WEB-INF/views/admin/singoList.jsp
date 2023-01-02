@@ -102,6 +102,7 @@ th {
 td {
 	height:50px;
 	border-bottom: 1px solid #D2D2FF;
+	text-align: center;
 }
 
 .center_td {
