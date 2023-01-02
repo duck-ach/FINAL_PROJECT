@@ -11,7 +11,6 @@
 	.wrap{
 		position: static;
 		position: unset !important;
-		margin-top: 50%;
 		overflow: unset; 
 		font-family: 'Noto Sans KR', sans-serif;
 		}
@@ -396,6 +395,11 @@
 				
 				<hr>
 				
+				<div class="div_label_all">
+					<label for="check_all" class="label_all">전체 동의</label>
+					<input type="checkbox" id="check_all" class="blind">
+				</div>
+				
 				<div class="div_agree">
 					<div class="div_label_one">
 					<label for="sevice" class="label_one">이용약관 동의(필수)</label>
@@ -551,8 +555,8 @@
 					</div>
 					<div class="div_agree">
 						<div class="div_label_one">
-						<input type="checkbox" id="privacy" class="check_one blind">
 						<label for="privacy" class="label_one">개인정보수집 동의(필수)</label>
+						<input type="checkbox" id="privacy" class="check_one blind">
 						</div>
 						<div class="div_agree">
 							<textarea>1. 개인정보의 수집항목 및 수집방법 
@@ -686,15 +690,14 @@
 	SPORTERS 정보수정 페이지에서 개별서비스의 마케팅 수신동의를 변경(동의/철회)할 수 있으며, 동의일로부터 회원 탈퇴 혹은 마케팅 수신 동의 해제 시까지 광고성 정보 전달을 위하여 보유ㆍ이용 됩니다.  
 							</textarea>
 					</div>
-					<div class="div_label_all">
-						<label for="check_all" class="label_all">전체 동의</label>
-						<input type="checkbox" id="check_all" class="blind">
-					</div>
+
 				</div>				
-				<hr>
-				<div>
+
+				<div style="height: 10px; border-top: 1px dotted #c8c8ff;"></div>
+
+				<div style="text-align: right;display: flex; justify-content: space-between;">
+					<input class="btn purple" type="button" value="가입취소" onclick="location.href='/'">
 					<button class="btn purple">가입하기</button>
-					<input class="btn purple" type="button" value="취소하기" onclick="location.href='/'">
 				</div>
 			</form>		
 		</div>

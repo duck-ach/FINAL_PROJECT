@@ -5,22 +5,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gdu.sporters.userSupport.mapper.QnaReplyMapper">
-<!-- 
-<resultMap type="QnaReplyDTO" id="QnaReplyDtoMap">
-	<id property="qnaReplyNo" column="QNA_REPLY_NO" />
-	<result property="qnaNo" column="QNA_NO" />
-	<result property="qnaReplyContent" column="QNA_REPLY_CONTENT" />
-	<result property="qnaReplyCreateDate" column="QNA_REPLY_CREATE_DATE" />
-	<result property="state" column="STATE" />
-	<result property="depth" column="DEPTH" />
-	<result property="groupNo" column="GROUP_NO" />
-	<association property="qna" column="QnaDTO">
-		<id property="qnaNo" column="QNA_NO" />
-		<result property="qnaTitle" column="QNA_TITLE" />
-		<result property="qnaPW" column="QNA_PW" />
-	</association>
-</resultMap>
- -->
+
 
 	<select id="selectReplyList" parameterType="Map" resultType="QnaReplyDTO">
 		SELECT QNA_REPLY_NO, QNA_NO, QNA_REPLY_CONTENT, QNA_REPLY_CREATE_DATE, STATE, DEPTH, GROUP_NO

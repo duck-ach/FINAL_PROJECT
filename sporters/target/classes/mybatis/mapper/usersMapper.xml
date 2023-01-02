@@ -33,24 +33,6 @@
 		  </where>
 	</select>
 	
-<!-- 	<select id="selectUsersById" parameterType="String" resultType="UsersDTO">
-		SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
-		  FROM USERS
-		 WHERE ID = #{id}
-	</select>
-	
-	<select id="selectUsersByIdPw" parameterType="String" resultType="UsersDTO">
-		SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
-		  FROM USERS
-		 WHERE ID = #{id}
-		   AND PW = #{pw}
-	</select>
-	
-	<select id="selectUsersByEmail" parameterType="String" resultType="UsersDTO">
-		SELECT USER_NO, ID, NICKNAME, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHMONTH, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, INFO_MODIFY_DATE, PW_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, BANNED_STATE
-		  FROM USERS
-		 WHERE EMAIL = #{email}
-	</select> -->
 	
 	<!-- 로그인 기록(ACCESS_LOG) 남기기 -->
 	<update id="updateAccessLog" parameterType="int" >
@@ -59,12 +41,7 @@
 		 WHERE USER_NO = #{userNO}
 	</update>
 	<insert id="insertAccessLog" parameterType="int">
-	<!--  
-	<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
-			SELECT USERS_SEQ.NEXTVAL
-			  FROM DUAL
-		</selectKey>
-	-->
+
 		INSERT INTO ACCESS_LOG
 			(USER_NO, LAST_LOGIN_DATE)
 		VALUES
