@@ -220,8 +220,6 @@
 		      // 	var longitude = 126.570667;  // 제주도 카카오 사옥 좌표 
 		             var latitude = 37.4730836;
 		             var longitude = 126.8788276;
-		         //   alert(`위도: ${latitude}, 경도: ${longitude}, 위치 반환 시간: ${timestamp}`);
-		           // alert(longitude);
 		            
 		            
 		            

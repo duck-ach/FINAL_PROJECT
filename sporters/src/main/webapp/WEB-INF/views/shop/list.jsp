@@ -74,70 +74,6 @@
    
 </script>
 <style>
-	ul {
-		padding: 0;
-	}
-	li {
-		list-style:none;
-	}
-	a {
-		text-decoration:none;
-	}
-	#paging {
-		text-align: center;
-	}
-	#aside {
-		float: left;
-		width: 180px;
-		height: 500px;
-	}
-	#aside h3 {
-		width: 180px;
-		font-size:30px;
-		margin-bottom:20px;
-		text-align: center; 
-		font-weight: bold;
-	}
-	#aside li {
-		font-size:16px;
-		text-align:center;
-	}
-	#aside li a {
-		color:#000;
-		display:block;
-		padding:10px 0;
-	}
-	#aside li a:hover {
-		text-decoration:none;
-		background:#eee;
-	}
-	#title {
-		font-size: 24px;
-		text-align: center;
-	}
-	.product {
-		display: block;
-	    width: 225px;
-	    text-align: center;
-	    text-decoration:none;
-	    color: black;
-	    float:left;	
-	    margin-left: 10px;
-	    margin-right: 10px;
-	    margin-bottom: 30px;
-	    line-height: 30px;
-	}
-	.btn_buy {
-		display: none;
-	}
-	
-	
-	.cartList_area{
-	margin-top: 60px;
-	
-	}
-	
-	.btn-hover {
    ul {
       padding: 0;
    }
@@ -221,46 +157,6 @@
 </style>
 <body>
 <section class="wrap"><!-- 기본틀 1 -->
-	<section class="content_leyout_section"><!-- 기본틀 2 -->
-	<div id="aside">
-		<br>
-		<h3>카테고리</h3>
-		<ul>
-			<li><a href="/shop/list">전체</a></li>
-			<li><a href="/shop/categoryList?prodCategoryNo=1">음식</a></li>
-			<li><a href="/shop/categoryList?prodCategoryNo=2">의류</a></li>
-			<li><a href="/shop/categoryList?prodCategoryNo=3">기타</a></li>
-			<li class="cartList_area"><a href="/shop/cartList">장바구니로 이동</a></li>
-			<li><a href="/shop/orderList">주문내역 확인</a></li>
-		</ul>
-	</div>
-	<div>
-		<c:forEach items="${productList}" var="list">
-			<ul>
-				<li class="product">
-					<img src="/shopAdmin/prod/display?prodNo=${list.prodNo}" width="180px" height="180px" class="attach_img" alt="thumbnail_img" title="${list.prodThumbnail.tnFilesystem}"><br>
-					<input type="hidden" class="prodNo" value="${list.prodNo}">
-					<a href="/shop/detail?prodNo=${list.prodNo}">${list.prodName}</a><br>
-					<input type="hidden" class="prodName" value="${list.prodName}">
-					<span>가격 : <fmt:formatNumber pattern="###,###,###" value="${list.price}" /> 원<br /></span>
-					<span>재고 : ${list.stock} 개</span><br>
-					<input type="hidden" class="stock" value="${list.stock}">
-					<span>구매할 수량 : 
-					<select name="prodCnt" class="prodCnt">
-					<%for(int i=1; i<100; i++){%>
-						<option value="<%=i%>"><%=i%></option>
-					<%}%>
-					</select>개</span>
-					<button class="btn_buy">구매하기</button>					
-					<button  id="btn_addCart" class="btn-hover color-3 btn_addCart" data-prodno="${list.prodNo}"  data-stock="${list.stock}">장바구니 담기</button>
-				</li>
-			</ul>
-		</c:forEach>
-	</div>
-	<div id="paging">
-		${paging}
-	</div>
-	</section><!-- 기본틀 2 -->
    <section class="content_leyout_section"><!-- 기본틀 2 -->
    <div id="aside">
       <br>

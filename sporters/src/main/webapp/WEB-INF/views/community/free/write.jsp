@@ -20,7 +20,6 @@
 
 $(document).ready(function() { 
 	
-	alert('확인용');
 	
 	
 	// summernote
