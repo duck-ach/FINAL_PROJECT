@@ -129,7 +129,7 @@
 		height:80px;
 	}
 	.message {
-		width: 530px;
+		width: 528px;
 		height: 80px;
 		display: inline-block;
 		resize: none;
@@ -178,7 +178,7 @@
 		display: inline-block;
 		max-width: 48%;
 		border-radius: 3px;
-		width: 200px;
+		width: 263px;
 	}
 	.my_message_content {
 		text-align: right;
@@ -204,7 +204,7 @@
 	    margin-left: 10px;
 	}
 	.currUserCnt {
-		margin-left: 650px;
+	    margin-left: 777px
 	}
 	
 	.chat_content_wrap {
