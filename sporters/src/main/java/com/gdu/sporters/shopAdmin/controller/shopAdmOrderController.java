@@ -1,5 +1,7 @@
 package com.gdu.sporters.shopAdmin.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,16 @@ public class shopAdmOrderController {
 		shopAdminOrderService.getOrderState(request);
 		return "redirect:/shopAdmin/orderManage";
 	}
+	
 	@GetMapping("/shopAdmin/orderSearch")
 	public String requiredAdmin_search(HttpServletRequest request, Model model) {
 		shopAdminOrderService.searchOrders(request, model);
 		return "shopAdmin/orderManage";
 	}
+	
+	@GetMapping("/shopAdmin/orderGraph")
+	public Map<String, Object> graph() {
+		return shopAdminOrderService.getGragh();
+	}
+	
 }

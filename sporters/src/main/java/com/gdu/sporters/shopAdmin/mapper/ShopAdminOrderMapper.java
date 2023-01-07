@@ -14,7 +14,7 @@ public interface ShopAdminOrderMapper {
 	public OrderDTO selectOrderDetailByUserNo(Map<String, Object> map);
 	public List<CartDTO> selectOrderProdDetailByUserNo(Map<String, Object> map);
 	public int updateOrderState(Map<String, Object> map);
-	public List<OrderDTO> selectOrderCountByDay();
+	public Map<String, Object> selectOrderCountByDay();
 	public int selectOrderCnt();
 	public int selectSearchCount(Map<String, Object> map);
 	public List<OrderDTO> selectSearchOrderList(Map<String, Object> map);

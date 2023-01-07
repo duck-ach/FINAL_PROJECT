@@ -105,7 +105,7 @@
 	</update>
 	
 	<!-- 주문개수(그래프용) -->
-	<select id="selectOrderCountByDay" resultType="orderDTO">
+	<select id="selectOrderCountByDay" resultType="map">
 		SELECT ORDER_DATE, SUM(PRICE_ALL)
 		  FROM ORDERS
 		 WHERE ORDER_DATE BETWEEN DATE_ADD(NOW(), INTERVAL - 1 MONTH) AND NOW()

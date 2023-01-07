@@ -4,18 +4,30 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // 날짜구하기
 var date = new Date();
-let now = date.getMonth() + "-" + date.getDate();
-let day1 = date.getMonth() + "-" + (date.getDate() - 6);
-let day2 = date.getMonth() + "-" + (date.getDate() - 5);
-let day3 = date.getMonth() + "-" + (date.getDate() - 4);
-let day4 = date.getMonth() + "-" + (date.getDate() - 3);
-let day5 = date.getMonth() + "-" + (date.getDate() - 2);
-let day6 = date.getMonth() + "-" + (date.getDate() - 1);
+let now = (date.getMonth() + 1) + "월" + date.getDate() + "일";
+let day1 = (date.getMonth() + 1) + "월" + (date.getDate() - 6) + "일";
+let day2 = (date.getMonth() + 1) + "월" + (date.getDate() - 5) + "일";
+let day3 = (date.getMonth() + 1) + "월" + (date.getDate() - 4) + "일";
+let day4 = (date.getMonth() + 1) + "월" + (date.getDate() - 3) + "일";
+let day5 = (date.getMonth() + 1) + "월" + (date.getDate() - 2) + "일";
+let day6 = (date.getMonth() + 1) + "월" + (date.getDate() - 1) + "일";
 
 let labels = [day1, day2, day3, day4, day5, day6, now];
 
 // db에서 데이터 받아오기
-
+$(function(){
+	$.ajax({
+		type:'get',
+		url: '/shopAdmin/orderGraph',
+		dataType : 'json',
+		success: function(resData) {
+			var dataArray = new Array(7);
+			$.each(resData, function(i, data) {
+				console.log(resData);
+			})
+		}
+	})
+});
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
@@ -35,7 +47,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "#8C8CFF",
       pointHitRadius: 50,
       pointBorderWidth: 2,
-      data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+      data: [10000, 30162, 26263, 18394, 18287, 28682, 31274],
     }],
   },
   options: {

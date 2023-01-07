@@ -88,7 +88,7 @@ public class ShopAdminOrderServiceImpl implements ShopAdminOrderService {
 	}
 	
 	@Override
-	public List<OrderDTO> getGragh() {
+	public Map<String, Object> getGragh() {
 		return shopAdminOrderMapper.selectOrderCountByDay();
 	}
 	
