@@ -1,4 +1,5 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&&color=#C8C8FF&height=200&section=header&text=Sporters&fontSize=90" />
+# Sporters
+sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임 이라는 뜻을 가지고 있습니다.
 
 <p align="center">
   <br>
