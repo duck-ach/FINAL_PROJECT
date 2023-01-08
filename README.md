@@ -41,6 +41,27 @@ sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임
 
 > 쇼핑몰 관리자 페이지
 
+* 카테고리 추가
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211195963-363c974d-7c3a-4480-b5c0-854fa98fecf5.gif)
+
+
+* 카테고리 삭제
+![ezgif com-gif-maker 복사본](https://user-images.githubusercontent.com/101095613/211195994-fae9acd6-7008-487b-a00a-0fcdddd02f46.gif)
+
+* 상품 등록
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211196237-fdbfce9c-acae-49fc-826e-c9737e41d3e8.gif)
+
+* 상품 목록
+![ezgif com-gif-maker 복사본](https://user-images.githubusercontent.com/101095613/211196953-07b5ded7-0fc3-465e-bfa5-53b9f142ce0a.gif)
+
+* 상품 검색
+![ezgif com-gif-maker 복사본 2](https://user-images.githubusercontent.com/101095613/211196957-762f8e62-4a3f-40bc-8cf6-e34ccaae5231.gif)
+
+* 주문 관리
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211197254-2113fd63-9db7-4ef1-bfb3-03e4c3532777.gif)
+
+
+
 > 실시간 채팅
 
 실시간 채팅을 이용하여 실시간으로 주변 지역의 운동 메이트를 구할 수 있습니다.
