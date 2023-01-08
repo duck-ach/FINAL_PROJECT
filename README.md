@@ -40,6 +40,7 @@ sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임
 ### 💙 희라 ) 쇼핑몰 관리자 페이지, Socket통신을 이용한 실시간 채팅 구현 💙
 
 > 쇼핑몰 관리자 페이지
+회원이 주문할 수 있는 상품들을 관리하고, 주문에 대해 관리할 수 있습니다.
 
 * 카테고리 추가<br>
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211195963-363c974d-7c3a-4480-b5c0-854fa98fecf5.gif)
@@ -56,15 +57,28 @@ sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임
 * 상품 검색<br>
 ![ezgif com-gif-maker 복사본 2](https://user-images.githubusercontent.com/101095613/211196957-762f8e62-4a3f-40bc-8cf6-e34ccaae5231.gif)
 
+* 상품 상세<br>
+![ezgif com-gif-maker 복사본](https://user-images.githubusercontent.com/101095613/211197909-6b4f5d01-ccd1-4dbb-ad73-dcc63af78e77.gif)
+
+* 상품 삭제<br>
+![ezgif com-gif-maker 복사본 2](https://user-images.githubusercontent.com/101095613/211197926-678ecba4-4e9f-4df7-92f1-93c872590e02.gif)
+
+
 * 주문 관리<br>
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211197254-2113fd63-9db7-4ef1-bfb3-03e4c3532777.gif)
 
 
 
 > 실시간 채팅
+실시간 채팅을 이용하여 실시간으로 주변 지역의 운동 메이트를 구할 수 있습니다.
 
-실시간 채팅을 이용하여 실시간으로 주변 지역의 운동 메이트를 구할 수 있습니다.<br>
-  
+* 채팅방 목록<br>
+<img width="1360" alt="스크린샷 2023-01-08 오후 10 02 26" src="https://user-images.githubusercontent.com/101095613/211197463-a1110646-9d6b-4e60-9200-759124663eef.png">
+
+* 채팅 비밀번호 방<br>
+![ezgif com-gif-maker 복사본](https://user-images.githubusercontent.com/101095613/211197537-0d3c8257-bdc6-49cf-937e-a58e5cc18bde.gif)
+
+* 채팅방<br>
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211189422-1594e235-af0b-4ecb-9d90-b2c567f42c58.gif)
 
 <br>
