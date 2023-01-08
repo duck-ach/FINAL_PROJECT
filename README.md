@@ -16,12 +16,6 @@ sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임
 🤼 혼자 운동하기 싫을 땐? Sporters로 오셔서 함께 해요 ! 🤼‍♀️
 </p>
 
-<p align="center">
-  실시간 채팅을 이용하여 실시간으로 주변 지역의 운동 메이트를 구할 수 있습니다.
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211189422-1594e235-af0b-4ecb-9d90-b2c567f42c58.gif)
-  
-</p>
-
 <br>
 
 ## 📚 TECH STACK 📚
@@ -44,8 +38,13 @@ sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임
 
 ### 💙 희라 ) 쇼핑몰 관리자 페이지, Socket통신을 이용한 실시간 채팅 구현 💙
 
->쇼핑몰 관리자 페이지
+> 쇼핑몰 관리자 페이지
 
+> 실시간 채팅
+
+실시간 채팅을 이용하여 실시간으로 주변 지역의 운동 메이트를 구할 수 있습니다.
+  
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/101095613/211189422-1594e235-af0b-4ecb-9d90-b2c567f42c58.gif)
 
 <br>
 
