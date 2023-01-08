@@ -73,7 +73,7 @@ sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임
 실시간 채팅을 이용하여 실시간으로 주변 지역의 운동 메이트를 구할 수 있습니다.
 
 * 채팅방 목록<br>
-<img width="1360" alt="스크린샷 2023-01-08 오후 10 02 26" src="https://user-images.githubusercontent.com/101095613/211197463-a1110646-9d6b-4e60-9200-759124663eef.png">
+<img width="600px" alt="스크린샷 2023-01-08 오후 10 02 26" src="https://user-images.githubusercontent.com/101095613/211197463-a1110646-9d6b-4e60-9200-759124663eef.png">
 
 * 채팅 비밀번호 방<br>
 ![ezgif com-gif-maker 복사본](https://user-images.githubusercontent.com/101095613/211197537-0d3c8257-bdc6-49cf-937e-a58e5cc18bde.gif)
