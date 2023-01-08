@@ -86,7 +86,23 @@ sport + Supporter 의 합성어로 스포츠를 도와주는 사람들의 모임
 ## 배운 점 & 아쉬운 점
 
 <p align="justify">
+💫 나영 :
+</p>
 
+<p align="justify">
+🦞 준호 :
+</p>
+
+<p align="justify">
+🦁 정행 :
+</p>
+
+<p align="justify">
+🐣 지원 :
+</p>
+
+<p align="justify">
+🐰 희라 :
 </p>
 
 <br>
