@@ -189,7 +189,7 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 
 		// 저장된 파일이 aaa.jpg라고 가정하면
 		// src=${contextPath}/load/image/aaa.jpg 이다.
-
+		
 	}
 	
 	@Override

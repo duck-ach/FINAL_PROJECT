@@ -353,6 +353,30 @@
 	
 </section><!-- 기본틀 1 -->
 
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 30,
+    loop:true,
+    effect: "fade",
+    autoplay: {
+        delay: 1500,
+        disableOnInteraction: false,
+      },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+</script>
+
 
 <script type="text/javascript">
 
@@ -440,45 +464,7 @@ $.ajax({
 });
 
 
-var swiper = new Swiper(".mySwiper", {
-	loop:true,
-	navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-  slidesPerView: 3,
-  spaceBetween: 30,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-});
 
-
-
-
-/*
-
-한장씩 fade 시키는 슬라이드
-var swiper = new Swiper(".mySwiper", {
-	loop:true,
-  spaceBetween: 30,
-  effect: "fade",
-  autoplay: {
-      delay: 1500,
-      disableOnInteraction: false,
-    },
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-});
-
-*/
 </script>
 
 

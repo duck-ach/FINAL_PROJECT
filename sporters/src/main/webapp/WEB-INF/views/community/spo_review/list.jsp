@@ -187,7 +187,9 @@
 				<div style="border-top: 1px solid black; text-align: center; line-height: 35px;"></div>
 			
 				<div class="div_paging">
-					${paging}
+					<c:if test="${loginUser.id != null}" >				
+						${paging}
+					</c:if>
 				</div>
 			</div>
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
