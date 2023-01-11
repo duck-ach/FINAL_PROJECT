@@ -71,85 +71,85 @@ font-family: 'Poppins', sans-serif;
 		</div>
 		<!-- 날씨 api 주소 -->
 	
-  <!-- 날씨 api 구현 -->
-      <script>
-   $(document).ready(function(position) {
-      //위치 측정 불가인 경우 기본 경/위도 : 서울
-    	var lat = 33.450701;   // 제주도 카카오 사옥 좌표
-		var lon = 126.570667;  // 제주도 카카오 사옥 좌표 
+<!--   <!-- 날씨 api 구현 --> -->
+<!--       <script> -->
+//    $(document).ready(function(position) {
+//       //위치 측정 불가인 경우 기본 경/위도 : 서울
+//     	var lat = 33.450701;   // 제주도 카카오 사옥 좌표
+// 		var lon = 126.570667;  // 제주도 카카오 사옥 좌표 
            
-      var options = {
-         enableHighAccuracy : true,
-         timeout : 5000,
-         maximumAge : 0
-      };
-      function success(pos) {
-         var crd = pos.coords;
+//       var options = {
+//          enableHighAccuracy : true,
+//          timeout : 5000,
+//          maximumAge : 0
+//       };
+//       function success(pos) {
+//          var crd = pos.coords;
          
-         console.log('위도 : ' + crd.latitude);
-         console.log('경도: ' + crd.longitude);
-         lat = crd.latitude;
-         lon = crd.longitude;
-      };
-      function error(err) {
-         console.warn('ERROR(' + err.code + '): '
-               + err.message);
-      };
-      navigator.geolocation.getCurrentPosition(success, error, options);
-      var wAPI = '17f7777f4c3c5d6b66df232b3ee2ffc8'
+//          console.log('위도 : ' + crd.latitude);
+//          console.log('경도: ' + crd.longitude);
+//          lat = crd.latitude;
+//          lon = crd.longitude;
+//       };
+//       function error(err) {
+//          console.warn('ERROR(' + err.code + '): '
+//                + err.message);
+//       };
+//       navigator.geolocation.getCurrentPosition(success, error, options);
+//       var wAPI = '17f7777f4c3c5d6b66df232b3ee2ffc8'
 
-          function successs({ coords, timestamp }) {
-                   lat = coords.latitude;   // 위도
-                   lon = coords.longitude; // 경도
+//           function successs({ coords, timestamp }) {
+//                    lat = coords.latitude;   // 위도
+//                    lon = coords.longitude; // 경도
                   
                     
              
-      //var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' +lon+ '&appid=' + '9e59ce9dcb1014633e13dc6b7a7ffa54' + &units=metric';
-      $.ajax({
-            url : 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat+ '&lon=' + lon + '&appid=' + wAPI + '&units=metric',
-            dataType : 'json',
-            type : 'POST',
+//       //var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' +lon+ '&appid=' + '9e59ce9dcb1014633e13dc6b7a7ffa54' + &units=metric';
+//       $.ajax({
+//             url : 'https://api.openweathermap.org/data/2.5/weather?lat='+ lat+ '&lon=' + lon + '&appid=' + wAPI + '&units=metric',
+//             dataType : 'json',
+//             type : 'POST',
             
-            success : function(result) {
-            // 보여질 정보
-            $('.city').append(result.name);
-            $('.ctemp').append(result.main.temp);
-//             $('.lowtemp').append(result.main.temp_min);
-//             $('.hightemp').append(result.main.temp_max);
-            $('.humidity').append(result.main.humidity);
-//             $('.wind').append(result.wind.speed);
-            //아이콘
-            var wiconUrl = '<img width="100" src="http://openweathermap.org/img/wn/'+ result.weather[0].icon + '.png" alt="'+result.weather[0].description +'">'
-            $('.icon').html(wiconUrl);
-//             //현재시간
-//             var ct = result.dt;
-//             function convertTime(t) {
-//                console.log(t)
-//                var ot = new Date(t * 1000);
-//                var hr = ot.getHours();
-//                var m = ot.getMinutes();
-//                var s = ot.getSeconds();
-//                var mo = ot.getMonth() + 1;
-//                var d = ot.getDate();
-//                //return ot;
-//                return mo + '월' + d + '일' + '  '
-//                      + hr + ':' + m + ':' + s;
+//             success : function(result) {
+//             // 보여질 정보
+//             $('.city').append(result.name);
+//             $('.ctemp').append(result.main.temp);
+// //             $('.lowtemp').append(result.main.temp_min);
+// //             $('.hightemp').append(result.main.temp_max);
+//             $('.humidity').append(result.main.humidity);
+// //             $('.wind').append(result.wind.speed);
+//             //아이콘
+//             var wiconUrl = '<img width="100" src="http://openweathermap.org/img/wn/'+ result.weather[0].icon + '.png" alt="'+result.weather[0].description +'">'
+//             $('.icon').html(wiconUrl);
+// //             //현재시간
+// //             var ct = result.dt;
+// //             function convertTime(t) {
+// //                console.log(t)
+// //                var ot = new Date(t * 1000);
+// //                var hr = ot.getHours();
+// //                var m = ot.getMinutes();
+// //                var s = ot.getSeconds();
+// //                var mo = ot.getMonth() + 1;
+// //                var d = ot.getDate();
+// //                //return ot;
+// //                return mo + '월' + d + '일' + '  '
+// //                      + hr + ':' + m + ':' + s;
                   
+// //             }
 //             }
-            }
-      })
-       }
-       function getUserLocation() {
-            if (!navigator.geolocation) {
-                throw "위치 정보가 지원되지 않습니다.";
-            }
-            navigator.geolocation.getCurrentPosition(successs);
-        }
+//       })
+//        }
+//        function getUserLocation() {
+//             if (!navigator.geolocation) {
+//                 throw "위치 정보가 지원되지 않습니다.";
+//             }
+//             navigator.geolocation.getCurrentPosition(successs);
+//         }
 
-        getUserLocation();
-});
+//         getUserLocation();
+// });
    
-</script>
+<!-- </script> -->
 
 	</div>
 

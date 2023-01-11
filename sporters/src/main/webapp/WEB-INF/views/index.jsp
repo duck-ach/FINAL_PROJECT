@@ -139,7 +139,7 @@
     align-items: center;
     justify-content: space-around;
     line-height: 14vw;
-    font-size: 1.3vw;
+    font-size: 11px;
     }
     
     
@@ -195,13 +195,11 @@
 				
 				</li>
 				<!-- 			<li class="time">현재 시간 : </li> -->
-				
-				<!--  
+				 
 				<li class="hightemp">최고 온도 :</li>
 				<li class="lowtemp">최저 온도 :</li>
 				<li class="humidity">습도 :</li>
 				<li class="wind">풍속 :</li>
-				-->
 			</ul>
 		</div>
 		<!-- 날씨 api 주소 -->
@@ -365,8 +363,8 @@ $(document).ready(function(position) {
 //위치 측정 불가인 경우 기본 경/위도 : 서울
 //	var  = 33.450701;   // 제주도 카카오 사옥 좌표
 //var  = 126.570667;  // 제주도 카카오 사옥 좌표 
-	var lat = 37.4730836;
-    var lon = 126.8788276;
+// 	var lat = 37.4730836;
+//     var lon = 126.8788276;
 var options = {
    enableHighAccuracy : true,
    timeout : 5000,
@@ -376,8 +374,8 @@ function success(pos) {
    var crd = pos.coords;
    
   
-   var lat = 37.4730836;
-   var lon = 126.8788276;
+//    var lat = 37.4730836;
+//    var lon = 126.8788276;
    
 };
 function error(err) {
