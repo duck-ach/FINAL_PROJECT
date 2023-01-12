@@ -87,10 +87,38 @@ $(document).ready(function(){
 	
 });	
 
+$(function(){
+	
+	var date = new Date();
+//	console.log(date);
+
+	var year = date.getFullYear();
+
+	var month = date.getMonth();
+	month += 1;
+	if (month <= 9){
+	    month = "0" + month;
+	}
+
+	var day = date.getDate();
+	/*
+	if (day <= 9){
+	    day = "0" + month;
+	}*/
+
+	var today = year + '/' + month + '/' + day;
+	console.log("today="+today);
+
+
+	
+
+
+
+
 
 
 $('#datetimepicker').datetimepicker();
-jQuery.datetimepicker.setLocale('en');
+jQuery.datetimepicker.setLocale('kr');
 
 
 jQuery(function(){
@@ -98,7 +126,9 @@ jQuery(function(){
 	  format:'Y/m/d',
 	  onShow:function( ct ){
 	   this.setOptions({
+		   minDate: new Date(today),
 	    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+	//    minDate: new Date(today),
 	   })
 	  },
 	  timepicker:false
@@ -107,12 +137,23 @@ jQuery(function(){
 	  format:'Y/m/d',
 	  onShow:function( ct ){
 	   this.setOptions({
-	    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+	//    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+		  minDate: new Date(today),
 	   })
 	  },
 	  timepicker:false
 	 });
 	});
+	/*
+	$(selector).datepicker({
+		  dateFormat: 'yy-mm-dd',
+		  minDate: new Date(today),
+		  maxDate: new Date('2017-12-31')
+		});
+	*/
+
+});
+
 
 </script>
 
@@ -160,9 +201,6 @@ jQuery(function(){
 					<input class="btn" type="button" value="목록" id="btn_list"> 
 				</div>
 			</form>
-		
-			
-			
 		</div><!-- 여기부터 각자 내용 넣기 끝 -->
 		
 	</section><!-- 기본틀 2 -->
