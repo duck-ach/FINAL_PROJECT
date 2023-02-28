@@ -79,7 +79,7 @@ public class BoardSpoController {
 	
 	@PostMapping("/latterSpo_review/add")
 	public void latterAdd(HttpServletRequest request, HttpServletResponse response) {
-		gallerySpoReviewService.saveSpoReviewGallery(request, response);
+		gallerySpoReviewService.lattersaveSpoReviewGallery(request, response);
 	}
 	
 

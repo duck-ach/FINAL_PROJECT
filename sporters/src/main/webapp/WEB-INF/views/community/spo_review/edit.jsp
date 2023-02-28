@@ -84,7 +84,7 @@ $('#frm_write').submit(function(event){
 			
 		<h1>작성 화면</h1>
 	
-		<form id="frm_edit" action="/spo_review/add" method="post">
+		<form id="frm_edit" action="/latterSpo_review/add" method="post">
 		
 			<input type="hidden" name="localBoardNo" value="${gallery.localBoardNo}">
 		

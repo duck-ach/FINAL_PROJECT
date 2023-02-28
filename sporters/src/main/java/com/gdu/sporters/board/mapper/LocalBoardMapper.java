@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.sporters.board.domain.LocalDTO;
 import com.gdu.sporters.board.domain.LocalImageDTO;
+import com.gdu.sporters.users.domain.UsersDTO;
 
 @Mapper
 public interface LocalBoardMapper {
@@ -18,6 +19,9 @@ public interface LocalBoardMapper {
 	public List<LocalImageDTO> selectAllSummernoteImageList();
 	public int insertLocal(LocalDTO gallery);
 	public int insertSummernoteImage(LocalImageDTO summernote);
+	
+	// 검색기능 추가
+	public List<UsersDTO> selectAllUsersByQuery(Map<String, Object> map);
 	
 	public LocalImageDTO selectSThumbNail(int localBoardNo);
 	

@@ -18,7 +18,8 @@ public interface GalleryLocalService {
 	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest);
 	public void saveLocalGallery(HttpServletRequest request, HttpServletResponse response);
 	public LocalDTO getLocalGalleryByNo(int localBoardNo);
-	
+	// 검색기능 추가 
+	public Map<String, Object> searchUsersbyQuery(HttpServletRequest request);
 	
 	public int increaseLocalHit(int localBoardNo);
 //	public ImageDTO getGalleryByNo(int galleryNo);

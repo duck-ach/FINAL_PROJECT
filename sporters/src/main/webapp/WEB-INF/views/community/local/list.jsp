@@ -72,6 +72,45 @@
 		/*background-color: #f0f0ff;*/
 		background-color: rgba(240, 240, 255, 0.5);
 	}
+	
+	.searchText_area{
+		    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+	}
+	
+	#column{
+    width: 134px;
+    border: 3px solid #bbb;
+    border-radius: 8px;
+    font-size: 14px;
+    height:30px;
+}
+
+	#searchText{
+	  width: 135px;
+	  height: 5px;
+	  border: 3px solid #bbb;
+	  border-radius: 8px;
+	  padding: 12px 12px;
+	  font-size: 14px;
+	}
+	
+#btn_init, #btn_search{
+  	background:#8c8cff;
+  	color:#fff;
+  	border:none;
+  	border-radius:3px;
+  	position:relative;
+  	height:31px;
+  	font-size:18px;
+  	padding:0 2em;
+  	cursor:pointer;
+  	outline:none;
+  	vertical-align: bottom;
+}
+
 </style>
 
 
@@ -79,13 +118,29 @@
 <section class="wrap"><!-- 기본틀 1 -->
 	<section class="content_leyout_section"><!-- 기본틀 2 -->
 	
-	<div class="first_div">
-		<c:if test="${loginUser.id == null}" >	
-			<div class="no_login"  style="text-align: right;"><a href="#none">글쓰러가기</a></div>
-		</c:if>
-		<c:if test="${loginUser.id != null}" >	
-			<div  style="text-align: right;"><a href="/local/write">글쓰러가기</a>  </div>
-		</c:if>
+	<div class="first_div">	
+	
+		<div class="searchText_area">
+			<form id="frm_user_list" method="post">
+				<select name="column" id="column">
+					<option value="">내용입력</option>
+					<option value="TITLE">글제목</option>
+					<option value="NICKNAME">닉네임</option>					
+				</select>
+				<input type="text" id="searchText" name="searchText">
+				
+			</form>
+			<button id="btn_search" value="검색" >검색</button>&nbsp;
+			<c:if test="${loginUser.id == null}" >	
+				<div class="no_login"  style="text-align: right;"><a href="#none">글쓰러가기</a></div>
+			</c:if>
+			<c:if test="${loginUser.id != null}" >	
+				<div  style="text-align: right;"><a href="/local/write">글쓰러가기</a>  </div>
+			</c:if>
+			
+		</div>
+		
+		
 		<div> <!-- 여기부터 각자 내용 넣기 시작 -->
 			
 			<form id="frm_search" method="post">										
@@ -174,5 +229,35 @@ $(function(){
 	 
 	
 }); 
+
+
+$('#btn_search').click(function(){
+	$.ajax({
+		type:'get',
+		url :'/searchLocalUsers',
+		data : 'column=' + $('#column').val() + '&searchText=' + $('#searchText').val(),
+		dataType:'json',
+		success : function(resData){
+			$('#list').empty();
+			$.each(resData.users, function(i, user){
+				var div_items = '<div class="div_items">';	
+				
+				div_items += '<span class="span_title"><a href="/local/increase/hit?localBoardNo=${gallery.localBoardNo}">' + user.title + '</a></span>'; 
+				div_items += '<span class="span_nickname">' + user.users.nickname + '</span>';
+				div_items += '<span class="span_gender">' + user.users.gender + '</span>';
+				div_items += '<span class="span_view">' + user.hit + '</span>';
+				div_items += '<span class="span_date">' + user.createDate + '</span>';			
+				div_items += '</div>';
+				$('#list').append(div_items);
+			})
+		},
+		error : function() {
+			alert('실패');
+		}
+	})
+});
+
+
+
 </script>
 </body>

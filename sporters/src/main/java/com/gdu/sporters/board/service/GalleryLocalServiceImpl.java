@@ -24,6 +24,7 @@ import com.gdu.sporters.board.mapper.LocalBoardMapper;
 import com.gdu.sporters.users.domain.UsersDTO;
 import com.gdu.sporters.util.GalleryPageUtil;
 import com.gdu.sporters.util.MyFileUtil;
+import com.gdu.sporters.util.SecurityUtil;
 
 @Service
 public class GalleryLocalServiceImpl implements GalleryLocalService {
@@ -38,6 +39,8 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 	@Autowired
 	private GalleryPageUtil galleryPageUtil;
 	
+	@Autowired
+	private SecurityUtil securityUtil;
 	
 	
 	@Override
@@ -349,6 +352,22 @@ public class GalleryLocalServiceImpl implements GalleryLocalService {
 		model.addAttribute("selectindexThumbNail", selectindexThumbNail);
 		
 	}
+	
+	
+	 @Override
+	   public Map<String, Object> searchUsersbyQuery(HttpServletRequest request) {
+	      
+	   String column = request.getParameter("column");
+	   String searchText = securityUtil.preventXSS(request.getParameter("searchText"));
+	   Map<String, Object> map = new HashMap<String, Object>();
+	   map.put("column", column);
+	   map.put("searchText", searchText);
+	   List<UsersDTO> users = localBoardMapper.selectAllUsersByQuery(map);
+	   map.put("users", users);
+	   return map; 
+	      
+	   }
+	
 	
 	/*
 	@Override

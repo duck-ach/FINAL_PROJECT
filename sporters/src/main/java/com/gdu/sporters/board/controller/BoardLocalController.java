@@ -52,7 +52,12 @@ public class BoardLocalController {
 	}
 	
 	
-	
+	// 검색어로 유저 불러오기
+	@ResponseBody
+	@GetMapping(value="/searchLocalUsers", produces="application/json; charset=UTF-8")
+	public Map<String, Object> requiredAdmin_getSearchUsers(HttpServletRequest request){
+		return galleryLocalService.searchUsersbyQuery(request);
+	}
 	
 	
 	
