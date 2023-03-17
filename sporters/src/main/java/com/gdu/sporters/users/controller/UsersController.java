@@ -107,16 +107,16 @@ public class UsersController {
 	
 	
 	// 카카오 로그인
-	//@GetMapping("/v2/user/me")
-	//public String kakaoLogin(HttpServletRequest request, Model model) {
-	//	return "users/kakao_join";
-	//}
+	@GetMapping("/v2/user/me")
+	public String kakaoLogin(HttpServletRequest request, Model model) {
+		return "users/kakao_join";
+	}
 	
 	// 진짜 카카오 로그인 구현해보갓어요
-	@GetMapping("/users/kakao/login")
-	public String kakaoLogin(HttpServletRequest request, Model model) {
+	//@GetMapping("/users/kakao/login")
+	//public String kakaoLogin(HttpServletRequest request, Model model) {
 		
-	}
+	//}
 	
 	// 카카오 로그아웃
 	@GetMapping("/v1/user/unlink")
